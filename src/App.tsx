@@ -1,7 +1,13 @@
-import Navbar from './components/Navbar.jsx';
+import Navbar from './components/Navbar';
 import { createRef } from 'react';
 
+import { useEffect } from 'react'
+import { themeChange } from 'theme-change'
+
 function App() {
+  useEffect(() => {
+    themeChange(false)
+  }, [])
   const ref = createRef<HTMLInputElement>()
 	return (
 		<div className='drawer'>

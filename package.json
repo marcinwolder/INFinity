@@ -1,17 +1,19 @@
 {
-  "name": "matura",
+  "name": "zadania-maturalne",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 192.168.100.10",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "daisyui": "^2.50.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
+    "theme-change": "^2.3.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
