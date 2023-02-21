@@ -33,10 +33,17 @@ function App() {
 						<span>FORMUŁA 2015</span>
 					</li>
 					<li>
-						<a>Matura 2022 - Maj</a>
+						<a>
+							2022 - Maj <span className='ml-auto badge badge-md'>MATURA</span>
+						</a>
 					</li>
 					<li>
-						<a>Matura 2022 - Czerwiec</a>
+						<a>
+							2022 - Czerwiec
+							<span className='ml-auto badge badge-sm badge-outline'>
+								DODATKOWY
+							</span>
+						</a>
 					</li>
 					<li className='menu-title'>
 						<span>STARA FORMUŁA</span>
