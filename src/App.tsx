@@ -24,161 +24,31 @@ function App() {
 				<label htmlFor='my-drawer' className='drawer-overlay'></label>
 				<ul className='menu p-4 w-80 bg-base-100 text-base-content'>
 					<li className='menu-title py-2'>
-						<span>FORMUŁA 2023</span>
+						<span>ARKUSZE</span>
 					</li>
-					<div className='divider w-1/2 mx-auto'>2022</div>
 					<li>
 						<a>
-							Grudzień
-							<span className='ml-auto badge badge-sm badge-ghost'>PRÓBNA</span>
+							Formuła 2023
+							<span className='ml-auto badge badge-secondary'>NOWA!</span>
 						</a>
-						<a>
-							Arkusz przykładowy
-							<span className='ml-auto badge badge-sm badge-ghost'>PRÓBNA</span>
-						</a>
+					</li>
+					<li>
+						<a>Formuła 2015</a>
+					</li>
+					<li>
+						<a>Stara Formuła</a>
 					</li>
 					<li className='menu-title py-2'>
-						<span>FORMUŁA 2015</span>
-					</li>
-					<div className='divider w-1/2 mx-auto'>2022</div>
-					<li>
-						<a>
-							Maj <span className='ml-auto badge badge-md'>MATURA</span>
-						</a>
+						<span>O MATURZE</span>
 					</li>
 					<li>
 						<a>
-							Czerwiec
-							<span className='ml-auto badge badge-sm badge-outline'>
-								DODATKOWY
-							</span>
-						</a>
-					</li>
-					<div className='divider w-1/2 mx-auto'>2021</div>
-					<li>
-						<a>
-							Marzec
-							<span className='ml-auto badge badge-sm badge-ghost'>PRÓBNA</span>
+							Materiał
+							<span className='badge badge-outline'>Aktualizacja 2023</span>
 						</a>
 					</li>
 					<li>
-						<a>
-							Maj <span className='ml-auto badge badge-md'>MATURA</span>
-						</a>
-					</li>
-					<li>
-						<a>
-							Czerwiec
-							<span className='ml-auto badge badge-sm badge-outline'>
-								DODATKOWY
-							</span>
-						</a>
-					</li>
-					<div className='divider w-1/2 mx-auto'>2020</div>
-					<li>
-						<a>
-							Kwiecień
-							<span className='ml-auto badge badge-sm badge-ghost'>PRÓBNA</span>
-						</a>
-					</li>
-					<li>
-						<a>
-							Czerwiec <span className='ml-auto badge badge-md'>MATURA</span>
-						</a>
-					</li>
-					<li>
-						<a>
-							Lipiec
-							<span className='ml-auto badge badge-sm badge-outline'>
-								DODATKOWY
-							</span>
-						</a>
-					</li>
-					<div className='divider w-1/2 mx-auto'>2019</div>
-					<li>
-						<a>
-							Maj <span className='ml-auto badge badge-md'>MATURA</span>
-						</a>
-					</li>
-					<li>
-						<a>
-							Czerwiec
-							<span className='ml-auto badge badge-sm badge-outline'>
-								DODATKOWY
-							</span>
-						</a>
-					</li>
-					<div className='divider w-1/2 mx-auto'>2018</div>
-					<li>
-						<a>
-							Maj <span className='ml-auto badge badge-md'>MATURA</span>
-						</a>
-					</li>
-					<li>
-						<a>
-							Czerwiec
-							<span className='ml-auto badge badge-sm badge-outline'>
-								DODATKOWY
-							</span>
-						</a>
-					</li>
-					<div className='divider w-1/2 mx-auto'>2017</div>
-					<li>
-						<a>
-							Maj <span className='ml-auto badge badge-md'>MATURA</span>
-						</a>
-					</li>
-					<li>
-						<a>
-							Czerwiec
-							<span className='ml-auto badge badge-sm badge-outline'>
-								DODATKOWY
-							</span>
-						</a>
-					</li>
-					<div className='divider w-1/2 mx-auto'>2016</div>
-					<li>
-						<a>
-							Maj <span className='ml-auto badge badge-md'>MATURA</span>
-						</a>
-					</li>
-					<li>
-						<a>
-							Czerwiec
-							<span className='ml-auto badge badge-sm badge-outline'>
-								DODATKOWY
-							</span>
-						</a>
-					</li>
-					<div className='divider w-1/2 mx-auto'>2015</div>
-					<li>
-						<a>
-							Maj <span className='ml-auto badge badge-md'>MATURA</span>
-						</a>
-					</li>
-					<li>
-						<a>
-							Czerwiec
-							<span className='ml-auto badge badge-sm badge-outline'>
-								DODATKOWY
-							</span>
-						</a>
-					</li>
-					<div className='divider w-1/2 mx-auto'>2014</div>
-					<li>
-						<a>
-							Grudzień
-							<span className='ml-auto badge badge-sm badge-ghost'>PRÓBNA</span>
-						</a>
-					</li>
-					<li>
-						<a>
-							Arkusz przykładowy
-							<span className='ml-auto badge badge-sm badge-ghost'>PRÓBNA</span>
-						</a>
-					</li>
-					<li className='menu-title py-2'>
-						<span>STARA FORMUŁA</span>
+						<a>Języki Programowania</a>
 					</li>
 				</ul>
 			</div>
