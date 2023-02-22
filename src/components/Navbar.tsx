@@ -1,5 +1,7 @@
 import React from 'react';
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
+import { AiOutlineCode } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 interface props {
 	menuRef: React.RefObject<HTMLInputElement>;
@@ -29,11 +31,12 @@ const Navbar: React.FC<props> = ({ menuRef }) => {
 				</button>
 			</div>
 			<div className='flex-1'>
-				<a className='btn btn-ghost normal-case text-xl small-caps'>
+				<Link to={'/'} className='btn btn-ghost normal-case text-xl small-caps'>
+					<AiOutlineCode className='mr-1 text-base' />
 					<span className='text-sky-500 pr-2 mb-0.5'>[</span>INF
 					<span className='text-red-500 px-2 mb-0.5'>{'}'}</span>
 					<span className='mb-1.5'>ormator</span>
-				</a>
+				</Link>
 			</div>
 			<div className='flex gap-2'>
 				<button

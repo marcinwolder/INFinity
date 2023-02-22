@@ -1,8 +1,8 @@
 import Navbar from './components/Navbar';
-import { createRef } from 'react';
-
-import { useEffect } from 'react';
+import { useEffect, createRef } from 'react';
 import { themeChange } from 'theme-change';
+import { Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 function App() {
 	useEffect(() => {
@@ -19,6 +19,9 @@ function App() {
 			/>
 			<div className='drawer-content'>
 				<Navbar menuRef={ref} />
+				<div>
+					<Outlet />
+				</div>
 			</div>
 			<div className='drawer-side'>
 				<label htmlFor='my-drawer' className='drawer-overlay'></label>
@@ -27,10 +30,14 @@ function App() {
 						<span>ARKUSZE</span>
 					</li>
 					<li>
-						<a>
+						<Link
+							onClick={() => {
+								if (ref.current) ref.current.checked = false;
+							}}
+							to={'/formula2023'}>
 							Formuła 2023
 							<span className='ml-auto badge badge-secondary'>NOWA!</span>
-						</a>
+						</Link>
 					</li>
 					<li>
 						<a>Formuła 2015</a>
