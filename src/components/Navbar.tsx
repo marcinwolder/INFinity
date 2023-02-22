@@ -29,8 +29,9 @@ const Navbar: React.FC<props> = ({ menuRef }) => {
 				</button>
 			</div>
 			<div className='flex-1'>
-				<a className='btn btn-ghost normal-case text-xl'>
-					Matura z informatyki
+				<a className='btn btn-ghost normal-case text-xl small-caps'>
+					<span className='text-sky-600 px-2'>[</span>INF
+					<span className='text-red-600  px-2'>{'}'}</span>ormator
 				</a>
 			</div>
 			<div className='flex gap-2'>

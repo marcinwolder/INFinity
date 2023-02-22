@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.theme-selected{
-  @apply mb-1;
-  @apply border;
-  @apply border-current;
+.theme-selected {
+	@apply mb-1;
+	@apply border;
+	@apply border-current;
 }
