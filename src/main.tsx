@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Formula2023 from './routes/Formula2023';
 import Main from './routes/Main';
+import NotFound from './routes/NotFound';
 import { MenuProvider } from './context/menuContext';
 
 import './index.css';
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <App />,
+		errorElement: <NotFound />,
 		children: [
 			{
 				path: '/formula-2023',
