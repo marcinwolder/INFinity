@@ -1,20 +1,34 @@
 import Navbar from './components/Navbar';
-import { useEffect, createRef } from 'react';
+import { useContext, useEffect } from 'react';
 import { themeChange } from 'theme-change';
 import { Outlet } from 'react-router-dom';
 
-import { MenuCheckbox, MenuLink } from './context/menuContext';
+import { MenuCheckbox, MenuContext, MenuLink } from './context/menuContext';
+
+const markSelected = (elements: React.ReactElement) => {
+	const { option } = useContext(MenuContext);
+	const values = [];
+	for (const element of elements.props.children) {
+		if (element.props.url === option)
+			values.push(
+				<li key={element.props.url} className='bordered'>
+					{element}
+				</li>
+			);
+		else values.push(<li key={element.props.url}>{element}</li>);
+	}
+	return values;
+};
 
 function App() {
 	useEffect(() => {
 		themeChange(false);
 	}, []);
-	const ref = createRef<HTMLInputElement>();
 	return (
 		<div className='drawer'>
 			<MenuCheckbox />
 			<div className='drawer-content'>
-				<Navbar menuRef={ref} />
+				<Navbar />
 				<div>
 					<Outlet />
 				</div>
@@ -25,18 +39,16 @@ function App() {
 					<li className='menu-title py-2'>
 						<span>ARKUSZE</span>
 					</li>
-					<li>
-						<MenuLink url='/formula2023'>
-							Formuła 2023
-							<span className='ml-auto badge badge-secondary'>NOWA!</span>
-						</MenuLink>
-					</li>
-					<li>
-						<a>Formuła 2015</a>
-					</li>
-					<li>
-						<a>Stara Formuła</a>
-					</li>
+					{markSelected(
+						<>
+							<MenuLink url='/formula-2023'>
+								Formuła 2023
+								<span className='ml-auto badge badge-secondary'>NOWA!</span>
+							</MenuLink>
+							<MenuLink url='/formula-2015'>Formuła 2015</MenuLink>
+							<MenuLink url='/formula-stara'>Stara Formuła</MenuLink>
+						</>
+					)}
 					<li className='menu-title py-2'>
 						<span>O MATURZE</span>
 					</li>
