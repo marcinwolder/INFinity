@@ -1,27 +1,47 @@
-import React, { createContext, useRef, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { Link as BaseLink } from 'react-router-dom';
 
-const [isOpen, setOpen] = useState(false);
+export const MenuContext = createContext<{
+	isOpen: boolean;
+	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}>({ isOpen: false, setOpen() {} });
 
-const MenuLink: React.FC<React.PropsWithChildren<{ url: string }>> = ({
+export const MenuProvider: React.FC<React.PropsWithChildren<{}>> = ({
 	children,
-	url,
 }) => {
+	const [isOpen, setOpen] = useState(false);
+	return (
+		<MenuContext.Provider value={{ isOpen, setOpen }}>
+			{children}
+		</MenuContext.Provider>
+	);
+};
+
+export const MenuLink: React.FC<
+	React.PropsWithChildren<{ url: string; className?: string }>
+> = ({ children, url, className }) => {
+	const { setOpen } = useContext(MenuContext);
+
 	return (
 		<BaseLink
 			onClick={() => {
 				setOpen(false);
 			}}
+			className={className}
 			to={url}>
 			{children}
 		</BaseLink>
 	);
 };
-const MenuBtn: React.FC<React.PropsWithChildren<{ url: string }>> = ({
-	children,
-}) => {
+
+export const MenuBtn: React.FC<
+	React.PropsWithChildren<{ className?: string }>
+> = ({ children, className }) => {
+	const { setOpen } = useContext(MenuContext);
+
 	return (
 		<button
+			className={className}
 			onClick={() => {
 				setOpen(true);
 			}}>
@@ -30,9 +50,14 @@ const MenuBtn: React.FC<React.PropsWithChildren<{ url: string }>> = ({
 	);
 };
 
-const MenuCheckbox = () => {
+export const MenuCheckbox = () => {
+	const { isOpen, setOpen } = useContext(MenuContext);
+
 	return (
 		<input
+			onChange={() => {
+				setOpen(false);
+			}}
 			id='my-drawer'
 			type='checkbox'
 			className='drawer-toggle'
@@ -40,7 +65,3 @@ const MenuCheckbox = () => {
 		/>
 	);
 };
-
-export default createContext({ isOpen, setOpen });
-
-export { MenuLink, MenuBtn, MenuCheckbox };

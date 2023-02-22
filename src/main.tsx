@@ -4,6 +4,7 @@ import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import Formula2023 from './routes/Formula2023';
+import { MenuProvider } from './context/menuContext';
 
 const router = createBrowserRouter([
 	{
@@ -20,6 +21,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<MenuProvider>
+			<RouterProvider router={router} />
+		</MenuProvider>
 	</React.StrictMode>
 );

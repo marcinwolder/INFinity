@@ -1,8 +1,9 @@
 import Navbar from './components/Navbar';
 import { useEffect, createRef } from 'react';
 import { themeChange } from 'theme-change';
-import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
+
+import { MenuCheckbox, MenuLink } from './context/menuContext';
 
 function App() {
 	useEffect(() => {
@@ -11,12 +12,7 @@ function App() {
 	const ref = createRef<HTMLInputElement>();
 	return (
 		<div className='drawer'>
-			<input
-				ref={ref}
-				id='my-drawer'
-				type='checkbox'
-				className='drawer-toggle'
-			/>
+			<MenuCheckbox />
 			<div className='drawer-content'>
 				<Navbar menuRef={ref} />
 				<div>
@@ -30,14 +26,10 @@ function App() {
 						<span>ARKUSZE</span>
 					</li>
 					<li>
-						<Link
-							onClick={() => {
-								if (ref.current) ref.current.checked = false;
-							}}
-							to={'/formula2023'}>
+						<MenuLink url='/formula2023'>
 							Formuła 2023
 							<span className='ml-auto badge badge-secondary'>NOWA!</span>
-						</Link>
+						</MenuLink>
 					</li>
 					<li>
 						<a>Formuła 2015</a>
