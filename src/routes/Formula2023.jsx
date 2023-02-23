@@ -19,9 +19,11 @@ const Formula2023 = () => {
 	return (
 		<>
 			<div id='output' className='invisible h-0'></div>
-			<py-repl ref={replRef} output='output'>
-				{'hello = "Hello world!"\nprint(hello)'}
-			</py-repl>
+			<div className='bg-warning text-warning-content'>
+				<py-repl ref={replRef} output='output'>
+					{'hello = "Hello world!"\nprint(hello)'}
+				</py-repl>
+			</div>
 			<div>
 				<button
 					className='absolute right-2 translate-y-2 hover:text-red-400 active:text-red-600'
