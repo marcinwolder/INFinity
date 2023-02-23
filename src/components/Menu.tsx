@@ -36,13 +36,13 @@ const Menu = () => {
 				<span>O MATURZE</span>
 			</li>
 			<li>
-				<a>
+				<MenuLink url='/material'>
 					Materiał
 					<span className='badge badge-outline'>Aktualizacja 2023</span>
-				</a>
+				</MenuLink>
 			</li>
 			<li>
-				<a>Języki Programowania</a>
+				<MenuLink url='/wybor-jezyka'>Języki Programowania</MenuLink>
 			</li>
 		</ul>
 	);
