@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react';
-import { usePath } from '../context/menuContext';
+import React, { useRef, useEffect, useState } from 'react';
+import { usePath } from '../../context/menuContext';
 import { VscRunAll } from 'react-icons/vsc';
 
-const Formula2023 = () => {
+const Formula2023 = ({ dataPath, testPath, setResult }) => {
 	const terminalRef = useRef();
 	const replRef = useRef();
 	usePath('/formula-2023');
@@ -18,9 +18,13 @@ const Formula2023 = () => {
 			<div className='bg-warning text-warning-content'>
 				<py-repl ref={replRef} output='output'>
 					{`
-            with open("pary.txt") as file:
+            with open("${dataPath}") as file:
                 data = list(map(lambda x: str(x).strip(), file.readlines()))
+            with open("${testPath}") as file:
+                test = list(map(lambda x: str(x).strip(), file.readlines()))
+            # ----
             # YOUR REAL DATA IS IN [data] LIST
+            # AND YOUR TEST DATA IS IN [test] LIST
             
             for line in data:
                 print(line)
@@ -34,6 +38,7 @@ const Formula2023 = () => {
 						const btn = replRef.current.children[0].children[1].children[2];
 						terminalRef.current.children[0].innerText = '';
 						btn.click();
+						setResult(terminalRef.current.children[0].innerText);
 					}}>
 					RUN <VscRunAll />
 				</button>
