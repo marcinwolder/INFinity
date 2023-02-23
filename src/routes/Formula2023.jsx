@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { usePath } from '../context/menuContext';
-import { ImBin } from 'react-icons/im';
+import { VscRunAll } from 'react-icons/vsc';
 
 const Formula2023 = () => {
 	const terminalRef = useRef();
@@ -8,33 +8,39 @@ const Formula2023 = () => {
 	usePath('/formula-2023');
 	useEffect(() => {
 		setTimeout(() => {
-			console.dir(replRef.current);
-			replRef.current.children[0].children[1].children[2].classList.add(
-				'opacity-80',
-				'hover:opacity-100',
-				'hover:animate-pulse'
-			);
-		}, 500);
+			const btn = replRef.current.children[0].children[1].children[2];
+			btn.classList.add('invisible');
+		}, 3000);
 	}, []);
 	return (
-		<>
+		<div className='w-1/2'>
 			<div id='output' className='invisible h-0'></div>
 			<div className='bg-warning text-warning-content'>
 				<py-repl ref={replRef} output='output'>
-					{'hello = "Hello world!"\nprint(hello)'}
+					{`
+            with open("pary.txt") as file:
+                data = list(map(lambda x: str(x).strip(), file.readlines()))
+            # YOUR REAL DATA IS IN [data] LIST
+            
+            for line in data:
+                print(line)
+            `}
 				</py-repl>
 			</div>
-			<div>
+			<div className='relative'>
 				<button
-					className='absolute right-2 translate-y-2 hover:text-red-400 active:text-red-600'
-					onClick={() => {
+					className='absolute flex items-center gap-1 right-2 top-2 bg-black pl-2 text-white hover:text-green-400 active:text-green-600'
+					onClick={(e) => {
+						const btn = replRef.current.children[0].children[1].children[2];
 						terminalRef.current.children[0].innerText = '';
+						btn.click();
 					}}>
-					<ImBin />
+					RUN <VscRunAll />
 				</button>
 				<py-terminal ref={terminalRef}></py-terminal>
 			</div>
-		</>
+			{/* TODO: input or button for result check */}
+		</div>
 	);
 };
 

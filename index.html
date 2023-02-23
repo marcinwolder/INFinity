@@ -10,6 +10,8 @@
 	<body>
 		<div id="root"></div>
 		<script type="module" src="/src/main.tsx"></script>
-		<py-config> terminal = false </py-config>
+		<py-config type="json">
+			{ "fetch": [{ "files": ["./pary.txt"] }], "terminal": false }
+		</py-config>
 	</body>
 </html>
