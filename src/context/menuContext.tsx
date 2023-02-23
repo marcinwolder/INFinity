@@ -6,6 +6,7 @@ export const usePath = (url: string) => {
 	useEffect(() => {
 		setOption(url);
 	});
+	return url;
 };
 
 export const MenuContext = createContext<{

@@ -7,7 +7,9 @@ const markSelected = (elements: React.ReactElement) => {
 	for (const element of elements.props.children) {
 		if (element.props.url === option)
 			values.push(
-				<li key={element.props.url} className='bordered'>
+				<li
+					key={element.props.url}
+					className='bordered bg-base-200 rounded-r-lg'>
 					{element}
 				</li>
 			);
