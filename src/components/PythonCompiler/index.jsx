@@ -37,9 +37,9 @@ const Formula2023 = ({ dataPath, testPath, setResult }) => {
 			</div>
 			<div
 				ref={terminalDivRef}
-				className={`relative ${show && 'h-40 overflow-y-scroll'}`}>
+				className={`relative ${show && 'h-40 overflow-y-hidden'}`}>
 				<button
-					className='absolute flex items-center gap-1 right-2 top-2 bg-black pl-2 text-white hover:text-green-400 active:text-green-600'
+					className='z-10 absolute flex items-center gap-1 right-2 top-2 bg-black pl-2 text-white hover:text-green-400 active:text-green-600'
 					onClick={() => {
 						const btn = replRef.current.children[0].children[1].children[2];
 						terminalRef.current.children[0].innerText = '';
@@ -49,20 +49,23 @@ const Formula2023 = ({ dataPath, testPath, setResult }) => {
 					RUN <VscRunAll />
 				</button>
 				<button
-					className='absolute flex items-center gap-1 right-2 top-9 bg-black pl-2 text-white hover:text-sky-400 active:text-sky-600'
+					className='z-10 absolute flex items-center gap-1 right-2 top-9 bg-black pl-2 text-white hover:text-sky-400 active:text-sky-600'
 					onClick={() => {
 						setShow((show) => !show);
 					}}>
 					{show ? 'SHOW' : 'HIDE'} <GoPlus className={show || 'rotate-45'} />
 				</button>
 				<button
-					className='absolute flex items-center gap-1 right-2 top-16 bg-black pl-2 text-white hover:text-red-400 active:text-red-600'
+					className='z-10 absolute flex items-center gap-1 right-2 top-16 bg-black pl-2 text-white hover:text-red-400 active:text-red-600'
 					onClick={() => {
 						terminalRef.current.children[0].innerText = '';
 					}}>
 					CLEAR <ImBin />
 				</button>
 				<py-terminal ref={terminalRef}></py-terminal>
+				{show && (
+					<div className='absolute bottom-0 h-36 w-full bg-gradient-to-t from-black to-transparent' />
+				)}
 			</div>
 			{/* TODO: input or button for result check */}
 		</div>
