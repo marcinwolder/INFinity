@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Part1 from './part1';
 
 const Maj2022 = () => {
 	const [tab, setTab] = useState(1);
@@ -28,7 +29,7 @@ const Maj2022 = () => {
 					Część 2
 				</a>
 			</div>
-			<div>{tab === 1 ? 'Tab1' : 'Tab2'}</div>
+			<div className='pt-4'>{tab === 1 ? <Part1 /> : 'Tab2'}</div>
 		</div>
 	);
 };
