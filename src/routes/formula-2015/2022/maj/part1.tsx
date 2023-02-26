@@ -68,11 +68,7 @@ const Part1 = () => {
 					</div>
 				</div>
 				<div className='pt-4'>
-					<PythonCompiler
-						dataPath='liczby.txt'
-						testPath='przyklad.txt'
-						setResult={() => {}}
-					/>
+					<PythonCompiler dataPath='liczby.txt' setResult={() => {}} />
 				</div>
 			</Task>
 		</div>

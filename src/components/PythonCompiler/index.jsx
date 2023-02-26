@@ -24,12 +24,15 @@ const Formula2023 = ({ dataPath, testPath, setResult }) => {
 					{`
             with open("${dataPath}") as file:
                 data = list(map(lambda x: str(x).strip(), file.readlines()))
-            with open("${testPath}") as file:
+            # YOUR ${testPath ? 'REAL ' : ''}DATA IS IN [data] LIST
+            ${
+							testPath
+								? `with open("${testPath}") as file:
                 test = list(map(lambda x: str(x).strip(), file.readlines()))
-            # ----
-            # YOUR REAL DATA IS IN [data] LIST
             # AND YOUR TEST DATA IS IN [test] LIST
-            
+            `
+								: ''
+						}
             for line in data:
                 print(line)
             `}
