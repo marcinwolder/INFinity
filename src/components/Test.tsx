@@ -9,7 +9,7 @@ interface btnProps {
 export const AnswerBtn: React.FC<btnProps> = ({ show, setShow }) => {
 	if (show)
 		return (
-			<button className='btn btn-secondary btn-disabled'>
+			<button className='btn btn-secondary btn-disabled bg-base-100'>
 				SPRAWDŹ ODPOWIEDZI
 			</button>
 		);
@@ -35,7 +35,7 @@ export const TestInput: React.FC<testProps> = ({ show, answer }) => {
 	return (
 		<div className={`w-20 mx-auto rounded-md`}>
 			{show ? (
-				<p className='w-full flex gap-2 items-center justify-center'>
+				<div className='w-full flex gap-2 items-center justify-center'>
 					{value || '--'}
 					{value === answer ? (
 						<TiTick className='text-green-500 text-xl' />
@@ -45,7 +45,7 @@ export const TestInput: React.FC<testProps> = ({ show, answer }) => {
 							<p className='underline underline-offset-2'>({answer})</p>
 						</>
 					)}
-				</p>
+				</div>
 			) : (
 				<input
 					className='border-0 border-base-300 px-2 w-full rounded-md bg-base-300'
