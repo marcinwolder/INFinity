@@ -2,7 +2,8 @@
 	"fetch": [
 		{
 			"from": "/src/routes/formula-2015/2022/maj",
-			"files": ["/liczby.txt", "/przyklad.txt"]
+			"files": ["/liczby.txt", "/przyklad.txt"],
+			"to_folder": "formula-2015/2022/maj"
 		}
 	],
 	"terminal": false
