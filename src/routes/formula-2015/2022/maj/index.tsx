@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Part1 from './part1';
+import { usePath } from '../../../../context/menuContext';
 
 const Maj2022 = () => {
+	usePath('/formula-2015');
 	const [tab, setTab] = useState(1);
 	return (
-		<div className='px-6'>
+		<div className='sm:px-0 md:px-6'>
 			<div className='breadcrumbs'>
 				<ul>
 					<li>

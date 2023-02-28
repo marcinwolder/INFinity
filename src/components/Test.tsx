@@ -58,3 +58,49 @@ export const TestInput: React.FC<testProps> = ({ show, answer }) => {
 		</div>
 	);
 };
+
+interface radioProps {
+	show: boolean;
+	positive?: boolean;
+}
+
+export const TestRadio: React.FC<radioProps> = ({ show, positive = false }) => {
+	const [checked, setChecked] = useState(false);
+	const color = checked == positive ? 'text-green-500' : 'text-red-500';
+	return show ? (
+		<div className='flex items-center justify-center'>
+			<label className='swap swap-rotate'>
+				<input type='checkbox' className='border-0' checked={checked} />
+				<div
+					className={`swap-on flex items-center justify-center gap-2 ${color}`}>
+					Prawda
+					<TiTick />
+				</div>
+				<div
+					className={`swap-off flex items-center justify-center gap-2 ${color}`}>
+					Fałsz
+					<TiTimes />
+				</div>
+			</label>
+		</div>
+	) : (
+		<div className='flex items-center justify-center'>
+			<label className='swap swap-rotate'>
+				<input
+					type='checkbox'
+					className='border-0'
+					checked={checked}
+					onChange={() => setChecked((v) => !v)}
+				/>
+				<div className='swap-on flex items-center justify-center gap-2'>
+					Prawda
+					<TiTick />
+				</div>
+				<div className='swap-off flex items-center justify-center gap-2'>
+					Fałsz
+					<TiTimes />
+				</div>
+			</label>
+		</div>
+	);
+};
