@@ -1,10 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { usePath } from '../../context/menuContext';
 import { VscRunAll } from 'react-icons/vsc';
 import { GoPlus } from 'react-icons/go';
 import { ImBin } from 'react-icons/im';
 
-const PythonCompiler = ({ dataPath, testPath, setResult }) => {
+const PythonCompilerText = ({ setResult, children }) => {
 	const [show, setShow] = useState(true);
 	const terminalRef = useRef();
 	const replRef = useRef();
@@ -21,21 +21,7 @@ const PythonCompiler = ({ dataPath, testPath, setResult }) => {
 			<div id='output' className='invisible h-0'></div>
 			<div className='bg-warning text-warning-content'>
 				<py-repl ref={replRef} output='output'>
-					{`
-            with open("${dataPath}") as file:
-                data = list(map(lambda x: str(x).strip(), file.readlines()))
-            # YOUR ${testPath ? 'REAL ' : ''}DATA IS IN [data] LIST
-            ${
-							testPath
-								? `with open("${testPath}") as file:
-                test = list(map(lambda x: str(x).strip(), file.readlines()))
-            # AND YOUR TEST DATA IS IN [test] LIST
-            `
-								: ''
-						}
-            for line in data:
-                print(line)
-            `}
+					{children}
 				</py-repl>
 			</div>
 			<div
@@ -75,4 +61,4 @@ const PythonCompiler = ({ dataPath, testPath, setResult }) => {
 	);
 };
 
-export default PythonCompiler;
+export default PythonCompilerText;

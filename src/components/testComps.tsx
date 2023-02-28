@@ -35,7 +35,7 @@ export const TestInput: React.FC<testProps> = ({ show, answer }) => {
 	return (
 		<div className={`w-20 mx-auto rounded-md`}>
 			{show ? (
-				<div className='w-full flex gap-2 items-center justify-center'>
+				<div className='py-0.5 w-full flex gap-2 items-center justify-center'>
 					{value || '--'}
 					{value === answer ? (
 						<TiTick className='text-green-500 text-xl' />
@@ -48,7 +48,7 @@ export const TestInput: React.FC<testProps> = ({ show, answer }) => {
 				</div>
 			) : (
 				<input
-					className='border-0 border-base-300 px-2 w-full rounded-md bg-base-300'
+					className='px-2 w-full input input-ghost input-xs'
 					type='text'
 					placeholder='odp.:'
 					value={value}
@@ -85,7 +85,7 @@ export const TestRadio: React.FC<radioProps> = ({ show, positive = false }) => {
 		</div>
 	) : (
 		<div className='flex items-center justify-center'>
-			<label className='swap swap-rotate'>
+			<label className='swap'>
 				<input
 					type='checkbox'
 					className='border-0'

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import PythonCompiler from '../../../../components/PythonCompiler';
+import { useState } from 'react';
+import PythonCompilerText from '../../../../components/PythonCompiler/PythonCompilerText';
 import Task from '../../../../components/Task';
-import { TestInput, AnswerBtn } from '../../../../components/Test';
+import { TestInput, AnswerBtn } from '../../../../components/testComps';
 
 const Algorytm = () => {
 	const [show, setShow] = useState(false);
@@ -109,8 +109,8 @@ const Algorytm = () => {
 						<div className='flex gap-1'>
 							<i>A[1..n]</i>
 							<div>
-								- tablica n dodatnich liczb całkowitych, gdzie A[i] jest i-tym
-								elementem ciągu
+								- tablica n dodatnich liczb całkowitych, gdzie <code>A[i]</code>
+								jest i-tym elementem ciągu
 							</div>
 						</div>
 					</div>
@@ -120,16 +120,21 @@ const Algorytm = () => {
 							<i>k</i>
 							<div>
 								- minimalna liczba elementów, które trzeba podmienić w ciągu
-								zapisanym w tablicy A, aby otrzymać n-permutację
+								zapisanym w tablicy <code>A</code>, aby otrzymać n-permutację
 							</div>
 						</div>
 					</div>
 				</div>
 				<div className='pt-4'>
-					<PythonCompiler
-						dataPath='formula-2015/2022/maj/liczby.txt'
-						setResult={() => {}}
-					/>
+					<PythonCompilerText setResult={() => {}}>
+						{`
+              def func(n, A):
+
+              print(func(4, [1, 4, 2, 5]))
+              print(func(6, [5, 4, 1, 5, 6, 8]))
+              print(func(5, [2, 2, 2, 2, 2]))
+            `}
+					</PythonCompilerText>
 				</div>
 			</Task>
 		</>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Task from '../../../../components/Task';
-import { TestRadio, AnswerBtn } from '../../../../components/Test';
+import { TestRadio, AnswerBtn } from '../../../../components/testComps';
 
 const Test = () => {
 	const [show31, setShow31] = useState(false);
@@ -15,13 +15,15 @@ const Test = () => {
 			</Task>
 			<Task title='3.1' show pkt={1}>
 				Dany jest algorytm: <br />
-				<br /> s ← 0
-				<div className='pl-4'>
-					<b>dla</b> i = 1, 2, …, n
+				<code>
+					<br /> s ← 0
 					<div className='pl-4'>
-						<b>dla</b> j = i, i + 1, …, n<div className='pl-4'>s ← s + 1</div>
+						<b>dla</b> i = 1, 2, …, n
+						<div className='pl-4'>
+							<b>dla</b> j = i, i + 1, …, n<div className='pl-4'>s ← s + 1</div>
+						</div>
 					</div>
-				</div>
+				</code>
 				<br /> Złożoność obliczeniowa powyższego algorytmu oceniona liczbą
 				wykonań instrukcji s ← s + 1, w zależności od dodatniej liczby
 				całkowitej n, jest
@@ -184,9 +186,11 @@ const Test = () => {
 								<td className='text-left'>
 									Wynikiem zapytania:
 									<div className='pl-4'>
-										<b>SELECT</b> id_osoby, sum(punkty) <br /> <b>FROM</b>{' '}
-										mandaty <br /> <b>GROUP BY</b> id_osoby <br /> <b>HAVING</b>{' '}
-										sum(punkty) &gt; 5
+										<code>
+											<b>SELECT</b> id_osoby, sum(punkty) <br /> <b>FROM</b>{' '}
+											mandaty <br /> <b>GROUP BY</b> id_osoby <br />{' '}
+											<b>HAVING</b> sum(punkty) &gt; 5
+										</code>
 									</div>
 									jest zestawienie:
 									<div className='pl-4'>
@@ -204,8 +208,10 @@ const Test = () => {
 								<td className='text-left'>
 									Wynikiem zapytania:
 									<div className='pl-4'>
-										<b>SELECT</b> id_osoby, sum(punkty) <br /> <b>FROM</b>{' '}
-										mandaty <br /> <b>GROUP</b> BY id_osoby
+										<code>
+											<b>SELECT</b> id_osoby, sum(punkty) <br /> <b>FROM</b>{' '}
+											mandaty <br /> <b>GROUP</b> BY id_osoby
+										</code>
 									</div>
 									jest zestawienie:
 									<div className='pl-4'>
@@ -223,7 +229,9 @@ const Test = () => {
 								<td>
 									Wynikiem zapytania:
 									<div className='pl-4'>
-										<b>SELECT</b> numer + punkty <br /> <b>FROM</b> mandaty
+										<code>
+											<b>SELECT</b> numer + punkty <br /> <b>FROM</b> mandaty
+										</code>
 									</div>
 									jest
 									<div className='pl-4'>86</div>
@@ -239,8 +247,10 @@ const Test = () => {
 								<td className='text-left'>
 									Wynikiem zapytania:
 									<div className='pl-4'>
-										<b>SELECT</b> count(punkty) <br /> <b>FROM</b> mandaty
-										<br /> <b>WHERE</b> punkty = 21
+										<code>
+											<b>SELECT</b> count(punkty) <br /> <b>FROM</b> mandaty
+											<br /> <b>WHERE</b> punkty = 21
+										</code>
 									</div>
 									jest
 									<div className='pl-4'>1</div>
