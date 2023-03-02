@@ -19,11 +19,9 @@ const PythonCompilerText = ({ setResult, children }) => {
 	return (
 		<div>
 			<div id='output' className='invisible h-0'></div>
-			<div className='bg-warning text-warning-content'>
-				<py-repl ref={replRef} output='output'>
-					{children}
-				</py-repl>
-			</div>
+			<py-repl ref={replRef} output='output'>
+				{children}
+			</py-repl>
 			<div
 				ref={terminalDivRef}
 				className={`relative ${show && 'h-40 overflow-y-hidden'}`}>

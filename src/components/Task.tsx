@@ -13,7 +13,7 @@ const Task: React.FC<React.PropsWithChildren<props>> = ({
 	show = false,
 }) => {
 	return (
-		<div className='p-1 bg-white'>
+		<div className='p-3 bg-white rounded-lg my-5 shadow-md shadow-primary'>
 			<h1 className='bg-2015 text-black font-bold pl-1'>
 				Zadanie {title}
 				{show && `. (0-${pkt})`}

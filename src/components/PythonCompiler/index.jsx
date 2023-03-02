@@ -19,9 +19,8 @@ const PythonCompiler = ({ dataPath, testPath, setResult }) => {
 	return (
 		<div>
 			<div id='output' className='invisible h-0'></div>
-			<div className='bg-warning text-warning-content'>
-				<py-repl ref={replRef} output='output'>
-					{`
+			<py-repl ref={replRef} output='output'>
+				{`
             with open("${dataPath}") as file:
                 data = list(map(lambda x: str(x).strip(), file.readlines()))
             # YOUR ${testPath ? 'REAL ' : ''}DATA IS IN [data] LIST
@@ -36,8 +35,7 @@ const PythonCompiler = ({ dataPath, testPath, setResult }) => {
             for line in data:
                 print(line)
             `}
-				</py-repl>
-			</div>
+			</py-repl>
 			<div
 				ref={terminalDivRef}
 				className={`relative ${show && 'h-40 overflow-y-hidden'}`}>
