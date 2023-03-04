@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import Tab from '../../../../components/Tab';
 import Task from '../../../../components/Task';
-import { TestRadio, AnswerBtn } from '../../../../components/testComps';
+import useTest from '../../../../components/testComps';
 
 const Test = () => {
-	const [show31, setShow31] = useState(false);
-	const [show32, setShow32] = useState(false);
-	const [show33, setShow33] = useState(false);
+	const Test1 = useTest();
+	const Test2 = useTest();
+	const Test3 = useTest();
 	return (
 		<>
 			<Task title='3. Test'>
@@ -14,15 +14,16 @@ const Test = () => {
 				uzyskasz tylko za komplet poprawnych odpowiedzi.
 			</Task>
 			<Task title='3.1' show pkt={1}>
+				<br />
 				Dany jest algorytm: <br />
 				<code>
-					<br /> s ← 0
-					<div className='pl-4'>
+					s ← 0
+					<Tab>
 						<b>dla</b> i = 1, 2, …, n
-						<div className='pl-4'>
-							<b>dla</b> j = i, i + 1, …, n<div className='pl-4'>s ← s + 1</div>
-						</div>
-					</div>
+						<Tab>
+							<b>dla</b> j = i, i + 1, …, n<Tab>s ← s + 1</Tab>
+						</Tab>
+					</Tab>
 				</code>
 				<br /> Złożoność obliczeniowa powyższego algorytmu oceniona liczbą
 				wykonań instrukcji s ← s + 1, w zależności od dodatniej liczby
@@ -36,7 +37,7 @@ const Test = () => {
 								</td>
 								<td className='text-left'>liniowa.</td>
 								<td>
-									<TestRadio show={show31} />
+									<Test1.Radio />
 								</td>
 							</tr>
 							<tr>
@@ -45,7 +46,7 @@ const Test = () => {
 								</td>
 								<td className='text-left'>kwadratowa.</td>
 								<td>
-									<TestRadio show={show31} positive />
+									<Test1.Radio positive />
 								</td>
 							</tr>
 							<tr>
@@ -54,7 +55,7 @@ const Test = () => {
 								</td>
 								<td className='text-left'>n log n.</td>
 								<td>
-									<TestRadio show={show31} />
+									<Test1.Radio />
 								</td>
 							</tr>
 							<tr>
@@ -63,14 +64,14 @@ const Test = () => {
 								</td>
 								<td className='text-left'>nie większa niż sześcienna.</td>
 								<td>
-									<TestRadio show={show31} positive />
+									<Test1.Radio positive />
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div className='w-full flex justify-center pt-2'>
-					<AnswerBtn setShow={setShow31} show={show31} />
+					<Test1.AnswerBtn />
 				</div>
 			</Task>
 			<Task title='3.2' show pkt={1}>
@@ -87,7 +88,7 @@ const Test = () => {
 									1111011<sub>2</sub>
 								</td>
 								<td>
-									<TestRadio show={show32} positive />
+									<Test2.Radio positive />
 								</td>
 							</tr>
 							<tr>
@@ -98,7 +99,7 @@ const Test = () => {
 									362<sub>8</sub>
 								</td>
 								<td>
-									<TestRadio show={show32} positive />
+									<Test2.Radio positive />
 								</td>
 							</tr>
 							<tr>
@@ -109,7 +110,7 @@ const Test = () => {
 									F3<sub>16</sub>
 								</td>
 								<td>
-									<TestRadio show={show32} />
+									<Test2.Radio />
 								</td>
 							</tr>
 							<tr>
@@ -120,14 +121,14 @@ const Test = () => {
 									3303<sub>4</sub>
 								</td>
 								<td>
-									<TestRadio show={show32} />
+									<Test2.Radio />
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div className='w-full flex justify-center pt-2'>
-					<AnswerBtn setShow={setShow32} show={show32} />
+					<Test2.AnswerBtn />
 				</div>
 			</Task>
 			<Task title='3.3' show pkt={1}>
@@ -198,7 +199,7 @@ const Test = () => {
 									</div>
 								</td>
 								<td>
-									<TestRadio show={show33} />
+									<Test3.Radio />
 								</td>
 							</tr>
 							<tr>
@@ -219,7 +220,7 @@ const Test = () => {
 									</div>
 								</td>
 								<td>
-									<TestRadio show={show33} positive />
+									<Test3.Radio positive />
 								</td>
 							</tr>
 							<tr className='text-left'>
@@ -237,7 +238,7 @@ const Test = () => {
 									<div className='pl-4'>86</div>
 								</td>
 								<td>
-									<TestRadio show={show33} />
+									<Test3.Radio />
 								</td>
 							</tr>
 							<tr>
@@ -256,14 +257,14 @@ const Test = () => {
 									<div className='pl-4'>1</div>
 								</td>
 								<td>
-									<TestRadio show={show33} positive />
+									<Test3.Radio positive />
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div className='w-full flex justify-center pt-2'>
-					<AnswerBtn setShow={setShow33} show={show33} />
+					<Test3.AnswerBtn />
 				</div>
 			</Task>
 		</>

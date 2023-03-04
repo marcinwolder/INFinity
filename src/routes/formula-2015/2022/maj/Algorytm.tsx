@@ -1,10 +1,11 @@
-import { useState } from 'react';
 import PythonCompilerText from '../../../../components/PythonCompiler/PythonCompilerText';
 import Task from '../../../../components/Task';
-import { TestInput, AnswerBtn } from '../../../../components/testComps';
+import useTest from '../../../../components/testComps';
+import Tab from '../../../../components/Tab';
+import Def from '../../../../components/Def';
 
 const Algorytm = () => {
-	const [show, setShow] = useState(false);
+	const Test = useTest();
 	return (
 		<>
 			<Task title='1. n-permutacja'>
@@ -46,42 +47,42 @@ const Algorytm = () => {
 								<td>4</td>
 								<td>(1, 4, 2, 5)</td>
 								<td>
-									<TestInput show={show} answer='1' />
+									<Test.Input answer='1' />
 								</td>
 							</tr>
 							<tr>
 								<td>5</td>
 								<td>(2, 2, 2, 2, 2)</td>
 								<td>
-									<TestInput show={show} answer='4' />
+									<Test.Input answer='4' />
 								</td>
 							</tr>
 							<tr>
 								<td>4</td>
 								<td>(4, 3, 2, 1)</td>
 								<td>
-									<TestInput show={show} answer='0' />
+									<Test.Input answer='0' />
 								</td>
 							</tr>
 							<tr>
 								<td>6</td>
 								<td>(5, 4, 1, 5, 6, 8)</td>
 								<td>
-									<TestInput show={show} answer='2' />
+									<Test.Input answer='2' />
 								</td>
 							</tr>
 							<tr>
 								<td>6</td>
 								<td>(8, 4, 9, 6, 5, 7)</td>
 								<td>
-									<TestInput show={show} answer='3' />
+									<Test.Input answer='3' />
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div className='w-full flex justify-center pt-2'>
-					<AnswerBtn setShow={setShow} show={show} />
+					<Test.AnswerBtn />
 				</div>
 			</Task>
 			<Task title='1.2' show pkt={4}>
@@ -99,43 +100,32 @@ const Algorytm = () => {
 				innych niż wymienione, dostępnych w językach programowania.
 				<br />
 				<br /> <b>Specyfikacja:</b>
-				<div className='pl-4'>
+				<Tab>
 					Dane:
-					<div className='pl-4'>
-						<div className='flex gap-1'>
-							<i>n</i>
-							<div>- dodatnia liczba całkowita</div>
-						</div>
-						<div className='flex gap-1'>
-							<i>A[1..n]</i>
-							<div>
-								- tablica n dodatnich liczb całkowitych, gdzie <code>A[i]</code>
-								jest i-tym elementem ciągu
-							</div>
-						</div>
-					</div>
+					<Tab>
+						<Def name='n'>dodatnia liczba całkowita</Def>
+						<Def name='A[1..n]'>
+							tablica n dodatnich liczb całkowitych, gdzie <code>A[i]</code>{' '}
+							jest i-tym elementem ciągu
+						</Def>
+					</Tab>
 					Wynik:
-					<div className='pl-4'>
-						<div className='flex gap-1'>
-							<i>k</i>
-							<div>
-								- minimalna liczba elementów, które trzeba podmienić w ciągu
-								zapisanym w tablicy <code>A</code>, aby otrzymać n-permutację
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className='pt-4'>
-					<PythonCompilerText setResult={() => {}}>
-						{`
+					<Tab>
+						<Def name='k'>
+							minimalna liczba elementów, które trzeba podmienić w ciągu
+							zapisanym w tablicy <code>A</code>, aby otrzymać n-permutację
+						</Def>
+					</Tab>
+				</Tab>
+				<PythonCompilerText setResult={() => {}}>
+					{`
               def func(n, A):
 
               print(func(4, [1, 4, 2, 5]))
               print(func(6, [5, 4, 1, 5, 6, 8]))
               print(func(5, [2, 2, 2, 2, 2]))
             `}
-					</PythonCompilerText>
-				</div>
+				</PythonCompilerText>
 			</Task>
 		</>
 	);
