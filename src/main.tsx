@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import App from './App';
 import Formula2023 from './routes/Formula2023';
@@ -11,6 +12,7 @@ import { MenuProvider } from './context/menuContext';
 
 import './index.css';
 import Maj2022 from './routes/formula-2015/2022/maj';
+import store from './redux';
 
 const router = createBrowserRouter([
 	{
@@ -41,9 +43,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<>
 		<React.StrictMode>
-			<MenuProvider>
-				<RouterProvider router={router} />
-			</MenuProvider>
+			<Provider store={store}>
+				<MenuProvider>
+					<RouterProvider router={router} />
+				</MenuProvider>
+			</Provider>
 		</React.StrictMode>
 	</>
 );

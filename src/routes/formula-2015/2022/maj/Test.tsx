@@ -1,13 +1,30 @@
+import { useDispatch } from 'react-redux/es/exports';
 import Tab from '../../../../components/Tab';
 import Task from '../../../../components/Task';
 import useTest from '../../../../components/testComps';
+import { answearSlice } from '../../../../redux/slices/answers';
 
 const Test = () => {
+	const dispatch = useDispatch();
+	const { changeAns } = answearSlice.actions;
 	const Test1 = useTest();
 	const Test2 = useTest();
 	const Test3 = useTest();
 	return (
 		<>
+			<button
+				className='bg-red-500'
+				onClick={() => {
+					dispatch(
+						changeAns({
+							answers: [1, 23, 4, 5, 1],
+							testNum: 3,
+							path: ['formula-2015', 2022, 'maj'],
+						})
+					);
+				}}>
+				TEST
+			</button>
 			<Task title='3. Test'>
 				Oceń prawdziwość podanych zdań. Zaznacz <b>P</b>, jeśli zdanie jest
 				prawdziwe, albo <b>F</b> - jeśli jest fałszywe. W każdym zadaniu punkt
