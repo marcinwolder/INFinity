@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { TiTick, TiTimes } from 'react-icons/ti';
+
+interface testProps {
+	answer: string;
+}
+interface radioProps {
+	positive?: boolean;
+}
 
 const useTest = () => {
 	const [show, setShow] = useState(false);
@@ -22,14 +29,13 @@ const useTest = () => {
 			);
 	};
 
-	interface testProps {
-		answer: string;
-	}
-
-	const Input: React.FC<testProps> = ({ answer }) => {
+	const Input: React.FC<testProps> = memo(({ answer }) => {
 		const [value, setValue] = useState('');
+		useEffect(() => {
+			console.log(value);
+		}, [value]);
 		return (
-			<div className={`w-20 mx-auto rounded-md`}>
+			<div className='w-20 mx-auto rounded-md'>
 				{show ? (
 					<div className='py-0.5 w-full flex gap-2 items-center justify-center'>
 						{value || '--'}
@@ -53,11 +59,7 @@ const useTest = () => {
 				)}
 			</div>
 		);
-	};
-
-	interface radioProps {
-		positive?: boolean;
-	}
+	});
 
 	const Radio: React.FC<radioProps> = ({ positive = false }) => {
 		const [checked, setChecked] = useState(false);
