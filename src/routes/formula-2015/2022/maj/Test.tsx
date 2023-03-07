@@ -17,9 +17,10 @@ const Test = () => {
 				onClick={() => {
 					dispatch(
 						changeAns({
-							answers: [1, 23, 4, 5, 1],
-							testNum: 3,
-							path: ['formula-2015', 2022, 'maj'],
+							answers: { 1.2: [true, false, false, true] },
+							formula: '2015',
+							month: 5,
+							year: 2022,
 						})
 					);
 				}}>
