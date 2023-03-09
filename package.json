@@ -11,13 +11,16 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@tailwindcss/typography": "^0.5.9",
+    "@types/lodash": "^4.14.191",
     "daisyui": "^2.50.2",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
     "redux": "^4.2.1",
+    "reselect": "^4.1.7",
     "tailwindcss-opentype": "^1.1.0",
     "theme-change": "^2.3.0"
   },

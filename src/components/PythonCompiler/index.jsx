@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { usePath } from '../../context/menuContext';
 import { VscRunAll } from 'react-icons/vsc';
 import { GoPlus } from 'react-icons/go';
 import { ImBin } from 'react-icons/im';
@@ -9,7 +8,6 @@ const PythonCompiler = ({ dataPath, testPath, setResult }) => {
 	const terminalRef = useRef();
 	const replRef = useRef();
 	const terminalDivRef = useRef();
-	usePath('/formula-2023');
 	useEffect(() => {
 		setTimeout(() => {
 			const btn = replRef.current.children[0].children[1].children[2];

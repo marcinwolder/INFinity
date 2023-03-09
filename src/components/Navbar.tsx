@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import { MenuBtn, MenuContext } from '../context/menuContext';
 
 const Navbar: React.FC = () => {
-	const { setOption } = useContext(MenuContext);
-
 	return (
 		<div className='navbar bg-base-100'>
 			<div className='flex-none'>
@@ -26,12 +24,7 @@ const Navbar: React.FC = () => {
 				</MenuBtn>
 			</div>
 			<div className='flex-1'>
-				<Link
-					to={'/'}
-					onClick={() => {
-						setOption('');
-					}}
-					className='btn btn-ghost normal-case text-xl small-caps'>
+				<Link to={'/'} className='btn btn-ghost normal-case text-xl small-caps'>
 					<AiOutlineCode className='mr-1 text-base' />
 					<span className='text-sky-500 pr-2 mb-0.5'>[</span>INF
 					<span className='text-red-500 px-2 mb-0.5'>{'}'}</span>

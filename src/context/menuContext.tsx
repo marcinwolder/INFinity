@@ -1,28 +1,17 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Link as BaseLink } from 'react-router-dom';
 
-export const usePath = (url: string) => {
-	const { setOption } = useContext(MenuContext);
-	useEffect(() => {
-		setOption(url);
-	});
-	return url;
-};
-
 export const MenuContext = createContext<{
 	isOpen: boolean;
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	option: string;
-	setOption: React.Dispatch<React.SetStateAction<string>>;
-}>({ isOpen: false, setOpen() {}, option: '', setOption() {} });
+}>({ isOpen: false, setOpen() {} });
 
 export const MenuProvider: React.FC<React.PropsWithChildren<{}>> = ({
 	children,
 }) => {
-	const [option, setOption] = useState('');
 	const [isOpen, setOpen] = useState(false);
 	return (
-		<MenuContext.Provider value={{ isOpen, setOpen, option, setOption }}>
+		<MenuContext.Provider value={{ isOpen, setOpen }}>
 			{children}
 		</MenuContext.Provider>
 	);
@@ -31,13 +20,12 @@ export const MenuProvider: React.FC<React.PropsWithChildren<{}>> = ({
 export const MenuLink: React.FC<
 	React.PropsWithChildren<{ url: string; className?: string }>
 > = ({ children, url, className }) => {
-	const { setOpen, setOption } = useContext(MenuContext);
+	const { setOpen } = useContext(MenuContext);
 
 	return (
 		<BaseLink
 			onClick={() => {
 				setOpen(false);
-				setOption(url);
 			}}
 			className={className}
 			to={url}>

@@ -1,24 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { usePath } from '../../../../redux/slices/path';
 import Part1 from './part1';
-import { usePath } from '../../../../context/menuContext';
 
 const Maj2022 = () => {
-	usePath('/formula-2015');
 	const [tab, setTab] = useState(1);
+	usePath('/2022/maj');
 	return (
 		<div className='sm:px-0 md:px-6'>
-			<div className='breadcrumbs'>
-				<ul>
-					<li>
-						<Link to={'/'}>Strona Główna</Link>
-					</li>
-					<li>
-						<Link to={'/formula-2015'}>Formuła 2015</Link>
-					</li>
-					<li>Matura - Maj 2022</li>
-				</ul>
-			</div>
 			<div className='tabs'>
 				<a
 					onClick={() => setTab(1)}

@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { MenuContext, MenuLink } from '../context/menuContext';
+import { Store } from '../redux';
 
 const markSelected = (elements: React.ReactElement) => {
-	const { option } = useContext(MenuContext);
+	const path = useSelector((state: Store) => state.path);
 	const values = [];
 	for (const element of elements.props.children) {
-		if (element.props.url === option)
+		if (element.props.url === path[1])
 			values.push(
 				<li
 					key={element.props.url}

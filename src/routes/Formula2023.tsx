@@ -1,4 +1,4 @@
-import { usePath } from '../context/menuContext';
+import { usePath } from '../redux/slices/path';
 
 const Main = () => {
 	usePath('/formula-2023');
