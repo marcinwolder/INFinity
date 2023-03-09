@@ -3,6 +3,7 @@ import Tab from '../../../../components/Tab';
 import Task from '../../../../components/Task';
 import useTest from '../../../../components/testComps';
 import { answearSlice } from '../../../../redux/slices/answers';
+import { pathSlice } from '../../../../redux/slices/path';
 
 const Test = () => {
 	const dispatch = useDispatch();
@@ -15,14 +16,14 @@ const Test = () => {
 			<button
 				className='bg-red-500'
 				onClick={() => {
-					dispatch(
-						changeAns({
-							answers: { 1.2: [true, false, false, true] },
-							formula: '2015',
-							month: 5,
-							year: 2022,
-						})
-					);
+					// dispatch(
+					// 	changeAns({
+					// 		answers: { 1.2: [true, false, false, true] },
+					// 		formula: '2015',
+					// 		month: 5,
+					// 		year: 2022,
+					// 	})
+					// );
 				}}>
 				TEST
 			</button>

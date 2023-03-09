@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { usePath } from '../../../../redux/slices/path';
 import Part1 from './part1';
 

@@ -41,10 +41,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<>
-		<Provider store={store}>
-			<MenuProvider>
-				<RouterProvider router={router} />
-			</MenuProvider>
-		</Provider>
+		<React.StrictMode>
+			<Provider store={store}>
+				<MenuProvider>
+					<RouterProvider router={router} />
+				</MenuProvider>
+			</Provider>
+		</React.StrictMode>
 	</>
 );

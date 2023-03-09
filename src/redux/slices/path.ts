@@ -1,27 +1,46 @@
 import { Store } from './../index';
 import _ from 'lodash';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, getType, PayloadAction } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+export type Formula = 'formula-2015' | 'formula-2023' | 'formula-stara';
+
+interface Slice {
+	calibrated: boolean;
+	blocks: string[];
+}
+
 export const pathSlice = createSlice({
 	name: 'path',
-	initialState: ['/strona-główna'] as string[],
+	initialState: { calibrated: false, blocks: ['/strona-główna'] },
 	reducers: {
 		loadPath(state, action: PayloadAction<string>) {
-			console.log([...state]);
-			state.push(action.payload);
-			console.log(
-				'🚀 ~ file: path.ts:14 ~ loadPath ~ action.payload:',
-				action.payload
-			);
-			console.log([...state]);
+			state.blocks.push(action.payload);
 		},
 		unloadPath(state) {
-			state.pop();
+			state.blocks.pop();
+		},
+		__switch(state) {
+			const blocks = [...state.blocks];
+			const start = blocks.shift();
+			blocks.reverse();
+			blocks.unshift(start!);
+			return { calibrated: true, blocks };
 		},
 	},
 });
+
+export const usePathElements = () => {
+	// TODO: ERROR about setting state while updating other component (unknown)
+	const dispatch = useDispatch();
+	const state = useSelector((state: Store) => state.path, _.isEqual);
+	if (!state.calibrated && state.blocks.length > 1) {
+		dispatch(pathSlice.actions.__switch());
+	}
+
+	return state.blocks;
+};
 
 export const usePath = (name: string) => {
 	const dispatch = useDispatch();
@@ -30,20 +49,11 @@ export const usePath = (name: string) => {
 		return () => {
 			dispatch(pathSlice.actions.unloadPath());
 		};
-	});
-};
-
-export const usePathElements = () => {
-	const path = useSelector((state: Store) => state.path, _.isEqual);
-	const urlBlocks = [...path];
-	urlBlocks.reverse();
-	const start = urlBlocks.pop();
-	urlBlocks.unshift(start!);
-	return urlBlocks;
+	}, []);
 };
 
 export const useUrl = () => {
-	const urlBlocks = usePathElements();
+	const urlBlocks = [...usePathElements()];
 	urlBlocks.shift();
 	return urlBlocks.join('');
 };
