@@ -1,10 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { MenuContext, MenuLink } from '../context/menuContext';
-import { Store } from '../redux';
+import { MenuLink } from '../context/menuContext';
+import { usePathElements } from '../redux/slices/path';
 
 const markSelected = (elements: React.ReactElement) => {
-	const path = useSelector((state: Store) => state.path);
+	const path = usePathElements();
 	const values = [];
 	for (const element of elements.props.children) {
 		if (element.props.url === path[1])

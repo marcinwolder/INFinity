@@ -15,7 +15,7 @@ function App() {
 			<MenuCheckbox />
 			<div className='drawer-content'>
 				<Navbar />
-				<div>
+				<div className='p-2'>
 					<Outlet />
 				</div>
 			</div>

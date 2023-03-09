@@ -11,6 +11,10 @@ export const pathSlice = createSlice({
 		loadPath(state, action: PayloadAction<string>) {
 			console.log([...state]);
 			state.push(action.payload);
+			console.log(
+				'🚀 ~ file: path.ts:14 ~ loadPath ~ action.payload:',
+				action.payload
+			);
 			console.log([...state]);
 		},
 		unloadPath(state) {
@@ -33,11 +37,13 @@ export const usePathElements = () => {
 	const path = useSelector((state: Store) => state.path, _.isEqual);
 	const urlBlocks = [...path];
 	urlBlocks.reverse();
+	const start = urlBlocks.pop();
+	urlBlocks.unshift(start!);
 	return urlBlocks;
 };
 
 export const useUrl = () => {
 	const urlBlocks = usePathElements();
-	urlBlocks.pop();
+	urlBlocks.shift();
 	return urlBlocks.join('');
 };
