@@ -1,11 +1,12 @@
 import PythonCompilerText from '../../../../components/PythonCompiler/PythonCompilerText';
 import Task from '../../../../components/Task';
-import useTest from '../../../../components/testComps';
+import { AnswerBtn, TestInput } from '../../../../components/testComps';
 import Tab from '../../../../components/Tab';
 import Def from '../../../../components/Def';
+import { useState } from 'react';
 
 const Algorytm = () => {
-	const Test = useTest();
+	const [show, setShow] = useState(false);
 	return (
 		<>
 			<Task title='1. n-permutacja'>
@@ -47,42 +48,42 @@ const Algorytm = () => {
 								<td>4</td>
 								<td>(1, 4, 2, 5)</td>
 								<td>
-									<Test.Input answer='1' />
+									<TestInput show={show} answer='1' />
 								</td>
 							</tr>
 							<tr>
 								<td>5</td>
 								<td>(2, 2, 2, 2, 2)</td>
 								<td>
-									<Test.Input answer='4' />
+									<TestInput show={show} answer='4' />
 								</td>
 							</tr>
 							<tr>
 								<td>4</td>
 								<td>(4, 3, 2, 1)</td>
 								<td>
-									<Test.Input answer='0' />
+									<TestInput show={show} answer='0' />
 								</td>
 							</tr>
 							<tr>
 								<td>6</td>
 								<td>(5, 4, 1, 5, 6, 8)</td>
 								<td>
-									<Test.Input answer='2' />
+									<TestInput show={show} answer='2' />
 								</td>
 							</tr>
 							<tr>
 								<td>6</td>
 								<td>(8, 4, 9, 6, 5, 7)</td>
 								<td>
-									<Test.Input answer='3' />
+									<TestInput show={show} answer='3' />
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div className='w-full flex justify-center pt-2'>
-					<Test.AnswerBtn />
+					<AnswerBtn show={show} setShow={setShow} />
 				</div>
 			</Task>
 			<Task title='1.2' show pkt={4}>
@@ -118,13 +119,9 @@ const Algorytm = () => {
 					</Tab>
 				</Tab>
 				<PythonCompilerText setResult={() => {}}>
-					{`
-              def func(n, A):
-
-              print(func(4, [1, 4, 2, 5]))
-              print(func(6, [5, 4, 1, 5, 6, 8]))
-              print(func(5, [2, 2, 2, 2, 2]))
-            `}
+					{
+						'def func(n, A):\n\treturn(n)\n\nprint(func(4, [1, 4, 2, 5]))\nprint(func(6, [5, 4, 1, 5, 6, 8]))\nprint(func(5, [2, 2, 2, 2, 2]))'
+					}
 				</PythonCompilerText>
 			</Task>
 		</>

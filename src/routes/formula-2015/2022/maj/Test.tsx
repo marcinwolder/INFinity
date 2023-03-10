@@ -1,29 +1,41 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux/es/exports';
 import Tab from '../../../../components/Tab';
 import Task from '../../../../components/Task';
-import useTest from '../../../../components/testComps';
+import {
+	TestInput,
+	AnswerBtn,
+	TestRadio,
+} from '../../../../components/testComps';
 import { answearSlice } from '../../../../redux/slices/answers';
-import { pathSlice } from '../../../../redux/slices/path';
+import {
+	Formula,
+	pathSlice,
+	usePathElements,
+} from '../../../../redux/slices/path';
 
 const Test = () => {
+	const [show1, setShow1] = useState(false);
+	const [show2, setShow2] = useState(false);
+	const [show3, setShow3] = useState(false);
 	const dispatch = useDispatch();
 	const { changeAns } = answearSlice.actions;
-	const Test1 = useTest();
-	const Test2 = useTest();
-	const Test3 = useTest();
+
+	const path = [...usePathElements()].map((el) => el.replace('/', ''));
+	path.shift();
+
 	return (
 		<>
 			<button
 				className='bg-red-500'
 				onClick={() => {
-					// dispatch(
-					// 	changeAns({
-					// 		answers: { 1.2: [true, false, false, true] },
-					// 		formula: '2015',
-					// 		month: 5,
-					// 		year: 2022,
-					// 	})
-					// );
+					dispatch(
+						changeAns({
+							answers: { 3.1: { 1: true, 2: false, 3: true, 4: false } },
+							formula: path[0] as Formula,
+							date: path[1],
+						})
+					);
 				}}>
 				TEST
 			</button>
@@ -56,7 +68,7 @@ const Test = () => {
 								</td>
 								<td className='text-left'>liniowa.</td>
 								<td>
-									<Test1.Radio />
+									<TestRadio show={show1} />
 								</td>
 							</tr>
 							<tr>
@@ -65,7 +77,7 @@ const Test = () => {
 								</td>
 								<td className='text-left'>kwadratowa.</td>
 								<td>
-									<Test1.Radio positive />
+									<TestRadio show={show1} positive />
 								</td>
 							</tr>
 							<tr>
@@ -74,7 +86,7 @@ const Test = () => {
 								</td>
 								<td className='text-left'>n log n.</td>
 								<td>
-									<Test1.Radio />
+									<TestRadio show={show1} />
 								</td>
 							</tr>
 							<tr>
@@ -83,14 +95,14 @@ const Test = () => {
 								</td>
 								<td className='text-left'>nie większa niż sześcienna.</td>
 								<td>
-									<Test1.Radio positive />
+									<TestRadio show={show1} positive />
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div className='w-full flex justify-center pt-2'>
-					<Test1.AnswerBtn />
+					<AnswerBtn show={show1} setShow={setShow1} />
 				</div>
 			</Task>
 			<Task title='3.2' show pkt={1}>
@@ -107,7 +119,7 @@ const Test = () => {
 									1111011<sub>2</sub>
 								</td>
 								<td>
-									<Test2.Radio positive />
+									<TestRadio show={show2} positive />
 								</td>
 							</tr>
 							<tr>
@@ -118,7 +130,7 @@ const Test = () => {
 									362<sub>8</sub>
 								</td>
 								<td>
-									<Test2.Radio positive />
+									<TestRadio show={show2} positive />
 								</td>
 							</tr>
 							<tr>
@@ -129,7 +141,7 @@ const Test = () => {
 									F3<sub>16</sub>
 								</td>
 								<td>
-									<Test2.Radio />
+									<TestRadio show={show2} />
 								</td>
 							</tr>
 							<tr>
@@ -140,14 +152,14 @@ const Test = () => {
 									3303<sub>4</sub>
 								</td>
 								<td>
-									<Test2.Radio />
+									<TestRadio show={show2} />
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div className='w-full flex justify-center pt-2'>
-					<Test2.AnswerBtn />
+					<AnswerBtn show={show2} setShow={setShow2} />
 				</div>
 			</Task>
 			<Task title='3.3' show pkt={1}>
@@ -218,7 +230,7 @@ const Test = () => {
 									</div>
 								</td>
 								<td>
-									<Test3.Radio />
+									<TestRadio show={show3} />
 								</td>
 							</tr>
 							<tr>
@@ -239,7 +251,7 @@ const Test = () => {
 									</div>
 								</td>
 								<td>
-									<Test3.Radio positive />
+									<TestRadio show={show3} positive />
 								</td>
 							</tr>
 							<tr className='text-left'>
@@ -257,7 +269,7 @@ const Test = () => {
 									<div className='pl-4'>86</div>
 								</td>
 								<td>
-									<Test3.Radio />
+									<TestRadio show={show3} />
 								</td>
 							</tr>
 							<tr>
@@ -276,14 +288,14 @@ const Test = () => {
 									<div className='pl-4'>1</div>
 								</td>
 								<td>
-									<Test3.Radio positive />
+									<TestRadio show={show3} positive />
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div className='w-full flex justify-center pt-2'>
-					<Test3.AnswerBtn />
+					<AnswerBtn show={show3} setShow={setShow3} />
 				</div>
 			</Task>
 		</>

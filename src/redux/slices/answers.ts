@@ -1,10 +1,11 @@
+import _ from 'lodash';
+import { Formula } from './path';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface matura {
-	year: number;
-	month: number;
-	formula: '2023' | '2015' | 'stara';
-	answers: { [keys: number]: string[] | boolean[] | number[] };
+	date: string;
+	formula: Formula;
+	answers: { [keys: number]: { [keys: number]: string | number | boolean } };
 }
 
 export const answearSlice = createSlice({
@@ -12,19 +13,18 @@ export const answearSlice = createSlice({
 	initialState: [] as matura[],
 	reducers: {
 		changeAns(state, action: PayloadAction<matura>) {
-			const { year, month, formula, answers } = action.payload;
+			const { date, formula, answers } = action.payload;
 			const index = state.findIndex(
-				(el) => el.year === year && el.month === month && el.formula === formula
+				(el) => el.date === date && el.formula === formula
 			);
 			if (index === -1) {
 				state.push({
-					formula: '2015',
-					year: 2022,
-					month: 5,
+					formula,
+					date,
 					answers,
 				});
 			} else {
-				Object.assign(state[index].answers, answers);
+				_.assign(state[index].answers, answers);
 			}
 		},
 	},
