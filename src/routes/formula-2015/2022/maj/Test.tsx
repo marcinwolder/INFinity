@@ -24,6 +24,7 @@ const Test = () => {
 		<>
 			<TestProvider taskNum={3} title='Test'>
 				<TestInput num={1} answer='20' />
+				<TestInput num={2} answer='2020' />
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={3.1} pkt={2}>

@@ -6,7 +6,7 @@ import { Answers } from '../../components/testComps';
 interface matura {
 	date: string;
 	formula: Formula;
-	answers: Answers;
+	answers: { [keys: number]: Answers };
 }
 
 export const answearSlice = createSlice({

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { createContext, useContext, useState } from 'react';
 import { TiTick, TiTimes } from 'react-icons/ti';
 import { useDispatch } from 'react-redux';
@@ -68,7 +69,7 @@ export const AnswerBtn: React.FC = () => {
 	const path = [...usePathElements()].map((el) => el.replace('/', ''));
 	path.shift();
 
-	const { show, setShow, values } = useContext(context);
+	const { show, setShow, values, taskNum } = useContext(context);
 	if (show)
 		return (
 			<button
@@ -88,7 +89,7 @@ export const AnswerBtn: React.FC = () => {
 					setShow(true);
 					dispatch(
 						answearSlice.actions.changeAns({
-							answers: values,
+							answers: { [taskNum]: values },
 							formula: path[0] as Formula,
 							date: path[1],
 						})
@@ -101,7 +102,8 @@ export const AnswerBtn: React.FC = () => {
 
 export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
 	const { show, setValues, taskNum, values } = useContext(context);
-	const [value, setValue] = useState('');
+	// const [value, setValue] = useState('');
+	const value = values[num] as string | number;
 	return (
 		<div className='w-20 mx-auto rounded-md'>
 			{show ? (
@@ -121,12 +123,13 @@ export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
 					className='px-2 w-full input input-ghost input-xs'
 					type='text'
 					placeholder='odp.:'
-					value={value}
+					value={value || ''}
 					onChange={(e) => {
-						setValues((v) =>
-							Object.assign(v, { [taskNum]: { [num]: e.target.value } })
-						);
-						setValue(e.target.value);
+						const input = e.target.value;
+						if (input === '') {
+							setValues((v) => _.omit(v, num));
+						} else setValues((v) => ({ ...v, [num]: input }));
+						// setValue(input);
 						console.log(values);
 					}}
 				/>
