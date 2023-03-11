@@ -1,46 +1,23 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux/es/exports';
 import Tab from '../../../../components/Tab';
 import {
-	TestInput,
-	TestProvider,
 	AnswerBtn,
 	TestRadio,
+	TestProvider,
 } from '../../../../components/testComps';
-import { answearSlice } from '../../../../redux/slices/answers';
-import { Formula, usePathElements } from '../../../../redux/slices/path';
+import { usePathElements } from '../../../../redux/slices/path';
 
 const Test = () => {
-	const [show1, setShow1] = useState(false);
-	const [show2, setShow2] = useState(false);
-	const [show3, setShow3] = useState(false);
-	const dispatch = useDispatch();
-	const { changeAns } = answearSlice.actions;
-
 	const path = [...usePathElements()].map((el) => el.replace('/', ''));
 	path.shift();
 
 	return (
 		<>
 			<TestProvider taskNum={3} title='Test'>
-				<TestInput num={1} answer='20' />
-				<TestInput num={2} answer='2020' />
-				<AnswerBtn />
-			</TestProvider>
-			<TestProvider taskNum={3.1} pkt={2}>
-				<TestInput num={1} answer='40' />
-				<TestRadio num={2} positive>
-					Hello
-				</TestRadio>
-				<TestRadio num={3} />
-				<AnswerBtn />
-			</TestProvider>
-			{/* <Task title='3. Test'>
 				Oceń prawdziwość podanych zdań. Zaznacz <b>P</b>, jeśli zdanie jest
 				prawdziwe, albo <b>F</b> - jeśli jest fałszywe. W każdym zadaniu punkt
 				uzyskasz tylko za komplet poprawnych odpowiedzi.
-			</Task>
-			<Task title='3.1' show pkt={1}>
+			</TestProvider>
+			<TestProvider taskNum={3.1} pkt={1}>
 				<br />
 				Dany jest algorytm: <br />
 				<code>
@@ -63,37 +40,45 @@ const Test = () => {
 									<b>1.</b>
 								</td>
 								<td className='text-left'>liniowa.</td>
-								<td><TestRadio show={show1} /></td>
+								<td>
+									<TestRadio num={1} />
+								</td>
 							</tr>
 							<tr>
 								<td>
 									<b>2.</b>
 								</td>
 								<td className='text-left'>kwadratowa.</td>
-								<td><TestRadio show={show1} positive /></td>
+								<td>
+									<TestRadio num={2} positive />
+								</td>
 							</tr>
 							<tr>
 								<td>
 									<b>3.</b>
 								</td>
 								<td className='text-left'>n log n.</td>
-								<td><TestRadio show={show1} /></td>
+								<td>
+									<TestRadio num={3} />
+								</td>
 							</tr>
 							<tr>
 								<td>
 									<b>4.</b>
 								</td>
 								<td className='text-left'>nie większa niż sześcienna.</td>
-								<td><TestRadio show={show1} positive /></td>
+								<td>
+									<TestRadio num={4} positive />
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div className='w-full flex justify-center pt-2'>
-					<AnswerBtn show={show1} setShow={setShow1} />
+					<AnswerBtn />
 				</div>
-			</Task>
-			<Task title='3.2' show pkt={1}>
+			</TestProvider>
+			<TestProvider taskNum={3.2} pkt={1}>
 				Po dodaniu liczb 132<sub>4</sub> oraz 3111<sub>4</sub> zapisanych w
 				systemie czwórkowym otrzymamy:
 				<div className='relative text-primary-content px-0 overflow-x-auto md:px-8 pt-2'>
@@ -106,7 +91,9 @@ const Test = () => {
 								<td className='text-left'>
 									1111011<sub>2</sub>
 								</td>
-								<td><TestRadio show={show2} positive /></td>
+								<td>
+									<TestRadio num={1} positive />
+								</td>
 							</tr>
 							<tr>
 								<td>
@@ -115,7 +102,9 @@ const Test = () => {
 								<td className='text-left'>
 									362<sub>8</sub>
 								</td>
-								<td><TestRadio show={show2} positive /></td>
+								<td>
+									<TestRadio num={2} positive />
+								</td>
 							</tr>
 							<tr>
 								<td>
@@ -124,7 +113,9 @@ const Test = () => {
 								<td className='text-left'>
 									F3<sub>16</sub>
 								</td>
-								<td><TestRadio show={show2} /></td>
+								<td>
+									<TestRadio num={3} />
+								</td>
 							</tr>
 							<tr>
 								<td>
@@ -133,16 +124,18 @@ const Test = () => {
 								<td className='text-left'>
 									3303<sub>4</sub>
 								</td>
-								<td><TestRadio show={show2} /></td>
+								<td>
+									<TestRadio num={4} />
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div className='w-full flex justify-center pt-2'>
-					<AnswerBtn show={show2} setShow={setShow2} />
+					<AnswerBtn />
 				</div>
-			</Task>
-			<Task title='3.3' show pkt={1}>
+			</TestProvider>
+			<TestProvider taskNum={3.3} pkt={1}>
 				W bazie danych istnieje tabela mandaty(numer, id_osoby, punkty)
 				zawierająca następujące dane:
 				<div className='relative text-primary-content px-0 overflow-x-auto md:px-8 pt-2'>
@@ -209,7 +202,9 @@ const Test = () => {
 										1 14 <br /> 2 20 <br /> 3 21
 									</div>
 								</td>
-								<td><TestRadio show={show3} /></td>
+								<td>
+									<TestRadio num={1} />
+								</td>
 							</tr>
 							<tr>
 								<td>
@@ -228,7 +223,9 @@ const Test = () => {
 										1 21 <br /> 2 21 <br /> 3 21
 									</div>
 								</td>
-								<td><TestRadio show={show3} positive /></td>
+								<td>
+									<TestRadio num={2} positive />
+								</td>
 							</tr>
 							<tr className='text-left'>
 								<td>
@@ -244,7 +241,9 @@ const Test = () => {
 									jest
 									<div className='pl-4'>86</div>
 								</td>
-								<td><TestRadio show={show3} /></td>
+								<td>
+									<TestRadio num={3} />
+								</td>
 							</tr>
 							<tr>
 								<td>
@@ -261,15 +260,17 @@ const Test = () => {
 									jest
 									<div className='pl-4'>1</div>
 								</td>
-								<td><TestRadio show={show3} positive /></td>
+								<td>
+									<TestRadio num={4} positive />
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div className='w-full flex justify-center pt-2'>
-					<AnswerBtn show={show3} setShow={setShow3} />
+					<AnswerBtn />
 				</div>
-			</Task> */}
+			</TestProvider>
 		</>
 	);
 };

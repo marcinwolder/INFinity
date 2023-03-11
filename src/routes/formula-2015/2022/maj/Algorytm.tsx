@@ -1,14 +1,16 @@
 import PythonCompilerText from '../../../../components/PythonCompiler/PythonCompilerText';
-import { AnswerBtn, TestInput } from '../../../../components/testComps';
+import {
+	AnswerBtn,
+	TestInput,
+	TestProvider,
+} from '../../../../components/testComps';
 import Tab from '../../../../components/Tab';
 import Def from '../../../../components/Def';
-import { useState } from 'react';
 
 const Algorytm = () => {
-	const [show, setShow] = useState(false);
 	return (
 		<>
-			{/* <Task title='1. n-permutacja'>
+			<TestProvider taskNum={1} title='n-permutacja'>
 				Dla dodatniej liczby całkowitej n, n-permutacją nazywamy taki
 				n-elementowy ciąg liczb całkowitych, który zawiera każdą z liczb 1, 2,
 				…, n dokładnie jeden raz. <br />
@@ -23,8 +25,8 @@ const Algorytm = () => {
 				<br /> w ciągu (1,3,1) wystarczy podmienić jeden element - pierwszą lub
 				ostatnią jedynkę (1) - na dwójkę (2), aby powstały ciąg był
 				3-permutacją.
-			</Task>
-			<Task title='1.1' show pkt={2}>
+			</TestProvider>
+			<TestProvider taskNum={1.1} pkt={2}>
 				Uzupełnij poniższą tabelę - dla każdego z podanych ciągów podaj
 				najmniejszą liczbę elementów, które trzeba podmienić, aby dany ciąg był
 				n-permutacją. Jeśli ciąg jest już n-permutacją, wpisz 0.
@@ -47,45 +49,45 @@ const Algorytm = () => {
 								<td>4</td>
 								<td>(1, 4, 2, 5)</td>
 								<td>
-									<TestInput show={show} answer='1' />
+									<TestInput num={1} answer='1' />
 								</td>
 							</tr>
 							<tr>
 								<td>5</td>
 								<td>(2, 2, 2, 2, 2)</td>
 								<td>
-									<TestInput show={show} answer='4' />
+									<TestInput num={2} answer='4' />
 								</td>
 							</tr>
 							<tr>
 								<td>4</td>
 								<td>(4, 3, 2, 1)</td>
 								<td>
-									<TestInput show={show} answer='0' />
+									<TestInput num={3} answer='0' />
 								</td>
 							</tr>
 							<tr>
 								<td>6</td>
 								<td>(5, 4, 1, 5, 6, 8)</td>
 								<td>
-									<TestInput show={show} answer='2' />
+									<TestInput num={4} answer='2' />
 								</td>
 							</tr>
 							<tr>
 								<td>6</td>
 								<td>(8, 4, 9, 6, 5, 7)</td>
 								<td>
-									<TestInput show={show} answer='3' />
+									<TestInput num={5} answer='3' />
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div className='w-full flex justify-center pt-2'>
-					<AnswerBtn show={show} setShow={setShow} />
+					<AnswerBtn />
 				</div>
-			</Task>
-			<Task title='1.2' show pkt={4}>
+			</TestProvider>
+			<TestProvider taskNum={1.2} pkt={4}>
 				Zapisz w pseudojęzyku lub wybranym języku programowania algorytm, który
 				dla danego ciągu n dodatnich liczb całkowitych zapisanego w tablicy A
 				obliczy najmniejszą liczbę elementów, które trzeba w nim podmienić, aby
@@ -122,7 +124,7 @@ const Algorytm = () => {
 						'def func(n, A):\n\treturn(n)\n\nprint(func(4, [1, 4, 2, 5]))\nprint(func(6, [5, 4, 1, 5, 6, 8]))\nprint(func(5, [2, 2, 2, 2, 2]))'
 					}
 				</PythonCompilerText>
-			</Task> */}
+			</TestProvider>
 		</>
 	);
 };

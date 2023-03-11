@@ -1,7 +1,8 @@
 import _ from 'lodash';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { TiTick, TiTimes } from 'react-icons/ti';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Store } from '../redux';
 import { answearSlice } from '../redux/slices/answers';
 import { Formula, usePathElements } from '../redux/slices/path';
 
@@ -15,6 +16,7 @@ interface Context {
 	setValues: React.Dispatch<React.SetStateAction<Answers>>;
 	taskNum: number;
 }
+
 const context = createContext<Context>({
 	show: false,
 	setShow: () => {},
@@ -22,6 +24,10 @@ const context = createContext<Context>({
 	setValues: () => {},
 	taskNum: 0,
 });
+
+export const useTestContext = () => {
+	return useContext(context);
+};
 
 interface props {
 	taskNum: number;
@@ -36,8 +42,22 @@ export const TestProvider: React.FC<React.PropsWithChildren<props>> = ({
 	pkt = 0,
 	children,
 }) => {
+	const path = [...usePathElements()].map((el) => el.replace('/', ''));
+	path.shift();
+
+	//Importing existing answers from redux
+	let startingAnswers = {};
+	const answers = useSelector((state: Store) => state.answers);
+	const correctTest = answers.find(
+		(el) => el.formula === path[0] && el.date === path[1]
+	);
+	if (correctTest && correctTest.answers[taskNum]) {
+		startingAnswers = correctTest.answers[taskNum];
+	}
+
 	const [show, setShow] = useState(false);
-	const [values, setValues] = useState({});
+	const [values, setValues] = useState(startingAnswers);
+
 	return (
 		<div className='p-3 bg-white rounded-lg my-7 shadow-md shadow-neutral-500'>
 			<h1 className='bg-2015 text-black font-bold pl-1'>
@@ -76,7 +96,6 @@ export const AnswerBtn: React.FC = () => {
 				className='btn btn-secondary bg-base-100'
 				onClick={() => {
 					setShow(false);
-					console.log(values);
 				}}>
 				SPRÓBUJ PONOWNIE
 			</button>
