@@ -1,11 +1,12 @@
 import _ from 'lodash';
 import { Formula } from './path';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Answers } from '../../components/testComps';
 
 interface matura {
 	date: string;
 	formula: Formula;
-	answers: { [keys: number]: { [keys: number]: string | number | boolean } };
+	answers: Answers;
 }
 
 export const answearSlice = createSlice({

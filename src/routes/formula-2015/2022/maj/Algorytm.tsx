@@ -1,5 +1,4 @@
 import PythonCompilerText from '../../../../components/PythonCompiler/PythonCompilerText';
-import Task from '../../../../components/Task';
 import { AnswerBtn, TestInput } from '../../../../components/testComps';
 import Tab from '../../../../components/Tab';
 import Def from '../../../../components/Def';
@@ -9,7 +8,7 @@ const Algorytm = () => {
 	const [show, setShow] = useState(false);
 	return (
 		<>
-			<Task title='1. n-permutacja'>
+			{/* <Task title='1. n-permutacja'>
 				Dla dodatniej liczby całkowitej n, n-permutacją nazywamy taki
 				n-elementowy ciąg liczb całkowitych, który zawiera każdą z liczb 1, 2,
 				…, n dokładnie jeden raz. <br />
@@ -123,7 +122,7 @@ const Algorytm = () => {
 						'def func(n, A):\n\treturn(n)\n\nprint(func(4, [1, 4, 2, 5]))\nprint(func(6, [5, 4, 1, 5, 6, 8]))\nprint(func(5, [2, 2, 2, 2, 2]))'
 					}
 				</PythonCompilerText>
-			</Task>
+			</Task> */}
 		</>
 	);
 };

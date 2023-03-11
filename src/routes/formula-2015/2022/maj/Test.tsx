@@ -1,18 +1,14 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux/es/exports';
 import Tab from '../../../../components/Tab';
-import Task from '../../../../components/Task';
 import {
 	TestInput,
+	TestProvider,
 	AnswerBtn,
 	TestRadio,
 } from '../../../../components/testComps';
 import { answearSlice } from '../../../../redux/slices/answers';
-import {
-	Formula,
-	pathSlice,
-	usePathElements,
-} from '../../../../redux/slices/path';
+import { Formula, usePathElements } from '../../../../redux/slices/path';
 
 const Test = () => {
 	const [show1, setShow1] = useState(false);
@@ -26,20 +22,19 @@ const Test = () => {
 
 	return (
 		<>
-			<button
-				className='bg-red-500'
-				onClick={() => {
-					dispatch(
-						changeAns({
-							answers: { 3.1: { 1: true, 2: false, 3: true, 4: false } },
-							formula: path[0] as Formula,
-							date: path[1],
-						})
-					);
-				}}>
-				TEST
-			</button>
-			<Task title='3. Test'>
+			<TestProvider taskNum={3} title='Test'>
+				<TestInput num={1} answer='20' />
+				<AnswerBtn />
+			</TestProvider>
+			<TestProvider taskNum={3.1} pkt={2}>
+				<TestInput num={1} answer='40' />
+				<TestRadio num={2} positive>
+					Hello
+				</TestRadio>
+				<TestRadio num={3} />
+				<AnswerBtn />
+			</TestProvider>
+			{/* <Task title='3. Test'>
 				Oceń prawdziwość podanych zdań. Zaznacz <b>P</b>, jeśli zdanie jest
 				prawdziwe, albo <b>F</b> - jeśli jest fałszywe. W każdym zadaniu punkt
 				uzyskasz tylko za komplet poprawnych odpowiedzi.
@@ -67,36 +62,28 @@ const Test = () => {
 									<b>1.</b>
 								</td>
 								<td className='text-left'>liniowa.</td>
-								<td>
-									<TestRadio show={show1} />
-								</td>
+								<td><TestRadio show={show1} /></td>
 							</tr>
 							<tr>
 								<td>
 									<b>2.</b>
 								</td>
 								<td className='text-left'>kwadratowa.</td>
-								<td>
-									<TestRadio show={show1} positive />
-								</td>
+								<td><TestRadio show={show1} positive /></td>
 							</tr>
 							<tr>
 								<td>
 									<b>3.</b>
 								</td>
 								<td className='text-left'>n log n.</td>
-								<td>
-									<TestRadio show={show1} />
-								</td>
+								<td><TestRadio show={show1} /></td>
 							</tr>
 							<tr>
 								<td>
 									<b>4.</b>
 								</td>
 								<td className='text-left'>nie większa niż sześcienna.</td>
-								<td>
-									<TestRadio show={show1} positive />
-								</td>
+								<td><TestRadio show={show1} positive /></td>
 							</tr>
 						</tbody>
 					</table>
@@ -118,9 +105,7 @@ const Test = () => {
 								<td className='text-left'>
 									1111011<sub>2</sub>
 								</td>
-								<td>
-									<TestRadio show={show2} positive />
-								</td>
+								<td><TestRadio show={show2} positive /></td>
 							</tr>
 							<tr>
 								<td>
@@ -129,9 +114,7 @@ const Test = () => {
 								<td className='text-left'>
 									362<sub>8</sub>
 								</td>
-								<td>
-									<TestRadio show={show2} positive />
-								</td>
+								<td><TestRadio show={show2} positive /></td>
 							</tr>
 							<tr>
 								<td>
@@ -140,9 +123,7 @@ const Test = () => {
 								<td className='text-left'>
 									F3<sub>16</sub>
 								</td>
-								<td>
-									<TestRadio show={show2} />
-								</td>
+								<td><TestRadio show={show2} /></td>
 							</tr>
 							<tr>
 								<td>
@@ -151,9 +132,7 @@ const Test = () => {
 								<td className='text-left'>
 									3303<sub>4</sub>
 								</td>
-								<td>
-									<TestRadio show={show2} />
-								</td>
+								<td><TestRadio show={show2} /></td>
 							</tr>
 						</tbody>
 					</table>
@@ -229,9 +208,7 @@ const Test = () => {
 										1 14 <br /> 2 20 <br /> 3 21
 									</div>
 								</td>
-								<td>
-									<TestRadio show={show3} />
-								</td>
+								<td><TestRadio show={show3} /></td>
 							</tr>
 							<tr>
 								<td>
@@ -250,9 +227,7 @@ const Test = () => {
 										1 21 <br /> 2 21 <br /> 3 21
 									</div>
 								</td>
-								<td>
-									<TestRadio show={show3} positive />
-								</td>
+								<td><TestRadio show={show3} positive /></td>
 							</tr>
 							<tr className='text-left'>
 								<td>
@@ -268,9 +243,7 @@ const Test = () => {
 									jest
 									<div className='pl-4'>86</div>
 								</td>
-								<td>
-									<TestRadio show={show3} />
-								</td>
+								<td><TestRadio show={show3} /></td>
 							</tr>
 							<tr>
 								<td>
@@ -287,9 +260,7 @@ const Test = () => {
 									jest
 									<div className='pl-4'>1</div>
 								</td>
-								<td>
-									<TestRadio show={show3} positive />
-								</td>
+								<td><TestRadio show={show3} positive /></td>
 							</tr>
 						</tbody>
 					</table>
@@ -297,7 +268,7 @@ const Test = () => {
 				<div className='w-full flex justify-center pt-2'>
 					<AnswerBtn show={show3} setShow={setShow3} />
 				</div>
-			</Task>
+			</Task> */}
 		</>
 	);
 };
