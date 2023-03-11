@@ -119,7 +119,10 @@ const Algorytm = () => {
 						</Def>
 					</Tab>
 				</Tab>
-				<PythonCompilerText setResult={() => {}}>
+				<PythonCompilerText
+					setResult={(e) => {
+						console.log(e.toString() === '4\n6\n5\n');
+					}}>
 					{
 						'def func(n, A):\n\treturn(n)\n\nprint(func(4, [1, 4, 2, 5]))\nprint(func(6, [5, 4, 1, 5, 6, 8]))\nprint(func(5, [2, 2, 2, 2, 2]))'
 					}
