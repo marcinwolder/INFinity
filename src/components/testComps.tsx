@@ -101,8 +101,7 @@ export const AnswerBtn: React.FC = () => {
 };
 
 export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
-	const { show, setValues, taskNum, values } = useContext(context);
-	// const [value, setValue] = useState('');
+	const { show, setValues, values } = useContext(context);
 	const value = values[num] as string | number;
 	return (
 		<div className='w-20 mx-auto rounded-md'>
@@ -112,10 +111,7 @@ export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
 					{value === answer ? (
 						<TiTick className='text-green-500 text-xl' />
 					) : (
-						<>
-							<TiTimes className='text-red-500 text-xl' />{' '}
-							<p className='underline underline-offset-2'>({answer})</p>
-						</>
+						<TiTimes className='text-red-500 text-xl' />
 					)}
 				</div>
 			) : (
@@ -129,8 +125,6 @@ export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
 						if (input === '') {
 							setValues((v) => _.omit(v, num));
 						} else setValues((v) => ({ ...v, [num]: input }));
-						// setValue(input);
-						console.log(values);
 					}}
 				/>
 			)}
@@ -140,9 +134,9 @@ export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
 
 export const TestRadio: React.FC<
 	React.PropsWithChildren<radioProps & TaskId>
-> = ({ positive = false, children }) => {
-	const { show } = useContext(context);
-	const [checked, setChecked] = useState(false);
+> = ({ positive = false, children, num }) => {
+	const { show, setValues, values } = useContext(context);
+	const checked = values[num] === true;
 	const color = checked == positive ? 'text-green-500' : 'text-red-500';
 	return show ? (
 		<div className='flex gap-2 items-center justify-center'>
@@ -168,8 +162,13 @@ export const TestRadio: React.FC<
 				<input
 					type='checkbox'
 					className='border-0'
-					checked={checked}
-					onChange={() => setChecked((v) => !v)}
+					checked={values[num] === true}
+					onChange={() => {
+						const input = !checked;
+						if (input === false) {
+							setValues((v) => _.omit(v, num));
+						} else setValues((v) => ({ ...v, [num]: input }));
+					}}
 				/>
 				<div className='swap-on flex items-center justify-center gap-2'>
 					Prawda
