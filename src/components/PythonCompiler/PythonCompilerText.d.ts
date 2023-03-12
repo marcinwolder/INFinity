@@ -1,6 +1,7 @@
 import React from 'react';
 export default React.Component<
 	React.PropsWithChildren<{
-		setResult: React.Dispatch<React.SetStateAction<string>>;
+		setResult: (result: string, repl: string) => void;
+		syncFunc: (replRef: React.MutableRefObject<HTMLDivElement>) => void;
 	}>
 >;

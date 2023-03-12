@@ -3,7 +3,8 @@ import {
 	AnswerBtn,
 	TestInput,
 	TestProvider,
-} from '../../../../components/testComps';
+	TestPythonText,
+} from '../../../../context/testContext';
 import Tab from '../../../../components/Tab';
 import Def from '../../../../components/Def';
 
@@ -119,14 +120,12 @@ const Algorytm = () => {
 						</Def>
 					</Tab>
 				</Tab>
-				<PythonCompilerText
-					setResult={(e) => {
-						console.log(e.toString() === '4\n6\n5\n');
-					}}>
+				<TestPythonText answer={'4\n6\n5\n'} num={1}>
 					{
 						'def func(n, A):\n\treturn(n)\n\nprint(func(4, [1, 4, 2, 5]))\nprint(func(6, [5, 4, 1, 5, 6, 8]))\nprint(func(5, [2, 2, 2, 2, 2]))'
 					}
-				</PythonCompilerText>
+				</TestPythonText>
+				<AnswerBtn />
 			</TestProvider>
 		</>
 	);

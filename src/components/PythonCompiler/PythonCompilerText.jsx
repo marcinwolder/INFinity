@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { VscRunAll } from 'react-icons/vsc';
 import { GoPlus } from 'react-icons/go';
-import { ImBin } from 'react-icons/im';
+import { ImBin, ImCloudDownload } from 'react-icons/im';
 
-const PythonCompilerText = ({ setResult, children }) => {
+const PythonCompilerText = ({ setResult, syncFunc, children }) => {
 	const [show, setShow] = useState(true);
 	const terminalRef = useRef();
 	const replRef = useRef();
@@ -26,10 +26,17 @@ const PythonCompilerText = ({ setResult, children }) => {
 				<button
 					className='z-10 absolute flex items-center gap-1 right-2 top-2 bg-black pl-2 text-white hover:text-green-400 active:text-green-600'
 					onClick={() => {
+						const replContent =
+							replRef.current.children[0].children[1].children[0].children[1]
+								.children[1].innerHTML;
 						const btn = replRef.current.children[0].children[1].children[2];
 						terminalRef.current.children[0].innerText = '';
 						btn.click();
-						setResult(terminalRef.current.children[0].innerText);
+						setResult(
+							terminalRef.current.children[0].innerText,
+							replContent,
+							replRef
+						);
 					}}>
 					RUN <VscRunAll />
 				</button>
@@ -41,7 +48,12 @@ const PythonCompilerText = ({ setResult, children }) => {
 					CLEAR <ImBin />
 				</button>
 				<button
-					className='z-10 absolute flex items-center gap-1 right-2 top-16 bg-black pl-2 text-white hover:text-sky-400 active:text-sky-600'
+					className='z-10 absolute flex items-center gap-1 right-2 top-16 bg-black pl-2 text-white hover:text-yellow-600 active:text-yellow-800'
+					onClick={() => syncFunc(replRef)}>
+					SYNC <ImCloudDownload />
+				</button>
+				<button
+					className='z-10 absolute flex items-center gap-1 right-2 bottom-2 bg-black pl-2 text-white hover:text-sky-400 active:text-sky-600'
 					onClick={() => {
 						setShow((show) => !show);
 					}}>

@@ -1,7 +1,9 @@
 import _ from 'lodash';
+import React from 'react';
 import { createContext, useContext, useState, useEffect } from 'react';
 import { TiTick, TiTimes } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';
+import PythonCompilerText from '../components/PythonCompiler/PythonCompilerText';
 import { Store } from '../redux';
 import { answearSlice } from '../redux/slices/answers';
 import { Formula, usePathElements } from '../redux/slices/path';
@@ -197,5 +199,28 @@ export const TestRadio: React.FC<
 				</div>
 			</label>
 		</div>
+	);
+};
+
+export const TestPythonText: React.FC<
+	React.PropsWithChildren<TaskId & { answer: string }>
+> = ({ children, num, answer }) => {
+	const { show, setValues, values } = useContext(context);
+	return (
+		<PythonCompilerText
+			syncFunc={(replRef) => {
+				const eoooooo =
+					replRef.current.children[0].children[1].children[0].children[1]
+						.children[1];
+				eoooooo.innerHTML = values[num] as string;
+			}}
+			setResult={(result, repl) => {
+				if (repl === '') {
+					setValues((v) => _.omit(v, num));
+				} else setValues((v) => ({ ...v, [num]: repl }));
+				console.log(result.toString() === answer);
+			}}>
+			{children}
+		</PythonCompilerText>
 	);
 };

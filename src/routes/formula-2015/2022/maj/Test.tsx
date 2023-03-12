@@ -3,7 +3,7 @@ import {
 	AnswerBtn,
 	TestRadio,
 	TestProvider,
-} from '../../../../components/testComps';
+} from '../../../../context/testContext';
 import { usePathElements } from '../../../../redux/slices/path';
 
 const Test = () => {

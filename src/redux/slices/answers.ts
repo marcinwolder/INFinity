@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Formula } from './path';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Answers } from '../../components/testComps';
+import { Answers } from '../../context/testContext';
 
 interface matura {
 	date: string;
