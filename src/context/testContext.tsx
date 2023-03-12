@@ -86,7 +86,7 @@ interface radioProps {
 	positive?: boolean;
 }
 
-export const AnswerBtn: React.FC = () => {
+export const _AnswerBtn: React.FC = () => {
 	const dispatch = useDispatch();
 	const path = [...usePathElements()].map((el) => el.replace('/', ''));
 	path.shift();
@@ -119,6 +119,14 @@ export const AnswerBtn: React.FC = () => {
 				SPRAWDŹ ODPOWIEDZI
 			</button>
 		);
+};
+
+export const AnswerBtn: React.FC = () => {
+	return (
+		<div className='w-full flex justify-center pt-2'>
+			<_AnswerBtn />
+		</div>
+	);
 };
 
 export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
@@ -206,21 +214,36 @@ export const TestPythonText: React.FC<
 	React.PropsWithChildren<TaskId & { answer: string }>
 > = ({ children, num, answer }) => {
 	const { show, setValues, values } = useContext(context);
+	const [result, setResult] = useState(Boolean);
 	return (
-		<PythonCompilerText
-			syncFunc={(replRef) => {
-				const eoooooo =
-					replRef.current.children[0].children[1].children[0].children[1]
-						.children[1];
-				eoooooo.innerHTML = values[num] as string;
-			}}
-			setResult={(result, repl) => {
-				if (repl === '') {
-					setValues((v) => _.omit(v, num));
-				} else setValues((v) => ({ ...v, [num]: repl }));
-				console.log(result.toString() === answer);
-			}}>
-			{children}
-		</PythonCompilerText>
+		<>
+			<PythonCompilerText
+				disabled={show}
+				syncFunc={(replRef) => {
+					if (values[num])
+						replRef.current.children[0].children[1].children[0].children[1].children[1].innerHTML =
+							values[num] as string;
+				}}
+				setResult={(result, repl) => {
+					if (repl === '') {
+						setValues((v) => _.omit(v, num));
+					} else setValues((v) => ({ ...v, [num]: repl }));
+					setResult(result.toString() === answer);
+				}}>
+				{children}
+			</PythonCompilerText>
+			{show && (
+				<div className='mx-auto w-1/2 bg-base-100 my-2 p-2 rounded text-base-content'>
+					{result ? (
+						<>
+							{'Odpowiedź '}
+							<u>POPRAWNA!</u>
+						</>
+					) : (
+						'ZŁA ODP'
+					)}
+				</div>
+			)}
+		</>
 	);
 };

@@ -84,9 +84,7 @@ const Algorytm = () => {
 						</tbody>
 					</table>
 				</div>
-				<div className='w-full flex justify-center pt-2'>
-					<AnswerBtn />
-				</div>
+				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={1.2} pkt={4}>
 				Zapisz w pseudojęzyku lub wybranym języku programowania algorytm, który

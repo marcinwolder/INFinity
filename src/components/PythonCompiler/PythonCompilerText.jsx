@@ -1,9 +1,10 @@
+import classNames from 'classnames';
 import { useState, useRef, useEffect } from 'react';
 import { VscRunAll } from 'react-icons/vsc';
 import { GoPlus } from 'react-icons/go';
 import { ImBin, ImCloudDownload } from 'react-icons/im';
 
-const PythonCompilerText = ({ setResult, syncFunc, children }) => {
+const PythonCompilerText = ({ setResult, syncFunc, children, disabled }) => {
 	const [show, setShow] = useState(true);
 	const terminalRef = useRef();
 	const replRef = useRef();
@@ -24,7 +25,12 @@ const PythonCompilerText = ({ setResult, syncFunc, children }) => {
 				ref={terminalDivRef}
 				className={`relative ${show && 'h-40 overflow-y-hidden'}`}>
 				<button
-					className='z-10 absolute flex items-center gap-1 right-2 top-2 bg-black pl-2 text-white hover:text-green-400 active:text-green-600'
+					disabled={disabled}
+					className={classNames(
+						'z-10 absolute flex items-center gap-1 right-2 top-2 bg-black pl-2 text-white',
+						{ 'hover:text-green-400 active:text-green-600': !disabled },
+						{ 'text-neutral-500': disabled }
+					)}
 					onClick={() => {
 						const replContent =
 							replRef.current.children[0].children[1].children[0].children[1]
@@ -41,19 +47,34 @@ const PythonCompilerText = ({ setResult, syncFunc, children }) => {
 					RUN <VscRunAll />
 				</button>
 				<button
-					className='z-10 absolute flex items-center gap-1 right-2 top-9 bg-black pl-2 text-white hover:text-red-400 active:text-red-600'
+					disabled={disabled}
+					className={classNames(
+						'z-10 absolute flex items-center gap-1 right-2 top-9 bg-black pl-2 text-white',
+						{ 'hover:text-red-400 active:text-red-600': !disabled },
+						{ 'text-neutral-500': disabled }
+					)}
 					onClick={() => {
 						terminalRef.current.children[0].innerText = '';
 					}}>
 					CLEAR <ImBin />
 				</button>
 				<button
-					className='z-10 absolute flex items-center gap-1 right-2 top-16 bg-black pl-2 text-white hover:text-yellow-600 active:text-yellow-800'
+					disabled={disabled}
+					className={classNames(
+						'z-10 absolute flex items-center gap-1 right-2 top-16 bg-black pl-2 text-white',
+						{ 'hover:text-yellow-600 active:text-yellow-800': !disabled },
+						{ 'text-neutral-500': disabled }
+					)}
 					onClick={() => syncFunc(replRef)}>
-					SYNC <ImCloudDownload />
+					SYNC CODE <ImCloudDownload />
 				</button>
 				<button
-					className='z-10 absolute flex items-center gap-1 right-2 bottom-2 bg-black pl-2 text-white hover:text-sky-400 active:text-sky-600'
+					disabled={disabled}
+					className={classNames(
+						'z-10 absolute flex items-center gap-1 right-2 bottom-2 bg-black pl-2 text-white',
+						{ 'hover:text-sky-400 active:text-sky-600': !disabled },
+						{ 'text-neutral-500': disabled }
+					)}
 					onClick={() => {
 						setShow((show) => !show);
 					}}>
