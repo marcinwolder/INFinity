@@ -1,8 +1,4 @@
-<img src="./img/logo.png" width="200"></b>
-
-Project that helps high school graduates solve previous years' exams
-
-<br/>
+<p><img align="left" src="./img/logo.png" width="200"> <p align="left"><h2>Project that helps high school graduates solve previous years' exams</h2></p> </p>
  
 ---
 
@@ -16,8 +12,6 @@ Project that helps high school graduates solve previous years' exams
 - <p style="display: flex; gap: .5em; ">Tailwind <img src="https://tailwindcss.com/_next/static/media/tailwindcss-mark.79614a5f61617ba49a0891494521226b.svg" width="20"></p>
 - <p style="display: flex; gap: .5em; ">DaisyUI <img src="https://raw.githubusercontent.com/saadeghi/files/main/daisyui/logo-4.svg" width="20"></p>
 
-<br/>
-
 ---
 
 ## Demo:
@@ -28,8 +22,6 @@ Project that helps high school graduates solve previous years' exams
   <img src="./img/screen2.png"></b>
 - <b>There are also tasks that require writing a script in Python
   <img src="./img/screen3.png"> </b>
-
-<br/>
 
 ---
 
