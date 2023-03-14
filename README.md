@@ -16,7 +16,7 @@
 
 ## LIVE Demo:
 
-[INFormator](https://inf-ormator.vercel.app/)
+[INFormator](https://inf-ormator.vercel.app/) - Preview only in (Formula-2015 / Maj 2022) exam
 
 ---
 
