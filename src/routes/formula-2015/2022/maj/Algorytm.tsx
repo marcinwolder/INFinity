@@ -7,6 +7,7 @@ import {
 } from '../../../../context/testContext';
 import Tab from '../../../../components/Tab';
 import Def from '../../../../components/Def';
+import Table from '../../../../components/Table';
 
 const Algorytm = () => {
 	return (
@@ -31,59 +32,57 @@ const Algorytm = () => {
 				Uzupełnij poniższą tabelę - dla każdego z podanych ciągów podaj
 				najmniejszą liczbę elementów, które trzeba podmienić, aby dany ciąg był
 				n-permutacją. Jeśli ciąg jest już n-permutacją, wpisz 0.
-				<div className='relative text-primary-content px-0 overflow-x-auto md:px-8 pt-2'>
-					<table className='table table-compact w-full text-center'>
-						<thead>
-							<tr>
-								<th>n</th>
-								<th>ciąg</th>
-								<th>liczba elementów do podmiany</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>3</td>
-								<td>(1, 3, 1)</td>
-								<td>1</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>(1, 4, 2, 5)</td>
-								<td>
-									<TestInput num={1} answer='1' />
-								</td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>(2, 2, 2, 2, 2)</td>
-								<td>
-									<TestInput num={2} answer='4' />
-								</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>(4, 3, 2, 1)</td>
-								<td>
-									<TestInput num={3} answer='0' />
-								</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>(5, 4, 1, 5, 6, 8)</td>
-								<td>
-									<TestInput num={4} answer='2' />
-								</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>(8, 4, 9, 6, 5, 7)</td>
-								<td>
-									<TestInput num={5} answer='3' />
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<Table>
+					<thead>
+						<tr>
+							<th>n</th>
+							<th>ciąg</th>
+							<th>liczba elementów do podmiany</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>3</td>
+							<td>(1, 3, 1)</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>(1, 4, 2, 5)</td>
+							<td>
+								<TestInput num={1} answer='1' />
+							</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>(2, 2, 2, 2, 2)</td>
+							<td>
+								<TestInput num={2} answer='4' />
+							</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>(4, 3, 2, 1)</td>
+							<td>
+								<TestInput num={3} answer='0' />
+							</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>(5, 4, 1, 5, 6, 8)</td>
+							<td>
+								<TestInput num={4} answer='2' />
+							</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>(8, 4, 9, 6, 5, 7)</td>
+							<td>
+								<TestInput num={5} answer='3' />
+							</td>
+						</tr>
+					</tbody>
+				</Table>
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={1.2} pkt={4}>
@@ -120,7 +119,7 @@ const Algorytm = () => {
 				</Tab>
 				<TestPythonText answer={'4\n6\n5\n'} num={1}>
 					{
-						'def func(n, A):\n\treturn(n)\n\nprint(func(4, [1, 4, 2, 5]))\nprint(func(6, [5, 4, 1, 5, 6, 8]))\nprint(func(5, [2, 2, 2, 2, 2]))'
+						'def func(n, A):\n    return(n)\n\nprint(func(4, [1, 4, 2, 5]))\nprint(func(6, [5, 4, 1, 5, 6, 8]))\nprint(func(5, [2, 2, 2, 2, 2]))'
 					}
 				</TestPythonText>
 				<AnswerBtn />

@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Algorytm from './Algorytm';
+import Analiza from './Analiza';
 import Test from './Test';
 
 const Part1 = () => {
 	const [tab, setTab] = useState(0);
 
-	const tabs = [<Algorytm />, <></>, <Test />];
+	const tabs = [<Algorytm />, <Analiza />, <Test />];
 	return (
 		<>
 			<div className='mb-2 tabs bg-base-100 tabs-boxed justify-center'>

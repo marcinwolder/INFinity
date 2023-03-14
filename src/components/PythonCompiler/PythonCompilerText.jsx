@@ -3,28 +3,43 @@ import { useState, useRef, useEffect } from 'react';
 import { VscRunAll } from 'react-icons/vsc';
 import { GoPlus } from 'react-icons/go';
 import { ImBin, ImCloudDownload } from 'react-icons/im';
+import { BiLoaderAlt } from 'react-icons/bi';
 
 const PythonCompilerText = ({ setResult, syncFunc, children, disabled }) => {
 	const [show, setShow] = useState(true);
 	const terminalRef = useRef();
 	const replRef = useRef();
 	const terminalDivRef = useRef();
+	const syncBtn = useRef();
+	const runBtn = useRef();
+	const loaderDiv = useRef();
 	useEffect(() => {
 		setTimeout(() => {
 			const btn = replRef.current.children[0].children[1].children[2];
 			btn.classList.add('invisible');
+			syncBtn.current.click();
+			runBtn.current.click();
+			loaderDiv.current.remove();
 		}, 3000);
 	}, []);
 	return (
 		<div>
 			<div id='output' className='invisible h-0'></div>
-			<py-repl ref={replRef} output='output'>
-				{children}
-			</py-repl>
+			<div className='relative'>
+				<div
+					ref={loaderDiv}
+					className='absolute bg-neutral-700 opacity-70 z-10 w-full h-full flex items-center justify-center'>
+					<BiLoaderAlt className='text-6xl animate-spin' />
+				</div>
+				<py-repl ref={replRef} output='output'>
+					{children}
+				</py-repl>
+			</div>
 			<div
 				ref={terminalDivRef}
 				className={`relative ${show && 'h-40 overflow-y-hidden'}`}>
 				<button
+					ref={runBtn}
 					disabled={disabled}
 					className={classNames(
 						'z-10 absolute flex items-center gap-1 right-2 top-2 bg-black pl-2 text-white',
@@ -59,6 +74,7 @@ const PythonCompilerText = ({ setResult, syncFunc, children, disabled }) => {
 					CLEAR <ImBin />
 				</button>
 				<button
+					ref={syncBtn}
 					disabled={disabled}
 					className={classNames(
 						'z-10 absolute flex items-center gap-1 right-2 top-16 bg-black pl-2 text-white',

@@ -67,7 +67,7 @@ export const TestProvider: React.FC<React.PropsWithChildren<props>> = ({
 				{title.length > 1 && `. ${title}`}
 				{pkt > 0 && `. (0-${pkt})`}
 			</h1>
-			<div className='text-black'>
+			<div className='text-black px-1'>
 				<context.Provider value={{ show, setShow, values, setValues, taskNum }}>
 					{children}
 				</context.Provider>
@@ -80,7 +80,7 @@ interface TaskId {
 	num: number;
 }
 interface testProps {
-	answer: string;
+	answer: string | ((ans: string) => boolean);
 }
 interface radioProps {
 	positive?: boolean;
@@ -131,21 +131,28 @@ export const AnswerBtn: React.FC = () => {
 
 export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
 	const { show, setValues, values } = useContext(context);
-	const value = values[num] as string | number;
+	const value = values[num] as string;
+	let compare;
+	if (typeof answer === 'string') compare = (str: string) => str === answer;
+	else
+		compare = (str: string) => {
+			if (!str) return false;
+			return answer(str.toLowerCase());
+		};
 	return (
-		<div className='w-20 mx-auto rounded-md'>
+		<div className='w-full mx-auto rounded-md'>
 			{show ? (
-				<div className='py-0.5 w-full flex gap-2 items-center justify-center'>
+				<div className='w-full flex gap-2 items-center justify-center'>
 					{value || '--'}
-					{value === answer ? (
-						<TiTick className='text-green-500 text-xl' />
+					{compare(value) ? (
+						<TiTick className='text-success text-xl' />
 					) : (
-						<TiTimes className='text-red-500 text-xl' />
+						<TiTimes className='text-error text-xl' />
 					)}
 				</div>
 			) : (
 				<input
-					className='px-2 w-full input input-ghost input-xs'
+					className='px-2 py-0 w-full input input-ghost input-sm h-5 text-center'
 					type='text'
 					placeholder='odp.:'
 					value={value || ''}
@@ -166,7 +173,7 @@ export const TestRadio: React.FC<
 > = ({ positive = false, children, num }) => {
 	const { show, setValues, values } = useContext(context);
 	const checked = values[num] === true;
-	const color = checked == positive ? 'text-green-500' : 'text-red-500';
+	const color = checked == positive ? 'text-success' : 'text-error';
 	return show ? (
 		<div className='flex gap-2 items-center justify-center'>
 			{children}
@@ -233,14 +240,17 @@ export const TestPythonText: React.FC<
 				{children}
 			</PythonCompilerText>
 			{show && (
-				<div className='mx-auto w-1/2 bg-base-100 my-2 p-2 rounded text-base-content'>
+				<div className='mx-auto w-56 text-center my-2'>
 					{result ? (
-						<>
+						<div className='bg-success text-success-content p-2 rounded'>
 							{'Odpowiedź '}
 							<u>POPRAWNA!</u>
-						</>
+						</div>
 					) : (
-						'ZŁA ODP'
+						<div className='bg-error text-error-content p-2 rounded'>
+							{'Odpowiedź '}
+							<u>NIEPOPRAWNA!</u>
+						</div>
 					)}
 				</div>
 			)}
