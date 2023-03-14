@@ -14,6 +14,12 @@
 
 ---
 
+## LIVE Demo:
+
+[INFormator](https://inf-ormator.vercel.app/)
+
+---
+
 ## Demo:
 
 - <b>App contains exam tasks that can be solved in the browser
