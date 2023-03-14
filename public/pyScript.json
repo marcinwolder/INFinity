@@ -1,7 +1,7 @@
 {
 	"fetch": [
 		{
-			"from": "/src/routes/formula-2015/2022/maj",
+			"from": "./formula-2015/2022/maj",
 			"files": ["/liczby.txt", "/przyklad.txt"],
 			"to_folder": "formula-2015/2022/maj"
 		}
