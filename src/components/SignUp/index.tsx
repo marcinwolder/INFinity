@@ -7,11 +7,14 @@ import { modalSlice } from '../../redux/slices/modal';
 import { StateStore } from '../../redux';
 import { ToastContainer, toast } from 'react-toastify';
 import passwordValidator from 'password-validator';
+import { firebaseAuth } from '../../firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
 	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [cPassword, setCPassword] = useState('');
 
@@ -34,13 +37,32 @@ const SignUp = () => {
 		.spaces();
 
 	const onSignUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		if (password !== cPassword) toast('Hasła muszą być takie same!');
+		const passErrors = passwordSchema.validate(password, {
+			details: true,
+		});
 		if (!password || !cPassword || !username)
 			toast('Uzupełnij wszystkie pola!');
-		for (let error of passwordSchema.validate(password, { details: true }) as {
-			message: string;
-		}[]) {
-			toast(error.message);
+		else if (password !== cPassword) toast('Hasła muszą być takie same!');
+		else if (!passwordSchema.validate(password)) {
+			for (let error of passErrors as {
+				message: string;
+			}[]) {
+				toast(error.message);
+			}
+		} else {
+			createUserWithEmailAndPassword(firebaseAuth, email, password)
+				.then((userCredential) => {
+					// Signed in
+					const user = userCredential.user;
+					console.log(user);
+					// ...
+				})
+				.catch((error) => {
+					const errorCode = error.code;
+					const errorMessage = error.message;
+					console.log(errorMessage);
+					// ..
+				});
 		}
 	};
 	const onClickOutsideModal = (e: MouseEvent) => {
@@ -50,16 +72,13 @@ const SignUp = () => {
 		}
 	};
 
-	const show = useSelector((state: StateStore) => state);
 	const modalRef = useRef<HTMLDivElement>(null);
 	useEffect(() => {
-		console.log('rendered');
 		setTimeout(() => {
 			window.addEventListener('click', onClickOutsideModal);
 		}, 1);
 
 		return () => {
-			console.log('de-rendered');
 			window.removeEventListener('click', onClickOutsideModal);
 		};
 	}, []);
@@ -69,16 +88,16 @@ const SignUp = () => {
 		<div className='absolute inset-0'>
 			<div className='w-full h-full bg-black opacity-40' />
 			<ToastContainer
-				position='top-center'
+				position='top-right'
 				autoClose={3000}
 				closeOnClick
 				theme='dark'
 			/>
 			<div
 				ref={modalRef}
-				className='fixed top-1/2 -translate-y-1/2 sm:left-1/2 sm:-translate-x-1/2 w-full sm:w-1/2 bg-base-100 shadow-lg p-4 flex flex-col items-center'>
+				className='fixed top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2 w-full md:w-1/2 bg-base-100 shadow-lg p-4 flex flex-col items-center'>
 				<h1 className='text-2xl font-bold mb-4'>Rejestracja</h1>
-				<div className='grid sm:grid-cols-2 items-center gap-2 w-full sm:w-max'>
+				<div className='grid md:grid-cols-2 items-center gap-2 w-full md:w-max'>
 					<label className='text-lg' htmlFor='username'>
 						Nazwa użytkownika:
 					</label>
@@ -88,6 +107,16 @@ const SignUp = () => {
 						type='text'
 						onChange={(e) => setUsername(e.target.value)}
 						value={username}
+					/>
+					<label className='text-lg' htmlFor='email'>
+						Email:
+					</label>
+					<input
+						name='email'
+						className='input input-md input-bordered w-full'
+						type='email'
+						onChange={(e) => setEmail(e.target.value)}
+						value={email}
 					/>
 					<label className='text-lg' htmlFor='password'>
 						Hasło:
