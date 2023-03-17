@@ -1,18 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { IoMdClose } from 'react-icons/io';
 import { AiFillGoogleCircle, AiFillFacebook } from 'react-icons/ai';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { modalSlice } from '../../redux/slices/modal';
-import { StateStore } from '../../redux';
 import { ToastContainer, toast } from 'react-toastify';
 import passwordValidator from 'password-validator';
 import { firebaseAuth } from '../../firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+	createUserWithEmailAndPassword,
+	updateProfile,
+	GoogleAuthProvider,
+	useDeviceLanguage,
+	signInWithPopup,
+	signOut,
+} from 'firebase/auth';
 
 import 'react-toastify/dist/ReactToastify.css';
+import classNames from 'classnames';
 
 const SignUp = () => {
+	const [signUpTransition, setTransition] = useState(false);
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -36,34 +43,63 @@ const SignUp = () => {
 		.not()
 		.spaces();
 
-	const onSignUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+	const validate = () => {
 		const passErrors = passwordSchema.validate(password, {
 			details: true,
 		});
-		if (!password || !cPassword || !username)
+		if (!password || !cPassword || !username) {
 			toast('Uzupełnij wszystkie pola!');
-		else if (password !== cPassword) toast('Hasła muszą być takie same!');
-		else if (!passwordSchema.validate(password)) {
-			for (let error of passErrors as {
-				message: string;
-			}[]) {
-				toast(error.message);
-			}
-		} else {
-			createUserWithEmailAndPassword(firebaseAuth, email, password)
-				.then((userCredential) => {
-					// Signed in
-					const user = userCredential.user;
-					console.log(user);
-					// ...
-				})
-				.catch((error) => {
-					const errorCode = error.code;
-					const errorMessage = error.message;
-					console.log(errorMessage);
-					// ..
-				});
+			return false;
 		}
+		if (password !== cPassword) {
+			toast('Hasła muszą być takie same!');
+			return false;
+		}
+		if (!passwordSchema.validate(password)) {
+			{
+				for (let error of passErrors as {
+					message: string;
+				}[]) {
+					toast(error.message);
+				}
+				return false;
+			}
+		}
+		return true;
+	};
+
+	const onSignUp = () => {
+		if (validate()) {
+			setTransition(true);
+			(async () => {
+				try {
+					await createUserWithEmailAndPassword(firebaseAuth, email, password);
+					const user = firebaseAuth;
+					await updateProfile(user.currentUser!, { displayName: username });
+
+					setTransition(false);
+				} catch ({ code }) {
+					const errorCode = code as string;
+					if (errorCode === 'auth/email-already-in-use')
+						toast('Podany adres email został już użyty!');
+
+					setTransition(false);
+				}
+			})();
+		}
+	};
+	const onGoogleSignUp = () => {
+		setTransition(true);
+		const provider = new GoogleAuthProvider();
+		useDeviceLanguage(firebaseAuth);
+		(async () => {
+			try {
+				await signInWithPopup(firebaseAuth, provider);
+				setTransition(false);
+			} catch (error) {
+				setTransition(false);
+			}
+		})();
 	};
 	const onClickOutsideModal = (e: MouseEvent) => {
 		const target = e.target as Node;
@@ -139,14 +175,22 @@ const SignUp = () => {
 						value={cPassword}
 					/>
 				</div>
-				<div
-					onClick={(e) => onSignUp(e)}
-					className='flex items-center gap-2 btn btn-wide btn-primary m-4'>
+				<button
+					disabled={signUpTransition}
+					onClick={() => onSignUp()}
+					className={classNames(
+						'flex items-center gap-2 btn btn-wide btn-primary m-4',
+						{ 'btn-disabled': signUpTransition }
+					)}>
 					Zarejestruj
-				</div>
-				<div className='flex items-center gap-2 btn btn-wide hover:bg-red-600 hover:text-white mt-4'>
+				</button>
+				<button
+					onClick={() => {
+						onGoogleSignUp();
+					}}
+					className='flex items-center gap-2 btn btn-wide hover:bg-red-600 hover:text-white mt-4'>
 					Zarejestruj z Google <AiFillGoogleCircle />
-				</div>
+				</button>
 				<div className='flex items-center gap-2 btn btn-wide hover:bg-blue-700 hover:text-white mt-2'>
 					Zarejestruj z Facebook <AiFillFacebook />
 				</div>

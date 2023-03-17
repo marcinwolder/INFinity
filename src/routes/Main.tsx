@@ -1,5 +1,14 @@
+import { firebaseAuth } from '../firebase';
+
 const Main = () => {
-	return <div>Main Root</div>;
+	return (
+		<button
+			onClick={() => {
+				console.log(firebaseAuth.currentUser);
+			}}>
+			TEST
+		</button>
+	);
 };
 
 export default Main;

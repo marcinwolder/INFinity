@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 import { AiOutlineCode } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
@@ -7,10 +7,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateStore } from '../redux';
 import SignUp from './SignUp';
 import { modalSlice } from '../redux/slices/modal';
+import { firebaseAuth } from '../firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import classNames from 'classnames';
 
 const Navbar: React.FC = () => {
+	useEffect(() => {
+		onAuthStateChanged(firebaseAuth, (user) => {
+			setLoggedIn(user !== null);
+		});
+	}, []);
 	const modalState = useSelector((state: StateStore) => state.modal);
 	const dispatch = useDispatch();
+	const [loggedIn, setLoggedIn] = useState(false);
+
+	const avatarUrl = firebaseAuth.currentUser?.photoURL;
+
 	return (
 		<div className='navbar bg-base-100 gap-2'>
 			<div className='flex-none'>
@@ -44,19 +56,46 @@ const Navbar: React.FC = () => {
 					<span className='text-red-500 mb-0.5'>{'}'}</span>
 				</Link>
 			</div>
-			<div className='btn-group'>
-				<div
-					className='btn'
-					onClick={() => {
-						dispatch(
-							modalSlice.actions.setOpen({ type: 'signUp', value: true })
-						);
-					}}>
-					SIGN UP
+			{loggedIn ? (
+				<>
+					<div className={classNames('avatar', { placeholder: !avatarUrl })}>
+						<div className='bg-neutral-focus text-neutral-content rounded-full w-8'>
+							{avatarUrl ? (
+								<img src={avatarUrl} />
+							) : (
+								<span className='text-3xl'>
+									{firebaseAuth.currentUser?.displayName![0]}
+								</span>
+							)}
+						</div>
+					</div>
+					<button
+						className='btn'
+						onClick={() => {
+							signOut(firebaseAuth);
+							dispatch(
+								modalSlice.actions.setOpen({ type: 'signUp', value: false })
+							);
+						}}>
+						LOGOUT
+					</button>
+				</>
+			) : (
+				<div className='btn-group'>
+					<div
+						className='btn'
+						onClick={() => {
+							dispatch(
+								modalSlice.actions.setOpen({ type: 'signUp', value: true })
+							);
+						}}>
+						SIGN UP
+					</div>
+					<div className='btn'>LOG IN</div>
+					{modalState.signUp && <SignUp />}
 				</div>
-				<div className='btn'>LOG IN</div>
-				{modalState.signUp && <SignUp />}
-			</div>
+			)}
+
 			<div className='flex gap-2'>
 				<button
 					className='rounded-md p-1 h-6 w-6 ease-in-out transition-all flex justify-center items-center'
