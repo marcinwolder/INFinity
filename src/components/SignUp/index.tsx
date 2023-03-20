@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { AiFillGoogleCircle, AiFillFacebook } from 'react-icons/ai';
+import {
+	AiFillGoogleCircle,
+	AiFillFacebook,
+	AiOutlineLoading3Quarters,
+} from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { modalSlice } from '../../redux/slices/modal';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,13 +14,15 @@ import {
 	createUserWithEmailAndPassword,
 	updateProfile,
 	GoogleAuthProvider,
+	FacebookAuthProvider,
 	useDeviceLanguage,
 	signInWithPopup,
-	signOut,
 } from 'firebase/auth';
 
 import 'react-toastify/dist/ReactToastify.css';
 import classNames from 'classnames';
+import Google from '../auth/Google';
+import Facebook from '../auth/Facebook';
 
 const SignUp = () => {
 	const [signUpTransition, setTransition] = useState(false);
@@ -88,19 +94,7 @@ const SignUp = () => {
 			})();
 		}
 	};
-	const onGoogleSignUp = () => {
-		setTransition(true);
-		const provider = new GoogleAuthProvider();
-		useDeviceLanguage(firebaseAuth);
-		(async () => {
-			try {
-				await signInWithPopup(firebaseAuth, provider);
-				setTransition(false);
-			} catch (error) {
-				setTransition(false);
-			}
-		})();
-	};
+
 	const onClickOutsideModal = (e: MouseEvent) => {
 		const target = e.target as Node;
 		if (!modalRef.current?.contains(target)) {
@@ -182,18 +176,14 @@ const SignUp = () => {
 						'flex items-center gap-2 btn btn-wide btn-primary m-4',
 						{ 'btn-disabled': signUpTransition }
 					)}>
-					Zarejestruj
+					{signUpTransition ? (
+						<AiOutlineLoading3Quarters className='animate-spin duration-1000 text-xl' />
+					) : (
+						'Zarejestruj'
+					)}
 				</button>
-				<button
-					onClick={() => {
-						onGoogleSignUp();
-					}}
-					className='flex items-center gap-2 btn btn-wide hover:bg-red-600 hover:text-white mt-4'>
-					Zarejestruj z Google <AiFillGoogleCircle />
-				</button>
-				<div className='flex items-center gap-2 btn btn-wide hover:bg-blue-700 hover:text-white mt-2'>
-					Zarejestruj z Facebook <AiFillFacebook />
-				</div>
+				<Google text='Zarejestruj z Google' setTransition={setTransition} />
+				<Facebook text='Zarejestruj z Facebook' setTransition={setTransition} />
 			</div>
 		</div>,
 		document.getElementById('modal')!

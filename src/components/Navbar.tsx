@@ -10,6 +10,7 @@ import { modalSlice } from '../redux/slices/modal';
 import { firebaseAuth } from '../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import classNames from 'classnames';
+import { FaUser } from 'react-icons/fa';
 
 const Navbar: React.FC = () => {
 	useEffect(() => {
@@ -63,8 +64,10 @@ const Navbar: React.FC = () => {
 							{avatarUrl ? (
 								<img src={avatarUrl} />
 							) : (
-								<span className='text-3xl'>
-									{firebaseAuth.currentUser?.displayName![0]}
+								<span>
+									{firebaseAuth.currentUser?.displayName?.[0].toUpperCase() || (
+										<FaUser className='text-xs' />
+									)}
 								</span>
 							)}
 						</div>
@@ -77,7 +80,7 @@ const Navbar: React.FC = () => {
 								modalSlice.actions.setOpen({ type: 'signUp', value: false })
 							);
 						}}>
-						LOGOUT
+						WYLOGUJ
 					</button>
 				</>
 			) : (
@@ -89,9 +92,9 @@ const Navbar: React.FC = () => {
 								modalSlice.actions.setOpen({ type: 'signUp', value: true })
 							);
 						}}>
-						SIGN UP
+						REJESTRACJA
 					</div>
-					<div className='btn'>LOG IN</div>
+					<div className='btn'>LOGOWANIE</div>
 					{modalState.signUp && <SignUp />}
 				</div>
 			)}
