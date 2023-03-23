@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { TiTick, TiTimes } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';
 import PythonCompilerText from '../components/PythonCompiler/PythonCompilerText';
-import { Store } from '../redux';
+import { StateStore } from '../redux';
 import { answearSlice } from '../redux/slices/answers';
 import { Formula, usePathElements } from '../redux/slices/path';
 
@@ -49,7 +49,7 @@ export const TestProvider: React.FC<React.PropsWithChildren<props>> = ({
 
 	//Importing existing answers from redux
 	let startingAnswers = {};
-	const answers = useSelector((state: Store) => state.answers);
+	const answers = useSelector((state: StateStore) => state.answers);
 	const correctTest = answers.find(
 		(el) => el.formula === path[0] && el.date === path[1]
 	);

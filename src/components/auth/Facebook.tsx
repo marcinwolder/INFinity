@@ -3,36 +3,54 @@ import {
 	useDeviceLanguage,
 	signInWithPopup,
 } from '@firebase/auth';
+import classNames from 'classnames';
 import React from 'react';
-import { AiFillFacebook } from 'react-icons/ai';
+import { AiFillFacebook, AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { firebaseAuth } from '../../firebase';
+import { StateStore } from '../../redux';
+import { authSlice } from '../../redux/slices/auth';
 
 const Facebook: React.FC<{
 	text: string;
-	setTransition: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ setTransition, text }) => {
+}> = ({ text }) => {
+	const dispatch = useDispatch();
+	const { transitionStart, transitionEnd, setOpen } = authSlice.actions;
+
+	const { transition } = useSelector((state: StateStore) => state.auth);
+
 	const onFacebookSignUp = () => {
-		setTransition(true);
+		dispatch(transitionStart());
 		const provider = new FacebookAuthProvider();
 		useDeviceLanguage(firebaseAuth);
 		(async () => {
 			try {
 				await signInWithPopup(firebaseAuth, provider);
-				setTransition(false);
+				dispatch(transitionEnd());
 			} catch (error) {
-				setTransition(false);
+				dispatch(transitionEnd());
 				toast('Akcja zakończona niepowodzeniem!');
 			}
 		})();
 	};
 	return (
 		<button
-			className='flex items-center gap-2 btn btn-wide hover:bg-blue-700 hover:text-white mt-2'
+			className={classNames(
+				'flex items-center gap-2 btn btn-wide hover:bg-blue-700 hover:text-white mt-2',
+				{ 'btn-disabled': transition }
+			)}
 			onClick={() => {
 				onFacebookSignUp();
 			}}>
-			{text} <AiFillFacebook />
+			{transition ? (
+				<AiOutlineLoading3Quarters className='animate-spin duration-1000 text-xl' />
+			) : (
+				<>
+					{text}
+					<AiFillFacebook />
+				</>
+			)}
 		</button>
 	);
 };

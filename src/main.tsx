@@ -15,6 +15,7 @@ import Formula2015 from './routes/formula-2015';
 import Formula2023 from './routes/Formula2023';
 
 import Maj2022 from './routes/formula-2015/2022/maj';
+import { ToastContainer } from 'react-toastify';
 
 const router = createBrowserRouter([
 	{
@@ -42,6 +43,12 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<>
 		<React.StrictMode>
+			<ToastContainer
+				position='top-right'
+				autoClose={3000}
+				closeOnClick
+				theme='dark'
+			/>
 			<Provider store={store}>
 				<MenuProvider>
 					<RouterProvider router={router} />

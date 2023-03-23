@@ -1,35 +1,36 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import {
-	AiFillGoogleCircle,
-	AiFillFacebook,
-	AiOutlineLoading3Quarters,
-} from 'react-icons/ai';
-import { useDispatch } from 'react-redux';
-import { modalSlice } from '../../redux/slices/modal';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { authSlice } from '../../redux/slices/auth';
 import { ToastContainer, toast } from 'react-toastify';
 import passwordValidator from 'password-validator';
 import { firebaseAuth } from '../../firebase';
 import {
 	createUserWithEmailAndPassword,
+	sendEmailVerification,
+	signOut,
 	updateProfile,
-	GoogleAuthProvider,
-	FacebookAuthProvider,
-	useDeviceLanguage,
-	signInWithPopup,
 } from 'firebase/auth';
 
 import 'react-toastify/dist/ReactToastify.css';
 import classNames from 'classnames';
 import Google from '../auth/Google';
 import Facebook from '../auth/Facebook';
+import { StateStore } from '../../redux';
 
 const SignUp = () => {
-	const [signUpTransition, setTransition] = useState(false);
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [cPassword, setCPassword] = useState('');
+
+	const modalRef = useRef<HTMLDivElement>(null);
+
+	const dispatch = useDispatch();
+	const { transitionStart, transitionEnd, setOpen } = authSlice.actions;
+
+	const { transition } = useSelector((state: StateStore) => state.auth);
 
 	const passwordSchema = new passwordValidator();
 	passwordSchema
@@ -76,20 +77,25 @@ const SignUp = () => {
 
 	const onSignUp = () => {
 		if (validate()) {
-			setTransition(true);
+			dispatch(transitionStart());
 			(async () => {
 				try {
 					await createUserWithEmailAndPassword(firebaseAuth, email, password);
 					const user = firebaseAuth;
 					await updateProfile(user.currentUser!, { displayName: username });
+					dispatch(setOpen({ type: 'signUp', value: false }));
 
-					setTransition(false);
+					await sendEmailVerification(user.currentUser!);
+					signOut(firebaseAuth);
+
+					toast('Email weryfikacyjny został wysłany!');
+					dispatch(transitionEnd());
 				} catch ({ code }) {
 					const errorCode = code as string;
 					if (errorCode === 'auth/email-already-in-use')
 						toast('Podany adres email został już użyty!');
 
-					setTransition(false);
+					dispatch(transitionEnd());
 				}
 			})();
 		}
@@ -98,11 +104,10 @@ const SignUp = () => {
 	const onClickOutsideModal = (e: MouseEvent) => {
 		const target = e.target as Node;
 		if (!modalRef.current?.contains(target)) {
-			dispatch(modalSlice.actions.setOpen({ type: 'signUp', value: false }));
+			dispatch(setOpen({ type: 'signUp', value: false }));
 		}
 	};
 
-	const modalRef = useRef<HTMLDivElement>(null);
 	useEffect(() => {
 		setTimeout(() => {
 			window.addEventListener('click', onClickOutsideModal);
@@ -113,19 +118,12 @@ const SignUp = () => {
 		};
 	}, []);
 
-	const dispatch = useDispatch();
 	return createPortal(
 		<div className='absolute inset-0'>
 			<div className='w-full h-full bg-black opacity-40' />
-			<ToastContainer
-				position='top-right'
-				autoClose={3000}
-				closeOnClick
-				theme='dark'
-			/>
 			<div
 				ref={modalRef}
-				className='fixed top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2 w-full md:w-1/2 bg-base-100 shadow-lg p-4 flex flex-col items-center'>
+				className='fixed top-1/2 -translate-y-1/2 lg:left-1/2 lg:-translate-x-1/2 w-full lg:w-1/2 bg-base-100 shadow-lg p-4 flex flex-col items-center'>
 				<h1 className='text-2xl font-bold mb-4'>Rejestracja</h1>
 				<div className='grid md:grid-cols-2 items-center gap-2 w-full md:w-max'>
 					<label className='text-lg' htmlFor='username'>
@@ -170,20 +168,20 @@ const SignUp = () => {
 					/>
 				</div>
 				<button
-					disabled={signUpTransition}
+					disabled={transition}
 					onClick={() => onSignUp()}
 					className={classNames(
 						'flex items-center gap-2 btn btn-wide btn-primary m-4',
-						{ 'btn-disabled': signUpTransition }
+						{ 'btn-disabled': transition }
 					)}>
-					{signUpTransition ? (
+					{transition ? (
 						<AiOutlineLoading3Quarters className='animate-spin duration-1000 text-xl' />
 					) : (
 						'Zarejestruj'
 					)}
 				</button>
-				<Google text='Zarejestruj z Google' setTransition={setTransition} />
-				<Facebook text='Zarejestruj z Facebook' setTransition={setTransition} />
+				<Google text='Zarejestruj z Google' />
+				<Facebook text='Zarejestruj z Facebook' />
 			</div>
 		</div>,
 		document.getElementById('modal')!
