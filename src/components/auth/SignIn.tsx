@@ -19,10 +19,8 @@ import Facebook from './Facebook';
 import { StateStore } from '../../redux';
 
 const SignUp = () => {
-	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [cPassword, setCPassword] = useState('');
 
 	const modalRef = useRef<HTMLDivElement>(null);
 
