@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { usePathElements } from '../redux/slices/path';
 
 const createBreadcrumbs = () => {
-	const path = usePathElements();
+	const path = usePathElements() as string[];
 
 	return path.map((pathBlock, index) => {
 		if (index < 1) {

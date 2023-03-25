@@ -1,4 +1,4 @@
-import { Store } from './../index';
+import { StateStore } from './../index';
 import _ from 'lodash';
 import { createSlice, getType, PayloadAction } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
@@ -34,7 +34,7 @@ export const pathSlice = createSlice({
 export const usePathElements = () => {
 	// TODO: ERROR about setting state while updating other component (unknown)
 	const dispatch = useDispatch();
-	const state = useSelector((state: Store) => state.path, _.isEqual);
+	const state = useSelector((state: StateStore) => state.path, _.isEqual);
 	if (!state.calibrated && state.blocks.length > 1) {
 		dispatch(pathSlice.actions.__switch());
 	}
