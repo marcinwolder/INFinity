@@ -14,6 +14,12 @@
 
 ---
 
+## LIVE Demo:
+
+[INFormator](https://inf-ormator.vercel.app/) - Preview only in (Formula-2015 / Maj 2022) exam
+
+---
+
 ## Demo:
 
 - <b>App contains exam tasks that can be solved in the browser
