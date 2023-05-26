@@ -4,7 +4,7 @@ import Analiza from './Analiza';
 import Test from './Test';
 
 const Part1 = () => {
-	const [tab, setTab] = useState(0);
+	const [tab, setTab] = useState(-1);
 
 	const tabs = [<Algorytm />, <Analiza />, <Test />];
 	return (
@@ -26,7 +26,13 @@ const Part1 = () => {
 					Test
 				</a>
 			</div>
-			<div className='max-w-screen-md mx-auto'>{tabs[tab]}</div>
+			<div className='max-w-screen-md mx-auto'>
+				{tab === -1 ? (
+					<div className='w-screen overflow-hidden'></div>
+				) : (
+					tabs[tab]
+				)}
+			</div>
 		</>
 	);
 };

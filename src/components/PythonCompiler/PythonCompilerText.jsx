@@ -1,9 +1,8 @@
 import classNames from 'classnames';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { VscRunAll } from 'react-icons/vsc';
 import { GoPlus } from 'react-icons/go';
-import { ImBin, ImCloudDownload } from 'react-icons/im';
-import { BiLoaderAlt } from 'react-icons/bi';
+import { ImBin, ImCloudDownload, ImPlay3 } from 'react-icons/im';
 
 const PythonCompilerText = ({ setResult, syncFunc, children, disabled }) => {
 	const [show, setShow] = useState(true);
@@ -13,23 +12,25 @@ const PythonCompilerText = ({ setResult, syncFunc, children, disabled }) => {
 	const syncBtn = useRef();
 	const runBtn = useRef();
 	const loaderDiv = useRef();
-	useEffect(() => {
-		setTimeout(() => {
-			const btn = replRef.current.children[0].children[1].children[2];
-			btn.classList.add('invisible');
-			syncBtn.current.click();
-			runBtn.current.click();
-			loaderDiv.current.remove();
-		}, 3000);
-	}, []);
 	return (
 		<div>
 			<div id='output' className='invisible h-0'></div>
 			<div className='relative'>
 				<div
+					tabIndex={0}
+					onClick={() => {
+						const btn = replRef.current.children[0].children[1].children[2];
+						btn.classList.add('invisible');
+						syncBtn.current.click();
+						runBtn.current.click();
+						loaderDiv.current.remove();
+					}}
 					ref={loaderDiv}
-					className='absolute bg-neutral-700 opacity-70 z-10 w-full h-full flex items-center justify-center'>
-					<BiLoaderAlt className='text-6xl animate-spin' />
+					className='absolute bg-neutral-700 opacity-70 z-10 w-full h-full flex items-center justify-center hover:cursor-pointer'>
+					<div className='animate-pulse flex flex-col'>
+						<ImPlay3 className='text-6xl' />
+						<center>START</center>
+					</div>
 				</div>
 				<py-repl ref={replRef} output='output'>
 					{children}
@@ -81,7 +82,9 @@ const PythonCompilerText = ({ setResult, syncFunc, children, disabled }) => {
 						{ 'hover:text-yellow-600 active:text-yellow-800': !disabled },
 						{ 'text-neutral-500': disabled }
 					)}
-					onClick={() => syncFunc(replRef)}>
+					onClick={() => {
+						syncFunc(replRef);
+					}}>
 					SYNC CODE <ImCloudDownload />
 				</button>
 				<button

@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+.drawer-content::-webkit-scrollbar {
+	display: none;
+}
 /* hide scrollbar but allow scrolling */
 element {
 	-ms-overflow-style: none; /* for Internet Explorer, Edge */

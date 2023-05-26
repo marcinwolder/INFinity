@@ -227,9 +227,10 @@ export const TestPythonText: React.FC<
 			<PythonCompilerText
 				disabled={show}
 				syncFunc={(replRef) => {
-					if (values[num])
+					if (values[num]) {
 						replRef.current.children[0].children[1].children[0].children[1].children[1].innerHTML =
 							values[num] as string;
+					}
 				}}
 				setResult={(result, repl) => {
 					if (repl === '') {

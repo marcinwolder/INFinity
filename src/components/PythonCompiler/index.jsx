@@ -14,12 +14,14 @@ const PythonCompiler = ({ setResult, syncFunc, disabled }) => {
 	const runBtn = useRef();
 	const loaderDiv = useRef();
 	useEffect(() => {
+		document.activeElement?.blur && document.activeElement.blur();
 		setTimeout(() => {
 			const btn = replRef.current.children[0].children[1].children[2];
 			btn.classList.add('invisible');
 			syncBtn.current.click();
 			runBtn.current.click();
 			loaderDiv.current.remove();
+			document.activeElement?.blur && document.activeElement.blur();
 		}, 3000);
 	}, []);
 	return (

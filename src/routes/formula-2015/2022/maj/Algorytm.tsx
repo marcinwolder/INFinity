@@ -1,4 +1,3 @@
-import PythonCompilerText from '../../../../components/PythonCompiler/PythonCompilerText';
 import {
 	AnswerBtn,
 	TestInput,
