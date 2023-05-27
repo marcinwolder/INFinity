@@ -1,11 +1,11 @@
 import _ from 'lodash';
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import { createContext, useContext, useState, useEffect } from 'react';
 import { TiTick, TiTimes } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';
 import PythonCompilerText from '../components/PythonCompiler/PythonCompilerText';
 import { StateStore } from '../redux';
-import { Matura, answearSlice } from '../redux/slices/answers';
+import { Matura, answerSlice } from '../redux/slices/answers';
 import { useMaturaPath } from '../redux/slices/path';
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 
@@ -47,8 +47,8 @@ export const useTestContext = () => {
 	return useContext(context);
 };
 
-export const updateAnsw = (dispatch: Dispatch<AnyAction>, dane: Matura) => {
-	dispatch(answearSlice.actions.changeAns(dane));
+export const updateAnswer = (dispatch: Dispatch<AnyAction>, dane: Matura) => {
+	dispatch(answerSlice.actions.changeAns(dane));
 };
 
 export const TestProvider: React.FC<React.PropsWithChildren<props>> = ({
@@ -109,7 +109,7 @@ export const _AnswerBtn: React.FC = () => {
 				className='btn btn-secondary'
 				onClick={() => {
 					setShow(true);
-					updateAnsw(dispatch, {
+					updateAnswer(dispatch, {
 						answers: { [taskNum]: values },
 						formula: maturaPath.formula,
 						date: maturaPath.date,
@@ -225,17 +225,17 @@ export const TestPythonText: React.FC<
 		<>
 			<PythonCompilerText
 				disabled={show}
-				syncFunc={(replRef) => {
+				syncFunc={(replRef: MutableRefObject<any>) => {
 					if (values[num]) {
 						replRef.current.children[0].children[1].children[0].children[1].children[1].innerHTML =
 							values as string;
 					}
 				}}
-				setResult={(result, repl) => {
+				setResult={(result: string, repl: string) => {
 					if (repl === '') {
 						setValues((v) => _.omit(v, num));
 					} else setValues((v) => ({ ...v, [num]: repl }));
-					setResult(result.toString() === answer);
+					setResult(result === answer);
 				}}>
 				{children}
 			</PythonCompilerText>

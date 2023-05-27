@@ -9,7 +9,7 @@ export interface Matura {
 	answers: { [keys: number]: Answers };
 }
 
-export const answearSlice = createSlice({
+export const answerSlice = createSlice({
 	name: 'answers',
 	initialState: [] as Matura[],
 	reducers: {
