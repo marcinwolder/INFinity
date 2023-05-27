@@ -33,7 +33,12 @@ const Test = () => {
 				wykonań instrukcji s ← s + 1, w zależności od dodatniej liczby
 				całkowitej n, jest
 				<div className='relative text-primary-content px-0 overflow-x-auto md:px-8 pt-2'>
-					<table className='table table-compact w-full text-center overflow-hidden'>
+					<table className='table table-compact w-full text-center overflow-hidden rounded-lg'>
+						<colgroup>
+							<col style={{ width: '3em' }} />
+							<col />
+							<col style={{ width: '6em' }} />
+						</colgroup>
 						<tbody>
 							<tr>
 								<td>
@@ -82,7 +87,12 @@ const Test = () => {
 				Po dodaniu liczb 132<sub>4</sub> oraz 3111<sub>4</sub> zapisanych w
 				systemie czwórkowym otrzymamy:
 				<div className='relative text-primary-content px-0 overflow-x-auto md:px-8 pt-2'>
-					<table className='table table-compact w-full text-center overflow-hidden'>
+					<table className='table table-compact w-full text-center overflow-hidden rounded-lg'>
+						<colgroup>
+							<col style={{ width: '3em' }} />
+							<col />
+							<col style={{ width: '6em' }} />
+						</colgroup>
 						<tbody>
 							<tr>
 								<td>
@@ -182,7 +192,12 @@ const Test = () => {
 					</table>
 				</div>
 				<div className='relative text-primary-content px-0 overflow-x-auto md:px-8 pt-2'>
-					<table className='table table-compact w-full text-center overflow-hidden'>
+					<table className='table table-compact w-full text-center overflow-hidden rounded-lg'>
+						<colgroup>
+							<col style={{ width: '3em' }} />
+							<col />
+							<col style={{ width: '6em' }} />
+						</colgroup>
 						<tbody>
 							<tr>
 								<td>

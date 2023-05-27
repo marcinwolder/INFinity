@@ -3,7 +3,7 @@ import { Formula } from './path';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Answers } from '../../context/testContext';
 
-interface matura {
+export interface Matura {
 	date: string;
 	formula: Formula;
 	answers: { [keys: number]: Answers };
@@ -11,9 +11,9 @@ interface matura {
 
 export const answearSlice = createSlice({
 	name: 'answers',
-	initialState: [] as matura[],
+	initialState: [] as Matura[],
 	reducers: {
-		changeAns(state, action: PayloadAction<matura>) {
+		changeAns(state, action: PayloadAction<Matura>) {
 			const { date, formula, answers } = action.payload;
 			const index = state.findIndex(
 				(el) => el.date === date && el.formula === formula

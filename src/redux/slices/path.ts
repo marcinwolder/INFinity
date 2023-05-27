@@ -52,6 +52,16 @@ export const usePath = (name: string) => {
 	}, []);
 };
 
+export const useMaturaPath = () => {
+	const path = [...usePathElements()].map((el) => el.replace('/', ''));
+	path.shift();
+	const buf = { formula: path[0], date: path[1] } as {
+		formula: Formula;
+		date: string;
+	};
+	return buf;
+};
+
 export const useUrl = () => {
 	const urlBlocks = [...usePathElements()];
 	urlBlocks.shift();

@@ -61,9 +61,11 @@ const Analiza = () => {
 				s.
 				<Table>
 					<thead>
-						<th>n</th>
-						<th>s</th>
-						<th>Wynik działania algorytmu (wartość k)</th>
+						<tr>
+							<th>n</th>
+							<th>s</th>
+							<th>Wynik działania algorytmu (wartość k)</th>
+						</tr>
 					</thead>
 					<tbody>
 						<tr>
@@ -105,9 +107,11 @@ const Analiza = () => {
 				odpowiednio 10 i 5.
 				<Table>
 					<thead>
-						<th>n</th>
-						<th>s</th>
-						<th>Wynik działania algorytmu (wartość k)</th>
+						<tr>
+							<th>n</th>
+							<th>s</th>
+							<th>Wynik działania algorytmu (wartość k)</th>
+						</tr>
 					</thead>
 					<tbody>
 						<tr>
@@ -161,7 +165,9 @@ const Analiza = () => {
 				<sup>300</sup> b<sup>7</sup> a<sup>280</sup> b<sup>110</sup>.
 				<Table>
 					<thead>
-						<th>k</th>
+						<tr>
+							<th>k</th>
+						</tr>
 					</thead>
 					<tbody>
 						<tr>

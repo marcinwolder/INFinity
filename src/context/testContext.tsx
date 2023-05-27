@@ -5,8 +5,9 @@ import { TiTick, TiTimes } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';
 import PythonCompilerText from '../components/PythonCompiler/PythonCompilerText';
 import { StateStore } from '../redux';
-import { answearSlice } from '../redux/slices/answers';
-import { Formula, usePathElements } from '../redux/slices/path';
+import { Matura, answearSlice } from '../redux/slices/answers';
+import { useMaturaPath } from '../redux/slices/path';
+import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 
 export interface Answers {
 	[keys: number]: string | number | boolean;
@@ -17,6 +18,21 @@ interface Context {
 	values: Answers;
 	setValues: React.Dispatch<React.SetStateAction<Answers>>;
 	taskNum: number;
+}
+interface props {
+	taskNum: number;
+	title?: string;
+	pkt?: number;
+	show?: boolean;
+}
+interface TaskId {
+	num: number;
+}
+interface testProps {
+	answer: string | ((ans: string) => boolean);
+}
+interface radioProps {
+	positive?: boolean;
 }
 
 const context = createContext<Context>({
@@ -31,12 +47,9 @@ export const useTestContext = () => {
 	return useContext(context);
 };
 
-interface props {
-	taskNum: number;
-	title?: string;
-	pkt?: number;
-	show?: boolean;
-}
+export const updateAnsw = (dispatch: Dispatch<AnyAction>, dane: Matura) => {
+	dispatch(answearSlice.actions.changeAns(dane));
+};
 
 export const TestProvider: React.FC<React.PropsWithChildren<props>> = ({
 	taskNum,
@@ -44,14 +57,13 @@ export const TestProvider: React.FC<React.PropsWithChildren<props>> = ({
 	pkt = 0,
 	children,
 }) => {
-	const path = [...usePathElements()].map((el) => el.replace('/', ''));
-	path.shift();
+	const maturaPath = useMaturaPath();
 
 	//Importing existing answers from redux
 	let startingAnswers = {};
 	const answers = useSelector((state: StateStore) => state.answers);
 	const correctTest = answers.find(
-		(el) => el.formula === path[0] && el.date === path[1]
+		(el) => el.formula === maturaPath.formula && el.date === maturaPath.date
 	);
 	if (correctTest && correctTest.answers[taskNum]) {
 		startingAnswers = correctTest.answers[taskNum];
@@ -76,22 +88,11 @@ export const TestProvider: React.FC<React.PropsWithChildren<props>> = ({
 	);
 };
 
-interface TaskId {
-	num: number;
-}
-interface testProps {
-	answer: string | ((ans: string) => boolean);
-}
-interface radioProps {
-	positive?: boolean;
-}
-
 export const _AnswerBtn: React.FC = () => {
 	const dispatch = useDispatch();
-	const path = [...usePathElements()].map((el) => el.replace('/', ''));
-	path.shift();
+	const maturaPath = useMaturaPath();
 
-	const { show, setShow, values, taskNum } = useContext(context);
+	const { show, setShow, values, taskNum } = useTestContext();
 	if (show)
 		return (
 			<button
@@ -108,13 +109,11 @@ export const _AnswerBtn: React.FC = () => {
 				className='btn btn-secondary'
 				onClick={() => {
 					setShow(true);
-					dispatch(
-						answearSlice.actions.changeAns({
-							answers: { [taskNum]: values },
-							formula: path[0] as Formula,
-							date: path[1],
-						})
-					);
+					updateAnsw(dispatch, {
+						answers: { [taskNum]: values },
+						formula: maturaPath.formula,
+						date: maturaPath.date,
+					});
 				}}>
 				SPRAWDŹ ODPOWIEDZI
 			</button>
@@ -130,7 +129,7 @@ export const AnswerBtn: React.FC = () => {
 };
 
 export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
-	const { show, setValues, values } = useContext(context);
+	const { show, setValues, values } = useTestContext();
 	const value = values[num] as string;
 	let compare;
 	if (typeof answer === 'string') compare = (str: string) => str === answer;
@@ -171,7 +170,7 @@ export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
 export const TestRadio: React.FC<
 	React.PropsWithChildren<radioProps & TaskId>
 > = ({ positive = false, children, num }) => {
-	const { show, setValues, values } = useContext(context);
+	const { show, setValues, values } = useTestContext();
 	const checked = values[num] === true;
 	const color = checked == positive ? 'text-success' : 'text-error';
 	return show ? (
@@ -220,7 +219,7 @@ export const TestRadio: React.FC<
 export const TestPythonText: React.FC<
 	React.PropsWithChildren<TaskId & { answer: string }>
 > = ({ children, num, answer }) => {
-	const { show, setValues, values } = useContext(context);
+	const { show, setValues, values } = useTestContext();
 	const [result, setResult] = useState(Boolean);
 	return (
 		<>
@@ -229,7 +228,7 @@ export const TestPythonText: React.FC<
 				syncFunc={(replRef) => {
 					if (values[num]) {
 						replRef.current.children[0].children[1].children[0].children[1].children[1].innerHTML =
-							values[num] as string;
+							values as string;
 					}
 				}}
 				setResult={(result, repl) => {
