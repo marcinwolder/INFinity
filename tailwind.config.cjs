@@ -4,7 +4,9 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
+				stara: '#bfbfbf',
 				2015: '#bfbfbf',
+				2023: '#d5b8ea',
 			},
 		},
 	},

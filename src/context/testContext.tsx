@@ -8,6 +8,7 @@ import { StateStore } from '../redux';
 import { Matura, answerSlice } from '../redux/slices/answers';
 import { useMaturaPath } from '../redux/slices/path';
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
+import classNames from 'classnames';
 
 export interface Answers {
 	[keys: number]: string | number | boolean;
@@ -74,7 +75,12 @@ export const TestProvider: React.FC<React.PropsWithChildren<props>> = ({
 
 	return (
 		<div className='p-3 bg-white rounded-lg my-7 shadow-md shadow-neutral-500'>
-			<h1 className='bg-2015 text-black font-bold pl-1'>
+			<h1
+				className={classNames('text-black font-bold pl-1 text-md', {
+					'bg-stara': maturaPath.formula === 'formula-stara',
+					'bg-2015': maturaPath.formula === 'formula-2015',
+					'bg-2023': maturaPath.formula === 'formula-2023',
+				})}>
 				Zadanie {taskNum}
 				{title.length > 1 && `. ${title}`}
 				{pkt > 0 && `. (0-${pkt})`}

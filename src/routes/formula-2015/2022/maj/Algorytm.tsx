@@ -8,24 +8,13 @@ import Tab from '../../../../components/Tab';
 import Def from '../../../../components/Def';
 import Table from '../../../../components/Table';
 
+import zadanie1 from '../../../../../public/formula-2015/2022/maj/1.png';
+
 const Algorytm = () => {
 	return (
 		<>
 			<TestProvider taskNum={1} title='n-permutacja'>
-				Dla dodatniej liczby całkowitej n, n-permutacją nazywamy taki
-				n-elementowy ciąg liczb całkowitych, który zawiera każdą z liczb 1, 2,
-				…, n dokładnie jeden raz. <br />
-				<br /> <b>Przykład:</b> <br /> ciąg (4,2,1,3) jest 4-permutacją,
-				<br /> ciąg (6,5,4,1,2,3) jest 6-permutacją,
-				<br /> ciągi (1,3,1,2) i (2,3,4,5) nie są 4-permutacjami
-				<br />
-				<br /> W ciągu n liczb całkowitych, który nie jest n-permutacją, można
-				podmienić niektóre elementy tak, aby otrzymać n-permutację.
-				<br />
-				<br /> <b>Przykład:</b>
-				<br /> w ciągu (1,3,1) wystarczy podmienić jeden element - pierwszą lub
-				ostatnią jedynkę (1) - na dwójkę (2), aby powstały ciąg był
-				3-permutacją.
+				<img src={zadanie1} draggable={false} className='pt-2 select-none' />
 			</TestProvider>
 			<TestProvider taskNum={1.1} pkt={2}>
 				Uzupełnij poniższą tabelę - dla każdego z podanych ciągów podaj
