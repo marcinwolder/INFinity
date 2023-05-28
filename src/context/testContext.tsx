@@ -20,7 +20,7 @@ interface Context {
 	setValues: React.Dispatch<React.SetStateAction<Answers>>;
 	taskNum: number;
 }
-interface props {
+interface TestProviderProps {
 	taskNum: number;
 	title?: string;
 	pkt?: number;
@@ -52,12 +52,9 @@ export const updateAnswer = (dispatch: Dispatch<AnyAction>, dane: Matura) => {
 	dispatch(answerSlice.actions.changeAns(dane));
 };
 
-export const TestProvider: React.FC<React.PropsWithChildren<props>> = ({
-	taskNum,
-	title = '',
-	pkt = 0,
-	children,
-}) => {
+export const TestProvider: React.FC<
+	React.PropsWithChildren<TestProviderProps>
+> = ({ taskNum, title = '', pkt = 0, children }) => {
 	const maturaPath = useMaturaPath();
 
 	//Importing existing answers from redux
@@ -74,9 +71,9 @@ export const TestProvider: React.FC<React.PropsWithChildren<props>> = ({
 	const [values, setValues] = useState(startingAnswers);
 
 	return (
-		<div className='p-3 bg-white rounded-lg my-7 shadow-md shadow-neutral-500'>
+		<div className='p-3 bg-white rounded-lg my-7 shadow-md shadow-neutral-500 select-none'>
 			<h1
-				className={classNames('text-black font-bold pl-1 text-md', {
+				className={classNames('text-black font-bold pl-2 text-md rounded', {
 					'bg-stara': maturaPath.formula === 'formula-stara',
 					'bg-2015': maturaPath.formula === 'formula-2015',
 					'bg-2023': maturaPath.formula === 'formula-2023',
@@ -142,7 +139,7 @@ export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
 	else
 		compare = (str: string) => {
 			if (!str) return false;
-			return answer(str.toLowerCase());
+			return answer(str);
 		};
 	return (
 		<div className='w-full mx-auto rounded-md'>

@@ -1,64 +1,25 @@
 import {
 	AnswerBtn,
 	TestProvider,
-	TestRadio,
 	TestInput,
 } from '../../../../context/testContext';
 import Tab from '../../../../components/Tab';
 import Table from '../../../../components/Table';
+import TaskImg from '../../../../components/TaskImg';
+
+import zadanie2 from './img/2.png';
+import polecenie1 from './img/2-1.png';
+import polecenie2 from './img/2-2.png';
+import polecenie3 from './img/2-3.png';
+
 const Analiza = () => {
 	return (
 		<>
 			<TestProvider taskNum={2} title='ab-słowo'>
-				Niech n będzie dodatnią liczbą całkowitą i niech s będzie słowem o
-				długości <code>n</code> zbudowanym z liter a lub b. Zapis{' '}
-				<code>s[i]</code> oznacza i-tą literę w tym słowie (1 ≤ i ≤ n). Dla
-				słowa <code>s</code> wykonujemy poniższy algorytm. Wynikiem działania
-				algorytmu jest wartość zmiennej k.
-				<br />
-				<br />
-				<b>Algorytm</b>
-				<br />
-				<br />
-				<code>
-					A[0] ← 0 <br />
-					<b>dla</b> i = 1, 2, ..., n <br />
-					<Tab>
-						<b>jeżeli</b> s[i] = 'a' <br />
-						<Tab>
-							A[i] ← A[i - 1] + 1 <br />
-						</Tab>
-						<b>w przeciwnym razie</b> <br />
-						<Tab>
-							A[i] ← A[i - 1] <br />
-						</Tab>
-					</Tab>
-					<br />
-					B[n + 1] ← 0 <br />
-					<b>dla</b> j = n, n - 1, ..., 1<br />
-					<Tab>
-						<b>jeżeli</b> s[j] = 'b' <br />
-						<Tab>
-							B[j] ← B[j + 1] + 1 <br />
-						</Tab>
-						<b>w przeciwnym razie</b> <br />
-						<Tab>
-							B[j] ← B[j + 1] <br />
-						</Tab>
-					</Tab>
-					<br />
-					k ← 1 <br />
-					<b>dla</b> i = 0, 1, 2, ..., n<br />
-					<Tab>
-						<b>jeżeli</b> A[i] + B[i + 1] &gt; k <br />
-						<Tab>k ← A[i] + B[i + 1]</Tab>
-					</Tab>
-					<br />
-				</code>
+				<TaskImg img={zadanie2} />
 			</TestProvider>
 			<TestProvider taskNum={2.1} pkt={2}>
-				Uzupełnij tabelę - wpisz wynik działania algorytmu dla podanych wartości
-				s.
+				<TaskImg img={polecenie1} />
 				<Table>
 					<thead>
 						<tr>
@@ -102,9 +63,7 @@ const Analiza = () => {
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={2.2} pkt={2}>
-				Podaj przykłady dziesięcioliterowych słów złożonych z liter a lub b, dla
-				których wynik działania powyższego algorytmu (wartość k) jest równy
-				odpowiednio 10 i 5.
+				<TaskImg img={polecenie2} />
 				<Table>
 					<thead>
 						<tr>
@@ -157,12 +116,7 @@ const Analiza = () => {
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={2.3} pkt={2}>
-				Dla uproszczenia będziemy pisać a<sup>2</sup> zamiast aa, a<sup>3</sup>{' '}
-				zamiast aaa i tak dalej. Innymi słowy: dla dowolnej dodatniej liczby
-				całkowitej m, zapis a m oznacza literę a powtórzoną m razy, natomiast b
-				m oznacza literę b powtórzoną m razy. Podaj wynik działania (wartość k)
-				powyższego algorytmu dla słowa a<sup>300</sup> b<sup>550</sup> a
-				<sup>300</sup> b<sup>7</sup> a<sup>280</sup> b<sup>110</sup>.
+				<TaskImg img={polecenie3} />
 				<Table>
 					<thead>
 						<tr>

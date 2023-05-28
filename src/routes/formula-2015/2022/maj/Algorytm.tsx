@@ -4,11 +4,11 @@ import {
 	TestProvider,
 	TestPythonText,
 } from '../../../../context/testContext';
-import Tab from '../../../../components/Tab';
-import Def from '../../../../components/Def';
 import Table from '../../../../components/Table';
 
-import zadanie1 from '../../../../../public/formula-2015/2022/maj/1.png';
+import zadanie1 from './img/1.png';
+import polecenie1 from './img/1-1.png';
+import polecenie2 from './img/1-2.png';
 
 const Algorytm = () => {
 	return (
@@ -17,9 +17,7 @@ const Algorytm = () => {
 				<img src={zadanie1} draggable={false} className='pt-2 select-none' />
 			</TestProvider>
 			<TestProvider taskNum={1.1} pkt={2}>
-				Uzupełnij poniższą tabelę - dla każdego z podanych ciągów podaj
-				najmniejszą liczbę elementów, które trzeba podmienić, aby dany ciąg był
-				n-permutacją. Jeśli ciąg jest już n-permutacją, wpisz 0.
+				<img src={polecenie1} draggable={false} className='pt-2 select-none' />
 				<Table>
 					<thead>
 						<tr>
@@ -74,37 +72,7 @@ const Algorytm = () => {
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={1.2} pkt={4}>
-				Zapisz w pseudojęzyku lub wybranym języku programowania algorytm, który
-				dla danego ciągu n dodatnich liczb całkowitych zapisanego w tablicy A
-				obliczy najmniejszą liczbę elementów, które trzeba w nim podmienić, aby
-				otrzymać n-permutację. <br />
-				<br /> <b>Uwaga:</b> W zapisie algorytmu możesz korzystać tylko z
-				instrukcji sterujących, operatorów arytmetycznych: dodawania,
-				odejmowania, mnożenia, dzielenia, dzielenia całkowitego i reszty z
-				dzielenia; operatorów logicznych, porównań, odwoływania się do
-				pojedynczych elementów tablicy i instrukcji przypisania lub samodzielnie
-				napisanych funkcji i procedur wykorzystujących powyższe operacje.
-				<b> Zabronione</b> jest używanie funkcji wbudowanych oraz operatorów
-				innych niż wymienione, dostępnych w językach programowania.
-				<br />
-				<br /> <b>Specyfikacja:</b>
-				<Tab>
-					Dane:
-					<Tab>
-						<Def name='n'>dodatnia liczba całkowita</Def>
-						<Def name='A[1..n]'>
-							tablica n dodatnich liczb całkowitych, gdzie <code>A[i]</code>{' '}
-							jest i-tym elementem ciągu
-						</Def>
-					</Tab>
-					Wynik:
-					<Tab>
-						<Def name='k'>
-							minimalna liczba elementów, które trzeba podmienić w ciągu
-							zapisanym w tablicy <code>A</code>, aby otrzymać n-permutację
-						</Def>
-					</Tab>
-				</Tab>
+				<img src={polecenie2} draggable={false} className='pt-2 select-none' />
 				<TestPythonText answer={'4\n6\n5\n'} num={1}>
 					{
 						'def func(n, A):\n    return(n)\n\nprint(func(4, [1, 4, 2, 5]))\nprint(func(6, [5, 4, 1, 5, 6, 8]))\nprint(func(5, [2, 2, 2, 2, 2]))'

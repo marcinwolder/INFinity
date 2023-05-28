@@ -1,10 +1,17 @@
 import Tab from '../../../../components/Tab';
+import TaskImg from '../../../../components/TaskImg';
 import {
 	AnswerBtn,
 	TestRadio,
 	TestProvider,
 } from '../../../../context/testContext';
 import { usePathElements } from '../../../../redux/slices/path';
+
+import zadanie3 from './img/3.png';
+import polecenie1 from './img/3-1.png';
+import polecenie2 from './img/3-2.png';
+import polecenie3 from './img/3-3.png';
+import sql from './img/sql.png';
 
 const Test = () => {
 	const path = [...usePathElements()].map((el) => el.replace('/', ''));
@@ -13,25 +20,10 @@ const Test = () => {
 	return (
 		<>
 			<TestProvider taskNum={3} title='Test'>
-				Oceń prawdziwość podanych zdań. Zaznacz <b>P</b>, jeśli zdanie jest
-				prawdziwe, albo <b>F</b> - jeśli jest fałszywe. W każdym zadaniu punkt
-				uzyskasz tylko za komplet poprawnych odpowiedzi.
+				<TaskImg img={zadanie3} />
 			</TestProvider>
 			<TestProvider taskNum={3.1} pkt={1}>
-				<br />
-				Dany jest algorytm: <br />
-				<code>
-					s ← 0
-					<Tab>
-						<b>dla</b> i = 1, 2, …, n
-						<Tab>
-							<b>dla</b> j = i, i + 1, …, n<Tab>s ← s + 1</Tab>
-						</Tab>
-					</Tab>
-				</code>
-				<br /> Złożoność obliczeniowa powyższego algorytmu oceniona liczbą
-				wykonań instrukcji s ← s + 1, w zależności od dodatniej liczby
-				całkowitej n, jest
+				<TaskImg img={polecenie1} />
 				<div className='relative text-primary-content px-0 overflow-x-auto md:px-8 pt-2'>
 					<table className='table table-compact w-full text-center overflow-hidden rounded-lg'>
 						<colgroup>
@@ -84,8 +76,7 @@ const Test = () => {
 				</div>
 			</TestProvider>
 			<TestProvider taskNum={3.2} pkt={1}>
-				Po dodaniu liczb 132<sub>4</sub> oraz 3111<sub>4</sub> zapisanych w
-				systemie czwórkowym otrzymamy:
+				<TaskImg img={polecenie2} />
 				<div className='relative text-primary-content px-0 overflow-x-auto md:px-8 pt-2'>
 					<table className='table table-compact w-full text-center overflow-hidden rounded-lg'>
 						<colgroup>
@@ -146,51 +137,8 @@ const Test = () => {
 				</div>
 			</TestProvider>
 			<TestProvider taskNum={3.3} pkt={1}>
-				W bazie danych istnieje tabela mandaty(numer, id_osoby, punkty)
-				zawierająca następujące dane:
-				<div className='relative text-primary-content px-0 overflow-x-auto md:px-8 pt-2'>
-					<table className='table table-compact w-full text-center overflow-hidden'>
-						<thead>
-							<tr>
-								<th>numer</th>
-								<th>id_osoby</th>
-								<th>punkty</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>1</td>
-								<td>5</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>1</td>
-								<td>14</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>2</td>
-								<td>20</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>3</td>
-								<td>21</td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>2</td>
-								<td>1</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>1</td>
-								<td>2</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<TaskImg img={polecenie3} />
+				<TaskImg className='mx-auto h-52' img={sql} />
 				<div className='relative text-primary-content px-0 overflow-x-auto md:px-8 pt-2'>
 					<table className='table table-compact w-full text-center overflow-hidden rounded-lg'>
 						<colgroup>

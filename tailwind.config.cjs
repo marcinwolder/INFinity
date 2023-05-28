@@ -12,6 +12,6 @@ module.exports = {
 	},
 	plugins: [require('tailwindcss-opentype'), require('daisyui')],
 	daisyui: {
-		themes: ['retro', 'dark'],
+		themes: ['dark', 'emerald'],
 	},
 };

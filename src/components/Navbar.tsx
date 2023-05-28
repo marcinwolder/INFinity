@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
 			<div className='flex gap-2'>
 				<button
 					className='rounded-md p-1 h-6 w-6 ease-in-out transition-all flex justify-center items-center'
-					data-set-theme='retro'
+					data-set-theme='emerald'
 					data-act-class='theme-selected'>
 					<BsFillSunFill />
 				</button>
