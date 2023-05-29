@@ -3,7 +3,6 @@ import {
 	TestProvider,
 	TestInput,
 } from '../../../../context/testContext';
-import Tab from '../../../../components/Tab';
 import Table from '../../../../components/Table';
 import TaskImg from '../../../../components/TaskImg';
 
@@ -20,121 +19,74 @@ const Analiza = () => {
 			</TestProvider>
 			<TestProvider taskNum={2.1} pkt={2}>
 				<TaskImg img={polecenie1} />
-				<Table>
-					<thead>
-						<tr>
-							<th>n</th>
-							<th>s</th>
-							<th>Wynik działania algorytmu (wartość k)</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>5</td>
-							<td>aabab</td>
-							<td>4</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>ab</td>
-							<td>2</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>aaa</td>
-							<td>3</td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td>aababb</td>
-							<td>
-								<TestInput num={1} answer={'5'} />
-							</td>
-						</tr>
-						<tr>
-							<td>9</td>
-							<td>baabbaaab</td>
-							<td>
-								<TestInput num={2} answer={'6'} />
-							</td>
-						</tr>
-					</tbody>
+				<Table
+					headings={['n', 's', 'wynik działania algorytmu (wartkość k)']}
+					className='[&>.col-2]:justify-start'
+					__manualSizes='min-content min-content 1fr'>
+					<>5</>
+					aabab
+					<>4</>
+					<>2</>
+					ab
+					<p>2</p>
+					<>3</>
+					aaa
+					<p>3</p>
+					<>4</>
+					aababb
+					<TestInput num={1} answer={'5'} />
+					<>9</>
+					baabbaaab
+					<TestInput num={2} answer={'6'} />
 				</Table>
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={2.2} pkt={2}>
 				<TaskImg img={polecenie2} />
-				<Table>
-					<thead>
-						<tr>
-							<th>n</th>
-							<th>s</th>
-							<th>Wynik działania algorytmu (wartość k)</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>10</td>
-							<td>
-								<TestInput
-									num={1}
-									answer={(str) => {
-										str = str.toLowerCase();
-										if (str.length !== 10) return false;
-										let firstB = str.indexOf('b');
-										firstB = firstB === -1 ? str.length : firstB;
-										for (let i = 0; i < str.length; i++) {
-											if (i < firstB && str[i] !== 'a') return false;
-											if (i >= firstB && str[i] !== 'b') return false;
-										}
-										return true;
-									}}
-								/>
-							</td>
-							<td>10</td>
-						</tr>
-						<tr>
-							<td>10</td>
-							<td>
-								<TestInput
-									num={2}
-									answer={(str) => {
-										const log = { a: 0, b: 0 };
-										for (let letter of str) {
-											log[letter as 'a' | 'b']++;
-											if (log.a > log.b) return false;
-										}
-										if (log.a !== 5 || log.b !== 5) return false;
-										return true;
-									}}
-								/>
-							</td>
-							<td>5</td>
-						</tr>
-					</tbody>
+				<Table
+					headings={['n', 's', 'wynik działania algorytmu (wartość k)']}
+					__manualSizes='min-content auto max-content'>
+					<>10</>
+					<TestInput
+						num={1}
+						answer={(str) => {
+							str = str.toLowerCase();
+							if (str.length !== 10) return false;
+							let firstB = str.indexOf('b');
+							firstB = firstB === -1 ? str.length : firstB;
+							for (let i = 0; i < str.length; i++) {
+								if (i < firstB && str[i] !== 'a') return false;
+								if (i >= firstB && str[i] !== 'b') return false;
+							}
+							return true;
+						}}
+					/>
+					<>10</>
+					<>10</>
+					<TestInput
+						num={2}
+						answer={(str) => {
+							const log = { a: 0, b: 0 };
+							for (let letter of str) {
+								log[letter as 'a' | 'b']++;
+								if (log.a > log.b) return false;
+							}
+							if (log.a !== 5 || log.b !== 5) return false;
+							return true;
+						}}
+					/>
+					<>5</>
 				</Table>
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={2.3} pkt={2}>
 				<TaskImg img={polecenie3} />
-				<Table>
-					<thead>
-						<tr>
-							<th>k</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>
-								<TestInput
-									num={1}
-									answer={(str) =>
-										str === '990' || str === '967' || str === '989'
-									}
-								/>
-							</td>
-						</tr>
-					</tbody>
+				<Table cols={2} __manualSizes='max-content auto'>
+					<>k = </>
+					<TestInput
+						num={1}
+						answer={(str) => str === '990' || str === '967' || str === '989'}
+					/>
 				</Table>
 				<AnswerBtn />
 			</TestProvider>

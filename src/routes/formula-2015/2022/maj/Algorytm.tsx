@@ -18,56 +18,27 @@ const Algorytm = () => {
 			</TestProvider>
 			<TestProvider taskNum={1.1} pkt={2}>
 				<img src={polecenie1} draggable={false} className='pt-2 select-none' />
-				<Table>
-					<thead>
-						<tr>
-							<th>n</th>
-							<th>ciąg</th>
-							<th>liczba elementów do podmiany</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>3</td>
-							<td>(1, 3, 1)</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>(1, 4, 2, 5)</td>
-							<td>
-								<TestInput num={1} answer='1' />
-							</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>(2, 2, 2, 2, 2)</td>
-							<td>
-								<TestInput num={2} answer='4' />
-							</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>(4, 3, 2, 1)</td>
-							<td>
-								<TestInput num={3} answer='0' />
-							</td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td>(5, 4, 1, 5, 6, 8)</td>
-							<td>
-								<TestInput num={4} answer='2' />
-							</td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td>(8, 4, 9, 6, 5, 7)</td>
-							<td>
-								<TestInput num={5} answer='3' />
-							</td>
-						</tr>
-					</tbody>
+				<Table
+					headings={['n', 'ciąg', 'liczba elementów do podmiany']}
+					__manualSizes='min-content auto auto'>
+					<>3</>
+					<>(1, 3, 1)</>
+					<>1</>
+					<>4</>
+					<>(1, 4, 2, 5)</>
+					<TestInput num={1} answer='1' />
+					<>5</>
+					<>(2, 2, 2, 2, 2)</>
+					<TestInput num={2} answer='4' />
+					<>4</>
+					<>(4, 3, 2, 1)</>
+					<TestInput num={3} answer='0' />
+					<>6</>
+					<>(5, 4, 1, 5, 6, 8)</>
+					<TestInput num={4} answer='2' />
+					<>6</>
+					<>(8, 4, 9, 6, 5, 7)</>
+					<TestInput num={5} answer='3' />
 				</Table>
 				<AnswerBtn />
 			</TestProvider>

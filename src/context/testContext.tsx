@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { MutableRefObject } from 'react';
+import React, { FC, MutableRefObject, PropsWithChildren } from 'react';
 import { createContext, useContext, useState, useEffect } from 'react';
 import { TiTick, TiTimes } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,9 +52,12 @@ export const updateAnswer = (dispatch: Dispatch<AnyAction>, dane: Matura) => {
 	dispatch(answerSlice.actions.changeAns(dane));
 };
 
-export const TestProvider: React.FC<
-	React.PropsWithChildren<TestProviderProps>
-> = ({ taskNum, title = '', pkt = 0, children }) => {
+export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
+	taskNum,
+	title = '',
+	pkt = 0,
+	children,
+}) => {
 	const maturaPath = useMaturaPath();
 
 	//Importing existing answers from redux
@@ -154,9 +157,9 @@ export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
 				</div>
 			) : (
 				<input
-					className='px-2 py-0 w-full input input-ghost input-sm h-5 text-center'
+					className='px-2 py-0 w-full h-5 text-center bg-white outline-none border-none'
 					type='text'
-					placeholder='odp.:'
+					placeholder='________'
 					value={value || ''}
 					onChange={(e) => {
 						const input = e.target.value;
