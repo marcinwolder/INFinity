@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { createSlice, getType, PayloadAction } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames';
 
 export type Formula = 'formula-2015' | 'formula-2023' | 'formula-stara';
 
@@ -60,6 +61,23 @@ export const useMaturaPath = () => {
 		date: string;
 	};
 	return buf;
+};
+
+export const useMaturaColor = () => {
+	const maturaPath = useMaturaPath();
+	let maturaColor = '';
+	switch (maturaPath.formula) {
+		case 'formula-stara':
+			maturaColor = 'stara';
+			break;
+		case 'formula-2015':
+			maturaColor = '2015';
+			break;
+		case 'formula-2023':
+			maturaColor = '2023';
+			break;
+	}
+	return maturaColor;
 };
 
 export const useUrl = () => {

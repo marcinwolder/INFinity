@@ -1,4 +1,3 @@
-import Tab from '../../../../components/Tab';
 import TaskImg from '../../../../components/TaskImg';
 import {
 	AnswerBtn,
@@ -12,6 +11,7 @@ import polecenie1 from './img/3-1.png';
 import polecenie2 from './img/3-2.png';
 import polecenie3 from './img/3-3.png';
 import sql from './img/sql.png';
+import TestTable from '../../../../components/TestTable';
 
 const Test = () => {
 	const path = [...usePathElements()].map((el) => el.replace('/', ''));
@@ -24,53 +24,34 @@ const Test = () => {
 			</TestProvider>
 			<TestProvider taskNum={3.1} pkt={1}>
 				<TaskImg img={polecenie1} />
-				<div className='relative text-primary-content px-0 overflow-x-auto md:px-8 pt-2'>
-					<table className='table table-compact w-full text-center overflow-hidden rounded-lg'>
-						<colgroup>
-							<col style={{ width: '3em' }} />
-							<col />
-							<col style={{ width: '6em' }} />
-						</colgroup>
-						<tbody>
-							<tr>
-								<td>
-									<b>1.</b>
-								</td>
-								<td className='text-left'>liniowa.</td>
-								<td>
-									<TestRadio num={1} />
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<b>2.</b>
-								</td>
-								<td className='text-left'>kwadratowa.</td>
-								<td>
-									<TestRadio num={2} positive />
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<b>3.</b>
-								</td>
-								<td className='text-left'>n log n.</td>
-								<td>
-									<TestRadio num={3} />
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<b>4.</b>
-								</td>
-								<td className='text-left'>nie większa niż sześcienna.</td>
-								<td>
-									<TestRadio num={4} positive />
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<TestTable
+					className='[&>.col-1]:font-semibold [&>.col-2]:text-left'
+					cols={3}
+					__manualSizes='min-content auto min-content'>
+					<div>1.</div>
+					<div>liniowa.</div>
+					<div>
+						<TestRadio num={1} />
+					</div>
+
+					<div>2.</div>
+					<div>kwadratowa.</div>
+					<div>
+						<TestRadio num={2} positive />
+					</div>
+
+					<div>3.</div>
+					<div>n log n.</div>
+					<div>
+						<TestRadio num={3} />
+					</div>
+
+					<div>4.</div>
+					<div>nie większa niż sześcienna.</div>
+					<div>
+						<TestRadio num={4} positive />
+					</div>
+				</TestTable>
 				<div className='w-full flex justify-center pt-2'>
 					<AnswerBtn />
 				</div>
