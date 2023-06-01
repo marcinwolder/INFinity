@@ -45,9 +45,7 @@ const Algorytm = () => {
 			<TestProvider taskNum={1.2} pkt={4}>
 				<img src={polecenie2} draggable={false} className='pt-2 select-none' />
 				<TestPythonText answer={'4\n6\n5\n'} num={1}>
-					{
-						'def func(n, A):\n    return(n)\n\nprint(func(4, [1, 4, 2, 5]))\nprint(func(6, [5, 4, 1, 5, 6, 8]))\nprint(func(5, [2, 2, 2, 2, 2]))'
-					}
+					{'def algo2022maj(n, A):\n\treturn 0'}
 				</TestPythonText>
 				<AnswerBtn />
 			</TestProvider>
