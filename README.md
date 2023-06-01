@@ -35,5 +35,4 @@
 
 - UX/UI
 - Storage of results in the database
-- Auth system
 - Larger task base
