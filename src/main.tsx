@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { MantineProvider } from '@mantine/core';
 
 import store from './redux';
 import App from './App';
@@ -15,6 +16,16 @@ import Formula2015 from './routes/formula-2015';
 import Formula2023 from './routes/Formula2023';
 
 import Maj2022 from './routes/formula-2015/2022/maj';
+
+declare global {
+	var pyscript: {
+		interpreter: {
+			globals: {
+				get(query: string): any;
+			};
+		};
+	};
+}
 
 const router = createBrowserRouter([
 	{
@@ -42,11 +53,13 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<>
 		<React.StrictMode>
-			<Provider store={store}>
-				<MenuProvider>
-					<RouterProvider router={router} />
-				</MenuProvider>
-			</Provider>
+			<MantineProvider>
+				<Provider store={store}>
+					<MenuProvider>
+						<RouterProvider router={router} />
+					</MenuProvider>
+				</Provider>
+			</MantineProvider>
 		</React.StrictMode>
 	</>
 );

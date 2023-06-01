@@ -36,6 +36,11 @@ interface radioProps {
 	positive?: boolean;
 }
 
+interface TestPythonTextProps {
+	tests: { input: any; output: any }[];
+	dane: string[];
+}
+
 const context = createContext<Context>({
 	show: false,
 	setShow: () => {},
@@ -222,11 +227,17 @@ export const TestRadio: React.FC<
 	);
 };
 
-export const TestPythonText: React.FC<
-	React.PropsWithChildren<TaskId & { answer: string }>
-> = ({ children, num, answer }) => {
+export const TestPythonText: React.FC<TaskId & TestPythonTextProps> = ({
+	num,
+	tests,
+	dane,
+}) => {
+	const maturaPath = useMaturaPath();
 	const { show, setValues, values } = useTestContext();
-	const [result, setResult] = useState(Boolean);
+	const [result, setResult] = useState(false);
+
+	const funcName = `algo${maturaPath.date.replace('/', '')}${num}`;
+
 	return (
 		<>
 			<PythonCompilerText
@@ -242,13 +253,24 @@ export const TestPythonText: React.FC<
 						}
 					}
 				}}
-				setResult={(result: string, repl: string) => {
+				setResult={(repl: string) => {
 					if (repl === '') {
 						setValues((v) => _.omit(v, num));
 					} else setValues((v) => ({ ...v, [num]: repl }));
-					setResult(result === answer);
+					const func = pyscript.interpreter.globals.get(funcName) as Function;
+					let afterTest = true;
+					tests.forEach(({ input, output }) => {
+						if (typeof input === 'object') {
+							console.log(func(...input), output);
+							if (func(...input) !== output) afterTest = false;
+						} else {
+							console.log(func(...input), output);
+							if (func(input) !== output) afterTest = false;
+						}
+					});
+					setResult(afterTest);
 				}}>
-				{children}
+				{`def ${funcName}(${dane.join(', ')}):\n    return 0`}
 			</PythonCompilerText>
 			{show && (
 				<div className='mx-auto w-56 text-center my-2'>
