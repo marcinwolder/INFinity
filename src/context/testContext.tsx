@@ -233,8 +233,13 @@ export const TestPythonText: React.FC<
 				disabled={show}
 				syncFunc={(replRef: MutableRefObject<any>) => {
 					if (values[num]) {
-						replRef.current.children[0].children[1].children[0].children[1].children[1].innerHTML =
-							values as string;
+						if (typeof values === 'string') {
+							replRef.current.children[0].children[1].children[0].children[1].children[1].innerHTML =
+								values as string;
+						} else {
+							replRef.current.children[0].children[1].children[0].children[1].children[1].innerHTML =
+								values[num] as string;
+						}
 					}
 				}}
 				setResult={(result: string, repl: string) => {
