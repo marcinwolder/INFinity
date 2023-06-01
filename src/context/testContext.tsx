@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { FC, MutableRefObject, PropsWithChildren } from 'react';
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { TiTick, TiTimes } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';
 import PythonCompilerText from '../components/PythonCompiler/PythonCompilerText';
