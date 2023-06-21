@@ -6,6 +6,7 @@ import TabSwitch from '../../../../components/TabSwitch';
 import Algorytm from './Algorytm';
 import Analiza from './Analiza';
 import Test from './Test';
+import Python from './Python';
 
 const Maj2022 = () => {
 	usePath('/2022/maj');
@@ -18,7 +19,12 @@ const Maj2022 = () => {
 						headers={['Algorytm', 'Analiza', 'Test']}
 					/>
 				}
-				Part2={'Part2'}
+				Part2={
+					<TabSwitch
+						tabs={[<Python />, 'Excel', 'Access']}
+						headers={['Python', 'Excel', 'Access']}
+					/>
+				}
 			/>
 		</div>
 	);
