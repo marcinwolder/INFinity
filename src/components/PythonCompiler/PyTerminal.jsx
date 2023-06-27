@@ -1,7 +1,11 @@
 import React, { forwardRef } from 'react';
 
-export const PyRepl = forwardRef(({ children }, ref) => {
-	return <py-terminal ref={ref}>{children}</py-terminal>;
+export const PyTerminal = forwardRef(({ children, id }, ref) => {
+	return (
+		<py-terminal id={id} ref={ref}>
+			{children}
+		</py-terminal>
+	);
 });
 
-export default PyRepl;
+export default PyTerminal;

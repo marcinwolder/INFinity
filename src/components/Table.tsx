@@ -79,6 +79,7 @@ const Table: FC<TableProps> = ({
 				))}
 			{children.map((el, index) => (
 				<div
+					key={index}
 					className={`col-${
 						(index % cols) + 1
 					} row-${1} flex items-center justify-center`}>

@@ -241,15 +241,14 @@ export const TestPythonText: React.FC<TaskId & TestPythonTextProps> = ({
 	return (
 		<>
 			<PythonCompilerText
+				terminal
 				disabled={show}
-				syncFunc={(replRef: MutableRefObject<any>) => {
+				syncFunc={(setReplSrc) => {
 					if (values[num]) {
 						if (typeof values === 'string') {
-							replRef.current.children[0].children[1].children[0].children[1].children[1].innerHTML =
-								values as string;
+							setReplSrc(values);
 						} else {
-							replRef.current.children[0].children[1].children[0].children[1].children[1].innerHTML =
-								values[num] as string;
+							setReplSrc(values[num] as string);
 						}
 					}
 				}}

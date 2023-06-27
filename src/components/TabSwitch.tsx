@@ -14,6 +14,7 @@ const TabSwitch: FC<TabSwitchProps> = ({ tabs, headers }) => {
 				{headers.map((header, index) => {
 					return (
 						<a
+							key={index}
 							onClick={() => setTab(index + 1)}
 							className={`tab ${tab === index + 1 && 'tab-active'}`}>
 							{header}

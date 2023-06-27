@@ -1,11 +1,5 @@
 import classNames from 'classnames';
-import {
-	useState,
-	useRef,
-	MutableRefObject,
-	FC,
-	PropsWithChildren,
-} from 'react';
+import { useState, useRef, MutableRefObject, useCallback, useId } from 'react';
 import { useDispatch } from 'react-redux';
 import { useClipboard } from '@mantine/hooks';
 
@@ -16,61 +10,90 @@ import { AiOutlineCopy, AiFillCopy } from 'react-icons/ai';
 
 import { useMaturaPath } from '../../redux/slices/path';
 import { updateAnswer, useTestContext } from '../../context/testContext';
-import PyRepl from './PyRepl';
+import usePyRepl from './usePyRepl';
 import PyTerminal from './PyTerminal';
 
 interface PythonCompilerTextProps {
-	setResult: (result: string, repl: string) => void;
-	syncFunc: (replRef: MutableRefObject<any>) => void;
-	disabled: boolean;
-	terminal?: boolean;
+	setResult: (result: string, repl: string) => void; //func used to pass algo result to context
+	syncFunc: (setReplSrc: (newSrc: string) => void) => void; //func used to get previous answers from context
+	disabled: boolean; //boolean from answer button
+	terminal?: boolean; //decides if terminal is shown or hidden
 }
 
-const PythonCompilerText: FC<PropsWithChildren<PythonCompilerTextProps>> = ({
-	setResult,
-	syncFunc,
-	children,
-	disabled,
-	terminal = false,
-}) => {
-	const [localDisabled, setLocalDisabled] = useState(true);
-	const [show, setShow] = useState(true);
+const PythonCompilerText: React.FC<
+	React.PropsWithChildren<PythonCompilerTextProps>
+> = ({ setResult, syncFunc, children, disabled, terminal }) => {
+	const [PyRepl, setReplSrc] = usePyRepl();
+
+	const [localDisabled, setLocalDisabled] = useState(true); //disable usage of buttons
+	const [show, setShow] = useState(true); //show whole terminal output
 
 	const dispatch = useDispatch();
 
 	const { taskNum } = useTestContext();
 	const maturaPath = useMaturaPath();
 
-	const terminalRef = useRef<any>();
+	// const terminalId = `${maturaPath.date}-${maturaPath.formula}-${taskNum}`;
+	const terminalId = 'TEST';
 	const replRef = useRef<any>();
-
 	const runBtn = useRef<HTMLButtonElement>(null);
 	const terminalDivRef = useRef<HTMLDivElement>(null);
 	const loaderDiv = useRef<HTMLDivElement>(null);
 
 	const clipboard = useClipboard();
 
+	const startClick = useCallback(() => {
+		setLocalDisabled(false);
+		setTimeout(() => {
+			syncFunc(setReplSrc);
+		}, 1);
+		setTimeout(() => {
+			const runBtn = replRef.current.children[0].children[0].children[1];
+			runBtn.click();
+
+			loaderDiv.current?.remove();
+		}, 2);
+	}, [loaderDiv, runBtn]);
+	const copyClick = () => {
+		const code = replRef.current.getPyScr();
+		clipboard.copy(code);
+	};
+	const algoStartClick = () => {
+		const replContent = replRef.current.getPySrc();
+		const btn = replRef.current.children[0].children[0].children[1];
+		btn.click();
+		// setResult(terminalRef.current.children[0].innerText, replContent);
+		updateAnswer(dispatch, {
+			answers: {
+				[taskNum]: replContent,
+			},
+			formula: maturaPath.formula,
+			date: maturaPath.date,
+		});
+	};
+	const runClick = () => {
+		const replContent = replRef.current.getPySrc();
+		const btn = replRef.current.children[0].children[0].children[1];
+		btn.click();
+		// setResult(terminalRef.current.children[0].innerText, replContent);
+		updateAnswer(dispatch, {
+			answers: {
+				[taskNum]: replContent,
+			},
+			formula: maturaPath.formula,
+			date: maturaPath.date,
+		});
+	};
+	const showClick = () => {
+		setShow((show) => !show);
+	};
+
 	return (
 		<div>
-			<div id='output' className='invisible h-0'></div>
 			<div className='relative'>
 				<div
 					tabIndex={0}
-					onClick={() => {
-						setLocalDisabled(false);
-						setTimeout(() => {
-							syncFunc(replRef);
-						}, 1);
-						setTimeout(() => {
-							const runBtn =
-								replRef.current.children[0].children[1].children[2];
-							runBtn.click();
-							runBtn.classList.add('invisible');
-
-							terminalRef.current.children[0].innerText = '';
-							loaderDiv.current?.remove();
-						}, 2);
-					}}
+					onClick={startClick}
 					ref={loaderDiv}
 					className='absolute bg-neutral-700 opacity-70 z-10 w-full h-full flex items-center justify-center hover:cursor-pointer'>
 					<div className='animate-pulse flex items-center'>
@@ -79,21 +102,12 @@ const PythonCompilerText: FC<PropsWithChildren<PythonCompilerTextProps>> = ({
 					</div>
 				</div>
 				<div className='relative'>
-					<PyRepl ref={replRef} output='output'>
+					<PyRepl output={terminalId} ref={replRef}>
 						{children}
 					</PyRepl>
-					<button
-						className='absolute top-2 right-2'
-						onClick={() => {
-							const code =
-								replRef.current.children[0].children[1].children[0].children[1]
-									.children[1].innerText;
-							clipboard.copy(code);
-						}}>
-						{clipboard.copied ? <AiFillCopy /> : <AiOutlineCopy />}
-					</button>
 				</div>
 			</div>
+
 			<div
 				className={`flex flex-col items-center my-2 ${
 					terminal ? 'hidden' : 'block'
@@ -110,22 +124,7 @@ const PythonCompilerText: FC<PropsWithChildren<PythonCompilerTextProps>> = ({
 							invisible: !show,
 						}
 					)}
-					onClick={() => {
-						const replContent =
-							replRef.current.children[0].children[1].children[0].children[1]
-								.children[1].innerHTML;
-						const btn = replRef.current.children[0].children[1].children[2];
-						terminalRef.current.children[0].innerText = '';
-						btn.click();
-						setResult(terminalRef.current.children[0].innerText, replContent);
-						updateAnswer(dispatch, {
-							answers: {
-								[taskNum]: replContent,
-							},
-							formula: maturaPath.formula,
-							date: maturaPath.date,
-						});
-					}}>
+					onClick={algoStartClick}>
 					URUCHOM ALGORYTM <VscRunAll />
 				</button>
 				<i>
@@ -135,9 +134,11 @@ const PythonCompilerText: FC<PropsWithChildren<PythonCompilerTextProps>> = ({
 
 			<div
 				ref={terminalDivRef}
-				className={`relative ${show && 'h-40 overflow-y-hidden'} ${
-					terminal ? 'block' : 'hidden'
-				}`}>
+				className={classNames('relative', {
+					'h-40 overflow-y-hidden': show,
+					block: terminal,
+					hidden: !terminal,
+				})}>
 				<button
 					ref={runBtn}
 					disabled={disabled || localDisabled}
@@ -151,22 +152,7 @@ const PythonCompilerText: FC<PropsWithChildren<PythonCompilerTextProps>> = ({
 							invisible: !show,
 						}
 					)}
-					onClick={() => {
-						const replContent =
-							replRef.current.children[0].children[1].children[0].children[1]
-								.children[1].innerHTML;
-						const btn = replRef.current.children[0].children[1].children[2];
-						terminalRef.current.children[0].innerText = '';
-						btn.click();
-						setResult(terminalRef.current.children[0].innerText, replContent);
-						updateAnswer(dispatch, {
-							answers: {
-								[taskNum]: replContent,
-							},
-							formula: maturaPath.formula,
-							date: maturaPath.date,
-						});
-					}}>
+					onClick={runClick}>
 					WYKONAJ <VscRunAll />
 				</button>
 				<button
@@ -182,7 +168,7 @@ const PythonCompilerText: FC<PropsWithChildren<PythonCompilerTextProps>> = ({
 						}
 					)}
 					onClick={() => {
-						terminalRef.current.children[0].innerText = '';
+						// terminalRef.current.children[0].innerText = '';
 					}}>
 					WYCZYŚĆ <ImBin />
 				</button>
@@ -197,14 +183,12 @@ const PythonCompilerText: FC<PropsWithChildren<PythonCompilerTextProps>> = ({
 							'text-neutral-600': disabled || localDisabled,
 						}
 					)}
-					onClick={() => {
-						setShow((show) => !show);
-					}}>
+					onClick={showClick}>
 					{show ? 'ROZWIŃ WYNIKI' : 'UKRYJ WYNIKI'}{' '}
 					<GoPlus className={classNames({ 'rotate-45': show })} />
 				</button>
 
-				<PyTerminal ref={terminalRef}></PyTerminal>
+				<PyTerminal id={terminalId}></PyTerminal>
 				{show && (
 					<div className='absolute bottom-0 h-full w-full bg-gradient-to-t from-black to-transparent' />
 				)}
