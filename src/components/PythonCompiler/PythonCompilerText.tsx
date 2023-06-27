@@ -35,6 +35,7 @@ const PythonCompilerText: React.FC<
 
 	// const terminalId = `${maturaPath.date}-${maturaPath.formula}-${taskNum}`;
 	const terminalId = 'TEST';
+	const terminalRef = useRef<any>();
 	const replRef = useRef<any>();
 	const runBtn = useRef<HTMLButtonElement>(null);
 	const terminalDivRef = useRef<HTMLDivElement>(null);
@@ -62,7 +63,7 @@ const PythonCompilerText: React.FC<
 		const replContent = replRef.current.getPySrc();
 		const btn = replRef.current.children[0].children[0].children[1];
 		btn.click();
-		// setResult(terminalRef.current.children[0].innerText, replContent);
+		setResult(terminalRef.current.children[0].innerText, replContent);
 		updateAnswer(dispatch, {
 			answers: {
 				[taskNum]: replContent,
@@ -75,7 +76,7 @@ const PythonCompilerText: React.FC<
 		const replContent = replRef.current.getPySrc();
 		const btn = replRef.current.children[0].children[0].children[1];
 		btn.click();
-		// setResult(terminalRef.current.children[0].innerText, replContent);
+		setResult(terminalRef.current.children[0].innerText, replContent);
 		updateAnswer(dispatch, {
 			answers: {
 				[taskNum]: replContent,
@@ -83,6 +84,7 @@ const PythonCompilerText: React.FC<
 			formula: maturaPath.formula,
 			date: maturaPath.date,
 		});
+		setReplSrc(replContent);
 	};
 	const showClick = () => {
 		setShow((show) => !show);
@@ -188,7 +190,7 @@ const PythonCompilerText: React.FC<
 					<GoPlus className={classNames({ 'rotate-45': show })} />
 				</button>
 
-				<PyTerminal id={terminalId}></PyTerminal>
+				<PyTerminal ref={terminalRef} id={terminalId}></PyTerminal>
 				{show && (
 					<div className='absolute bottom-0 h-full w-full bg-gradient-to-t from-black to-transparent' />
 				)}
