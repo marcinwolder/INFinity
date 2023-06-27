@@ -1,14 +1,25 @@
 import _ from 'lodash';
-import React, { FC, MutableRefObject, PropsWithChildren } from 'react';
+import React, {
+	FC,
+	MutableRefObject,
+	PropsWithChildren,
+	useEffect,
+	useRef,
+} from 'react';
 import { createContext, useContext, useState } from 'react';
 import { TiTick, TiTimes } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';
-import PythonCompilerText from '../components/PythonCompiler/PythonCompilerText';
 import { StateStore } from '../redux';
 import { Matura, answerSlice } from '../redux/slices/answers';
 import { useMaturaPath } from '../redux/slices/path';
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import classNames from 'classnames';
+import usePyRepl from '../components/PythonCompiler/usePyRepl';
+import { ImBin, ImPlay3 } from 'react-icons/im';
+import { VscRunAll } from 'react-icons/vsc';
+import PyTerminal from '../components/PythonCompiler/PyTerminal';
+import { GoPlus } from 'react-icons/go';
+import { useId } from '@mantine/hooks';
 
 export interface Answers {
 	[keys: number]: string | number | boolean;
@@ -34,11 +45,6 @@ interface testProps {
 }
 interface radioProps {
 	positive?: boolean;
-}
-
-interface TestPythonTextProps {
-	tests: { input: any; output: any }[];
-	dane: string[];
 }
 
 const context = createContext<Context>({
@@ -227,50 +233,155 @@ export const TestRadio: React.FC<
 	);
 };
 
-export const TestPythonText: React.FC<TaskId & TestPythonTextProps> = ({
-	num,
-	tests,
-	dane,
-}) => {
+interface PythonCompilerProps {
+	setResult: (result: string, repl: string) => void; //func used to pass algo result to context
+	syncFunc: (setReplSrc: (newSrc: string) => void) => void; //func used to get previous answers from context
+	disabled: boolean; //boolean from answer button
+	terminal?: boolean; //decides if terminal is shown or hidden
+	tests: { input: any; output: any }[] | string;
+	dane: string[];
+}
+
+export const TestPython: React.FC<
+	React.PropsWithChildren<TaskId & PythonCompilerProps>
+> = ({ children, num, tests, dane }) => {
+	const [PyRepl, setReplSrc] = usePyRepl();
+
+	const [localDisabled, setLocalDisabled] = useState(true); //disable usage of buttons
+	const [show, setShow] = useState(true); //show whole terminal output
+
+	const dispatch = useDispatch();
+
+	const { taskNum, setValues, values } = useTestContext();
 	const maturaPath = useMaturaPath();
-	const { show, setValues, values } = useTestContext();
+
+	const terminalId = useId();
+	const terminalRef = useRef<any>();
+	const replRef = useRef<any>();
+	const runBtn = useRef<HTMLButtonElement>(null);
+	const terminalDivRef = useRef<HTMLDivElement>(null);
+
 	const [result, setResult] = useState(false);
 
 	const funcName = `algo${maturaPath.date.replace('/', '')}${num}`;
 
+	let startBtn: HTMLButtonElement;
+	useEffect(() => {
+		startBtn = replRef.current.children[0].children[0].children[1];
+	}, [replRef.current]);
+
+	const resultCheck = (terminalContent: string) => {
+		if (terminalContent === '') {
+			setValues((v) => _.omit(v, num));
+		} else setValues((v) => ({ ...v, [num]: terminalContent }));
+		const func = pyscript.interpreter.globals.get(funcName) as Function;
+		let afterTest = true;
+		if (typeof tests === 'string') {
+			afterTest = terminalContent === tests ? true : false;
+		} else {
+			tests.forEach(({ input, output }) => {
+				if (typeof input === 'object') {
+					console.log(func(...input), output);
+					if (func(...input) !== output) afterTest = false;
+				} else {
+					console.log(func(...input), output);
+					if (func(input) !== output) afterTest = false;
+				}
+			});
+		}
+		setResult(afterTest);
+	};
+	const startClick = () => {
+		setLocalDisabled(false);
+		if (values[num]) {
+			if (typeof values === 'string') {
+				setReplSrc(values);
+			} else {
+				setReplSrc(values[num] as string);
+			}
+		}
+		startBtn.click();
+	};
+	const runClick = () => {
+		const replContent = replRef.current.getPySrc();
+		startBtn.click();
+		resultCheck(terminalRef.current.children[0].innerText);
+		updateAnswer(dispatch, {
+			answers: {
+				[taskNum]: replContent,
+			},
+			formula: maturaPath.formula,
+			date: maturaPath.date,
+		});
+		setReplSrc(replContent);
+	};
+
 	return (
 		<>
-			<PythonCompilerText
-				terminal
-				disabled={show}
-				syncFunc={(setReplSrc) => {
-					if (values[num]) {
-						if (typeof values === 'string') {
-							setReplSrc(values);
-						} else {
-							setReplSrc(values[num] as string);
-						}
-					}
-				}}
-				setResult={(repl: string) => {
-					if (repl === '') {
-						setValues((v) => _.omit(v, num));
-					} else setValues((v) => ({ ...v, [num]: repl }));
-					const func = pyscript.interpreter.globals.get(funcName) as Function;
-					let afterTest = true;
-					tests.forEach(({ input, output }) => {
-						if (typeof input === 'object') {
-							console.log(func(...input), output);
-							if (func(...input) !== output) afterTest = false;
-						} else {
-							console.log(func(...input), output);
-							if (func(input) !== output) afterTest = false;
-						}
-					});
-					setResult(afterTest);
-				}}>
-				{`def ${funcName}(${dane.join(', ')}):\n    return 0`}
-			</PythonCompilerText>
+			<div>
+				<div className='relative'>
+					<div
+						tabIndex={0}
+						onClick={startClick}
+						className={classNames(
+							'absolute bg-neutral-700 opacity-70 z-10 w-full h-full flex items-center justify-center hover:cursor-pointer',
+							{ hidden: !localDisabled }
+						)}>
+						<div className='animate-pulse flex items-center'>
+							<ImPlay3 className='text-4xl' />
+							<center>ROZPOCZNIJ</center>
+						</div>
+					</div>
+					<div className='relative'>
+						<PyRepl output={terminalId} ref={replRef}>
+							{children || `def ${funcName}(${dane.join(', ')}):\n    return 0`}
+						</PyRepl>
+					</div>
+				</div>
+				{/* <div className={`flex flex-col items-center my-2 $`}>
+					<button
+						className={classNames(
+							'z-10 flex items-center gap-1 pl-2 text-black',
+							{
+								'hover:text-green-400 active:text-green-600': !true,
+								'text-neutral-600': true,
+								invisible: !show,
+							}
+						)}
+						onClick={runClick}>
+						URUCHOM ALGORYTM <VscRunAll />
+					</button>
+					<i>
+						<sup>*</sup>kliknij przed sprawdzeniem poprawności odpowiedzi
+					</i>
+				</div> */}
+				<div
+					ref={terminalDivRef}
+					className={classNames('relative', {
+						'h-40 overflow-y-hidden': show,
+						block: true,
+						hidden: !true,
+					})}>
+					<button
+						ref={runBtn}
+						// disabled={disabled || localDisabled}
+						className={classNames(
+							'z-10 absolute flex items-center gap-1 right-2 top-2 bg-black pl-2 text-white',
+							{
+								'hover:text-green-400 active:text-green-600': !true,
+								'text-neutral-600': true,
+								invisible: !show,
+							}
+						)}
+						onClick={runClick}>
+						WYKONAJ <VscRunAll />
+					</button>
+					<PyTerminal ref={terminalRef} id={terminalId}></PyTerminal>
+					{show && (
+						<div className='absolute bottom-0 h-full w-full bg-gradient-to-t from-black to-transparent' />
+					)}
+				</div>
+			</div>
 			{show && (
 				<div className='mx-auto w-56 text-center my-2'>
 					{result ? (

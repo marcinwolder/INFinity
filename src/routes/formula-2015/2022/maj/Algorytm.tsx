@@ -2,7 +2,7 @@ import {
 	AnswerBtn,
 	TestInput,
 	TestProvider,
-	TestPythonText,
+	TestPython,
 } from '../../../../context/testContext';
 import Table from '../../../../components/Table';
 
@@ -44,7 +44,7 @@ const Algorytm = () => {
 			</TestProvider>
 			<TestProvider taskNum={1.2} pkt={4}>
 				<img src={polecenie2} draggable={false} className='pt-2 select-none' />
-				<TestPythonText
+				<TestPython
 					tests={[
 						{ input: [3, [0, 1, 3, 1]], output: 1 },
 						{ input: [4, [0, 1, 4, 2, 5]], output: 1 },
