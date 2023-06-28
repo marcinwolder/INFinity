@@ -6,7 +6,7 @@ export const usePyRepl = () => {
 		forwardRef(({ children, output }, ref) => {
 			console.log(output);
 			return (
-				<py-repl output={output} ref={ref}>
+				<py-repl output={output} output-mode='append' ref={ref}>
 					{src || children}
 				</py-repl>
 			);

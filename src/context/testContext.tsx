@@ -234,40 +234,37 @@ export const TestRadio: React.FC<
 };
 
 interface PythonCompilerProps {
-	setResult: (result: string, repl: string) => void; //func used to pass algo result to context
-	syncFunc: (setReplSrc: (newSrc: string) => void) => void; //func used to get previous answers from context
-	disabled: boolean; //boolean from answer button
-	terminal?: boolean; //decides if terminal is shown or hidden
-	tests: { input: any; output: any }[] | string;
-	dane: string[];
+	tests: { input: any; output: any }[] | string; //set of test that will check if algo is working
+	funcParameters: string[]; //parameters used in prepared func
+	terminal?: boolean; //determines if terminal should be visible or not
 }
 
 export const TestPython: React.FC<
 	React.PropsWithChildren<TaskId & PythonCompilerProps>
-> = ({ children, num, tests, dane }) => {
+> = ({ children, num, tests, funcParameters, terminal }) => {
 	const [PyRepl, setReplSrc] = usePyRepl();
-
-	const [localDisabled, setLocalDisabled] = useState(true); //disable usage of buttons
-	const [show, setShow] = useState(true); //show whole terminal output
-
+	const { show, taskNum, setValues, values } = useTestContext();
 	const dispatch = useDispatch();
-
-	const { taskNum, setValues, values } = useTestContext();
 	const maturaPath = useMaturaPath();
 
 	const terminalId = useId();
 	const terminalRef = useRef<any>();
 	const replRef = useRef<any>();
 	const runBtn = useRef<HTMLButtonElement>(null);
-	const terminalDivRef = useRef<HTMLDivElement>(null);
 
 	const [result, setResult] = useState(false);
+	const [disabled, setDisabled] = useState(true);
 
 	const funcName = `algo${maturaPath.date.replace('/', '')}${num}`;
 
 	let startBtn: HTMLButtonElement;
 	useEffect(() => {
-		startBtn = replRef.current.children[0].children[0].children[1];
+		startBtn = replRef.current.children[0].children[0].children[1] || null;
+		if (startBtn) {
+			replRef.current.children[0].children[0].children[1].classList.add(
+				'hidden'
+			);
+		}
 	}, [replRef.current]);
 
 	const resultCheck = (terminalContent: string) => {
@@ -292,7 +289,7 @@ export const TestPython: React.FC<
 		setResult(afterTest);
 	};
 	const startClick = () => {
-		setLocalDisabled(false);
+		setDisabled(false);
 		if (values[num]) {
 			if (typeof values === 'string') {
 				setReplSrc(values);
@@ -304,8 +301,9 @@ export const TestPython: React.FC<
 	};
 	const runClick = () => {
 		const replContent = replRef.current.getPySrc();
+		terminalRef.current.innerText = '';
 		startBtn.click();
-		resultCheck(terminalRef.current.children[0].innerText);
+		resultCheck(terminalRef.current.innerText);
 		updateAnswer(dispatch, {
 			answers: {
 				[taskNum]: replContent,
@@ -319,13 +317,19 @@ export const TestPython: React.FC<
 	return (
 		<>
 			<div>
+				<p
+					className={classNames('font-semibold text-sm text-center mb-2', {
+						hidden: terminal,
+					})}>
+					(rozwiązanie zadania zapisz w podanej funkcji)
+				</p>
 				<div className='relative'>
 					<div
 						tabIndex={0}
 						onClick={startClick}
 						className={classNames(
 							'absolute bg-neutral-700 opacity-70 z-10 w-full h-full flex items-center justify-center hover:cursor-pointer',
-							{ hidden: !localDisabled }
+							{ hidden: !disabled }
 						)}>
 						<div className='animate-pulse flex items-center'>
 							<ImPlay3 className='text-4xl' />
@@ -334,18 +338,22 @@ export const TestPython: React.FC<
 					</div>
 					<div className='relative'>
 						<PyRepl output={terminalId} ref={replRef}>
-							{children || `def ${funcName}(${dane.join(', ')}):\n    return 0`}
+							{children ||
+								`def ${funcName}(${funcParameters.join(', ')}):\n    return 0`}
 						</PyRepl>
 					</div>
 				</div>
-				{/* <div className={`flex flex-col items-center my-2 $`}>
+				<div
+					className={classNames(`flex flex-col items-center my-2`, {
+						hidden: terminal,
+					})}>
 					<button
+						disabled={disabled}
 						className={classNames(
-							'z-10 flex items-center gap-1 pl-2 text-black',
+							'z-10 flex items-center gap-1 pl-2 text-black hover:text-green-400 active:text-green-600',
 							{
-								'hover:text-green-400 active:text-green-600': !true,
-								'text-neutral-600': true,
-								invisible: !show,
+								'hover:text-gray-600 active:text-gray-600 text-gray-600':
+									disabled,
 							}
 						)}
 						onClick={runClick}>
@@ -354,32 +362,30 @@ export const TestPython: React.FC<
 					<i>
 						<sup>*</sup>kliknij przed sprawdzeniem poprawności odpowiedzi
 					</i>
-				</div> */}
-				<div
-					ref={terminalDivRef}
-					className={classNames('relative', {
-						'h-40 overflow-y-hidden': show,
-						block: true,
-						hidden: !true,
-					})}>
+				</div>
+				<div className={classNames('relative', { hidden: !terminal })}>
 					<button
+						disabled={disabled}
 						ref={runBtn}
-						// disabled={disabled || localDisabled}
 						className={classNames(
-							'z-10 absolute flex items-center gap-1 right-2 top-2 bg-black pl-2 text-white',
+							'z-10 absolute flex items-center gap-1 right-2 top-2 bg-black pl-2 text-white hover:text-green-400 active:text-green-600',
 							{
-								'hover:text-green-400 active:text-green-600': !true,
-								'text-neutral-600': true,
-								invisible: !show,
+								'hover:text-gray-600 active:text-gray-600 text-gray-600':
+									disabled,
 							}
 						)}
 						onClick={runClick}>
 						WYKONAJ <VscRunAll />
 					</button>
-					<PyTerminal ref={terminalRef} id={terminalId}></PyTerminal>
-					{show && (
-						<div className='absolute bottom-0 h-full w-full bg-gradient-to-t from-black to-transparent' />
-					)}
+					<div
+						className={classNames(
+							'relative bg-black w-full overflow-x-scroll'
+						)}>
+						<div
+							className="min-h-12 w-max bg-black text-white font-['IBM Plex Mono'] px-2 py-1 leading-snug"
+							ref={terminalRef}
+							id={terminalId}></div>
+					</div>
 				</div>
 			</div>
 			{show && (
