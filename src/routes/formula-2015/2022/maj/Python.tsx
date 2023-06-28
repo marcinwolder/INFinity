@@ -2,7 +2,7 @@ import {
 	AnswerBtn,
 	TestInput,
 	TestProvider,
-	TestPythonText,
+	TestPython,
 } from '../../../../context/testContext';
 import Table from '../../../../components/Table';
 

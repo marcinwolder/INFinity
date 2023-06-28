@@ -1,8 +1,8 @@
-import { StateStore } from '../index';
 import _ from 'lodash';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { StateStore } from '..';
 
 export type Formula = 'formula-2015' | 'formula-2023' | 'formula-stara';
 
