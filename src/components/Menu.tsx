@@ -1,6 +1,6 @@
 import React from 'react';
 import { MenuLink } from '../context/menuContext';
-import { usePathElements } from '../redux/slices/path';
+import { usePathElements } from '../redux/slices/pathSlice';
 
 const markSelected = (elements: React.ReactElement) => {
 	const path = usePathElements();

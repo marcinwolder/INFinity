@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
-import { useMaturaColor } from '../redux/slices/path';
+import { useMaturaColor } from '../redux/slices/pathSlice';
 import styled from 'styled-components';
 
 interface TableProps {

@@ -1,24 +1,16 @@
 import _ from 'lodash';
-import React, {
-	FC,
-	MutableRefObject,
-	PropsWithChildren,
-	useEffect,
-	useRef,
-} from 'react';
+import React, { FC, PropsWithChildren, useEffect, useRef } from 'react';
 import { createContext, useContext, useState } from 'react';
 import { TiTick, TiTimes } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateStore } from '../redux';
-import { Matura, answerSlice } from '../redux/slices/answers';
-import { useMaturaPath } from '../redux/slices/path';
+import { Matura, answerSlice } from '../redux/slices/answersSlice';
+import { useMaturaPath } from '../redux/slices/pathSlice';
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import classNames from 'classnames';
 import usePyRepl from '../components/PythonCompiler/usePyRepl';
-import { ImBin, ImPlay3 } from 'react-icons/im';
+import { ImPlay3 } from 'react-icons/im';
 import { VscRunAll } from 'react-icons/vsc';
-import PyTerminal from '../components/PythonCompiler/PyTerminal';
-import { GoPlus } from 'react-icons/go';
 import { useId } from '@mantine/hooks';
 
 export interface Answers {

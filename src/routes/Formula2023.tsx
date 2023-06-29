@@ -1,4 +1,4 @@
-import { usePath } from '../redux/slices/path';
+import { usePath } from '../redux/slices/pathSlice';
 
 const Main = () => {
 	usePath('/formula-2023');

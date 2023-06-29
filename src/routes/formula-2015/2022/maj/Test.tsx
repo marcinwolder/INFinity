@@ -4,7 +4,7 @@ import {
 	TestRadio,
 	TestProvider,
 } from '../../../../context/testContext';
-import { usePathElements } from '../../../../redux/slices/path';
+import { usePathElements } from '../../../../redux/slices/pathSlice';
 
 import zadanie3 from './img/3.png';
 import polecenie1 from './img/3-1.png';

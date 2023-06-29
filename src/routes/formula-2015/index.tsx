@@ -1,7 +1,7 @@
 import { useOutlet } from 'react-router-dom';
 import Breadcrumps from '../../components/Breadcrumps';
 
-import { usePath } from '../../redux/slices/path';
+import { usePath } from '../../redux/slices/pathSlice';
 import { Main } from './Main';
 
 const Formula2015 = () => {

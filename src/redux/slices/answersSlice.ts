@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Formula } from './path';
+import { Formula } from './pathSlice';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Answers } from '../../context/testContext';
 

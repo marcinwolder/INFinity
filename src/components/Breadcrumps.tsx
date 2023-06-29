@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { usePathElements } from '../redux/slices/path';
+import { usePathElements } from '../redux/slices/pathSlice';
 
 const createBreadcrumbs = () => {
 	const path = usePathElements() as string[];

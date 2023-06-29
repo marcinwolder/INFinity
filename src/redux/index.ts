@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { answerSlice } from './slices/answers';
-import { pathSlice } from './slices/path';
+import { answerSlice } from './slices/answersSlice';
+import { pathSlice } from './slices/pathSlice';
 
 const store = configureStore({
 	reducer: {

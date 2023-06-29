@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useYearDropdown from '../../components/YearDropdown';
-import { useUrl } from '../../redux/slices/path';
+import { useUrl } from '../../redux/slices/pathSlice';
 
 export const Main: React.FC = () => {
 	const url = useUrl();

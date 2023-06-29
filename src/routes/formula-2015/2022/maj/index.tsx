@@ -1,4 +1,4 @@
-import { usePath } from '../../../../redux/slices/path';
+import { usePath } from '../../../../redux/slices/pathSlice';
 
 import PartSwitch from '../../../../components/PartSwitch';
 import TabSwitch from '../../../../components/TabSwitch';
