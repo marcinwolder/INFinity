@@ -4,7 +4,7 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
+		"dev": "vite --host 192.168.100.10",
 		"build": "tsc && vite build",
 		"preview": "vite preview"
 	},
@@ -25,7 +25,6 @@
 		"react-redux": "^8.0.5",
 		"react-router-dom": "^6.8.1",
 		"redux": "^4.2.1",
-		"reselect": "^4.1.7",
 		"styled-components": "^5.3.11",
 		"tailwindcss-opentype": "^1.1.0",
 		"theme-change": "^2.3.0"
