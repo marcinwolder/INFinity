@@ -8,11 +8,6 @@ export type Formula = 'formula-2015' | 'formula-2023' | 'formula-stara';
 
 type StateStore = ReturnType<typeof store.getState>;
 
-interface Slice {
-	calibrated: boolean;
-	blocks: string[];
-}
-
 export const pathSlice = createSlice({
 	name: 'path',
 	initialState: { calibrated: false, blocks: ['/strona-główna'] },
@@ -27,7 +22,7 @@ export const pathSlice = createSlice({
 			const blocks = [...state.blocks];
 			const start = blocks.shift();
 			blocks.reverse();
-			blocks.unshift(start!);
+			blocks.unshift(start as string);
 			return { calibrated: true, blocks };
 		},
 	},
@@ -40,7 +35,7 @@ export const usePath = (name: string) => {
 		return () => {
 			dispatch(pathSlice.actions.unloadPath());
 		};
-	}, []);
+	}, [dispatch, name]);
 };
 
 export const usePathElements = () => {

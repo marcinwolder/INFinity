@@ -1,12 +1,17 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { Link as BaseLink } from 'react-router-dom';
 
 export const MenuContext = createContext<{
 	isOpen: boolean;
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}>({ isOpen: false, setOpen() {} });
+}>({
+	isOpen: false,
+	setOpen() {
+		return;
+	},
+});
 
-export const MenuProvider: React.FC<React.PropsWithChildren<{}>> = ({
+export const MenuProvider: React.FC<React.PropsWithChildren> = ({
 	children,
 }) => {
 	const [isOpen, setOpen] = useState(false);

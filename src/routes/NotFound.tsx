@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { TbError404 } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ const NotFound = () => {
 	const navigate = useNavigate();
 	useEffect(() => {
 		setTimeout(() => navigate('/'), 2000);
-	}, []);
+	}, [navigate]);
 	return (
 		<div className='flex h-screen justify-center items-center'>
 			<span className='text-2xl small-caps'>

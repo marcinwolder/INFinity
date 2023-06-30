@@ -1,10 +1,4 @@
-import {
-	AnswerBtn,
-	TestInput,
-	TestProvider,
-	TestPython,
-} from '../../../../context/testContext';
-import Table from '../../../../components/Table';
+import { AnswerBtn, TestProvider } from '../../../../context/testContext';
 
 import zadanie4 from './img/4.png';
 import polecenie1 from './img/4-1.png';

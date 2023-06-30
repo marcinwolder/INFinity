@@ -1,5 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
-import { useMaturaColor } from '../redux/slices/pathSlice';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 interface TableProps {
@@ -15,7 +14,7 @@ const GridDiv = styled.div<{
 	__manualSizes?: string;
 	withHeaders: boolean;
 }>`
-	grid-template-columns: ${({ cols, __manualSizes, withHeaders }) => {
+	grid-template-columns: ${({ cols, __manualSizes }) => {
 		return __manualSizes ? __manualSizes : `repeat(${cols}, 1fr)`;
 	}};
 
@@ -62,18 +61,15 @@ const Table: FC<TableProps> = ({
 	__manualSizes,
 	className,
 }) => {
-	const maturaColor = useMaturaColor();
 	return (
 		<GridDiv
 			withHeaders={headings?.length ? true : false}
 			cols={headings?.length || cols}
 			__manualSizes={__manualSizes}
-			className={`md:mx-8 mx-2 my-4 text-sm grid border-${maturaColor} divide-x divide-y [&>*]:px-3 [&>*]:p-1 ${className}`}>
+			className={`md:mx-8 mx-2 my-4 text-sm grid  divide-x divide-y [&>*]:px-3 [&>*]:p-1 ${className}`}>
 			{headings &&
 				headings.map((heading) => (
-					<div
-						className={`w-full font-bold header bg-${maturaColor}`}
-						key={heading}>
+					<div className={`w-full font-bold header `} key={heading}>
 						{heading.toUpperCase()}
 					</div>
 				))}
