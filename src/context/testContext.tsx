@@ -240,8 +240,8 @@ export const TestPython: React.FC<
 	const maturaPath = useMaturaPath();
 
 	const terminalId = useId();
-	const terminalRef = useRef<any>();
-	const replRef = useRef<any>();
+	const terminalRef = useRef();
+	const replRef = useRef();
 	const runBtn = useRef<HTMLButtonElement>(null);
 
 	const [result, setResult] = useState(false);
