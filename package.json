@@ -3,6 +3,7 @@
 	"private": true,
 	"version": "0.1.0",
 	"type": "module",
+	"description": "Site created to help the top 3.4% of students (because that's how many on average pass computer science) who want to achieve good results on the computer science high school exit exam",
 	"scripts": {
 		"dev": "vite --https --cors",
 		"build": "tsc && vite build",
