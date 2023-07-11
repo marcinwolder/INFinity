@@ -6,8 +6,5 @@
 			"to_folder": "formula-2015/2022/maj"
 		}
 	],
-	"terminal": false,
-	"splashscreen": {
-		"enabled": false
-	}
+	"terminal": false
 }
