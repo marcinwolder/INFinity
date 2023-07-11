@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import _ from 'lodash';
 import React, { FC, PropsWithChildren, useEffect, useRef } from 'react';
 import { createContext, useContext, useState } from 'react';
@@ -41,9 +42,13 @@ interface radioProps {
 
 const context = createContext<Context>({
 	show: false,
-	setShow: () => {},
+	setShow: () => {
+		return;
+	},
 	values: {},
-	setValues: () => {},
+	setValues: () => {
+		return;
+	},
 	taskNum: 0,
 });
 
@@ -226,7 +231,7 @@ export const TestRadio: React.FC<
 };
 
 interface PythonCompilerProps {
-	tests: { input: any; output: any }[] | string; //set of test that will check if algo is working
+	tests: { input: unknown; output: unknown }[] | string; //set of test that will check if algo is working
 	funcParameters: string[]; //parameters used in prepared func
 	terminal?: boolean; //determines if terminal should be visible or not
 }
@@ -240,8 +245,8 @@ export const TestPython: React.FC<
 	const maturaPath = useMaturaPath();
 
 	const terminalId = useId();
-	const terminalRef = useRef();
-	const replRef = useRef();
+	const terminalRef = useRef<HTMLDivElement>(null);
+	const replRef = useRef<HTMLDivElement & { getPySrc: () => string }>(null);
 	const runBtn = useRef<HTMLButtonElement>(null);
 
 	const [result, setResult] = useState(false);
@@ -251,11 +256,11 @@ export const TestPython: React.FC<
 
 	let startBtn: HTMLButtonElement;
 	useEffect(() => {
-		startBtn = replRef.current.children[0].children[0].children[1] || null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		startBtn = replRef.current?.children[0].children[0]
+			.children[1] as HTMLButtonElement;
 		if (startBtn) {
-			replRef.current.children[0].children[0].children[1].classList.add(
-				'hidden'
-			);
+			startBtn.classList.add('hidden');
 		}
 	}, [replRef.current]);
 
@@ -263,17 +268,19 @@ export const TestPython: React.FC<
 		if (terminalContent === '') {
 			setValues((v) => _.omit(v, num));
 		} else setValues((v) => ({ ...v, [num]: terminalContent }));
-		const func = pyscript.interpreter.globals.get(funcName) as Function;
+		const func = pyscript.interpreter.globals.get(funcName) as (
+			...args: unknown[]
+		) => unknown;
 		let afterTest = true;
 		if (typeof tests === 'string') {
 			afterTest = terminalContent === tests ? true : false;
 		} else {
 			tests.forEach(({ input, output }) => {
 				if (typeof input === 'object') {
-					console.log(func(...input), output);
-					if (func(...input) !== output) afterTest = false;
+					console.log(func(...[input]), output);
+					if (func(...[input]) !== output) afterTest = false;
 				} else {
-					console.log(func(...input), output);
+					console.log(func(...[input]), output);
 					if (func(input) !== output) afterTest = false;
 				}
 			});
@@ -292,10 +299,12 @@ export const TestPython: React.FC<
 		startBtn.click();
 	};
 	const runClick = () => {
-		const replContent = replRef.current.getPySrc();
-		terminalRef.current.innerText = '';
-		startBtn.click();
-		resultCheck(terminalRef.current.innerText);
+		const replContent = replRef.current?.getPySrc() || '';
+		if (terminalRef.current) {
+			terminalRef.current.innerText = '';
+			startBtn.click();
+			resultCheck(terminalRef.current.innerText);
+		}
 		updateAnswer(dispatch, {
 			answers: {
 				[taskNum]: replContent,
