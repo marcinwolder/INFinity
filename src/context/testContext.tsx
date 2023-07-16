@@ -287,10 +287,8 @@ export const TestPython: React.FC<
 		} else {
 			tests.forEach(({ input, output }) => {
 				if (typeof input === 'object') {
-					console.log(func(...[input]), output);
 					if (func(...[input]) !== output) afterTest = false;
 				} else {
-					console.log(func(...[input]), output);
 					if (func(input) !== output) afterTest = false;
 				}
 			});
@@ -369,7 +367,6 @@ export const TestPython: React.FC<
                       # DANE PRZYKŁADOWE ZNAJDUJĄ SIĘ W LIŚCIE [test]
                 `;
 									}
-									console.log(output);
 									return output;
 								}
 								if (funcParameters)
