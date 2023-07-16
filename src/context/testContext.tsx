@@ -232,13 +232,23 @@ export const TestRadio: React.FC<
 
 interface PythonCompilerProps {
 	tests: { input: unknown; output: unknown }[] | string; //set of test that will check if algo is working
-	funcParameters: string[]; //parameters used in prepared func
+	funcParameters?: string[]; //parameters used in prepared func
 	terminal?: boolean; //determines if terminal should be visible or not
+	dataPath?: string;
+	testPath?: string;
 }
 
 export const TestPython: React.FC<
 	React.PropsWithChildren<TaskId & PythonCompilerProps>
-> = ({ children, num, tests, funcParameters, terminal }) => {
+> = ({
+	children,
+	num,
+	tests,
+	funcParameters,
+	terminal,
+	dataPath,
+	testPath,
+}) => {
 	const [PyRepl, setReplSrc] = usePyRepl();
 	const { show, taskNum, setValues, values } = useTestContext();
 	const dispatch = useDispatch();
@@ -339,8 +349,34 @@ export const TestPython: React.FC<
 					</div>
 					<div className='relative'>
 						<PyRepl output={terminalId} ref={replRef}>
-							{children ||
-								`def ${funcName}(${funcParameters.join(', ')}):\n    return 0`}
+							{(() => {
+								if (children) return children;
+								if (terminal) {
+									let output = '';
+									if (dataPath) {
+										output += `
+                    with open("${dataPath}") as file:
+                      data = [line.strip() for line in file.readlines()]
+                      # DANE ${
+												testPath ? 'PAWDZIWE ' : ''
+											}ZNAJDUJĄ SIĘ W LIŚCIE [data]
+                    `;
+									}
+									if (testPath) {
+										output += `
+                    with open("${testPath}") as file:
+                      test = [line.strip() for line in file.readlines()]
+                      # DANE PRZYKŁADOWE ZNAJDUJĄ SIĘ W LIŚCIE [test]
+                `;
+									}
+									console.log(output);
+									return output;
+								}
+								if (funcParameters)
+									return `def ${funcName}(${
+										funcParameters ? funcParameters.join(', ') : ''
+									}):\n    return 0`;
+							})()}
 						</PyRepl>
 					</div>
 				</div>
