@@ -22,7 +22,7 @@ const Python = () => {
 					dataPath='formula-2015/2022/maj/liczby.txt'
 					testPath='formula-2015/2022/maj/przyklad.txt'
 				/>
-				<AnswerBtn />
+				<AnswerBtn syncOnClick={false} />
 			</TestProvider>
 		</>
 	);

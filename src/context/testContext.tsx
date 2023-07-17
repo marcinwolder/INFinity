@@ -102,7 +102,9 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
 	);
 };
 
-export const _AnswerBtn: React.FC = () => {
+export const _AnswerBtn: React.FC<{ syncOnClick?: boolean }> = ({
+	syncOnClick,
+}) => {
 	const dispatch = useDispatch();
 	const maturaPath = useMaturaPath();
 
@@ -123,21 +125,25 @@ export const _AnswerBtn: React.FC = () => {
 				className='btn btn-secondary'
 				onClick={() => {
 					setShow(true);
-					updateAnswer(dispatch, {
-						answers: { [taskNum]: values },
-						formula: maturaPath.formula,
-						date: maturaPath.date,
-					});
+					//TODO: Automatically search for Python Repls in Context and if found one - disable syncOnClick (because we want to save code not return values)
+					if (syncOnClick)
+						updateAnswer(dispatch, {
+							answers: { [taskNum]: values },
+							formula: maturaPath.formula,
+							date: maturaPath.date,
+						});
 				}}>
 				SPRAWDŹ ODPOWIEDZI
 			</button>
 		);
 };
 
-export const AnswerBtn: React.FC = () => {
+export const AnswerBtn: React.FC<{ syncOnClick?: boolean }> = ({
+	syncOnClick = true,
+}) => {
 	return (
 		<div className='w-full flex justify-center pt-2'>
-			<_AnswerBtn />
+			<_AnswerBtn syncOnClick={syncOnClick} />
 		</div>
 	);
 };
@@ -230,6 +236,7 @@ export const TestRadio: React.FC<
 	);
 };
 
+type ReplElement = HTMLDivElement & { getPySrc: () => string };
 interface PythonCompilerProps {
 	tests: { input: unknown; output: unknown }[] | string; //set of test that will check if algo is working
 	funcParameters?: string[]; //parameters used in prepared func
@@ -256,7 +263,7 @@ export const TestPython: React.FC<
 
 	const terminalId = useId();
 	const terminalRef = useRef<HTMLDivElement>(null);
-	const replRef = useRef<HTMLDivElement & { getPySrc: () => string }>(null);
+	const replRef = useRef<ReplElement>(null);
 	const runBtn = useRef<HTMLButtonElement>(null);
 
 	const [result, setResult] = useState(false);
@@ -278,12 +285,14 @@ export const TestPython: React.FC<
 		if (terminalContent === '') {
 			setValues((v) => _.omit(v, num));
 		} else setValues((v) => ({ ...v, [num]: terminalContent }));
+
 		const func = pyscript.interpreter.globals.get(funcName) as (
 			...args: unknown[]
 		) => unknown;
+
 		let afterTest = true;
 		if (typeof tests === 'string') {
-			afterTest = terminalContent === tests ? true : false;
+			afterTest = terminalContent.trim() === tests.trim() ? true : false;
 		} else {
 			tests.forEach(({ input, output }) => {
 				if (typeof input === 'object') {
@@ -309,9 +318,9 @@ export const TestPython: React.FC<
 	const runClick = () => {
 		const replContent = replRef.current?.getPySrc() || '';
 		if (terminalRef.current) {
-			terminalRef.current.innerText = '';
 			startBtn.click();
 			resultCheck(terminalRef.current.innerText);
+			terminalRef.current.innerText = '';
 		}
 		updateAnswer(dispatch, {
 			answers: {
