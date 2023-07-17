@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import _ from 'lodash';
-import React, { FC, PropsWithChildren, useEffect, useRef } from 'react';
+import React, { FC, PropsWithChildren, useRef } from 'react';
 import { createContext, useContext, useState } from 'react';
 import { TiTick, TiTimes } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';
@@ -271,17 +271,14 @@ export const TestPython: React.FC<
 
 	const funcName = `algo${maturaPath.date.replace('/', '')}${num}`;
 
-	let startBtn: HTMLButtonElement;
-	useEffect(() => {
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		startBtn = replRef.current?.children[0].children[0]
-			.children[1] as HTMLButtonElement;
-		if (startBtn) {
-			startBtn.classList.add('hidden');
-		}
-	}, [replRef.current]);
+	const getStartBtn = () =>
+		replRef.current?.children[0].children[0].children[1] as HTMLButtonElement;
 
 	const resultCheck = (terminalContent: string) => {
+		console.log(
+			'🚀 ~ file: testContext.tsx:285 ~ resultCheck ~ terminalContent:',
+			terminalContent
+		);
 		if (terminalContent === '') {
 			setValues((v) => _.omit(v, num));
 		} else setValues((v) => ({ ...v, [num]: terminalContent }));
@@ -313,14 +310,18 @@ export const TestPython: React.FC<
 				setReplSrc(values[num] as string);
 			}
 		}
-		startBtn.click();
+		getStartBtn().click();
 	};
 	const runClick = () => {
 		const replContent = replRef.current?.getPySrc() || '';
 		if (terminalRef.current) {
-			startBtn.click();
-			resultCheck(terminalRef.current.innerText);
+			getStartBtn().click();
 			terminalRef.current.innerText = '';
+			setTimeout(() => {
+				if (terminalRef.current) {
+					resultCheck(terminalRef.current.innerText);
+				}
+			}, 1);
 		}
 		updateAnswer(dispatch, {
 			answers: {
