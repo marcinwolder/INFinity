@@ -7,6 +7,7 @@ import {
 import zadanie4 from './img/4.png';
 import polecenie1 from './img/4-1.png';
 import polecenie2 from './img/4-2.png';
+import polecenie3 from './img/4-3.png';
 
 const Python = () => {
 	return (
@@ -29,7 +30,7 @@ const Python = () => {
 			<TestProvider taskNum={4.2} pkt={4}>
 				<img src={polecenie2} draggable={false} className='pt-2 select-none' />
 				<TestPython
-					num={1}
+					num={2}
 					terminal
 					parameters={[
 						'Liczba - najwięcej czynników',
@@ -38,6 +39,24 @@ const Python = () => {
 						'Ilość różnych czynników',
 					]}
 					tests={['99792 10 62790 6', '20992 10 62790 6', '56064 10 62790 6']}
+					dataPath='formula-2015/2022/maj/liczby.txt'
+					testPath='formula-2015/2022/maj/przyklad.txt'
+				/>
+				<AnswerBtn syncOnClick={false} />
+			</TestProvider>
+			<TestProvider taskNum={4.3} pkt={4}>
+				<img src={polecenie3} draggable={false} className='pt-2 select-none' />
+				<TestPython
+					num={3}
+					terminal
+					parameters={[
+						'Ilość dobrych trójek\n',
+						'Ilość dobrych piątek\n',
+						'Wszystkie dobre trójki(każda w osobnej lini)',
+					]}
+					tests={[
+						'27\n2\n955 8595 42975\n232 13688 27376\n13594 27188 81564\n971 13594 81564\n971 13594 27188\n971 27188 81564\n971 6797 81564\n971 6797 13594\n971 6797 27188\n797 7173 64557\n1403 42090 84180\n1403 2806 42090\n1403 2806 84180\n1403 2806 8418\n1403 8418 42090\n1403 8418 84180\n871 15678 62712\n497 22365 89460\n2806 42090 84180\n2806 8418 42090\n2806 8418 84180\n392 20384 61152\n409 9816 58896\n8418 42090 84180\n6797 13594 81564\n6797 13594 27188\n6797 27188 81564',
+					]}
 					dataPath='formula-2015/2022/maj/liczby.txt'
 					testPath='formula-2015/2022/maj/przyklad.txt'
 				/>

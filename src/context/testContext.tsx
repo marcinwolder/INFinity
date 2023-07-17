@@ -279,6 +279,8 @@ export const TestPython: React.FC<
 
 		tests.forEach((test) => {
 			if (typeof test === 'string') {
+				afterTest = false;
+				console.log(terminalContent.trim(), test.trim());
 				if (terminalContent.trim() === test.trim()) {
 					setResult(true);
 					return;
@@ -355,18 +357,15 @@ export const TestPython: React.FC<
 								if (terminal) {
 									let output = '';
 									if (dataPath) {
-										output += `
-                    # DANE PRAWDZIWE SĄ DOSTĘPNE W: ${dataPath}`;
+										output += `# DANE PRAWDZIWE SĄ DOSTĘPNE W: ${dataPath}\n`;
 									}
 									if (testPath) {
-										output += `
-                    # DANE PRZYKŁADOWE SĄ DOSTĘPNE W: ${testPath}`;
+										output += `# DANE PRZYKŁADOWE SĄ DOSTĘPNE W: ${testPath}\n`;
 									}
 									if (parameters) {
-										output += `
-                    # ODPOWIEDŹ WYPISZ W PODANYM FORMACIE:
-                    print(${parameters.map((el) => `"${el}"`).join(', ')})
-                    `;
+										output += `# ODPOWIEDŹ WYPISZ W PODANYM FORMACIE:\n ${parameters
+											.map((el) => `#${el}`)
+											.join(' ')}`;
 									}
 									return output;
 								}
