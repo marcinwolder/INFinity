@@ -280,10 +280,8 @@ export const TestPython: React.FC<
 		tests.forEach((test) => {
 			if (typeof test === 'string') {
 				afterTest = false;
-				console.log(terminalContent.trim(), test.trim());
 				if (terminalContent.trim() === test.trim()) {
-					setResult(true);
-					return;
+					afterTest = true;
 				}
 			} else {
 				const { input, output } = test;
