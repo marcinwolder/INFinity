@@ -238,24 +238,16 @@ export const TestRadio: React.FC<
 
 type ReplElement = HTMLDivElement & { getPySrc: () => string };
 interface PythonCompilerProps {
-	tests: { input: unknown; output: unknown }[] | string; //set of test that will check if algo is working
-	funcParameters?: string[]; //parameters used in prepared func
+	tests: { input: unknown; output: unknown }[] | string[]; //set of test that will check if algo is working
+	parameters?: string[]; //parameters used in prepared func or print func (when with terminal)
 	terminal?: boolean; //determines if terminal should be visible or not
-	dataPath?: string;
-	testPath?: string;
+	dataPath?: string; //data file path
+	testPath?: string; //test data file path
 }
 
 export const TestPython: React.FC<
 	React.PropsWithChildren<TaskId & PythonCompilerProps>
-> = ({
-	children,
-	num,
-	tests,
-	funcParameters,
-	terminal,
-	dataPath,
-	testPath,
-}) => {
+> = ({ children, num, tests, parameters, terminal, dataPath, testPath }) => {
 	const [PyRepl, setReplSrc] = usePyRepl();
 	const { show, taskNum, setValues, values } = useTestContext();
 	const dispatch = useDispatch();
@@ -275,10 +267,6 @@ export const TestPython: React.FC<
 		replRef.current?.children[0].children[0].children[1] as HTMLButtonElement;
 
 	const resultCheck = (terminalContent: string) => {
-		console.log(
-			'🚀 ~ file: testContext.tsx:285 ~ resultCheck ~ terminalContent:',
-			terminalContent
-		);
 		if (terminalContent === '') {
 			setValues((v) => _.omit(v, num));
 		} else setValues((v) => ({ ...v, [num]: terminalContent }));
@@ -288,17 +276,22 @@ export const TestPython: React.FC<
 		) => unknown;
 
 		let afterTest = true;
-		if (typeof tests === 'string') {
-			afterTest = terminalContent.trim() === tests.trim() ? true : false;
-		} else {
-			tests.forEach(({ input, output }) => {
+
+		tests.forEach((test) => {
+			if (typeof test === 'string') {
+				if (terminalContent.trim() === test.trim()) {
+					setResult(true);
+					return;
+				}
+			} else {
+				const { input, output } = test;
 				if (typeof input === 'object') {
 					if (func(...[input]) !== output) afterTest = false;
 				} else {
 					if (func(input) !== output) afterTest = false;
 				}
-			});
-		}
+			}
+		});
 		setResult(afterTest);
 	};
 	const startClick = () => {
@@ -363,25 +356,23 @@ export const TestPython: React.FC<
 									let output = '';
 									if (dataPath) {
 										output += `
-                    with open("${dataPath}") as file:
-                      data = [line.strip() for line in file.readlines()]
-                      # DANE ${
-												testPath ? 'PAWDZIWE ' : ''
-											}ZNAJDUJĄ SIĘ W LIŚCIE [data]
-                    `;
+                    # DANE PRAWDZIWE SĄ DOSTĘPNE W: ${dataPath}`;
 									}
 									if (testPath) {
 										output += `
-                    with open("${testPath}") as file:
-                      test = [line.strip() for line in file.readlines()]
-                      # DANE PRZYKŁADOWE ZNAJDUJĄ SIĘ W LIŚCIE [test]
-                `;
+                    # DANE PRZYKŁADOWE SĄ DOSTĘPNE W: ${testPath}`;
+									}
+									if (parameters) {
+										output += `
+                    # ODPOWIEDŹ WYPISZ W PODANYM FORMACIE:
+                    print(${parameters.map((el) => `"${el}"`).join(', ')})
+                    `;
 									}
 									return output;
 								}
-								if (funcParameters)
+								if (parameters)
 									return `def ${funcName}(${
-										funcParameters ? funcParameters.join(', ') : ''
+										parameters ? parameters.join(', ') : ''
 									}):\n    return 0`;
 							})()}
 						</PyRepl>
