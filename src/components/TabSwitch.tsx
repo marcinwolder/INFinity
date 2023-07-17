@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 
 interface TabSwitchProps {
 	tabs: ReactNode[];
@@ -7,6 +7,10 @@ interface TabSwitchProps {
 
 const TabSwitch: FC<TabSwitchProps> = ({ tabs, headers }) => {
 	const [tab, setTab] = useState(0);
+
+	useEffect(() => {
+		setTab(0);
+	}, [tabs]);
 
 	return (
 		<>
