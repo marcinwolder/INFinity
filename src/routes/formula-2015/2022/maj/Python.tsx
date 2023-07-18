@@ -15,7 +15,7 @@ const Python = () => {
 			<TestProvider taskNum={4} title='Liczby'>
 				<img src={zadanie4} draggable={false} className='pt-2 select-none' />
 			</TestProvider>
-			<TestProvider taskNum={4.1} pkt={4}>
+			<TestProvider taskNum={4.1} pkt={4} showOnDefault>
 				<img src={polecenie1} draggable={false} className='pt-2 select-none' />
 				<TestPython
 					num={1}
@@ -25,9 +25,8 @@ const Python = () => {
 					dataPath='formula-2015/2022/maj/liczby.txt'
 					testPath='formula-2015/2022/maj/przyklad.txt'
 				/>
-				<AnswerBtn syncOnClick={false} />
 			</TestProvider>
-			<TestProvider taskNum={4.2} pkt={4}>
+			<TestProvider taskNum={4.2} pkt={4} showOnDefault>
 				<img src={polecenie2} draggable={false} className='pt-2 select-none' />
 				<TestPython
 					num={2}
@@ -42,9 +41,8 @@ const Python = () => {
 					dataPath='formula-2015/2022/maj/liczby.txt'
 					testPath='formula-2015/2022/maj/przyklad.txt'
 				/>
-				<AnswerBtn syncOnClick={false} />
 			</TestProvider>
-			<TestProvider taskNum={4.3} pkt={4}>
+			<TestProvider taskNum={4.3} pkt={4} showOnDefault>
 				<img src={polecenie3} draggable={false} className='pt-2 select-none' />
 				<TestPython
 					num={3}
@@ -60,7 +58,6 @@ const Python = () => {
 					dataPath='formula-2015/2022/maj/liczby.txt'
 					testPath='formula-2015/2022/maj/przyklad.txt'
 				/>
-				<AnswerBtn syncOnClick={false} />
 			</TestProvider>
 		</>
 	);

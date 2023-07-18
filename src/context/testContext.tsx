@@ -25,6 +25,7 @@ interface Context {
 	taskNum: number;
 }
 interface TestProviderProps {
+	showOnDefault?: boolean;
 	taskNum: number;
 	title?: string;
 	pkt?: number;
@@ -65,6 +66,7 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
 	title = '',
 	pkt = 0,
 	children,
+	showOnDefault,
 }) => {
 	const maturaPath = useMaturaPath();
 
@@ -78,7 +80,7 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
 		startingAnswers = correctTest.answers[taskNum];
 	}
 
-	const [show, setShow] = useState(false);
+	const [show, setShow] = useState(showOnDefault || false);
 	const [values, setValues] = useState(startingAnswers);
 
 	return (
@@ -102,9 +104,7 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
 	);
 };
 
-export const _AnswerBtn: React.FC<{ syncOnClick?: boolean }> = ({
-	syncOnClick,
-}) => {
+export const _AnswerBtn: React.FC = () => {
 	const dispatch = useDispatch();
 	const maturaPath = useMaturaPath();
 
@@ -125,25 +125,21 @@ export const _AnswerBtn: React.FC<{ syncOnClick?: boolean }> = ({
 				className='btn btn-secondary'
 				onClick={() => {
 					setShow(true);
-					//TODO: Automatically search for Python Repls in Context and if found one - disable syncOnClick (because we want to save code not return values)
-					if (syncOnClick)
-						updateAnswer(dispatch, {
-							answers: { [taskNum]: values },
-							formula: maturaPath.formula,
-							date: maturaPath.date,
-						});
+					updateAnswer(dispatch, {
+						answers: { [taskNum]: values },
+						formula: maturaPath.formula,
+						date: maturaPath.date,
+					});
 				}}>
 				SPRAWDŹ ODPOWIEDZI
 			</button>
 		);
 };
 
-export const AnswerBtn: React.FC<{ syncOnClick?: boolean }> = ({
-	syncOnClick = true,
-}) => {
+export const AnswerBtn: React.FC = () => {
 	return (
 		<div className='w-full flex justify-center pt-2'>
-			<_AnswerBtn syncOnClick={syncOnClick} />
+			<_AnswerBtn />
 		</div>
 	);
 };
