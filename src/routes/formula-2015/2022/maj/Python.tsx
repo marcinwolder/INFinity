@@ -17,7 +17,7 @@ const Python = () => {
 					num={1}
 					terminal
 					tests={['18 93639']}
-					parameters={['ilość liczb', 'pierwsza z nich']}
+					parameters={['ilość liczb, pierwsza z nich']}
 					dataPath='formula-2015/2022/maj/liczby.txt'
 					testPath='formula-2015/2022/maj/przyklad.txt'
 				/>
@@ -28,10 +28,7 @@ const Python = () => {
 					num={2}
 					terminal
 					parameters={[
-						'Liczba - najwięcej czynników',
-						'Ilość czynników',
-						'Liczba - najwięcej różnych czynników',
-						'Ilość różnych czynników',
+						'Liczba - najwięcej czynników, Ilość czynników, Liczba - najwięcej różnych czynników, Ilość różnych czynników',
 					]}
 					tests={['99792 10 62790 6', '20992 10 62790 6', '56064 10 62790 6']}
 					dataPath='formula-2015/2022/maj/liczby.txt'
@@ -44,8 +41,8 @@ const Python = () => {
 					num={3}
 					terminal
 					parameters={[
-						'Ilość dobrych trójek\n',
-						'Ilość dobrych piątek\n',
+						'Ilość dobrych trójek',
+						'Ilość dobrych piątek',
 						'Wszystkie dobre trójki (każda w osobnej lini)',
 					]}
 					tests={[

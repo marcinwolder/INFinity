@@ -358,8 +358,8 @@ export const TestPython: React.FC<
 									}
 									if (parameters) {
 										output += `# ODPOWIEDŹ WYPISZ W PODANYM FORMACIE:\n ${parameters
-											.map((el) => `#${el}`)
-											.join(' ')}`;
+											.map((el) => `#print(${el})`)
+											.join('\n ')}`;
 									}
 									return output;
 								}
