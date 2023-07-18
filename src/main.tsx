@@ -18,10 +18,10 @@ import Formula2023 from './routes/Formula2023';
 import Maj2022 from './routes/formula-2015/2022/maj';
 
 declare global {
-	var pyscript: {
+	const pyscript: {
 		interpreter: {
 			globals: {
-				get(query: string): any;
+				get(query: string): unknown;
 			};
 		};
 	};

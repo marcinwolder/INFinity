@@ -2,7 +2,7 @@ import React from 'react';
 import { MenuLink } from '../context/menuContext';
 import { usePathElements } from '../redux/slices/pathSlice';
 
-const markSelected = (elements: React.ReactElement) => {
+const useMarkSelect = (elements: React.ReactElement) => {
 	const path = usePathElements();
 	const values = [];
 	for (const element of elements.props.children) {
@@ -21,11 +21,11 @@ const markSelected = (elements: React.ReactElement) => {
 
 const Menu = () => {
 	return (
-		<ul className='menu p-4 w-80 bg-base-100 text-base-content'>
+		<ul className='menu p-4 w-80 bg-base-100 text-base-content h-screen'>
 			<li className='menu-title py-2'>
 				<span>ARKUSZE</span>
 			</li>
-			{markSelected(
+			{useMarkSelect(
 				<>
 					<MenuLink url='/formula-2023'>
 						Formuła 2023
