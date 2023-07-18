@@ -42,7 +42,7 @@ const Algorytm = () => {
 				</Table>
 				<AnswerBtn />
 			</TestProvider>
-			<TestProvider taskNum={1.2} pkt={4}>
+			<TestProvider taskNum={1.2} pkt={4} showOnDefault>
 				<img src={polecenie2} draggable={false} className='pt-2 select-none' />
 				<TestPython
 					tests={[
@@ -56,7 +56,7 @@ const Algorytm = () => {
 					parameters={['n', 'A']}
 					num={1}
 				/>
-				<AnswerBtn />
+				{/* <AnswerBtn /> */}
 			</TestProvider>
 		</>
 	);

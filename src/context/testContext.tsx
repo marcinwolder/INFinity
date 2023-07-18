@@ -233,8 +233,10 @@ export const TestRadio: React.FC<
 };
 
 type ReplElement = HTMLDivElement & { getPySrc: () => string };
+// prettier-ignore
+type Test = {input: string | number | boolean | Array<string | number | boolean | Array<string | number | boolean>>; output: string | number | boolean | Array<string | number | boolean>;}[] | string[]
 interface PythonCompilerProps {
-	tests: { input: unknown; output: unknown }[] | string[]; //set of test that will check if algo is working
+	tests: Test; //set of test that will check if algo is working
 	parameters?: string[]; //parameters used in prepared func or print func (when with terminal)
 	terminal?: boolean; //determines if terminal should be visible or not
 	dataPath?: string; //data file path
@@ -282,7 +284,7 @@ export const TestPython: React.FC<
 			} else {
 				const { input, output } = test;
 				if (typeof input === 'object') {
-					if (func(...[input]) !== output) afterTest = false;
+					if (func(...input) !== output) afterTest = false;
 				} else {
 					if (func(input) !== output) afterTest = false;
 				}
