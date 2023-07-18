@@ -7,6 +7,7 @@ import Algorytm from './Algorytm';
 import Analiza from './Analiza';
 import Test from './Test';
 import Python from './Python';
+import Excel from './Excel';
 
 const Maj2022 = () => {
 	usePath('/2022/maj');
@@ -21,7 +22,7 @@ const Maj2022 = () => {
 				}
 				Part2={
 					<TabSwitch
-						tabs={[<Python />, 'Excel', 'Access']}
+						tabs={[<Python />, <Excel />, 'Access']}
 						headers={['Python', 'Excel', 'Access']}
 					/>
 				}
