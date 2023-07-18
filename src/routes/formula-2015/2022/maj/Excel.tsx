@@ -1,4 +1,4 @@
-import DonwloadBtn from '../../../../components/DonwloadBtn';
+import DonwloadBtn from '../../../../components/DownloadBtn';
 import { TestProvider } from '../../../../context/testContext';
 
 import zadanie5 from './img/5.png';
@@ -8,9 +8,7 @@ const Excel = () => {
 		<>
 			<TestProvider taskNum={5} title='Sok'>
 				<img src={zadanie5} draggable={false} className='pt-2 select-none' />
-				<DonwloadBtn url={'/public/formula-2015/2022/maj/soki.txt'}>
-					Pobierz pliki potrzebne do zadania
-				</DonwloadBtn>
+				<DonwloadBtn urls={['/formula-2015/2022/maj/soki.txt']} />
 			</TestProvider>
 		</>
 	);
