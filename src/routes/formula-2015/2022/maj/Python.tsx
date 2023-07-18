@@ -1,8 +1,4 @@
-import {
-	AnswerBtn,
-	TestProvider,
-	TestPython,
-} from '../../../../context/testContext';
+import { TestProvider, TestPython } from '../../../../context/testContext';
 
 import zadanie4 from './img/4.png';
 import polecenie1 from './img/4-1.png';

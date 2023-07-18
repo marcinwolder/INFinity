@@ -53,7 +53,7 @@ const Algorytm = () => {
 						{ input: [6, [0, 5, 4, 1, 5, 6, 8]], output: 2 },
 						{ input: [6, [0, 8, 4, 9, 6, 5, 7]], output: 3 },
 					]}
-					funcParameters={['n, A']}
+					parameters={['n, A']}
 					num={1}
 				/>
 				<AnswerBtn />
