@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
-import { AiOutlineCode } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { MenuBtn } from '../context/menuContext';
+import Infinity from '../../public/Infinity.png';
+import InfinityDark from '../../public/Infinity-dark.png';
 
 const Navbar: React.FC = () => {
+	const getLogoBasedOnTheme = () =>
+		document.documentElement.getAttribute('data-theme') === 'dark'
+			? Infinity
+			: InfinityDark;
+
+	const [logoUrl, setLogoUrl] = useState(getLogoBasedOnTheme());
+
+	const observer = new MutationObserver(function (mutations) {
+		mutations.forEach(function (mutation) {
+			if (
+				mutation.type === 'attributes' &&
+				mutation.attributeName === 'data-theme'
+			) {
+				setLogoUrl(getLogoBasedOnTheme());
+			}
+		});
+	});
+
+	observer.observe(document.documentElement, {
+		attributes: true,
+	});
+
 	return (
 		<div className='navbar bg-base-100 gap-2'>
 			<div className='flex-none'>
@@ -23,19 +46,10 @@ const Navbar: React.FC = () => {
 					</svg>
 				</MenuBtn>
 			</div>
-			<div className='hidden sm:block flex-1'>
+			<div className='flex-1'>
 				<Link to={'/'} className='btn btn-ghost normal-case text-xl small-caps'>
-					<AiOutlineCode className='mr-1 text-base' />
-					<span className='text-sky-500 pr-2 mb-0.5'>[</span>INF
-					<span className='text-red-500 px-2 mb-0.5'>{'}'}</span>
-					<span className='mb-1.5'>ormator</span>
-				</Link>
-			</div>
-			<div className='flex-1 sm:hidden'>
-				<Link to={'/'} className='btn btn-ghost normal-case text-xl small-caps'>
-					<span className='text-sky-500 pr-1 mb-0.5'>[</span>
-					<AiOutlineCode className='mr-1 text-base' />
-					<span className='text-red-500 mb-0.5'>{'}'}</span>
+					<img src={logoUrl} className='h-10' alt='Logo' />
+					<div className='dark:hidden'>LIGHT</div>
 				</Link>
 			</div>
 			<div className='flex gap-2'>
