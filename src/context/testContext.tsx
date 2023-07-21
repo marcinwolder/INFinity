@@ -30,7 +30,6 @@ interface TestProviderProps {
 	title?: string;
 	pkt?: number;
 	show?: boolean;
-	info?: string;
 }
 interface TaskId {
 	num: number;
@@ -63,7 +62,7 @@ const updateAnswer = (dispatch: Dispatch<AnyAction>, dane: Matura) => {
 	dispatch(answerSlice.actions.changeAns(dane));
 };
 
-export const TaskImg: React.FC<{ img: string; className?: string }> = ({
+export const TestImg: React.FC<{ img: string; className?: string }> = ({
 	img,
 	className,
 }) => {
@@ -97,7 +96,6 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
 	pkt = 0,
 	children,
 	showOnDefault,
-	info,
 }) => {
 	const maturaPath = useMaturaPath();
 
@@ -208,6 +206,51 @@ export const TestInput: React.FC<testProps & TaskId> = ({
 					className='px-2 py-0 w-full h-5 text-center bg-white outline-none border-none'
 					type='text'
 					placeholder={placeholder || '________'}
+					value={value || ''}
+					onChange={(e) => {
+						const input = e.target.value;
+						if (input === '') {
+							setValues((v) => _.omit(v, num));
+						} else setValues((v) => ({ ...v, [num]: input }));
+					}}
+				/>
+			)}
+		</div>
+	);
+};
+
+export const TestArea: React.FC<testProps & TaskId> = ({
+	answer,
+	num,
+	placeholder,
+}) => {
+	const { show, setValues, values } = useTestContext();
+	const value = values[num] as string;
+	let compare;
+	if (typeof answer === 'string')
+		compare = (str: string) => str.trim() === answer;
+	else if (typeof answer === 'number')
+		compare = (str: string) => Number(str) === answer;
+	else
+		compare = (str: string) => {
+			if (!str) return false;
+			return answer(str);
+		};
+	return (
+		<div className='w-full mx-auto rounded-md'>
+			{show ? (
+				<div className='w-full flex gap-2 items-center justify-center'>
+					{value || '--'}
+					{compare(value) ? (
+						<TiTick className='text-success text-xl' />
+					) : (
+						<TiTimes className='text-error text-xl' />
+					)}
+				</div>
+			) : (
+				<textarea
+					className='px-2 py-0 w-full bg-white border border-black h-36'
+					placeholder={placeholder || ''}
 					value={value || ''}
 					onChange={(e) => {
 						const input = e.target.value;

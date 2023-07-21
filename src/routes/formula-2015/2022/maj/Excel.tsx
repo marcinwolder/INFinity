@@ -3,7 +3,7 @@ import {
 	TestProvider,
 	AnswerBtn,
 	TestInput,
-	TaskImg,
+	TestImg,
 	InfoBox,
 } from '../../../../context/testContext';
 import Table from '../../../../components/Table';
@@ -20,11 +20,11 @@ const Excel = () => {
 	return (
 		<>
 			<TestProvider taskNum={5} title='Sok'>
-				<TaskImg img={zadanie5} />
+				<TestImg img={zadanie5} />
 				<DonwloadBtn urls={['/formula-2015/2022/maj/soki.txt']} />
 			</TestProvider>
 			<TestProvider taskNum={5.1} pkt={1}>
-				<TaskImg img={polecenie1} />
+				<TestImg img={polecenie1} />
 				<Table headings={['Magazyn', 'Ilość zamówień']}>
 					<>Gniezno</>
 					<TestInput num={1} answer={152} />
@@ -38,7 +38,7 @@ const Excel = () => {
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={5.2} pkt={2}>
-				<TaskImg img={polecenie2} />
+				<TestImg img={polecenie2} />
 				<Table
 					cols={2}
 					__manualSizes='auto 1fr'
@@ -53,7 +53,7 @@ const Excel = () => {
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={5.3} pkt={3}>
-				<TaskImg img={polecenie3} />
+				<TestImg img={polecenie3} />
 				<Table headings={['Magazyn', 'Łączna wielkość zamówień']}>
 					<>Gniezno</>
 					<TestInput num={1} answer={819000} />
@@ -67,10 +67,10 @@ const Excel = () => {
 				<AnswerBtn />
 			</TestProvider>
 			<InfoBox taskNums={['5.4', '5.5']}>
-				<TaskImg img={zadanie5instrukcja} />
+				<TestImg img={zadanie5instrukcja} />
 			</InfoBox>
 			<TestProvider taskNum={5.4} pkt={4}>
-				<TaskImg img={polecenie4} />
+				<TestImg img={polecenie4} />
 				<Table
 					cols={2}
 					__manualSizes='auto 1fr'
@@ -87,8 +87,8 @@ const Excel = () => {
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={5.5} pkt={2}>
-				<TaskImg img={polecenie5} />
-				<Table cols={2}>
+				<TestImg img={polecenie5} />
+				<Table>
 					Ilość: <TestInput answer={13179} num={1} />
 				</Table>
 				<AnswerBtn />

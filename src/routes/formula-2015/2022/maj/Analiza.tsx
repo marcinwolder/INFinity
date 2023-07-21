@@ -2,7 +2,7 @@ import {
 	AnswerBtn,
 	TestProvider,
 	TestInput,
-	TaskImg,
+	TestImg,
 } from '../../../../context/testContext';
 import Table from '../../../../components/Table';
 
@@ -15,10 +15,10 @@ const Analiza = () => {
 	return (
 		<>
 			<TestProvider taskNum={2} title='ab-słowo'>
-				<TaskImg img={zadanie2} />
+				<TestImg img={zadanie2} />
 			</TestProvider>
 			<TestProvider taskNum={2.1} pkt={2}>
-				<TaskImg img={polecenie1} />
+				<TestImg img={polecenie1} />
 				<Table
 					headings={['n', 's', 'wynik działania algorytmu (wartkość k)']}
 					className='[&>.col-2]:justify-start'
@@ -42,7 +42,7 @@ const Analiza = () => {
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={2.2} pkt={2}>
-				<TaskImg img={polecenie2} />
+				<TestImg img={polecenie2} />
 				<Table
 					headings={['n', 's', 'wynik działania algorytmu (wartość k)']}
 					__manualSizes='min-content auto max-content'>
@@ -80,7 +80,7 @@ const Analiza = () => {
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={2.3} pkt={2}>
-				<TaskImg img={polecenie3} />
+				<TestImg img={polecenie3} />
 				<Table cols={2} __manualSizes='max-content auto'>
 					<>k = </>
 					<TestInput

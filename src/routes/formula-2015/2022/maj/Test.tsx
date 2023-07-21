@@ -2,7 +2,7 @@ import {
 	AnswerBtn,
 	TestRadio,
 	TestProvider,
-	TaskImg,
+	TestImg,
 } from '../../../../context/testContext';
 import { usePathElements } from '../../../../redux/slices/pathSlice';
 
@@ -20,10 +20,10 @@ const Test = () => {
 	return (
 		<>
 			<TestProvider taskNum={3} title='Test'>
-				<TaskImg img={zadanie3} />
+				<TestImg img={zadanie3} />
 			</TestProvider>
 			<TestProvider taskNum={3.1} pkt={1}>
-				<TaskImg img={polecenie1} />
+				<TestImg img={polecenie1} />
 				<Table
 					className='[&>.col-1]:font-bold [&>.col-2]:text-left'
 					cols={3}
@@ -55,7 +55,7 @@ const Test = () => {
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={3.2} pkt={1}>
-				<TaskImg img={polecenie2} />
+				<TestImg img={polecenie2} />
 				<Table
 					cols={3}
 					__manualSizes='min-content 4fr 1fr'
@@ -84,8 +84,8 @@ const Test = () => {
 				<AnswerBtn />
 			</TestProvider>
 			<TestProvider taskNum={3.3} pkt={1}>
-				<TaskImg img={polecenie3} />
-				<TaskImg className='mx-auto h-52' img={sql} />
+				<TestImg img={polecenie3} />
+				<TestImg className='mx-auto h-52' img={sql} />
 				<Table
 					cols={3}
 					className='[&>.col-2]:text-left [&>.col-2]:justify-start [&>.col-1]:font-bold'
