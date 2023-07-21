@@ -1,13 +1,15 @@
 import DonwloadBtn from '../../../../components/DownloadBtn';
-import TaskImg from '../../../../components/TaskImg';
 import {
 	TestProvider,
 	AnswerBtn,
 	TestInput,
+	TaskImg,
+	InfoBox,
 } from '../../../../context/testContext';
 import Table from '../../../../components/Table';
 
 import zadanie5 from './img/5.png';
+import zadanie5instrukcja from './img/5-instrukcja.png';
 import polecenie1 from './img/5-1.png';
 import polecenie2 from './img/5-2.png';
 import polecenie3 from './img/5-3.png';
@@ -18,7 +20,7 @@ const Excel = () => {
 	return (
 		<>
 			<TestProvider taskNum={5} title='Sok'>
-				<img src={zadanie5} draggable={false} className='pt-2 select-none' />
+				<TaskImg img={zadanie5} />
 				<DonwloadBtn urls={['/formula-2015/2022/maj/soki.txt']} />
 			</TestProvider>
 			<TestProvider taskNum={5.1} pkt={1}>
@@ -64,6 +66,9 @@ const Excel = () => {
 				</Table>
 				<AnswerBtn />
 			</TestProvider>
+			<InfoBox taskNums={['5.4', '5.5']}>
+				<TaskImg img={zadanie5instrukcja} />
+			</InfoBox>
 			<TestProvider taskNum={5.4} pkt={4}>
 				<TaskImg img={polecenie4} />
 				<Table

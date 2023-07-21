@@ -2,9 +2,9 @@ import {
 	AnswerBtn,
 	TestProvider,
 	TestInput,
+	TaskImg,
 } from '../../../../context/testContext';
 import Table from '../../../../components/Table';
-import TaskImg from '../../../../components/TaskImg';
 
 import zadanie2 from './img/2.png';
 import polecenie1 from './img/2-1.png';

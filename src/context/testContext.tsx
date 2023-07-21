@@ -30,6 +30,7 @@ interface TestProviderProps {
 	title?: string;
 	pkt?: number;
 	show?: boolean;
+	info?: string;
 }
 interface TaskId {
 	num: number;
@@ -62,12 +63,41 @@ const updateAnswer = (dispatch: Dispatch<AnyAction>, dane: Matura) => {
 	dispatch(answerSlice.actions.changeAns(dane));
 };
 
+export const TaskImg: React.FC<{ img: string; className?: string }> = ({
+	img,
+	className,
+}) => {
+	return (
+		<img
+			src={img}
+			draggable={false}
+			className={'pt-2 select-none ' + className}
+		/>
+	);
+};
+
+export const InfoBox: React.FC<
+	React.PropsWithChildren<{ taskNums: string[] }>
+> = ({ taskNums, children }) => {
+	return (
+		<div className='p-3 bg-white rounded-lg my-7 shadow-md shadow-neutral-500 select-none'>
+			<h1 className={'font-bold pl-2 text-md rounded bg-black text-white'}>
+				{`Informacje do zada${
+					taskNums.length > 1 ? 'ń' : 'nia'
+				} ${taskNums.join(', ')}.`}
+			</h1>
+			<div className='text-black px-1'>{children}</div>
+		</div>
+	);
+};
+
 export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
 	taskNum,
 	title = '',
 	pkt = 0,
 	children,
 	showOnDefault,
+	info,
 }) => {
 	const maturaPath = useMaturaPath();
 
@@ -92,7 +122,8 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
 					'bg-2015': maturaPath.formula === 'formula-2015',
 					'bg-2023': maturaPath.formula === 'formula-2023',
 				})}>
-				Zadanie {taskNum}
+				{'Zadanie '}
+				{taskNum}
 				{title.length > 1 && `. ${title}`}
 				{pkt > 0 && `. (0-${pkt})`}
 			</h1>

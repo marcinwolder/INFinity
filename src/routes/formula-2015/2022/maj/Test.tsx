@@ -1,8 +1,8 @@
-import TaskImg from '../../../../components/TaskImg';
 import {
 	AnswerBtn,
 	TestRadio,
 	TestProvider,
+	TaskImg,
 } from '../../../../context/testContext';
 import { usePathElements } from '../../../../redux/slices/pathSlice';
 
