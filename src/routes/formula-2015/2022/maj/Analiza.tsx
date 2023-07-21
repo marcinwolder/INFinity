@@ -67,7 +67,7 @@ const Analiza = () => {
 						num={2}
 						answer={(str) => {
 							const log = { a: 0, b: 0 };
-							for (let letter of str) {
+							for (const letter of str) {
 								log[letter as 'a' | 'b']++;
 								if (log.a > log.b) return false;
 							}

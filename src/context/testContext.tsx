@@ -35,7 +35,8 @@ interface TaskId {
 	num: number;
 }
 interface testProps {
-	answer: string | ((ans: string) => boolean);
+	answer: number | string | ((ans: string) => boolean);
+	placeholder?: string;
 }
 interface radioProps {
 	positive?: boolean;
@@ -53,11 +54,11 @@ const context = createContext<Context>({
 	taskNum: 0,
 });
 
-export const useTestContext = () => {
+const useTestContext = () => {
 	return useContext(context);
 };
 
-export const updateAnswer = (dispatch: Dispatch<AnyAction>, dane: Matura) => {
+const updateAnswer = (dispatch: Dispatch<AnyAction>, dane: Matura) => {
 	dispatch(answerSlice.actions.changeAns(dane));
 };
 
@@ -144,11 +145,17 @@ export const AnswerBtn: React.FC = () => {
 	);
 };
 
-export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
+export const TestInput: React.FC<testProps & TaskId> = ({
+	answer,
+	num,
+	placeholder,
+}) => {
 	const { show, setValues, values } = useTestContext();
 	const value = values[num] as string;
 	let compare;
 	if (typeof answer === 'string') compare = (str: string) => str === answer;
+	else if (typeof answer === 'number')
+		compare = (str: string) => Number(str) === answer;
 	else
 		compare = (str: string) => {
 			if (!str) return false;
@@ -169,7 +176,7 @@ export const TestInput: React.FC<testProps & TaskId> = ({ answer, num }) => {
 				<input
 					className='px-2 py-0 w-full h-5 text-center bg-white outline-none border-none'
 					type='text'
-					placeholder='________'
+					placeholder={placeholder || '________'}
 					value={value || ''}
 					onChange={(e) => {
 						const input = e.target.value;

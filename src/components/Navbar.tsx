@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { MenuBtn } from '../context/menuContext';
-import Infinity from '../../public/Infinity.png';
-import InfinityDark from '../../public/Infinity-dark.png';
+import Infinity from '../img/Infinity.png';
+import InfinityDark from '../img/Infinity-dark.png';
 
 const Navbar: React.FC = () => {
 	const getLogoBasedOnTheme = () =>
@@ -49,7 +49,6 @@ const Navbar: React.FC = () => {
 			<div className='flex-1'>
 				<Link to={'/'} className='btn btn-ghost normal-case text-xl small-caps'>
 					<img src={logoUrl} className='h-10' alt='Logo' />
-					<div className='dark:hidden'>LIGHT</div>
 				</Link>
 			</div>
 			<div className='flex gap-2'>
