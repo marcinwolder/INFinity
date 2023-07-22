@@ -74,10 +74,11 @@ const Access = () => {
 				<Table headings={['Imię i Nazwisko']}>
 					{[
 						<TestArea
-							placeholder='Odpowiedzi posortuj według nazwisk'
-							answer={'Mateusz Kordas\nKrzysztof Michalak\nOliwier Ziolko'}
+							placeholder='Odpowiedzi posortuj według nazwisk (kolumny oddziel tabulatorem)'
+							answer={'Mateusz\tKordas\nKrzysztof\tMichalak\nOliwier\tZiolko'}
 							num={1}
 						/>,
+						// TODO: ANSWER MUST PASS THE TEST EVEN IF NOT SORTED CORRECTLY (IN SOME CASES)
 					]}
 				</Table>
 				<AnswerBtn />
