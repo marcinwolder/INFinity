@@ -221,14 +221,22 @@ export const TestInput: React.FC<testProps & TaskId> = ({
 
 interface testAreaProps {
 	answer: Array<string | number>;
+	passIfNotSorted?: boolean;
 }
 
-export const TestArea: React.FC<testAreaProps & TaskId> = ({ answer, num }) => {
+export const TestArea: React.FC<testAreaProps & TaskId> = ({
+	answer,
+	num,
+	passIfNotSorted,
+}) => {
 	const { show, setValues, values } = useTestContext();
 	const value = (values[num] as string) || '';
 	const areaValues = value.trim().split('\n');
 
-	const compare = () => _.isEqual(answer.sort(), areaValues.sort());
+	const compare = () => {
+		if (passIfNotSorted) return _.isEqual(answer.sort(), areaValues.sort());
+		return _.isEqual(answer, areaValues);
+	};
 
 	return (
 		<div className='w-full mx-auto rounded-md'>

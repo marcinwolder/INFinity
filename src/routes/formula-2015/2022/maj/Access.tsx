@@ -74,6 +74,7 @@ const Access = () => {
 				<Table headings={['Imię i Nazwisko']}>
 					{[
 						<TestArea
+							passIfNotSorted
 							answer={[
 								'Mateusz Kordas',
 								'Krzysztof Michalak',
