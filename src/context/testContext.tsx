@@ -219,29 +219,23 @@ export const TestInput: React.FC<testProps & TaskId> = ({
 	);
 };
 
-export const TestArea: React.FC<testProps & TaskId> = ({
-	answer,
-	num,
-	placeholder,
-}) => {
+interface testAreaProps {
+	answer: Array<string | number>;
+}
+
+export const TestArea: React.FC<testAreaProps & TaskId> = ({ answer, num }) => {
 	const { show, setValues, values } = useTestContext();
-	const value = values[num] as string;
-	let compare;
-	if (typeof answer === 'string')
-		compare = (str: string) => str.trim() === answer;
-	else if (typeof answer === 'number')
-		compare = (str: string) => Number(str) === answer;
-	else
-		compare = (str: string) => {
-			if (!str) return false;
-			return answer(str);
-		};
+	const value = (values[num] as string) || '';
+	const areaValues = value.trim().split('\n');
+
+	const compare = () => _.isEqual(answer.sort(), areaValues.sort());
+
 	return (
 		<div className='w-full mx-auto rounded-md'>
 			{show ? (
 				<div className='w-full flex gap-2 items-center justify-center'>
 					{value || '--'}
-					{compare(value) ? (
+					{compare() ? (
 						<TiTick className='text-success text-xl' />
 					) : (
 						<TiTimes className='text-error text-xl' />
@@ -250,7 +244,6 @@ export const TestArea: React.FC<testProps & TaskId> = ({
 			) : (
 				<textarea
 					className='px-2 py-0 w-full bg-white border border-black h-36'
-					placeholder={placeholder || ''}
 					value={value || ''}
 					onChange={(e) => {
 						const input = e.target.value;
