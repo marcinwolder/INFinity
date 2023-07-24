@@ -10,9 +10,13 @@ import { useMaturaPath } from '../redux/slices/pathSlice';
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import classNames from 'classnames';
 import usePyRepl from '../components/PythonCompiler/usePyRepl';
-import { ImPlay3 } from 'react-icons/im';
+import { useDisclosure, useId } from '@mantine/hooks';
+
+import { AiOutlineInfoCircle, AiOutlineFormatPainter } from 'react-icons/ai';
 import { VscRunAll } from 'react-icons/vsc';
-import { useId } from '@mantine/hooks';
+import { ImPlay3 } from 'react-icons/im';
+import { Modal } from '@mantine/core';
+import { GoTab } from 'react-icons/go';
 
 export interface Answers {
 	[keys: number]: string | number | boolean;
@@ -232,6 +236,7 @@ export const TestArea: React.FC<testAreaProps & TaskId> = ({
 	const { show, setValues, values } = useTestContext();
 	const value = (values[num] as string) || '';
 	const areaValues = value.trim().split('\n');
+	const [opened, { open, close }] = useDisclosure();
 
 	const compare = () => {
 		if (passIfNotSorted) return _.isEqual(answer.sort(), areaValues.sort());
@@ -239,29 +244,51 @@ export const TestArea: React.FC<testAreaProps & TaskId> = ({
 	};
 
 	return (
-		<div className='w-full mx-auto rounded-md'>
-			{show ? (
-				<div className='w-full flex gap-2 items-center justify-center'>
-					{value || '--'}
-					{compare() ? (
-						<TiTick className='text-success text-xl' />
-					) : (
-						<TiTimes className='text-error text-xl' />
-					)}
+		<>
+			<Modal opened={opened} onClose={close} centered withCloseButton={false}>
+				<div className='flex'>
+					<p className='font-bold text-xl'>
+						Odpowiedzi muszą być dobrze sformatowane!
+					</p>
+					<p className='text-5xl'>
+						<AiOutlineFormatPainter />
+					</p>
 				</div>
-			) : (
-				<textarea
-					className='px-2 py-0 w-full bg-white border border-black h-36'
-					value={value || ''}
-					onChange={(e) => {
-						const input = e.target.value;
-						if (input === '') {
-							setValues((v) => _.omit(v, num));
-						} else setValues((v) => ({ ...v, [num]: input }));
-					}}
-				/>
-			)}
-		</div>
+				<p>Pomiędzy kolumnami powinny znajdować się tabulatory.</p>
+				<p className='text-sm underline underline-offset-2'>
+					Dodają się one automatycznie przy kopiowaniu danych z programu MS
+					Access.
+				</p>
+			</Modal>
+			<div className='w-full mx-auto rounded-md relative'>
+				<div className='absolute -translate-y-full right-0 text-xl  rounded-sm hover:text-secondary-focus'>
+					<button onClick={open}>
+						<AiOutlineInfoCircle />
+					</button>
+				</div>
+				{show ? (
+					<div className='w-full flex gap-2 items-center justify-center'>
+						{value || '--'}
+						{compare() ? (
+							<TiTick className='text-success text-xl' />
+						) : (
+							<TiTimes className='text-error text-xl' />
+						)}
+					</div>
+				) : (
+					<textarea
+						className='px-2 py-0 w-full bg-white border border-black h-36'
+						value={value || ''}
+						onChange={(e) => {
+							const input = e.target.value;
+							if (input === '') {
+								setValues((v) => _.omit(v, num));
+							} else setValues((v) => ({ ...v, [num]: input }));
+						}}
+					/>
+				)}
+			</div>
+		</>
 	);
 };
 

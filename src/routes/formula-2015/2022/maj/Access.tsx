@@ -55,17 +55,18 @@ const Access = () => {
 			</TestProvider>
 			{/* ZADANIE 3 */}
 			<TestProvider taskNum={6.3} pkt={3}>
-				<TestImg img={polecenie3} />
-				<Table headings={['Identyfikator', 'Imię', 'Nazwisko']}>
-					<TestInput answer={314} num={1} />
-					<TestInput answer={'Sebastian'} num={2} />
-					<TestInput answer={'Rabaj'} num={3} />
-					<TestInput answer={172} num={4} />
-					<TestInput answer={'Monika'} num={5} />
-					<TestInput answer={'Kado'} num={6} />
-					<TestInput answer={299} num={7} />
-					<TestInput answer={'Alicja'} num={8} />
-					<TestInput answer={'Kronecka'} num={9} />
+				<Table headings={['Identyfikator, Imię, Nazwisko']}>
+					{[
+						<TestArea
+							passIfNotSorted
+							answer={[
+								'314\tSebastian\tRabaj',
+								'172\tMonika\tKado',
+								'299\tAlicja\tKronecka',
+							]}
+							num={1}
+						/>,
+					]}
 				</Table>
 				<AnswerBtn />
 			</TestProvider>
@@ -76,13 +77,12 @@ const Access = () => {
 						<TestArea
 							passIfNotSorted
 							answer={[
-								'Mateusz Kordas',
-								'Krzysztof Michalak',
-								'Oliwier Ziolko',
+								'Mateusz\tKordas',
+								'Krzysztof\tMichalak',
+								'Oliwier\tZiolko',
 							]}
 							num={1}
 						/>,
-						// TODO: ANSWER MUST PASS THE TEST EVEN IF NOT SORTED CORRECTLY (IN SOME CASES)
 					]}
 				</Table>
 				<AnswerBtn />
