@@ -55,6 +55,7 @@ const Access = () => {
 			</TestProvider>
 			{/* ZADANIE 3 */}
 			<TestProvider taskNum={6.3} pkt={3}>
+				<TestImg img={polecenie3} />
 				<Table headings={['Identyfikator, Imię, Nazwisko']}>
 					{[
 						<TestArea

@@ -16,7 +16,6 @@ import { AiOutlineInfoCircle, AiOutlineFormatPainter } from 'react-icons/ai';
 import { VscRunAll } from 'react-icons/vsc';
 import { ImPlay3 } from 'react-icons/im';
 import { Modal } from '@mantine/core';
-import { GoTab } from 'react-icons/go';
 
 export interface Answers {
 	[keys: number]: string | number | boolean;
