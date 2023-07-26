@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { usePathElements } from '../redux/slices/pathSlice';
 
-const createBreadcrumbs = () => {
+const useCreateBreadcrumbs = () => {
 	const path = usePathElements() as string[];
 
 	return path.map((pathBlock, index) => {
@@ -33,7 +33,7 @@ const createBreadcrumbs = () => {
 const Breadcrumps = () => {
 	return (
 		<div className='breadcrumbs self-start text-xs sm:text-base p-0'>
-			<ul>{createBreadcrumbs()}</ul>
+			<ul>{useCreateBreadcrumbs()}</ul>
 		</div>
 	);
 };

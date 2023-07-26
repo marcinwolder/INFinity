@@ -7,53 +7,37 @@ export const Main: React.FC = () => {
 	const url = useUrl();
 
 	const [open, setOpen] = useState('2022');
-	const YearDropdown = useYearDropdown(open, setOpen);
 	return (
 		<>
-			<YearDropdown year='2022'>
-				<li>
-					<Link to={url + '/2022/maj'} className='text-lg'>
-						Maj
-						<span className='badge badge-primary rounded-badge ml-auto'>
-							MATURA
-						</span>
-					</Link>
-				</li>
-				<li>
-					<a className='text-lg'>
-						Czerwiec
-						<div className='badge badge-outline rounded-badge ml-auto'>
-							DODATKOWA
-						</div>
-					</a>
-				</li>
-			</YearDropdown>
-			<YearDropdown year='2021'>
-				<li>
-					<a className='text-lg'>
-						Marzec
-						<div className='badge badge-ghost rounded-badge ml-auto bg-base-300'>
-							PRÓBNA
-						</div>
-					</a>
-				</li>
-				<li>
-					<a className='text-lg'>
-						Maj
-						<div className='badge badge-primary rounded-badge ml-auto'>
-							MATURA
-						</div>
-					</a>
-				</li>
-				<li>
-					<a className='text-lg'>
-						Czerwiec
-						<div className='badge badge-outline rounded-badge ml-auto'>
-							DODATKOWA
-						</div>
-					</a>
-				</li>
-			</YearDropdown>
+			<h1 className='w-96'>Wybierz egzamin:</h1>
+			<div className='join join-vertical w-96'>
+				<div className='collapse collapse-arrow join-item border border-base-300'>
+					<input type='radio' name='my-accordion-1' />
+					<div className='collapse-title text-xl font-medium'>2023</div>
+					<div className='collapse-content'>
+						<Link to={url + '/2022/maj'}>Matura</Link>
+					</div>
+				</div>
+				<div className='collapse collapse-arrow join-item border border-base-300'>
+					<input type='radio' name='my-accordion-1' />
+					<div className='collapse-title text-xl font-medium'>2022</div>
+					<div className='collapse-content relative'>
+						<Link className='flex btn btn-outline' to={url + '/2022/maj'}>
+							<span className='badge badge-secondary absolute right-2 -top-2'>
+								Pierwszy termin
+							</span>
+							Matura
+						</Link>
+					</div>
+				</div>
+				<div className='collapse collapse-arrow join-item border border-base-300'>
+					<input type='radio' name='my-accordion-1' />
+					<div className='collapse-title text-xl font-medium'>2021</div>
+					<div className='collapse-content'>
+						<p>hello</p>
+					</div>
+				</div>
+			</div>
 		</>
 	);
 };
