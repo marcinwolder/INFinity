@@ -1,12 +1,9 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import useYearDropdown from '../../components/YearDropdown';
 import { useUrl } from '../../redux/slices/pathSlice';
 
 export const Main: React.FC = () => {
 	const url = useUrl();
 
-	const [open, setOpen] = useState('2022');
 	return (
 		<>
 			<h1 className='w-96'>Wybierz egzamin:</h1>
