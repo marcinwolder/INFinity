@@ -161,7 +161,7 @@ export const _AnswerBtn: React.FC = () => {
 					updateAnswer(dispatch, {
 						answers: { [taskNum]: values },
 						formula: maturaPath.formula,
-						date: maturaPath.date,
+						date: maturaPath.date || '',
 					});
 				}}>
 				SPRAWDŹ ODPOWIEDZI
@@ -367,7 +367,7 @@ export const TestPython: React.FC<
 	const [result, setResult] = useState(false);
 	const [disabled, setDisabled] = useState(true);
 
-	const funcName = `algo${maturaPath.date.replace('/', '')}${num}`;
+	const funcName = `algo${(maturaPath.date || '').replace('/', '')}${num}`;
 
 	const getStartBtn = () =>
 		replRef.current?.children[0].children[0].children[1] as HTMLButtonElement;
@@ -427,7 +427,7 @@ export const TestPython: React.FC<
 				[taskNum]: replContent,
 			},
 			formula: maturaPath.formula,
-			date: maturaPath.date,
+			date: maturaPath.date || '',
 		});
 		setReplSrc(replContent);
 	};
