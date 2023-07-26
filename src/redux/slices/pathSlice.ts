@@ -54,7 +54,7 @@ export const useMaturaPath = () => {
 	path.shift();
 	const buf = { formula: path[0], date: path[1] } as {
 		formula: Formula;
-		date: string;
+		date: string | undefined;
 	};
 	return buf;
 };
