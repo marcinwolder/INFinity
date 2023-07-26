@@ -3,8 +3,8 @@ import {
 	TestInput,
 	TestProvider,
 	TestPython,
-} from '../../../../context/testContext';
-import Table from '../../../../components/Table';
+} from '../../context/testContext.tsx';
+import Table from '../../components/Table';
 
 import zadanie1 from './img/1.png';
 import polecenie1 from './img/1-1.png';
