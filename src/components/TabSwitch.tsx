@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, ReactNode, Suspense, useEffect, useState } from 'react';
 
 interface TabSwitchProps {
 	tabs: ReactNode[];
@@ -26,7 +26,16 @@ const TabSwitch: FC<TabSwitchProps> = ({ tabs, headers }) => {
 					);
 				})}
 			</div>
-			<div className='max-w-screen-md mx-auto'>{tabs[tab - 1]}</div>
+			<div className='max-w-screen-md mx-auto'>
+				<Suspense
+					fallback={
+						<div className='mt-8 flex justify-center '>
+							<span className='loading loading-spinner loading-lg'></span>
+						</div>
+					}>
+					{tabs[tab - 1]}
+				</Suspense>
+			</div>
 		</>
 	);
 };
