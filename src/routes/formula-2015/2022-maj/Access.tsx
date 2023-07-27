@@ -57,34 +57,31 @@ const Access = () => {
 			<TestProvider taskNum={6.3} pkt={3}>
 				<TestImg img={polecenie3} />
 				<Table headings={['Identyfikator, Imię, Nazwisko']}>
-					{[
-						<TestArea
-							passIfNotSorted
-							answer={[
-								'314\tSebastian\tRabaj',
-								'172\tMonika\tKado',
-								'299\tAlicja\tKronecka',
-							]}
-							num={1}
-						/>,
-					]}
+					<TestArea
+						passIfNotSorted
+						answer={[
+							'314\tSebastian\tRabaj',
+							'172\tMonika\tKado',
+							'299\tAlicja\tKronecka',
+						]}
+						num={1}
+					/>
 				</Table>
 				<AnswerBtn />
 			</TestProvider>
+			{/* ZADANIE 4 */}
 			<TestProvider taskNum={6.4} pkt={3}>
 				<TestImg img={polecenie4} />
 				<Table headings={['Imię i Nazwisko']}>
-					{[
-						<TestArea
-							passIfNotSorted
-							answer={[
-								'Mateusz\tKordas',
-								'Krzysztof\tMichalak',
-								'Oliwier\tZiolko',
-							]}
-							num={1}
-						/>,
-					]}
+					<TestArea
+						passIfNotSorted
+						answer={[
+							'Mateusz\tKordas',
+							'Krzysztof\tMichalak',
+							'Oliwier\tZiolko',
+						]}
+						num={1}
+					/>
 				</Table>
 				<AnswerBtn />
 			</TestProvider>
