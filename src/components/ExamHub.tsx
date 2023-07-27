@@ -1,11 +1,8 @@
 import { ComponentType, lazy } from 'react';
-
-import { useMaturaPath } from '../../../redux/slices/pathSlice';
-
-import PartSwitch from '../../../components/PartSwitch';
-import TabSwitch from '../../../components/TabSwitch';
-
-import Error from '../../../components/Error';
+import PartSwitch from './PartSwitch';
+import TabSwitch from './TabSwitch';
+import Error from './Error';
+import { useParams } from 'react-router-dom';
 
 const modules = import.meta.glob('/src/routes/*/*/*.tsx') as Record<
 	string,
@@ -21,26 +18,24 @@ const handleImport = (url: string) =>
 			}));
 	});
 
-const Maj2022 = () => {
-	const maturaPath = useMaturaPath();
+const Index = () => {
+	const { formula, yearAndMonth } = useParams();
 
 	const Algorytm = handleImport(
-		`/src/routes/${maturaPath.formula}/${maturaPath.date}/Algorytm.tsx`
+		`/src/routes/${formula}/${yearAndMonth}/Algorytm.tsx`
 	);
 	const Analiza = handleImport(
-		`/src/routes/${maturaPath.formula}/${maturaPath.date}/Analiza.tsx`
+		`/src/routes/${formula}/${yearAndMonth}/Analiza.tsx`
 	);
-	const Test = handleImport(
-		`/src/routes/${maturaPath.formula}/${maturaPath.date}/Test.tsx`
-	);
+	const Test = handleImport(`/src/routes/${formula}/${yearAndMonth}/Test.tsx`);
 	const Python = handleImport(
-		`/src/routes/${maturaPath.formula}/${maturaPath.date}/Python.tsx`
+		`/src/routes/${formula}/${yearAndMonth}/Python.tsx`
 	);
 	const Excel = handleImport(
-		`/src/routes/${maturaPath.formula}/${maturaPath.date}/Excel.tsx`
+		`/src/routes/${formula}/${yearAndMonth}/Excel.tsx`
 	);
 	const Access = handleImport(
-		`/src/routes/${maturaPath.formula}/${maturaPath.date}/Access.tsx`
+		`/src/routes/${formula}/${yearAndMonth}/Access.tsx`
 	);
 
 	return (
@@ -63,4 +58,4 @@ const Maj2022 = () => {
 	);
 };
 
-export default Maj2022;
+export default Index;

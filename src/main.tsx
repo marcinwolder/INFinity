@@ -13,8 +13,8 @@ import './index.css';
 
 import Main from './routes/Main';
 
-import { ExamPicker } from './components/ExamPicker';
-import Maj2022 from './routes/formula-2015/2022-maj';
+import ExamPicker from './components/ExamPicker';
+import ExamHub from './components/ExamHub';
 
 declare global {
 	const pyscript: {
@@ -32,10 +32,10 @@ const router = createHashRouter([
 		element: <App />,
 		errorElement: <NotFound />,
 		children: [
-			{ path: '/:formula/:yearAndMonth', element: <Maj2022 /> },
 			{
 				path: '/:formula',
 				element: <ExamPicker />,
+				children: [{ path: '/:formula/:yearAndMonth', element: <ExamHub /> }],
 			},
 			{
 				path: '/',
