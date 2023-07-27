@@ -32,7 +32,7 @@ const router = createHashRouter([
 		element: <App />,
 		errorElement: <NotFound />,
 		children: [
-			{ path: '/formula-2015/2022-maj', element: <Maj2022 /> },
+			{ path: '/:formula/:yearAndMonth', element: <Maj2022 /> },
 			{
 				path: '/:formula',
 				element: <ExamPicker />,
