@@ -16,7 +16,6 @@ function App() {
 	}, []);
 	useEffect(() => {
 		dispatch(pathSlice2.actions.updatePath());
-		console.log('USE EFFECT');
 	}, [location, dispatch]);
 	return (
 		<div className='drawer'>

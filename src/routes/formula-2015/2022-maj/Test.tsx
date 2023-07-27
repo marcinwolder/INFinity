@@ -3,15 +3,15 @@ import {
 	TestRadio,
 	TestProvider,
 	TestImg,
-} from '../../../../context/testContext';
-import { usePathElements } from '../../../../redux/slices/pathSlice';
+} from '../../../context/testContext';
+import { usePathElements } from '../../../redux/slices/pathSlice';
 
 import zadanie3 from './img/3.png';
 import polecenie1 from './img/3-1.png';
 import polecenie2 from './img/3-2.png';
 import polecenie3 from './img/3-3.png';
 import sql from './img/sql.png';
-import Table from '../../../../components/Table';
+import Table from '../../../components/Table';
 
 const Test = () => {
 	const path = [...usePathElements()].map((el) => el.replace('/', ''));
