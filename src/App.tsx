@@ -5,8 +5,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 
 import { MenuCheckbox } from './context/menuContext';
 import Menu from './components/Menu';
-import { pathSlice2 } from './redux/slices/pathSlice2';
 import { useDispatch } from 'react-redux';
+import { pathSlice } from './redux/slices/pathSlice';
 
 function App() {
 	const location = useLocation();
@@ -15,7 +15,7 @@ function App() {
 		themeChange(false);
 	}, []);
 	useEffect(() => {
-		dispatch(pathSlice2.actions.updatePath());
+		dispatch(pathSlice.actions.updatePath());
 	}, [location, dispatch]);
 	return (
 		<div className='drawer'>

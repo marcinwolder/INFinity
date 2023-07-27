@@ -1,7 +1,6 @@
 import { ComponentType, lazy } from 'react';
 
-import { usePath } from '../../../redux/slices/pathSlice';
-import { useMaturaPath } from '../../../redux/slices/pathSlice2';
+import { useMaturaPath } from '../../../redux/slices/pathSlice';
 
 import PartSwitch from '../../../components/PartSwitch';
 import TabSwitch from '../../../components/TabSwitch';
@@ -23,7 +22,6 @@ const handleImport = (url: string) =>
 	});
 
 const Maj2022 = () => {
-	usePath('/2022/maj');
 	const maturaPath = useMaturaPath();
 
 	const Algorytm = handleImport(
