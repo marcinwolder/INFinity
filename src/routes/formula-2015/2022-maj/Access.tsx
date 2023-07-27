@@ -1,18 +1,18 @@
-import DonwloadBtn from '../../../../components/DownloadBtn';
+import DonwloadBtn from '../../../components/DownloadBtn';
 import {
 	TestProvider,
 	TestImg,
 	AnswerBtn,
 	TestInput,
 	TestArea,
-} from '../../../../context/testContext';
+} from '../../../context/testContext';
 
 import zadanie6 from './img/6.png';
 import polecenie1 from './img/6-1.png';
 import polecenie2 from './img/6-2.png';
 import polecenie3 from './img/6-3.png';
 import polecenie4 from './img/6-4.png';
-import Table from '../../../../components/Table';
+import Table from '../../../components/Table';
 
 const Access = () => {
 	return (

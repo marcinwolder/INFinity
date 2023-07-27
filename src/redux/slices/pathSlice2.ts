@@ -1,7 +1,12 @@
-import _ from 'lodash';
 import { createSlice } from '@reduxjs/toolkit';
+import { StateStore } from '..';
+import { useSelector } from 'react-redux';
 
-export type Formula = 'formula-2015' | 'formula-2023' | 'formula-stara';
+type Formula = 'formula-2015' | 'formula-2023' | 'formula-stara';
+export interface MaturaPath {
+	formula: 'formula-2015' | 'formula-2023' | 'formula-stara';
+	date: string;
+}
 
 export const pathSlice2 = createSlice({
 	name: 'path2',
@@ -15,26 +20,16 @@ export const pathSlice2 = createSlice({
 	},
 });
 
-// export const usePathElements = () => {
-// 	// TODO: ERROR about setting state while updating other component (unknown)
-// 	const dispatch = useDispatch();
-// 	const state = useSelector((state: StateStore) => state.path, _.isEqual);
-// 	if (!state.calibrated && state.blocks.length > 1) {
-// 		dispatch(pathSlice2.actions.__switch());
-// 	}
+export const usePathElements = () => {
+	const state = useSelector((state: StateStore) => state.path2);
+	return ['/strona-główna', ...state.map((e) => `/${e}`)];
+};
 
-// 	return state.blocks;
-// };
-
-// export const useMaturaPath = () => {
-// 	const path = [...usePathElements()].map((el) => el.replace('/', ''));
-// 	path.shift();
-// 	const buf = { formula: path[0], date: path[1] } as {
-// 		formula: Formula;
-// 		date: string | undefined;
-// 	};
-// 	return buf;
-// };
+export const useMaturaPath = () => {
+	const state = useSelector((state: StateStore) => state.path2);
+	const result: MaturaPath = { formula: state[0] as Formula, date: state[1] };
+	return result;
+};
 
 // export const useMaturaColor = () => {
 // 	const maturaPath = useMaturaPath();

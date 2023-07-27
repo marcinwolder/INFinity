@@ -1,12 +1,12 @@
-import DonwloadBtn from '../../../../components/DownloadBtn';
+import DonwloadBtn from '../../../components/DownloadBtn';
 import {
 	TestProvider,
 	AnswerBtn,
 	TestInput,
 	TestImg,
 	InfoBox,
-} from '../../../../context/testContext';
-import Table from '../../../../components/Table';
+} from '../../../context/testContext';
+import Table from '../../../components/Table';
 
 import zadanie5 from './img/5.png';
 import zadanie5instrukcja from './img/5-instrukcja.png';

@@ -1,13 +1,14 @@
 import { ComponentType, lazy } from 'react';
 
-import { useMaturaPath, usePath } from '../../../redux/slices/pathSlice';
+import { usePath } from '../../../redux/slices/pathSlice';
+import { useMaturaPath } from '../../../redux/slices/pathSlice2';
 
 import PartSwitch from '../../../components/PartSwitch';
 import TabSwitch from '../../../components/TabSwitch';
 
 import Error from '../../../components/Error';
 
-const modules = import.meta.glob('/src/routes/*/*/*/*.tsx') as Record<
+const modules = import.meta.glob('/src/routes/*/*/*.tsx') as Record<
 	string,
 	() => Promise<{ default: ComponentType }>
 >;
