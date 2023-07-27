@@ -1,0 +1,13 @@
+{
+	"formula-2015": {
+		"2021": [
+			{
+				"month": "maj",
+				"tasks": ["Algorytm", "Analiza", "Test", "Python", "Excel", "Access"],
+				"splitParts": [2]
+			}
+		]
+	},
+	"formula-2023": {},
+	"formula-stara": {}
+}

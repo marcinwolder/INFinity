@@ -12,10 +12,8 @@ import { MenuProvider } from './context/menuContext';
 import './index.css';
 
 import Main from './routes/Main';
-import Formula2015 from './routes/formula-2015';
-import Formula2023 from './routes/Formula2023';
 
-import Maj2022 from './routes/formula-2015/2022-maj';
+import { ExamPicker } from './components/ExamPicker';
 
 declare global {
 	const pyscript: {
@@ -34,13 +32,8 @@ const router = createHashRouter([
 		errorElement: <NotFound />,
 		children: [
 			{
-				path: '/formula-2023',
-				element: <Formula2023 />,
-			},
-			{
-				path: '/formula-2015',
-				element: <Formula2015 />,
-				children: [{ path: '/formula-2015/2022-maj', element: <Maj2022 /> }],
+				path: '/:formula',
+				element: <ExamPicker />,
 			},
 			{
 				path: '/',

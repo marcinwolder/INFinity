@@ -7,6 +7,7 @@ import { MenuCheckbox } from './context/menuContext';
 import Menu from './components/Menu';
 import { useDispatch } from 'react-redux';
 import { pathSlice } from './redux/slices/pathSlice';
+import Breadcrumps from './components/Breadcrumps';
 
 function App() {
 	const location = useLocation();
@@ -23,7 +24,10 @@ function App() {
 			<div className='drawer-content'>
 				<Navbar />
 				<div className='p-2'>
-					<Outlet />
+					<div className='artboard gap-4 flex flex-col items-center relative'>
+						<Breadcrumps />
+						<Outlet />
+					</div>
 				</div>
 			</div>
 			<div className='drawer-side'>

@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { usePathElements } from '../redux/slices/pathSlice';
+import _ from 'lodash';
 
 const useCreateBreadcrumbs = () => {
 	const path = usePathElements() as string[];
+
+	if (_.last(path) === '/') return <></>;
 
 	return path.map((pathBlock, index) => {
 		if (index < 1) {
