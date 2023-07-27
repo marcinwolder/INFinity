@@ -14,6 +14,7 @@ import './index.css';
 import Main from './routes/Main';
 
 import { ExamPicker } from './components/ExamPicker';
+import Maj2022 from './routes/formula-2015/2022-maj';
 
 declare global {
 	const pyscript: {
@@ -31,6 +32,7 @@ const router = createHashRouter([
 		element: <App />,
 		errorElement: <NotFound />,
 		children: [
+			{ path: '/formula-2015/2022-maj', element: <Maj2022 /> },
 			{
 				path: '/:formula',
 				element: <ExamPicker />,
