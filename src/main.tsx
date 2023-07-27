@@ -15,7 +15,7 @@ import Main from './routes/Main';
 import Formula2015 from './routes/formula-2015';
 import Formula2023 from './routes/Formula2023';
 
-import Maj2022 from './routes/formula-2015/2022/maj';
+import Maj2022 from './routes/formula-2015/2022-maj';
 
 declare global {
 	const pyscript: {
@@ -40,7 +40,7 @@ const router = createHashRouter([
 			{
 				path: '/formula-2015',
 				element: <Formula2015 />,
-				children: [{ path: '/formula-2015/2022/maj', element: <Maj2022 /> }],
+				children: [{ path: '/formula-2015/2022-maj', element: <Maj2022 /> }],
 			},
 			{
 				path: '/',
