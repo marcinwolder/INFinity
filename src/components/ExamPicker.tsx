@@ -16,7 +16,10 @@ export const ExamPicker: React.FC = () => {
 		setExams(examsJSON[formula]);
 	}, [formula, exams]);
 
-	if (_.isEmpty(exams)) return <h1 className='w-96'>Brak egzaminów w bazie</h1>;
+	if (_.isEmpty(exams))
+		return (
+			<h1 className='w-96'>Brak egzaminów spełniających wymagania w bazie.</h1>
+		);
 
 	return (
 		<>

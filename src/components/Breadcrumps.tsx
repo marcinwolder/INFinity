@@ -18,7 +18,7 @@ const useCreateBreadcrumbs = () => {
 			);
 		} else if (index === path.length - 1) {
 			return (
-				<li key={index}>
+				<li className='cursor-default' key={index}>
 					<code>{pathBlock}</code>
 				</li>
 			);

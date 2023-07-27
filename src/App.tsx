@@ -14,6 +14,7 @@ function App() {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		themeChange(false);
+		localStorage.setItem('theme', 'dark');
 	}, []);
 	useEffect(() => {
 		dispatch(pathSlice.actions.updatePath());

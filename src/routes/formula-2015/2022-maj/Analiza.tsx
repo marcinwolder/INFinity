@@ -81,8 +81,8 @@ const Analiza = () => {
 			</TestProvider>
 			<TestProvider taskNum={2.3} pkt={2}>
 				<TestImg img={polecenie3} />
-				<Table cols={2} __manualSizes='max-content auto'>
-					<>k = </>
+				<Table cols={1}>
+					<>k:</>
 					<TestInput
 						num={1}
 						answer={(str) => str === '990' || str === '967' || str === '989'}

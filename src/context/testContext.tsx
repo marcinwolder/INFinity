@@ -367,7 +367,7 @@ export const TestPython: React.FC<
 	const [result, setResult] = useState(false);
 	const [disabled, setDisabled] = useState(true);
 
-	const funcName = `algo${(maturaPath.date || '').replace('/', '')}${num}`;
+	const funcName = `algo${(maturaPath.date || '').replace('-', '')}${num}`;
 
 	const getStartBtn = () =>
 		replRef.current?.children[0].children[0].children[1] as HTMLButtonElement;
@@ -498,7 +498,7 @@ export const TestPython: React.FC<
 						URUCHOM ALGORYTM <VscRunAll />
 					</button>
 					<i>
-						<sup>*</sup>kliknij przed sprawdzeniem poprawności odpowiedzi
+						<sup>*</sup>kliknij aby sprawdzić poprawność odpowiedzi
 					</i>
 				</div>
 				<div className={classNames('relative', { hidden: !terminal })}>
