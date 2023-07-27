@@ -5,7 +5,7 @@ interface TableProps {
 	headings?: string[];
 	cols?: number;
 	__manualSizes?: string;
-	children: React.ReactNode[];
+	children: React.ReactNode[] | React.ReactNode;
 	className?: string;
 }
 
@@ -73,15 +73,17 @@ const Table: FC<TableProps> = ({
 						{heading.toUpperCase()}
 					</div>
 				))}
-			{children.map((el, index) => (
-				<div
-					key={index}
-					className={`col-${
-						(index % cols) + 1
-					} row-${1} flex items-center justify-center`}>
-					{el}
-				</div>
-			))}
+			{Array.isArray(children)
+				? children.map((el, index) => (
+						<div
+							key={index}
+							className={`col-${
+								(index % cols) + 1
+							} row-${1} flex items-center justify-center`}>
+							{el}
+						</div>
+            )) 
+        : children}
 		</GridDiv>
 	);
 };
