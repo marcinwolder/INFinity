@@ -6,7 +6,7 @@ import { TiTick, TiTimes } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateStore } from '../redux';
 import { Matura, answerSlice } from '../redux/slices/answersSlice';
-import { useMaturaPath } from '../redux/slices/pathSlice';
+import { Formula, useMaturaPath } from '../redux/slices/pathSlice';
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import classNames from 'classnames';
 import usePyRepl from '../components/PythonCompiler/usePyRepl';
@@ -160,7 +160,7 @@ export const _AnswerBtn: React.FC = () => {
 					setShow(true);
 					updateAnswer(dispatch, {
 						answers: { [taskNum]: values },
-						formula: maturaPath.formula,
+						formula: maturaPath.formula as Formula,
 						date: maturaPath.date || '',
 					});
 				}}>
@@ -426,7 +426,7 @@ export const TestPython: React.FC<
 			answers: {
 				[taskNum]: replContent,
 			},
-			formula: maturaPath.formula,
+			formula: maturaPath.formula as Formula,
 			date: maturaPath.date || '',
 		});
 		setReplSrc(replContent);
