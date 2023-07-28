@@ -4,8 +4,8 @@
 			"year": "2022",
 			"month": "maj",
 			"tasks": ["Algorytm", "Analiza", "Test", "Python", "Excel", "Access"],
-			"splitParts": [2],
 			"title": "Matura",
+			"splitParts": true,
 			"info": "Pierwszy termin"
 		}
 	],

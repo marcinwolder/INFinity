@@ -1,22 +1,14 @@
-import {
-	createSelector,
-	createSlice,
-	PayloadAction,
-	Unsubscribe,
-} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import examsJSON from '../../JSON/exams.json';
-import { Formula, useMaturaPath, useUrl } from './pathSlice';
+import { Formula } from './pathSlice';
 import _ from 'lodash';
-import { StateStore } from '..';
-import { useSelector, useStore } from 'react-redux';
-import { useEffect, useMemo, useState } from 'react';
 
 export interface ExamData {
 	formula: Formula;
 	year: string;
 	month: string;
 	tasks: string[];
-	splitParts: number[];
+	splitParts?: boolean;
 	title: string;
 	info?: string;
 }
@@ -37,7 +29,14 @@ export const examsSlice = createSlice({
 			}
 
 			exams.forEach((exam) => {
-				const { year, month, tasks, splitParts, info = '', title } = exam;
+				const {
+					year,
+					month,
+					tasks,
+					splitParts = false,
+					info = '',
+					title,
+				} = exam;
 
 				const buf = {
 					formula: action.payload,

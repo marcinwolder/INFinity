@@ -2,7 +2,7 @@ import { ComponentType, lazy } from 'react';
 import PartSwitch from './PartSwitch';
 import TabSwitch from './TabSwitch';
 import Error from './Error';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { ExamPageLoader } from '../main';
 
 const modules = import.meta.glob('/src/routes/*/*/*.tsx') as Record<
@@ -20,44 +20,35 @@ const handleImport = (url: string) =>
 	});
 
 const Index: React.FC = () => {
-	const { formula, yearAndMonth } = useParams();
+	const {
+		currentExam: { formula, year, month, tasks, splitParts },
+	} = useLoaderData() as ExamPageLoader;
 
-	const { currentExam } = useLoaderData() as ExamPageLoader;
-	console.log('🚀 ~ file: ExamHub.tsx:37 ~ currentExam:', currentExam);
+	const comps: React.ReactNode[] = [];
 
-	const Algorytm = handleImport(
-		`/src/routes/${formula}/${yearAndMonth}/Algorytm.tsx`
-	);
-	const Analiza = handleImport(
-		`/src/routes/${formula}/${yearAndMonth}/Analiza.tsx`
-	);
-	const Test = handleImport(`/src/routes/${formula}/${yearAndMonth}/Test.tsx`);
-	const Python = handleImport(
-		`/src/routes/${formula}/${yearAndMonth}/Python.tsx`
-	);
-	const Excel = handleImport(
-		`/src/routes/${formula}/${yearAndMonth}/Excel.tsx`
-	);
-	const Access = handleImport(
-		`/src/routes/${formula}/${yearAndMonth}/Access.tsx`
-	);
+	tasks.forEach((task) => {
+		const Comp = handleImport(
+			`/src/routes/${formula}/${year}-${month}/${task}.tsx`
+		);
+		comps.push(<Comp />);
+	});
+
+	if (splitParts) {
+		return (
+			<div className='sm:px-0 md:px-6 max-w-screen-md w-full'>
+				<PartSwitch
+					Part1={
+						<TabSwitch tabs={comps.slice(0, 3)} headers={tasks.slice(0, 3)} />
+					}
+					Part2={<TabSwitch tabs={comps.slice(3)} headers={tasks.slice(3)} />}
+				/>
+			</div>
+		);
+	}
 
 	return (
 		<div className='sm:px-0 md:px-6 max-w-screen-md w-full'>
-			<PartSwitch
-				Part1={
-					<TabSwitch
-						tabs={[<Algorytm />, <Analiza />, <Test />]}
-						headers={['Algorytm', 'Analiza', 'Test']}
-					/>
-				}
-				Part2={
-					<TabSwitch
-						tabs={[<Python />, <Excel />, <Access />]}
-						headers={['Python', 'Excel', 'Access']}
-					/>
-				}
-			/>
+			<TabSwitch tabs={comps} headers={tasks} />
 		</div>
 	);
 };
