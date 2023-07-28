@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 
 export type Formula = 'formula-2015' | 'formula-2023' | 'formula-stara';
 export interface MaturaPath {
-	formula: 'formula-2015' | 'formula-2023' | 'formula-stara';
-	date: string;
+	formula: 'formula-2015' | 'formula-2023' | 'formula-stara' | undefined;
+	date: string | undefined;
 }
 
 export const pathSlice = createSlice({

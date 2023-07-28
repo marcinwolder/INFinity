@@ -1,16 +1,28 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+	createSelector,
+	createSlice,
+	PayloadAction,
+	Unsubscribe,
+} from '@reduxjs/toolkit';
 import examsJSON from '../../JSON/exams.json';
-import { Formula } from './pathSlice';
+import { Formula, useMaturaPath, useUrl } from './pathSlice';
 import _ from 'lodash';
+import { StateStore } from '..';
+import { useSelector, useStore } from 'react-redux';
+import { useEffect, useMemo, useState } from 'react';
+
+export interface ExamData {
+	formula: Formula;
+	year: string;
+	month: string;
+	tasks: string[];
+	splitParts: number[];
+	title: string;
+	info?: string;
+}
 
 const initialState: {
-	[year: string]: {
-		month: string;
-		tasks: string[];
-		splitParts: number[];
-		title: string;
-		info?: string;
-	}[];
+	[year: string]: ExamData[];
 } = {};
 
 export const examsSlice = createSlice({
@@ -26,14 +38,21 @@ export const examsSlice = createSlice({
 
 			exams.forEach((exam) => {
 				const { year, month, tasks, splitParts, info = '', title } = exam;
+
+				const buf = {
+					formula: action.payload,
+					year,
+					month,
+					tasks,
+					splitParts,
+					info,
+					title,
+				};
+
 				if (!state[year]) {
-					state[year] = [{ month, tasks, splitParts, info, title }];
-				} else if (
-					!_.filter(state[year], (e) =>
-						_.isEqual(e, { month, tasks, splitParts, info, title })
-					)
-				) {
-					state[year].push({ month, tasks, splitParts, info, title });
+					state[year] = [buf];
+				} else if (!_.filter(state[year], (e) => _.isEqual(e, buf))) {
+					state[year].push(buf);
 				}
 			});
 		},

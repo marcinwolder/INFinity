@@ -15,6 +15,9 @@ import Main from './routes/Main';
 
 import ExamPicker from './components/ExamPicker';
 import ExamHub from './components/ExamHub';
+import _ from 'lodash';
+import { ExamData, examsSlice } from './redux/slices/examsSlice';
+import { Formula } from './redux/slices/pathSlice';
 
 declare global {
 	const pyscript: {
@@ -26,6 +29,10 @@ declare global {
 	};
 }
 
+export interface ExamPageLoader {
+	currentExam: ExamData;
+}
+
 const router = createHashRouter([
 	{
 		path: '/',
@@ -35,7 +42,27 @@ const router = createHashRouter([
 			{
 				path: '/:formula',
 				element: <ExamPicker />,
-				children: [{ path: '/:formula/:yearAndMonth', element: <ExamHub /> }],
+				loader: async ({ params }) => {
+					store.dispatch(
+						examsSlice.actions.loadExams(params.formula as Formula)
+					);
+					return {};
+				},
+				children: [
+					{
+						path: '/:formula/:yearAndMonth',
+						element: <ExamHub />,
+						loader: async ({ params }) => {
+							const { yearAndMonth } = params;
+							const [year, month] = (yearAndMonth || '').split('-');
+							const currentExam = store
+								.getState()
+								.exams[year].filter((exam) => exam.month === month);
+							if (_.isEmpty(currentExam)) throw new Error();
+							return { currentExam: _.head(currentExam) } as ExamPageLoader;
+						},
+					},
+				],
 			},
 			{
 				path: '/',

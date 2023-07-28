@@ -1,24 +1,26 @@
-import { Link, useOutlet, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { Formula, useUrl } from '../redux/slices/pathSlice';
+import { Link, useOutlet } from 'react-router-dom';
+import { Suspense } from 'react';
+import { useUrl } from '../redux/slices/pathSlice';
 import _ from 'lodash';
-import { useDispatch, useSelector } from 'react-redux';
-import { examsSlice } from '../redux/slices/examsSlice';
+import { useSelector } from 'react-redux';
 import { StateStore } from '../redux';
 const ExamPicker: React.FC = () => {
 	const url = useUrl();
 
-	const { formula } = useParams() as { formula: Formula };
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		dispatch(examsSlice.actions.loadExams(formula));
-	}, [formula, dispatch]);
-
 	const exams = useSelector((state: StateStore) => state.exams);
 
 	const outlet = useOutlet();
-	if (outlet) return outlet;
+	if (outlet)
+		return (
+			<Suspense
+				fallback={
+					<div className='mt-8 flex justify-center '>
+						<span className='loading loading-spinner loading-lg'></span>
+					</div>
+				}>
+				{outlet}
+			</Suspense>
+		);
 
 	if (_.isEmpty(exams))
 		return (

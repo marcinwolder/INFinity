@@ -2,7 +2,8 @@ import { ComponentType, lazy } from 'react';
 import PartSwitch from './PartSwitch';
 import TabSwitch from './TabSwitch';
 import Error from './Error';
-import { useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
+import { ExamPageLoader } from '../main';
 
 const modules = import.meta.glob('/src/routes/*/*/*.tsx') as Record<
 	string,
@@ -18,8 +19,11 @@ const handleImport = (url: string) =>
 			}));
 	});
 
-const Index = () => {
+const Index: React.FC = () => {
 	const { formula, yearAndMonth } = useParams();
+
+	const { currentExam } = useLoaderData() as ExamPageLoader;
+	console.log('🚀 ~ file: ExamHub.tsx:37 ~ currentExam:', currentExam);
 
 	const Algorytm = handleImport(
 		`/src/routes/${formula}/${yearAndMonth}/Algorytm.tsx`
