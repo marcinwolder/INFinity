@@ -1,5 +1,5 @@
 import Navbar from './components/Navbar';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { themeChange } from 'theme-change';
 import { Outlet, useLocation } from 'react-router-dom';
 
@@ -14,6 +14,8 @@ function App() {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		themeChange(false);
+	}, []);
+	useLayoutEffect(() => {
 		if (!localStorage.getItem('theme')) localStorage.setItem('theme', 'dark');
 	}, []);
 	useEffect(() => {
