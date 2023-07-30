@@ -3,21 +3,21 @@ import ReactDOM from 'react-dom/client';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { MantineProvider } from '@mantine/core';
+import _ from 'lodash';
 
-import store from './redux';
+import { MenuProvider } from './context/menuContext';
 import App from './App';
 import NotFound from './routes/NotFound';
-import { MenuProvider } from './context/menuContext';
-
-import './index.css';
-
-import Main from './routes/Main';
+import Main from './routes';
 
 import ExamPicker from './components/ExamPicker';
 import ExamHub from './components/ExamHub';
-import _ from 'lodash';
+
+import store from './redux';
 import { ExamData, examsSlice } from './redux/slices/examsSlice';
 import { Formula } from './redux/slices/pathSlice';
+
+import './index.css';
 
 declare global {
 	const pyscript: {

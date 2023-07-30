@@ -12,16 +12,18 @@ import Breadcrumps from './components/Breadcrumps';
 function App() {
 	const location = useLocation();
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		themeChange(false);
 	}, []);
+  useEffect(() => {
+    dispatch(pathSlice.actions.updatePath());
+  }, [location, dispatch]);
 	useLayoutEffect(() => {
 		if (!localStorage.getItem('theme')) localStorage.setItem('theme', 'dark');
 	}, []);
-	useEffect(() => {
-		dispatch(pathSlice.actions.updatePath());
-	}, [location, dispatch]);
-	return (
+
+  return (
 		<div className='drawer'>
 			<MenuCheckbox />
 			<div className='drawer-content'>
