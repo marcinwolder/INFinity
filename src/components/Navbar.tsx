@@ -1,33 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { MenuBtn } from '../context/menuContext';
 import Infinity from '../img/Infinity.png';
 import InfinityDark from '../img/Infinity-dark.png';
+import ThemeImg from './ThemeImg';
 
 const Navbar: React.FC = () => {
-	const getLogoBasedOnTheme = () =>
-		document.documentElement.getAttribute('data-theme') === 'dark'
-			? Infinity
-			: InfinityDark;
-
-	const [logoUrl, setLogoUrl] = useState(getLogoBasedOnTheme());
-
-	const observer = new MutationObserver(function (mutations) {
-		mutations.forEach(function (mutation) {
-			if (
-				mutation.type === 'attributes' &&
-				mutation.attributeName === 'data-theme'
-			) {
-				setLogoUrl(getLogoBasedOnTheme());
-			}
-		});
-	});
-
-	observer.observe(document.documentElement, {
-		attributes: true,
-	});
-
 	return (
 		<div className='navbar bg-base-100 gap-2'>
 			<div className='flex-none'>
@@ -48,7 +27,7 @@ const Navbar: React.FC = () => {
 			</div>
 			<div className='flex-1'>
 				<Link to={'/'} className='btn btn-ghost normal-case text-xl small-caps'>
-					<img src={logoUrl} className='h-10' alt='Logo' />
+					<ThemeImg light={Infinity} dark={InfinityDark} />
 				</Link>
 			</div>
 			<div className='flex gap-2'>

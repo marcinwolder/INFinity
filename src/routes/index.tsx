@@ -3,7 +3,11 @@ import { BsArrowReturnRight } from 'react-icons/bs';
 const Main = () => {
 	return (
 		<div className='w-full'>
-			<h1 className='font-bold text-3xl ml-2'>.Projekt INFinity</h1>
+			<div>
+				<p>PROJEKT</p>
+				<img src='' />
+				<p>INFINITY</p>
+			</div>
 			<div className='flex items-center gap-2'>
 				<BsArrowReturnRight />
 				<span>
