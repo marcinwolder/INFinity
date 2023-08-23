@@ -68,10 +68,14 @@ const BottomCurveDiv = styled.div.attrs(() => {
 `;
 
 const Main = () => {
+	const easeInOutQuint = (x: number): number => {
+		return x < 0.5 ? 16 * x * x * x * x * x : 1 - Math.pow(-2 * x + 2, 5) / 2;
+	};
 	const { scrollIntoView: scrollIntoInfo, targetRef: infoTargetRef } =
 		useScrollIntoView<HTMLDivElement>({
-			offset: 80,
-			duration: 800,
+			offset: 320,
+			duration: 1500,
+			easing: easeInOutQuint,
 		});
 
 	return (
@@ -203,7 +207,7 @@ const Main = () => {
 						dostać się na wymarzone studia?
 					</p>
 					<p className='text-2xl'>
-						trafiłeś w idealnie miejsce, z nami nauczysz się wszystkiego co Ci
+						Trafiłeś w idealnie miejsce, z nami nauczysz się wszystkiego co Ci
 						potrzebne!
 					</p>
 				</div>
@@ -245,7 +249,7 @@ const Main = () => {
 							stats: '4x',
 						},
 						{
-							title: 'Porady',
+							title: 'Porada',
 							description:
 								'Podpowiemy Ci co zrobić przed maturą a czego unikać. Zahaczymy o tematy przygotowania sprzętu i porozmawiamy o ważnych datach.',
 							stats: '5x',
