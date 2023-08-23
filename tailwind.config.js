@@ -1,17 +1,27 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-	theme: {
-		extend: {
-			colors: {
-				stara: '#8c8c8c',
-				2015: '#bfbfbf',
-				2023: '#d5b8ea',
-			},
+
+import daisyuiPlugin from 'daisyui';
+import opentypePlugin from 'tailwindcss-opentype';
+import tailwindTextShadowPlugin from '@designbycode/tailwindcss-text-shadow';
+
+export const content = ['./index.html', './src/**/*.{js,ts,jsx,tsx}'];
+export const theme = {
+	extend: {
+		textShadow: {
+			codeBack: '0 0 40px rgba(0,0,0,0.5)',
+		},
+		colors: {
+			stara: '#8c8c8c',
+			2015: '#bfbfbf',
+			2023: '#d5b8ea',
 		},
 	},
-	plugins: [require('tailwindcss-opentype'), require('daisyui')],
-	daisyui: {
-		themes: ['dark', 'emerald'],
-	},
+};
+export const plugins = [
+	opentypePlugin,
+	daisyuiPlugin,
+	tailwindTextShadowPlugin,
+];
+export const daisyui = {
+	themes: ['dark', 'emerald'],
 };

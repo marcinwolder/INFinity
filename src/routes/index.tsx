@@ -5,9 +5,15 @@ import { BiBookBookmark } from 'react-icons/bi';
 import { BsChevronDoubleDown } from 'react-icons/bs';
 import useThemeBasedValue from '../hooks/useThemeBasedValue';
 import styled from 'styled-components';
-import { useScrollIntoView } from '@mantine/hooks';
+import { useScrollIntoView, useWindowScroll } from '@mantine/hooks';
+import _ from 'lodash';
 
-const CodeDiv = styled.div`
+const CodeDiv = styled.div.attrs(() => ({
+	theme: useThemeBasedValue(
+		'opacity: 0.05; --tw-text-opacity: 1; color: rgb(16 185 129 / var(--tw-text-opacity));',
+		'opacity: 0.25; --tw-text-opacity: 1; color: rgb(2 6 23 / var(--tw-text-opacity));'
+	),
+}))`
 	@keyframes pulse {
 		50% {
 			opacity: 0.1;
@@ -18,19 +24,33 @@ const CodeDiv = styled.div`
 
 	position: absolute;
 	font-size: em;
-	${() =>
-		useThemeBasedValue(
-			'opacity: 0.05; --tw-text-opacity: 1; color: rgb(16 185 129 / var(--tw-text-opacity));',
-			'opacity: 0.25; --tw-text-opacity: 1; color: rgb(2 6 23 / var(--tw-text-opacity));'
-		)}
+
+	${(props) => props.theme}
+`;
+const MainDiv = styled.div.attrs(() => {
+	const [scroll] = useWindowScroll();
+	return {
+		opacity: (
+			100 - _.clamp((scroll.y / window.innerHeight) * 1.5 * 100, 0, 100)
+		).toFixed(0),
+		effect: _.clamp(
+			(scroll.y / window.innerHeight) * 1.5 * 100,
+			0,
+			100
+		).toFixed(0),
+	};
+})`
+	opacity: ${(props) => props.opacity}%;
+	scale: ${(props) => 1 - Number(props.effect) / 500};
+	translate: 0 -${(props) => Number(props.effect) / 4}%;
 `;
 
 const Main = () => {
-	const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
-		offset: 80,
-	});
+	const { scrollIntoView: scrollIntoInfo, targetRef: infoTargetRef } =
+		useScrollIntoView<HTMLDivElement>({
+			offset: 80,
+		});
 
-	const MainDiv = styled.div``;
 	return (
 		<div className='w-full'>
 			<MainDiv className='sticky top-32 -z-20 mt-10 mb-52'>
@@ -144,16 +164,16 @@ const Main = () => {
 						<br />
 					</code>
 				</CodeDiv>
-				<div className='flex gap-4 items-center text-6xl mx-auto w-max mb-24'>
+				<div className='flex gap-4 items-center text-6xl mx-auto w-max mb-24 text-shadow text-shadow-blur-6 text-shadow-slate-600 text-shadow-y-2'>
 					<p>PROJEKT</p>
 					<ThemeImg
 						light={InfinitySmallDark}
 						dark={InfinitySmall}
-						className='h-80'
+						className='h-80 drop-shadow-[0_0_10px_#475569]'
 					/>
 					<p>INFINITY</p>
 				</div>
-				<div className='flex justify-center items-center flex-col'>
+				<div className='flex justify-center items-center flex-col text-shadow text-shadow-blur-5 text-shadow-slate-600 text-shadow-y-2'>
 					<p className='text-3xl font-semibold'>
 						Chcesz dobrze zdać{' '}
 						<i className='text-secondary-focus'>maturę z informatyki</i> i
@@ -175,14 +195,14 @@ const Main = () => {
 						</p>{' '}
 						sprawdź ofertę kursów
 					</button>
-					<button onClick={() => scrollIntoView()} className='btn btn-outline'>
+					<button onClick={() => scrollIntoInfo()} className='btn btn-outline'>
 						zobacz czego możesz się nauczyć{' '}
 						<p className='animate-bounce'>
 							<BsChevronDoubleDown />
 						</p>
 					</button>
 				</div>
-				<div ref={targetRef}>TEST</div>
+				<div ref={infoTargetRef}>TEST</div>
 				TEST <br />
 				TEST <br />
 				TEST <br />

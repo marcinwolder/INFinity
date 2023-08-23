@@ -5,8 +5,10 @@ import { MenuBtn } from '../context/menuContext';
 import Infinity from '../img/Infinity.png';
 import InfinityDark from '../img/Infinity-dark.png';
 import ThemeImg from './ThemeImg';
+import { useWindowScroll } from '@mantine/hooks';
 
 const Navbar: React.FC = () => {
+	const [scroll, scrollTo] = useWindowScroll();
 	return (
 		<div className='navbar bg-base-100 gap-2 sticky top-0 z-10'>
 			<div className='flex-none'>
@@ -25,7 +27,12 @@ const Navbar: React.FC = () => {
 				</MenuBtn>
 			</div>
 			<div className='flex-1'>
-				<Link to={'/'} className='btn btn-ghost normal-case text-xl small-caps'>
+				<Link
+					to={'/'}
+					onClick={() => {
+						scrollTo({ y: 0 });
+					}}
+					className='btn btn-ghost normal-case text-xl small-caps'>
 					<ThemeImg className='h-10' light={Infinity} dark={InfinityDark} />
 				</Link>
 			</div>
