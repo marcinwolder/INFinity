@@ -9,6 +9,7 @@ import { useWindowScroll } from '@mantine/hooks';
 
 const Navbar: React.FC = () => {
 	const [scroll, scrollTo] = useWindowScroll();
+	scroll;
 	return (
 		<div className='navbar bg-base-100 gap-2 sticky top-0 z-10'>
 			<div className='flex-none'>
