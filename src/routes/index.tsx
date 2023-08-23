@@ -44,6 +44,16 @@ const MainDiv = styled.div.attrs(() => {
 	scale: ${(props) => 1 - Number(props.effect) / 500};
 	translate: 0 -${(props) => Number(props.effect) / 4}%;
 `;
+const BottomShadowDiv = styled.div.attrs(() => {
+	const [scroll] = useWindowScroll();
+	return {
+		opacity: (
+			100 - _.clamp((scroll.y / window.innerHeight) * 1000, 0, 100)
+		).toFixed(0),
+	};
+})`
+	opacity: ${(props) => props.opacity}%;
+`;
 
 const Main = () => {
 	const { scrollIntoView: scrollIntoInfo, targetRef: infoTargetRef } =
@@ -164,14 +174,14 @@ const Main = () => {
 						<br />
 					</code>
 				</CodeDiv>
-				<div className='flex gap-4 items-center text-6xl mx-auto w-max mb-24 text-shadow text-shadow-blur-6 text-shadow-slate-600 text-shadow-y-2'>
-					<p>PROJEKT</p>
+				<div className='flex gap-4 items-center text-6xl font-black mx-auto w-max mb-24 text-shadow text-shadow-blur-5 text-shadow-slate-600'>
+					<p className='text-sky-500'>PROJEKT</p>
 					<ThemeImg
 						light={InfinitySmallDark}
 						dark={InfinitySmall}
 						className='h-80 drop-shadow-[0_0_10px_#475569]'
 					/>
-					<p>INFINITY</p>
+					<p className='text-red-500'>INFINITY</p>
 				</div>
 				<div className='flex justify-center items-center flex-col text-shadow text-shadow-blur-5 text-shadow-slate-600 text-shadow-y-2'>
 					<p className='text-3xl font-semibold'>
@@ -188,7 +198,8 @@ const Main = () => {
 
 			<div className='flex flex-col items-center gap-2 bg-base-200 relative'>
 				<div className='w-full h-32 bg-inherit absolute top-0 -translate-y-2/3 rounded-t-[100%] -z-10 border-t-8 border-base-300' />
-				<div className='btn-group -translate-y-1/2'>
+				<BottomShadowDiv className='fixed bottom-0 w-full brightness-75 h-10 bg-gradient-to-t from-base-300 from-20%' />
+				<div className='btn-group -translate-y-1/2 shadow-lg'>
 					<button className='btn btn-primary font-bold'>
 						<p>
 							<BiBookBookmark />
@@ -202,7 +213,9 @@ const Main = () => {
 						</p>
 					</button>
 				</div>
-				<div ref={infoTargetRef}>TEST</div>
+				<div className='text-xl' ref={infoTargetRef}>
+					Na naszej stronie znajdziesz:
+				</div>
 				TEST <br />
 				TEST <br />
 				TEST <br />
