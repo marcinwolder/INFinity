@@ -7,6 +7,7 @@ import useThemeBasedValue from '../hooks/useThemeBasedValue';
 import styled from 'styled-components';
 import { useScrollIntoView, useWindowScroll } from '@mantine/hooks';
 import _ from 'lodash';
+import { StatsGroup } from '../components/StatsGroup';
 
 const CodeDiv = styled.div.attrs(() => ({
 	theme: useThemeBasedValue(
@@ -54,16 +55,28 @@ const BottomShadowDiv = styled.div.attrs(() => {
 })`
 	opacity: ${(props) => props.opacity}%;
 `;
+const BottomCurveDiv = styled.div.attrs(() => {
+	const [scroll] = useWindowScroll();
+	return {
+		opacity: (
+			100 - _.clamp((scroll.y / window.innerHeight) * 200, 0, 100)
+		).toFixed(0),
+	};
+})`
+	border-top-left-radius: ${(props) => props.opacity}%;
+	border-top-right-radius: ${(props) => props.opacity}%;
+`;
 
 const Main = () => {
 	const { scrollIntoView: scrollIntoInfo, targetRef: infoTargetRef } =
 		useScrollIntoView<HTMLDivElement>({
 			offset: 80,
+			duration: 800,
 		});
 
 	return (
 		<div className='w-full'>
-			<MainDiv className='sticky top-32 -z-20 mt-10 mb-52'>
+			<MainDiv className='sticky top-16 -z-20 mt-10 mb-36'>
 				<CodeDiv className='left-10 -z-20'>
 					<code>
 						plik = open('Dane_2205/liczby.txt').readlines() <br />
@@ -197,8 +210,8 @@ const Main = () => {
 			</MainDiv>
 
 			<div className='flex flex-col items-center gap-2 bg-base-200 relative'>
-				<div className='w-full h-32 bg-inherit absolute top-0 -translate-y-2/3 rounded-t-[100%] -z-10 border-t-8 border-base-300' />
-				<BottomShadowDiv className='fixed bottom-0 w-full brightness-75 h-10 bg-gradient-to-t from-base-300 from-20%' />
+				<BottomCurveDiv className='w-full h-32 bg-inherit absolute top-0 -translate-y-2/3 rounded-t-[100%] -z-10 border-t-8 border-base-300' />
+				<BottomShadowDiv className='fixed bottom-0 w-full brightness-75 h-40 bg-gradient-to-t from-base-300' />
 				<div className='btn-group -translate-y-1/2 shadow-lg'>
 					<button className='btn btn-primary font-bold'>
 						<p>
@@ -208,71 +221,96 @@ const Main = () => {
 					</button>
 					<button onClick={() => scrollIntoInfo()} className='btn btn-outline'>
 						zobacz czego możesz się nauczyć{' '}
-						<p className='animate-bounce'>
+						<p className='relative top-px animate-bounce'>
 							<BsChevronDoubleDown />
 						</p>
 					</button>
 				</div>
-				<div className='text-xl' ref={infoTargetRef}>
-					Na naszej stronie znajdziesz:
+				<div className='text-xl mb-4 font-semibold' ref={infoTargetRef}>
+					W twojej drodze do wybitnego wyniku pomogą Ci:
 				</div>
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
-				TEST <br />
+				<StatsGroup
+					className='bg-gradient-to-r from-info to-info text-info-content w-fit mx-36'
+					data={[
+						{
+							title: 'Matura',
+							description:
+								'Maturę możesz rozwiązać w przeglądarce, zobaczyć sposób rozwiązania oraz poprawność swojej odpowiedzi.',
+							stats: '1x',
+						},
+						{
+							title: 'Kurs',
+							description:
+								'Dzięki nim nauczysz się korzystać z programów z pakietu MS Office oraz programować w języku Python. (wiadomości zebrane specjalnie pod maturę - 0 niepotrzebnego zapamiętywania)',
+							stats: '4x',
+						},
+						{
+							title: 'Porady',
+							description:
+								'Podpowiemy Ci co zrobić przed maturą a czego unikać. Zahaczymy o tematy przygotowania sprzętu i porozmawiamy o ważnych datach.',
+							stats: '5x',
+						},
+					]}
+				/>
+				<div className='text-base-200'>
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+					TEST <br />
+				</div>
 			</div>
 		</div>
 	);
