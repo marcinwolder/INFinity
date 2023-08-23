@@ -8,12 +8,11 @@ import ThemeImg from './ThemeImg';
 
 const Navbar: React.FC = () => {
 	return (
-		<div className='navbar bg-base-100 gap-2'>
+		<div className='navbar bg-base-100 gap-2 sticky top-0 z-10'>
 			<div className='flex-none'>
 				<input id='my-drawer' type='checkbox' className='drawer-toggle' />
 				<MenuBtn className='btn btn-square btn-ghost drawer-button'>
 					<svg
-						xmlns='http://www.w3.org/2000/svg'
 						fill='none'
 						viewBox='0 0 24 24'
 						className='inline-block w-5 h-5 stroke-current'>
@@ -27,7 +26,7 @@ const Navbar: React.FC = () => {
 			</div>
 			<div className='flex-1'>
 				<Link to={'/'} className='btn btn-ghost normal-case text-xl small-caps'>
-					<ThemeImg light={Infinity} dark={InfinityDark} />
+					<ThemeImg className='h-10' light={Infinity} dark={InfinityDark} />
 				</Link>
 			</div>
 			<div className='flex gap-2'>

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import useThemeBasedValue from '../hooks/useThemeBasedValue';
 
-const ThemeImg: React.FC<{ light: string; dark: string }> = ({
-	light,
-	dark,
-}) => {
+const ThemeImg: React.FC<
+	{ light: string; dark: string } & React.ComponentProps<'img'>
+> = ({ light, dark, ...props }) => {
 	const getImgUrl = useThemeBasedValue(light, dark);
 	const [imgUrl, setImgUrl] = useState(getImgUrl());
 
@@ -23,7 +22,7 @@ const ThemeImg: React.FC<{ light: string; dark: string }> = ({
 		attributes: true,
 	});
 
-	return <img src={imgUrl} className='h-10' alt='Logo' />;
+	return <img {...props} src={imgUrl} alt='Logo' />;
 };
 
 export default ThemeImg;

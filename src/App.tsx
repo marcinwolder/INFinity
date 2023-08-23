@@ -16,26 +16,27 @@ function App() {
 	useEffect(() => {
 		themeChange(false);
 	}, []);
-  useEffect(() => {
-    dispatch(pathSlice.actions.updatePath());
-  }, [location, dispatch]);
+	useEffect(() => {
+		dispatch(pathSlice.actions.updatePath());
+	}, [location, dispatch]);
 	useLayoutEffect(() => {
-		if (!localStorage.getItem('theme')) localStorage.setItem('theme', 'dark');
+		if (!localStorage.getItem('theme'))
+			localStorage.setItem('theme', 'emerald');
 	}, []);
 
-  return (
+	return (
 		<div className='drawer'>
 			<MenuCheckbox />
 			<div className='drawer-content'>
 				<Navbar />
-				<div className='p-2'>
+				<div>
 					<div className='artboard gap-4 flex flex-col items-center relative'>
 						<Breadcrumps />
 						<Outlet />
 					</div>
 				</div>
 			</div>
-			<div className='drawer-side'>
+			<div className='drawer-side z-20'>
 				<label htmlFor='my-drawer' className='drawer-overlay'></label>
 				<Menu />
 			</div>
