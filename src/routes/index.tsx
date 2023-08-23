@@ -179,11 +179,11 @@ const Main = () => {
 					<ThemeImg
 						light={InfinitySmallDark}
 						dark={InfinitySmall}
-						className='h-80 drop-shadow-[0_0_10px_#475569]'
+						className='h-80 drop-shadow-[0_0_10px_#47556980]'
 					/>
 					<p className='text-red-500'>INFINITY</p>
 				</div>
-				<div className='flex justify-center items-center flex-col text-shadow text-shadow-blur-5 text-shadow-slate-600 text-shadow-y-2'>
+				<div className='flex justify-center items-center flex-col text-shadow text-shadow-blur-5 text-shadow-y-3 text-shadow-[#47556980]'>
 					<p className='text-3xl font-semibold'>
 						Chcesz dobrze zdać{' '}
 						<i className='text-secondary-focus'>maturę z informatyki</i> i
