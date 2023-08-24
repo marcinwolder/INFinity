@@ -214,7 +214,7 @@ const Main = () => {
 			</MainDiv>
 
 			<div className='flex flex-col items-center gap-2 bg-base-200 relative'>
-				<BottomCurveDiv className='w-full h-32 bg-inherit absolute top-0 -translate-y-2/3 rounded-t-[100%] -z-10 border-t-8 border-base-300' />
+				<BottomCurveDiv className='w-full h-32 bg-inherit absolute top-0 -translate-y-2/3 rounded-t-[100%] -z-10 border-t-8 border-base-300 drop-shadow-[0_-6px_6px_hsl(var(--b3))]' />
 				<BottomShadowDiv className='fixed bottom-0 w-full brightness-75 h-40 bg-gradient-to-t from-base-300' />
 				<div className='btn-group -translate-y-1/2 shadow-lg'>
 					<button className='btn btn-primary font-bold'>

@@ -18,12 +18,28 @@ const TopShadowDiv = styled.div.attrs(() => {
 	opacity: ${(props) => props.opacity}%;
 `;
 
+const NavbarDiv = styled.div.attrs(() => {
+	const [scroll] = useWindowScroll();
+
+	return {
+		opacity: _.clamp(scroll.y / (window.innerHeight * 0.7), 0, 1).toFixed(2),
+		marginInline: _.clamp(
+			scroll.y / (window.innerHeight * 1.08),
+			0,
+			0.5
+		).toFixed(2),
+	};
+})`
+	filter: drop-shadow(0 0.2rem 0.2rem hsla(var(--b3) / ${(p) => p.opacity}));
+	margin-inline: ${(p) => p.marginInline + 'rem'};
+`;
+
 const Navbar: React.FC = () => {
 	const [scroll, scrollTo] = useWindowScroll();
 	scroll;
 	return (
-		<div className='sticky top-0 z-10'>
-			<div className='navbar bg-base-100 gap-2'>
+		<NavbarDiv className='sticky mt-1 top-0 z-10'>
+			<div className='navbar bg-base-100 gap-2 rounded-b-xl'>
 				<div className='flex-none'>
 					<input id='my-drawer' type='checkbox' className='drawer-toggle' />
 					<MenuBtn className='btn btn-square btn-ghost drawer-button'>
@@ -64,8 +80,8 @@ const Navbar: React.FC = () => {
 					</button>
 				</div>
 			</div>
-			<TopShadowDiv className='absolute top-16 w-full h-8 bg-gradient-to-b from-base-300' />
-		</div>
+			{/* <TopShadowDiv className='absolute top-16 w-full h-8 bg-gradient-to-b from-base-300' /> */}
+		</NavbarDiv>
 	);
 };
 

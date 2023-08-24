@@ -19,6 +19,12 @@ import { Formula } from './redux/slices/pathSlice';
 
 import './index.css';
 
+document.dispatchEvent(
+	new CustomEvent('py-status-message', {
+		detail: 'Pobieranie środowiska Python, proszę czekać',
+	})
+);
+
 declare global {
 	const pyscript: {
 		interpreter: {
