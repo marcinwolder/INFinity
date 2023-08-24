@@ -20,8 +20,17 @@ function App() {
 		dispatch(pathSlice.actions.updatePath());
 	}, [location, dispatch]);
 	useLayoutEffect(() => {
-		if (!localStorage.getItem('theme'))
-			localStorage.setItem('theme', 'emerald');
+		if (!localStorage.getItem('theme')) {
+			const hour = new Date().getHours();
+			console.log('🚀 ~ file: App.tsx:25 ~ useLayoutEffect ~ hour:', hour);
+			if (hour < 8 || hour > 20) {
+				console.log('noc');
+				localStorage.setItem('theme', 'dark');
+			} else {
+				console.log('dzień');
+				localStorage.setItem('theme', 'emerald');
+			}
+		}
 	}, []);
 
 	return (

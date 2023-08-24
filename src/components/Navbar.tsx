@@ -9,15 +9,6 @@ import { useWindowScroll } from '@mantine/hooks';
 import styled from 'styled-components';
 import _ from 'lodash';
 
-const TopShadowDiv = styled.div.attrs(() => {
-	const [scroll] = useWindowScroll();
-	return {
-		opacity: _.clamp((scroll.y / window.innerHeight) * 100, 0, 100).toFixed(0),
-	};
-})`
-	opacity: ${(props) => props.opacity}%;
-`;
-
 const NavbarDiv = styled.div.attrs(() => {
 	const [scroll] = useWindowScroll();
 
