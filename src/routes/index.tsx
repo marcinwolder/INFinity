@@ -8,12 +8,14 @@ import styled from 'styled-components';
 import { useScrollIntoView, useWindowScroll } from '@mantine/hooks';
 import _ from 'lodash';
 import { StatsGroup } from '../components/StatsGroup';
+import { useEffect, useRef } from 'react';
 
 const CodeDiv = styled.div.attrs(() => ({
-	theme: useThemeBasedValue(
-		'opacity: 0.05; --tw-text-opacity: 1; color: rgb(16 185 129 / var(--tw-text-opacity));',
-		'opacity: 0.25; --tw-text-opacity: 1; color: rgb(2 6 23 / var(--tw-text-opacity));'
-	),
+	theme: useThemeBasedValue({
+		default: 'color: hsl(var(--pf)); opacity: 0.25;',
+		emerald: 'color: #020617; opacity: 0.25;',
+		dark: 'color: #10b981; opacity: 0.05;',
+	}),
 }))`
 	@keyframes pulse {
 		50% {
@@ -26,7 +28,7 @@ const CodeDiv = styled.div.attrs(() => ({
 	position: absolute;
 	font-size: em;
 
-	${(props) => props.theme}
+	${(p) => p.theme}
 `;
 const MainDiv = styled.div.attrs(() => {
 	const [scroll] = useWindowScroll();
@@ -69,6 +71,30 @@ const BottomCurveDiv = styled.div.attrs(() => {
 `;
 
 const Main = () => {
+	const codeRef1 = useRef<HTMLDivElement>(null);
+	const codeRef2 = useRef<HTMLDivElement>(null);
+
+	const prevIcon = useRef('.');
+	const icon = useThemeBasedValue({
+		halloween: '🎃',
+		valentine: '❤',
+		default: '.',
+	});
+
+	useEffect(() => {
+		if (codeRef1.current && codeRef2.current) {
+			codeRef1.current.innerHTML = codeRef1.current.innerHTML.replaceAll(
+				prevIcon.current,
+				icon
+			);
+			codeRef2.current.innerHTML = codeRef2.current.innerHTML.replaceAll(
+				prevIcon.current,
+				icon
+			);
+			prevIcon.current = icon;
+		}
+	}, [icon]);
+
 	const easeInOutQuint = (x: number): number => {
 		return x < 0.5 ? 16 * x * x * x * x * x : 1 - Math.pow(-2 * x + 2, 5) / 2;
 	};
@@ -82,7 +108,7 @@ const Main = () => {
 	return (
 		<div className='w-full'>
 			<MainDiv className='sticky top-16 -z-20 mt-10 mb-36'>
-				<CodeDiv className='left-10 -z-20'>
+				<CodeDiv className='left-10 -z-20' ref={codeRef1}>
 					<code>
 						plik = open('Dane_2205/liczby.txt').readlines() <br />
 						ilosc = 0 <br />
@@ -134,7 +160,7 @@ const Main = () => {
 						print(ilosc, pierwsza)
 					</code>
 				</CodeDiv>
-				<CodeDiv className='right-10 text-right'>
+				<CodeDiv className='right-10 text-right' ref={codeRef2}>
 					<code>
 						plik = open('Dane_2103/galerie.txt').readlines() <br />
 						<br />
@@ -195,8 +221,13 @@ const Main = () => {
 				<div className='flex gap-4 items-center text-6xl font-black mx-auto w-max mb-24 text-shadow text-shadow-blur-5 text-shadow-slate-600'>
 					<p className='text-sky-500'>PROJEKT</p>
 					<ThemeImg
-						light={InfinitySmallDark}
-						dark={InfinitySmall}
+						options={{
+							emerald: InfinitySmallDark,
+							dark: InfinitySmall,
+							halloween: InfinitySmall,
+							valentine: InfinitySmallDark,
+							default: InfinitySmall,
+						}}
 						className='h-80 drop-shadow-[0_0_10px_#47556980]'
 					/>
 					<p className='text-red-500'>INFINITY</p>
@@ -217,7 +248,7 @@ const Main = () => {
 			<div className='flex flex-col items-center gap-2 bg-base-200 relative'>
 				<BottomCurveDiv className='w-full h-32 bg-inherit absolute top-0 -translate-y-2/3 rounded-t-[100%] -z-10 border-t-8 border-base-300' />
 				<BottomShadowDiv className='fixed bottom-0 w-full brightness-75 h-40 bg-gradient-to-t from-base-300' />
-				<div className='btn-group -translate-y-1/2 shadow-lg'>
+				<div className='btn-group -translate-y-1/2 drop-shadow-lg'>
 					<button className='btn btn-primary font-bold'>
 						<p>
 							<BiBookBookmark />

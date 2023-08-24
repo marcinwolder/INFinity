@@ -53,7 +53,16 @@ const Navbar: React.FC = () => {
 							scrollTo({ y: 0 });
 						}}
 						className='btn btn-ghost normal-case text-xl small-caps'>
-						<ThemeImg className='h-10' light={Infinity} dark={InfinityDark} />
+						<ThemeImg
+							className='h-10'
+							options={{
+								dark: Infinity,
+								halloween: Infinity,
+								emerald: InfinityDark,
+								valentine: InfinityDark,
+								default: Infinity,
+							}}
+						/>
 					</Link>
 				</div>
 				<div className='flex gap-2'>
@@ -71,7 +80,6 @@ const Navbar: React.FC = () => {
 					</button>
 				</div>
 			</div>
-			{/* <TopShadowDiv className='absolute top-16 w-full h-8 bg-gradient-to-b from-base-300' /> */}
 		</NavbarDiv>
 	);
 };

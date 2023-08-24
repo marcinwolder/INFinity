@@ -1,10 +1,24 @@
 import { useState } from 'react';
 
-const useThemeBasedValue = <T>(light: T, dark: T) => {
-	const getValue = () =>
-		document.documentElement.getAttribute('data-theme') === 'dark'
-			? light
-			: dark;
+export const themeNames = [
+	'dark',
+	'emerald',
+	'valentine',
+	'halloween',
+] as const;
+
+export type Themes = (typeof themeNames)[number];
+export type ThemeOptions<T> = {
+	[keys in Themes]?: T;
+} & { default: T };
+
+const useThemeBasedValue = <T extends O[keyof O], O extends ThemeOptions<T>>(
+	options: O
+) => {
+	const getValue = () => {
+		const theme = document.documentElement.getAttribute('data-theme') as Themes;
+		return options[theme] || (options.default as T);
+	};
 
 	const [value, setValue] = useState(getValue());
 

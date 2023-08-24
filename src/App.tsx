@@ -20,14 +20,27 @@ function App() {
 		dispatch(pathSlice.actions.updatePath());
 	}, [location, dispatch]);
 	useLayoutEffect(() => {
-		if (!localStorage.getItem('theme')) {
-			const hour = new Date().getHours();
-			console.log('🚀 ~ file: App.tsx:25 ~ useLayoutEffect ~ hour:', hour);
+		// const date = new Date('February 14, 08 12:34:51'); //valentine's day
+		// const date = new Date('October 31, 08 21:34:51'); //halloween
+		// const date = new Date('February 14, 08 21:34:51'); //halloween
+		const date = new Date();
+
+		const hour = date.getHours();
+		const day = date.getDate();
+		const month = date.getMonth();
+
+		if (month === 1 && day >= 13 && day <= 15) {
+			localStorage.setItem('theme', 'valentine');
+		} else if ((month === 9 && day >= 29) || (month === 10 && day <= 2)) {
+			localStorage.setItem('theme', 'halloween');
+		} else if (
+			!localStorage.getItem('theme') ||
+			(localStorage.getItem('theme') !== 'dark' &&
+				localStorage.getItem('theme') !== 'emerald')
+		) {
 			if (hour < 8 || hour > 20) {
-				console.log('noc');
 				localStorage.setItem('theme', 'dark');
 			} else {
-				console.log('dzień');
 				localStorage.setItem('theme', 'emerald');
 			}
 		}

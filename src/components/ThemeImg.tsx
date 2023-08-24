@@ -1,10 +1,10 @@
 import React from 'react';
-import useThemeBasedValue from '../hooks/useThemeBasedValue';
+import useThemeBasedValue, { ThemeOptions } from '../hooks/useThemeBasedValue';
 
 const ThemeImg: React.FC<
-	{ light: string; dark: string } & React.ComponentProps<'img'>
-> = ({ light, dark, ...props }) => {
-	const imgUrl = useThemeBasedValue(light, dark);
+	{ options: ThemeOptions<string> } & React.ComponentProps<'img'>
+> = ({ options, ...props }) => {
+	const imgUrl = useThemeBasedValue(options);
 
 	return <img {...props} src={imgUrl} alt='Logo' />;
 };

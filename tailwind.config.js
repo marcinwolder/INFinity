@@ -3,6 +3,7 @@
 import daisyuiPlugin from 'daisyui';
 import opentypePlugin from 'tailwindcss-opentype';
 import tailwindTextShadowPlugin from '@designbycode/tailwindcss-text-shadow';
+import { themeNames } from './src/hooks/useThemeBasedValue.ts';
 
 export const content = ['./index.html', './src/**/*.{js,ts,jsx,tsx}'];
 export const theme = {
@@ -23,5 +24,5 @@ export const plugins = [
 	tailwindTextShadowPlugin,
 ];
 export const daisyui = {
-	themes: ['dark', 'emerald'],
+	themes: themeNames,
 };
