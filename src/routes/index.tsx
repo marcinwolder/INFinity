@@ -11,30 +11,52 @@ import { StatsGroup } from '../components/StatsGroup';
 import { useEffect, useRef } from 'react';
 import CodeDiv1 from './components/CodeDiv1';
 import CodeDiv2 from './components/CodeDiv2';
+import classNames from 'classnames';
 
-const MainDiv = styled.div.attrs(() => {
-	const [scroll] = useWindowScroll();
+let scrollValue = 0;
+
+// const MainDiv = styled.div.attrs(() => {
+// 	const [scroll] = useWindowScroll();
+// 	return {
+// 		opacity: (
+// 			100 - _.clamp((scroll.y / window.innerHeight) * 1.5 * 100, 0, 100)
+// 		).toFixed(0),
+// 		effect: _.clamp(
+// 			(scroll.y / window.innerHeight) * 1.5 * 100,
+// 			0,
+// 			100
+// 		).toFixed(0),
+// 	};
+// })`
+// 	opacity: ${(props) => props.opacity}%;
+// 	@media (min-width: 768px) {
+// 		translate: 0 -${(props) => Number(props.effect) / 4}%;
+// 		scale: ${(props) => 1 - Number(props.effect) / 500};
+// 	}
+// `;
+const MainDiv = styled.div.attrs(({ className }) => {
 	return {
-		opacity: (
-			100 - _.clamp((scroll.y / window.innerHeight) * 1.5 * 100, 0, 100)
-		).toFixed(0),
-		effect: _.clamp(
-			(scroll.y / window.innerHeight) * 1.5 * 100,
-			0,
-			100
-		).toFixed(0),
+		className:
+			className +
+			classNames(
+				` -translate-y-[${(_.clamp(scrollValue * 1.5, 0, 100) / 4).toFixed(
+					0
+				)}%]`
+			),
+		style: {
+			opacity: 100 - _.clamp(scrollValue * 1.5, 0, 100) + '%',
+			scale: 1 - _.clamp(scrollValue * 1.5, 0, 100) / 500,
+		},
 	};
-})`
-	opacity: ${(props) => props.opacity}%;
-	scale: ${(props) => 1 - Number(props.effect) / 500};
-	translate: 0 -${(props) => Number(props.effect) / 4}%;
-`;
+})``;
+// opacity: ${(p) => p.opacity};
+// @media (min-width: 768px) {
+// 	translate: ${(p) => p.translate};
+// 	scale: ${(p) => p.scale};
+// }
 const BottomShadowDiv = styled.div.attrs(() => {
-	const [scroll] = useWindowScroll();
 	return {
-		opacity: (
-			100 - _.clamp((scroll.y / window.innerHeight) * 1000, 0, 100)
-		).toFixed(0),
+		opacity: 100 - _.clamp(scrollValue * 10, 0, 100),
 	};
 })`
 	opacity: ${(props) => props.opacity}%;
@@ -56,6 +78,9 @@ const BottomCurveDiv = styled.div.attrs(() => {
 `;
 
 const Main = () => {
+	const [{ y: scrollY }] = useWindowScroll();
+	scrollValue = _.clamp((scrollY / window.innerHeight) * 100, 0, 100);
+
 	const codeRef1 = useRef<HTMLDivElement>(null);
 	const codeRef2 = useRef<HTMLDivElement>(null);
 
@@ -105,7 +130,7 @@ const Main = () => {
 					/>
 					<p className='text-red-500'>INFINITY</p>
 				</div>
-				<div className='flex justify-center lg:items-center flex-col text-shadow text-shadow-blur-5 text-shadow-y-1 text-shadow-[#cdcdce80]'>
+				<div className='flex justify-center lg:items-center flex-col text-shadow text-shadow-blur-5 text-shadow-y-1 text-shadow-[#cdcdce40]'>
 					<p className='text-xl md:text-[calc(theme(fontSize.3xl)-.1rem)] font-semibold'>
 						Chcesz dobrze zdać{' '}
 						<i className='text-secondary-focus'>maturę z informatyki</i> i
@@ -118,7 +143,7 @@ const Main = () => {
 				</div>
 			</MainDiv>
 
-			<div className='flex flex-col items-center gap-2 bg-base-200 relative px-2 lg:px-0'>
+			<div className='flex flex-col items-center gap-2 bg-base-200 relative px-4 lg:px-0'>
 				<BottomCurveDiv className='w-full h-32 bg-inherit absolute top-0 -translate-y-2/3 rounded-t-[100%] -z-10 border-t-8 border-base-300' />
 				<BottomShadowDiv className='fixed bottom-0 w-full brightness-75 h-40 bg-gradient-to-t from-base-300' />
 				<div className='btn-group btn-group-vertical md:btn-group-horizontal -translate-y-1/2 drop-shadow-lg'>
