@@ -83,12 +83,7 @@ const Main = () => {
 	const { scrollIntoView: scrollIntoInfo, targetRef: infoTargetRef } =
 		useScrollIntoView<HTMLDivElement>({
 			offset: 320,
-			duration: 1500,
-			easing: (x: number): number => {
-				return x < 0.5
-					? 16 * x * x * x * x * x
-					: 1 - Math.pow(-2 * x + 2, 5) / 2;
-			},
+			duration: 1200,
 		});
 
 	return (
