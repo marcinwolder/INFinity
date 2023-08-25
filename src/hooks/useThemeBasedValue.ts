@@ -1,13 +1,6 @@
 import { useState } from 'react';
+import { Themes } from '../utils/theme';
 
-export const themeNames = [
-	'dark',
-	'emerald',
-	'valentine',
-	'halloween',
-] as const;
-
-export type Themes = (typeof themeNames)[number];
 export type ThemeOptions<T> = {
 	[keys in Themes]?: T;
 } & { default: T };

@@ -3,7 +3,7 @@
 import daisyuiPlugin from 'daisyui';
 import opentypePlugin from 'tailwindcss-opentype';
 import tailwindTextShadowPlugin from '@designbycode/tailwindcss-text-shadow';
-import { themeNames } from './src/hooks/useThemeBasedValue.ts';
+import { themeNames } from './src/utils/theme.ts';
 
 export const content = ['./index.html', './src/**/*.{js,ts,jsx,tsx}'];
 export const theme = {

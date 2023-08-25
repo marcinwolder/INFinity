@@ -9,27 +9,9 @@ import { useScrollIntoView, useWindowScroll } from '@mantine/hooks';
 import _ from 'lodash';
 import { StatsGroup } from '../components/StatsGroup';
 import { useEffect, useRef } from 'react';
+import CodeDiv1 from './components/CodeDiv1';
+import CodeDiv2 from './components/CodeDiv2';
 
-const CodeDiv = styled.div.attrs(() => ({
-	theme: useThemeBasedValue({
-		default: 'color: hsl(var(--pf)); opacity: 0.25;',
-		emerald: 'color: #020617; opacity: 0.25;',
-		dark: 'color: #10b981; opacity: 0.05;',
-	}),
-}))`
-	@keyframes pulse {
-		50% {
-			opacity: 0.1;
-		}
-	}
-	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-	z-index: -20;
-
-	position: absolute;
-	font-size: em;
-
-	${(p) => p.theme}
-`;
 const MainDiv = styled.div.attrs(() => {
 	const [scroll] = useWindowScroll();
 	return {
@@ -65,8 +47,11 @@ const BottomCurveDiv = styled.div.attrs(() => {
 		).toFixed(0),
 	};
 })`
-	border-top-left-radius: ${(props) => props.opacity}%;
-	border-top-right-radius: ${(props) => props.opacity}%;
+	border-radius: 0;
+	@media (min-width: 768px) {
+		border-top-left-radius: ${(props) => props.opacity}%;
+		border-top-right-radius: ${(props) => props.opacity}%;
+	}
 	filter: drop-shadow(0 0 10px hsla(var(--b3) / 0.5));
 `;
 
@@ -95,130 +80,23 @@ const Main = () => {
 		}
 	}, [icon]);
 
-	const easeInOutQuint = (x: number): number => {
-		return x < 0.5 ? 16 * x * x * x * x * x : 1 - Math.pow(-2 * x + 2, 5) / 2;
-	};
 	const { scrollIntoView: scrollIntoInfo, targetRef: infoTargetRef } =
 		useScrollIntoView<HTMLDivElement>({
 			offset: 320,
 			duration: 1500,
-			easing: easeInOutQuint,
+			easing: (x: number): number => {
+				return x < 0.5
+					? 16 * x * x * x * x * x
+					: 1 - Math.pow(-2 * x + 2, 5) / 2;
+			},
 		});
 
 	return (
 		<div className='w-full'>
-			<MainDiv className='sticky top-16 -z-20 mt-10 mb-36'>
-				<CodeDiv className='left-10 -z-20' ref={codeRef1}>
-					<code>
-						plik = open('Dane_2205/liczby.txt').readlines() <br />
-						ilosc = 0 <br />
-						pierwsza = -1 <br />
-						for wiersz in plik: <br />
-						<p className='indent-4'>
-							wiersz = wiersz.strip() <br />
-						</p>
-						<p className='indent-4'>
-							if wiersz[0] == wiersz[len(wiersz) -1]: <br />
-						</p>
-						<p className='indent-8'>
-							if pierwsza == -1: <br />
-						</p>
-						<p className='indent-12'>
-							pierwsza = wiersz <br />
-						</p>
-						<p className='indent-8'>
-							ilosc += 1 <br />
-						</p>
-						<br />
-						print('Zadanie 4.1') <br />
-						print(ilosc, pierwsza)
-					</code>
-					<br />
-					<br />
-					<code>
-						plik = open('Dane_2205/liczby.txt').readlines() <br />
-						ilosc = 0 <br />
-						pierwsza = -1 <br />
-						for wiersz in plik: <br />
-						<p className='indent-4'>
-							wiersz = wiersz.strip() <br />
-						</p>
-						<p className='indent-4'>
-							if wiersz[0] == wiersz[len(wiersz) -1]: <br />
-						</p>
-						<p className='indent-8'>
-							if pierwsza == -1: <br />
-						</p>
-						<p className='indent-12'>
-							pierwsza = wiersz <br />
-						</p>
-						<p className='indent-8'>
-							ilosc += 1 <br />
-						</p>
-						<br />
-						print('Zadanie 4.1') <br />
-						print(ilosc, pierwsza)
-					</code>
-				</CodeDiv>
-				<CodeDiv className='right-10 text-right' ref={codeRef2}>
-					<code>
-						plik = open('Dane_2103/galerie.txt').readlines() <br />
-						<br />
-						galerie = dict()
-						<br />
-						for wiersz in plik:
-						<br />
-						<p className='mr-4'>wiersz = wiersz.strip().split(' ')</p>
-						<p className='mr-4'>kraj = wiersz[0]</p>
-						<p className='mr-4'>
-							galerie[kraj] = 0<br />
-						</p>
-						<br />
-						for wiersz in plik:
-						<p className='mr-4'>wiersz = wiersz.strip().split(' ')</p>
-						<p className='mr-4'>kraj = wiersz[0]</p>
-						<p className='mr-4'>
-							galerie[kraj] = galerie[kraj] + 1<br />
-						</p>
-						<br />
-						print('Zadanie 4.1')
-						<br />
-						for x in galerie.keys():
-						<br />
-						<p className='mr-4'>print(x, galerie[x])</p>
-						<br />
-					</code>
-					<br />
-					<br />
-					<code>
-						plik = open('Dane_2103/galerie.txt').readlines() <br />
-						<br />
-						galerie = dict()
-						<br />
-						for wiersz in plik:
-						<br />
-						<p className='mr-4'>wiersz = wiersz.strip().split(' ')</p>
-						<p className='mr-4'>kraj = wiersz[0]</p>
-						<p className='mr-4'>
-							galerie[kraj] = 0<br />
-						</p>
-						<br />
-						for wiersz in plik:
-						<p className='mr-4'>wiersz = wiersz.strip().split(' ')</p>
-						<p className='mr-4'>kraj = wiersz[0]</p>
-						<p className='mr-4'>
-							galerie[kraj] = galerie[kraj] + 1<br />
-						</p>
-						<br />
-						print('Zadanie 4.1')
-						<br />
-						for x in galerie.keys():
-						<br />
-						<p className='mr-4'>print(x, galerie[x])</p>
-						<br />
-					</code>
-				</CodeDiv>
-				<div className='flex gap-4 items-center text-6xl font-black mx-auto w-max mb-24 text-shadow text-shadow-blur-5 text-shadow-slate-600'>
+			<MainDiv className='sticky top-16 -z-20 mt-10 mb-36 px-2'>
+				<CodeDiv1 className='block' />
+				<CodeDiv2 className='hidden md:block' />
+				<div className='flex flex-col lg:flex-row lg:gap-4 items-center text-5xl lg:text-6xl font-black mx-auto w-max mb-12 md:mb-24 text-shadow text-shadow-blur-5 text-shadow-slate-600'>
 					<p className='text-sky-500'>PROJEKT</p>
 					<ThemeImg
 						options={{
@@ -228,27 +106,27 @@ const Main = () => {
 							valentine: InfinitySmallDark,
 							default: InfinitySmall,
 						}}
-						className='h-80 drop-shadow-[0_0_10px_#47556980]'
+						className='h-40 md:h-60 lg:h-80 -my-4 lg:my-0 drop-shadow-[0_0_10px_#47556980]'
 					/>
 					<p className='text-red-500'>INFINITY</p>
 				</div>
-				<div className='flex justify-center items-center flex-col text-shadow text-shadow-blur-5 text-shadow-y-3 text-shadow-[#47556980]'>
-					<p className='text-3xl font-semibold'>
+				<div className='flex justify-center lg:items-center flex-col text-shadow text-shadow-blur-5 text-shadow-y-1 text-shadow-[#cdcdce80]'>
+					<p className=' text-[calc(theme(fontSize.3xl)-.1rem)] font-semibold'>
 						Chcesz dobrze zdać{' '}
 						<i className='text-secondary-focus'>maturę z informatyki</i> i
 						dostać się na wymarzone studia?
 					</p>
-					<p className='text-2xl'>
+					<p className='text-2xl md:'>
 						Trafiłeś w idealnie miejsce, z nami nauczysz się wszystkiego co Ci
 						potrzebne!
 					</p>
 				</div>
 			</MainDiv>
 
-			<div className='flex flex-col items-center gap-2 bg-base-200 relative'>
+			<div className='flex flex-col items-center gap-2 bg-base-200 relative px-2 lg:px-0'>
 				<BottomCurveDiv className='w-full h-32 bg-inherit absolute top-0 -translate-y-2/3 rounded-t-[100%] -z-10 border-t-8 border-base-300' />
 				<BottomShadowDiv className='fixed bottom-0 w-full brightness-75 h-40 bg-gradient-to-t from-base-300' />
-				<div className='btn-group -translate-y-1/2 drop-shadow-lg'>
+				<div className='btn-group btn-group-vertical md:btn-group-horizontal -translate-y-1/2 drop-shadow-lg'>
 					<button className='btn btn-primary font-bold'>
 						<p>
 							<BiBookBookmark />
@@ -266,7 +144,7 @@ const Main = () => {
 					W twojej drodze do wybitnego wyniku pomogą Ci:
 				</div>
 				<StatsGroup
-					className='bg-gradient-to-r from-info to-info text-info-content w-fit mx-36'
+					className='bg-gradient-to-r from-info to-info text-info-content w-fit lg:mx-24'
 					data={[
 						{
 							title: 'Matura',
