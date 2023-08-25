@@ -93,7 +93,7 @@ const Main = () => {
 
 	return (
 		<div className='w-full'>
-			<MainDiv className='sticky top-16 -z-20 mt-10 mb-36 px-2'>
+			<MainDiv className='sticky top-16 -z-20 md:mt-10 mb-28 md:mb-36 px-2'>
 				<CodeDiv1 className='block' />
 				<CodeDiv2 className='hidden md:block' />
 				<div className='flex flex-col lg:flex-row lg:gap-4 items-center text-5xl lg:text-6xl font-black mx-auto w-max mb-12 md:mb-24 text-shadow text-shadow-blur-5 text-shadow-slate-600'>
@@ -111,12 +111,12 @@ const Main = () => {
 					<p className='text-red-500'>INFINITY</p>
 				</div>
 				<div className='flex justify-center lg:items-center flex-col text-shadow text-shadow-blur-5 text-shadow-y-1 text-shadow-[#cdcdce80]'>
-					<p className=' text-[calc(theme(fontSize.3xl)-.1rem)] font-semibold'>
+					<p className='text-xl md:text-[calc(theme(fontSize.3xl)-.1rem)] font-semibold'>
 						Chcesz dobrze zdać{' '}
 						<i className='text-secondary-focus'>maturę z informatyki</i> i
 						dostać się na wymarzone studia?
 					</p>
-					<p className='text-2xl md:'>
+					<p className='text-lg md:text-2xl md:'>
 						Trafiłeś w idealnie miejsce, z nami nauczysz się wszystkiego co Ci
 						potrzebne!
 					</p>
