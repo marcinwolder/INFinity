@@ -11,19 +11,21 @@ import _ from 'lodash';
 
 const NavbarDiv = styled.div.attrs(() => {
 	const [scroll] = useWindowScroll();
-
 	return {
-		opacity: _.clamp(scroll.y / (window.innerHeight * 0.7), 0, 1).toFixed(2),
-		marginInline: _.clamp(
-			scroll.y / (window.innerHeight * 1.08),
-			0,
-			0.5
-		).toFixed(2),
+		style: {
+			marginInline: `${_.clamp(
+				scroll.y / (window.innerHeight * 1.08),
+				0,
+				0.5
+			).toFixed(2)}rem`,
+			filter: `drop-shadow(0 0.2rem 0.2rem hsla(var(--b3) / ${_.clamp(
+				scroll.y / (window.innerHeight * 0.7),
+				0,
+				1
+			).toFixed(2)}))`,
+		},
 	};
-})`
-	filter: drop-shadow(0 0.2rem 0.2rem hsla(var(--b3) / ${(p) => p.opacity}));
-	margin-inline: ${(p) => p.marginInline + 'rem'};
-`;
+})``;
 
 const Navbar: React.FC = () => {
 	const [scroll, scrollTo] = useWindowScroll();

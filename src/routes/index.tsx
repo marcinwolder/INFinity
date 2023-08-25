@@ -11,68 +11,41 @@ import { StatsGroup } from '../components/StatsGroup';
 import { useEffect, useRef } from 'react';
 import CodeDiv1 from './components/CodeDiv1';
 import CodeDiv2 from './components/CodeDiv2';
-import classNames from 'classnames';
 
 let scrollValue = 0;
 
-// const MainDiv = styled.div.attrs(() => {
-// 	const [scroll] = useWindowScroll();
-// 	return {
-// 		opacity: (
-// 			100 - _.clamp((scroll.y / window.innerHeight) * 1.5 * 100, 0, 100)
-// 		).toFixed(0),
-// 		effect: _.clamp(
-// 			(scroll.y / window.innerHeight) * 1.5 * 100,
-// 			0,
-// 			100
-// 		).toFixed(0),
-// 	};
-// })`
-// 	opacity: ${(props) => props.opacity}%;
-// 	@media (min-width: 768px) {
-// 		translate: 0 -${(props) => Number(props.effect) / 4}%;
-// 		scale: ${(props) => 1 - Number(props.effect) / 500};
-// 	}
-// `;
-const MainDiv = styled.div.attrs(({ className }) => {
+const MainDiv = styled.div.attrs(() => {
 	return {
-		className:
-			className +
-			classNames(
-				` -translate-y-[${(_.clamp(scrollValue * 1.5, 0, 100) / 4).toFixed(
-					0
-				)}%]`
-			),
 		style: {
-			opacity: 100 - _.clamp(scrollValue * 1.5, 0, 100) + '%',
-			scale: 1 - _.clamp(scrollValue * 1.5, 0, 100) / 500,
+			opacity: `${(100 - _.clamp(scrollValue * 1.5, 0, 100)).toFixed(2)}%`,
+			translate: `0 -${(_.clamp(scrollValue * 1.5, 0, 100) / 4).toFixed(1)}%`,
+			scale: `${(1 - _.clamp(scrollValue * 1.5, 0, 100) / 500).toFixed(3)}`,
 		},
 	};
 })``;
-// opacity: ${(p) => p.opacity};
-// @media (min-width: 768px) {
-// 	translate: ${(p) => p.translate};
-// 	scale: ${(p) => p.scale};
-// }
 const BottomShadowDiv = styled.div.attrs(() => {
 	return {
-		opacity: 100 - _.clamp(scrollValue * 10, 0, 100),
+		style: {
+			opacity: `${(100 - _.clamp(scrollValue * 10, 0, 100)).toFixed(0)}%`,
+		},
 	};
-})`
-	opacity: ${(props) => props.opacity}%;
-`;
+})``;
 const BottomCurveDiv = styled.div.attrs(() => {
-	const [scroll] = useWindowScroll();
 	return {
-		opacity: (
-			100 - _.clamp((scroll.y / window.innerHeight) * 200, 0, 100)
-		).toFixed(0),
+		style: {
+			borderTopRightRadius: `${(100 - _.clamp(scrollValue * 2, 0, 100)).toFixed(
+				0
+			)}%`,
+			borderTopLeftRadius: `${(100 - _.clamp(scrollValue * 2, 0, 100)).toFixed(
+				0
+			)}%`,
+		},
 	};
 })`
 	border-radius: 0;
-	@media (min-width: 768px) {
-		border-top-left-radius: ${(props) => props.opacity}%;
-		border-top-right-radius: ${(props) => props.opacity}%;
+	@media (max-width: 768px) {
+		border-top-left-radius: 0 !important;
+		border-top-right-radius: 0 !important;
 	}
 	filter: drop-shadow(0 0 10px hsla(var(--b3) / 0.5));
 `;
