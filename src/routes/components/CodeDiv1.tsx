@@ -7,7 +7,7 @@ const CodeDiv1 = forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
 		return (
 			<CodeDiv
 				{...props}
-				className={'left-10 -z-20 -top-4 md:-top-10 ' + className}
+				className={'left-10 -z-20 ' + className}
 				ref={codeRef}>
 				<code>
 					plik = open('Dane_2205/liczby.txt').readlines() <br />

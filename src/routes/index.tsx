@@ -86,24 +86,26 @@ const Main = () => {
 
 	return (
 		<div className='w-full'>
-			<MainDiv className='sticky top-16 -z-20 md:mt-10 mb-28 md:mb-36 px-2'>
+			<MainDiv className='sticky top-16 md:top-12 -z-20 px-2 md:mb-24 lg:mb-40'>
 				<CodeDiv1 className='block' />
 				<CodeDiv2 className='hidden md:block' />
-				<div className='flex flex-col lg:flex-row lg:gap-4 items-center text-5xl lg:text-6xl font-black mx-auto w-max mb-12 md:mb-24 text-shadow text-shadow-blur-5 text-shadow-slate-600'>
+				<div className='flex flex-col lg:flex-row lg:gap-4 md:mb-8 lg:mb-0 lg:pt-16 items-center text-5xl lg:text-6xl font-black mx-auto w-max text-shadow text-shadow-blur-5 text-shadow-slate-600'>
 					<p className='text-sky-500'>PROJEKT</p>
-					<ThemeImg
-						options={{
-							emerald: InfinitySmallDark,
-							dark: InfinitySmall,
-							halloween: InfinitySmall,
-							valentine: InfinitySmallDark,
-							default: InfinitySmall,
-						}}
-						className='h-40 md:h-60 lg:h-80 -my-4 lg:my-0 drop-shadow-[0_0_10px_#47556980]'
-					/>
+					<div className='overflow-hidden lg:h-60 px-2'>
+						<ThemeImg
+							options={{
+								emerald: InfinitySmallDark,
+								dark: InfinitySmall,
+								halloween: InfinitySmall,
+								valentine: InfinitySmallDark,
+								default: InfinitySmall,
+							}}
+							className='h-40 md:h-60 lg:h-80 lg:-translate-y-[12%] drop-shadow-[0_0_10px_#47556980]'
+						/>
+					</div>
 					<p className='text-red-500'>INFINITY</p>
 				</div>
-				<div className='flex justify-center lg:items-center flex-col text-shadow text-shadow-blur-5 text-shadow-y-1 text-shadow-[#cdcdce40]'>
+				<div className='flex justify-center py-8 md:py-0 lg:items-center flex-col text-shadow text-shadow-blur-5 text-shadow-y-1 text-shadow-[#cdcdce40]'>
 					<p className='text-xl md:text-[calc(theme(fontSize.3xl)-.1rem)] font-semibold'>
 						Chcesz dobrze zdać{' '}
 						<i className='text-secondary-focus'>maturę z informatyki</i> i
@@ -116,8 +118,8 @@ const Main = () => {
 				</div>
 			</MainDiv>
 
-			<div className='flex flex-col items-center gap-2 bg-base-200 relative px-4 lg:px-0'>
-				<BottomCurveDiv className='w-full h-32 bg-inherit absolute top-0 -translate-y-2/3 rounded-t-[100%] -z-10 border-t-8 border-base-300' />
+			<div className='flex flex-col items-center gap-2 bg-base-200 relative mt-16 px-4'>
+				<BottomCurveDiv className='w-full h-32 bg-inherit absolute -translate-y-16 rounded-t-[100%] -z-10 border-t-8 border-base-300' />
 				<BottomShadowDiv className='fixed bottom-0 w-full brightness-75 h-40 bg-gradient-to-t from-base-300' />
 				<div className='btn-group btn-group-vertical md:btn-group-horizontal -translate-y-1/2 drop-shadow-lg'>
 					<button className='btn btn-primary font-bold'>
