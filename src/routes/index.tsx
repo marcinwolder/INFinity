@@ -19,7 +19,7 @@ const MainDiv = styled.div.attrs(() => {
 		style: {
 			opacity: `${(100 - _.clamp(scrollValue * 1.5, 0, 100)).toFixed(2)}%`,
 			translate: `0 -${(_.clamp(scrollValue * 1.5, 0, 100) / 4).toFixed(1)}%`,
-			scale: `${(1 - _.clamp(scrollValue * 1.5, 0, 100) / 500).toFixed(3)}`,
+			scale: `${(1 - _.clamp(scrollValue * 1.5, 0, 100) / 500).toFixed(6)}`,
 		},
 	};
 })``;
