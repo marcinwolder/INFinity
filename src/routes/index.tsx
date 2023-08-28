@@ -1,16 +1,22 @@
-import ThemeImg from '../components/ThemeImg';
-import InfinitySmall from './../img/InfinitySmall.png';
-import InfinitySmallDark from './../img/InfinitySmall-dark.png';
+import styled from 'styled-components';
+import _ from 'lodash';
+import { useEffect, useRef } from 'react';
 import { BiBookBookmark } from 'react-icons/bi';
 import { BsChevronDoubleDown } from 'react-icons/bs';
-import useThemeBasedValue from '../hooks/useThemeBasedValue';
-import styled from 'styled-components';
 import { useScrollIntoView, useWindowScroll } from '@mantine/hooks';
-import _ from 'lodash';
-import { StatsGroup } from '../components/StatsGroup';
-import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+
+import useThemeBasedValue from '../hooks/useThemeBasedValue';
+import ThemeImg from '../components/ThemeImg';
+import { Formula } from '../redux/slices/pathSlice';
+
+import InfinitySmall from './../img/InfinitySmall.png';
+import InfinitySmallDark from './../img/InfinitySmall-dark.png';
 import CodeDiv1 from './components/CodeDiv1';
 import CodeDiv2 from './components/CodeDiv2';
+import examFile from './../JSON/exams.json';
+import { StatsGroup } from '../components/StatsGroup';
+import AnimatedImg from './components/SlideInDiv';
 
 let scrollValue = 0;
 
@@ -51,9 +57,19 @@ const BottomCurveDiv = styled.div.attrs(() => {
 `;
 
 const Main = () => {
+	//Animation hooks
+
+	//Counting exams
+	let examCount = 0;
+	for (const examKey in examFile) {
+		examCount += examFile[examKey as Formula].length;
+	}
+
+	//Calculate scroll value
 	const [{ y: scrollY }] = useWindowScroll();
 	scrollValue = _.clamp((scrollY / window.innerHeight) * 100, 0, 100);
 
+	//Menage code elements in bg
 	const codeRef1 = useRef<HTMLDivElement>(null);
 	const codeRef2 = useRef<HTMLDivElement>(null);
 
@@ -78,6 +94,7 @@ const Main = () => {
 		}
 	}, [icon]);
 
+	//Create scroll into refs
 	const { scrollIntoView: scrollIntoInfo, targetRef: infoTargetRef } =
 		useScrollIntoView<HTMLDivElement>({
 			offset: 320,
@@ -145,7 +162,7 @@ const Main = () => {
 							title: 'Matura',
 							description:
 								'Maturę możesz rozwiązać w przeglądarce, zobaczyć sposób rozwiązania oraz poprawność swojej odpowiedzi.',
-							stats: '1x',
+							stats: `${examCount}x`,
 						},
 						{
 							title: 'Kurs',
@@ -161,6 +178,11 @@ const Main = () => {
 						},
 					]}
 				/>
+				<section className='my-16'>
+					<AnimatedImg x={-100}>
+						<div className='h-96 w-96 bg-red-500' />
+					</AnimatedImg>
+				</section>
 				<div className='text-base-200'>
 					TEST <br />
 					TEST <br />
