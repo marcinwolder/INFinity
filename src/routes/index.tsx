@@ -196,8 +196,8 @@ const Main = () => {
 								importu danych i poprawnego wypisywania odpowiedzi.
 							</p>
 							<p className='indent-2 my-2'>
-								Dowiesz się jak rozwiązać schematyczne zadania oraz poznasz tok
-								rozumowania przy tych unikatowych.
+								Dowiesz się jak rozwiązać schematyczne zadania oraz{' '}
+								<b>poznasz tok rozumowania</b> przy tych unikatowych.
 							</p>
 						</div>
 					</section>
@@ -207,11 +207,16 @@ const Main = () => {
 						<div className='p-8 text-lg'>
 							<p className='text-3xl my-2'>Kurs Excel</p>
 							<p className='indent-2 my-2'>
-								Nauczysz się formatowania, tworzenia wykresów,
+								Nauczysz się{' '}
+								<b>
+									formatowania danych, tworzenia wykresów oraz tabel
+									przestawnych
+								</b>
+								.
 							</p>
 							<p className='indent-2 my-2'>
-								Dowiesz się jak rozwiązać schematyczne zadania oraz poznasz tok
-								rozumowania przy tych unikatowych
+								Poznasz potrzebne Ci formuły oraz przydatne sztuczki dzięki
+								którym wykonasz zadania maturalne jeszcze szybciej.
 							</p>
 						</div>
 						<img
@@ -231,12 +236,14 @@ const Main = () => {
 						<div className='p-8 text-lg'>
 							<p className='text-3xl my-2'>Kurs Access</p>
 							<p className='indent-2 my-2'>
-								Oprócz przyśpieszonego kursu składni języka nauczysz się dobrego
-								importu danych i poprawnego wypisywania odpowiedzi.
+								W tym kursie poznasz składnię oraz{' '}
+								<b>zasady budowania zapytań SQL</b> oraz poznasz budowę bazy
+								danych.
 							</p>
 							<p className='indent-2 my-2'>
-								Dowiesz się jak rozwiązać schematyczne zadania oraz poznasz tok
-								rozumowania przy tych unikatowych
+								Nauczysz się także wynajdywać potrzebne do odpowiedzi krotki z
+								bazy danych a także jej formatowanie, sortowanie, filtrację i
+								inne.
 							</p>
 						</div>
 					</section>
@@ -246,12 +253,13 @@ const Main = () => {
 						<div className='p-8 text-lg'>
 							<p className='text-3xl my-2'>Kurs Algorytmiki</p>
 							<p className='indent-2 my-2'>
-								Oprócz przyśpieszonego kursu składni języka nauczysz się dobrego
-								importu danych i poprawnego wypisywania odpowiedzi.
+								Dzięki temu kursowi nauczysz się budowy algorytmów zawartych w
+								podstawie programowej.
 							</p>
 							<p className='indent-2 my-2'>
-								Dowiesz się jak rozwiązać schematyczne zadania oraz poznasz tok
-								rozumowania przy tych unikatowych
+								Poznasz sposoby{' '}
+								<b>planowania oraz realizacji programowania algorytmów</b> a
+								także dowiesz się jak poprawnie analizować działanie algorytmów.
 							</p>
 						</div>
 						<img
