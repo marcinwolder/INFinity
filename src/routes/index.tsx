@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import { BiBookBookmark } from 'react-icons/bi';
 import { BsChevronDoubleDown } from 'react-icons/bs';
 import { useScrollIntoView, useWindowScroll } from '@mantine/hooks';
-import { motion } from 'framer-motion';
 
 import useThemeBasedValue from '../hooks/useThemeBasedValue';
 import ThemeImg from '../components/ThemeImg';
@@ -17,6 +16,11 @@ import CodeDiv2 from './components/CodeDiv2';
 import examFile from './../JSON/exams.json';
 import { StatsGroup } from '../components/StatsGroup';
 import AnimatedImg from './components/SlideInDiv';
+
+import kursPython from './../img/kursy/kurs-python.png';
+import kursExcel from './../img/kursy/kurs-excel.png';
+import kursAccess from './../img/kursy/kurs-access.png';
+import kursAlgo from './../img/kursy/kurs-algo.png';
 
 let scrollValue = 0;
 
@@ -178,11 +182,85 @@ const Main = () => {
 						},
 					]}
 				/>
-				<section className='my-16'>
-					<AnimatedImg x={-100}>
-						<div className='h-96 w-96 bg-red-500' />
-					</AnimatedImg>
-				</section>
+				<AnimatedImg x={-100}>
+					<section className='mx-auto mt-16 flex flex-col md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3'>
+						<img
+							src={kursPython}
+							alt='python'
+							className='h-64 w-64 drop-shadow-[0_0_10px_#47556980]'
+						/>
+						<div className='p-8 text-lg'>
+							<p className='text-3xl my-2'>Kurs Python</p>
+							<p className='indent-2 my-2'>
+								Oprócz przyśpieszonego kursu składni języka nauczysz się dobrego
+								importu danych i poprawnego wypisywania odpowiedzi.
+							</p>
+							<p className='indent-2 my-2'>
+								Dowiesz się jak rozwiązać schematyczne zadania oraz poznasz tok
+								rozumowania przy tych unikatowych.
+							</p>
+						</div>
+					</section>
+				</AnimatedImg>
+				<AnimatedImg x={100}>
+					<section className='mx-auto flex flex-col-reverse md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3 text-right'>
+						<div className='p-8 text-lg'>
+							<p className='text-3xl my-2'>Kurs Excel</p>
+							<p className='indent-2 my-2'>
+								Nauczysz się formatowania, tworzenia wykresów,
+							</p>
+							<p className='indent-2 my-2'>
+								Dowiesz się jak rozwiązać schematyczne zadania oraz poznasz tok
+								rozumowania przy tych unikatowych
+							</p>
+						</div>
+						<img
+							src={kursExcel}
+							alt='python'
+							className='h-64 w-64 drop-shadow-[0_0_10px_#47556980]'
+						/>
+					</section>
+				</AnimatedImg>
+				<AnimatedImg x={-100}>
+					<section className='mx-auto flex flex-col md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3'>
+						<img
+							src={kursAccess}
+							alt='python'
+							className='h-64 w-64 drop-shadow-[0_0_10px_#47556980]'
+						/>
+						<div className='p-8 text-lg'>
+							<p className='text-3xl my-2'>Kurs Access</p>
+							<p className='indent-2 my-2'>
+								Oprócz przyśpieszonego kursu składni języka nauczysz się dobrego
+								importu danych i poprawnego wypisywania odpowiedzi.
+							</p>
+							<p className='indent-2 my-2'>
+								Dowiesz się jak rozwiązać schematyczne zadania oraz poznasz tok
+								rozumowania przy tych unikatowych
+							</p>
+						</div>
+					</section>
+				</AnimatedImg>
+				<AnimatedImg x={100}>
+					<section className='mx-auto flex flex-col-reverse md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3 text-right'>
+						<div className='p-8 text-lg'>
+							<p className='text-3xl my-2'>Kurs Algorytmiki</p>
+							<p className='indent-2 my-2'>
+								Oprócz przyśpieszonego kursu składni języka nauczysz się dobrego
+								importu danych i poprawnego wypisywania odpowiedzi.
+							</p>
+							<p className='indent-2 my-2'>
+								Dowiesz się jak rozwiązać schematyczne zadania oraz poznasz tok
+								rozumowania przy tych unikatowych
+							</p>
+						</div>
+						<img
+							src={kursAlgo}
+							alt='python'
+							className='h-64 w-64 drop-shadow-[0_0_10px_#47556980]'
+						/>
+					</section>
+				</AnimatedImg>
 				<div className='text-base-200'>
 					TEST <br />
 					TEST <br />
