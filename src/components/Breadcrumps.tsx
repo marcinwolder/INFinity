@@ -8,15 +8,7 @@ const useCreateBreadcrumbs = () => {
 	if (_.last(path) === '/') return <></>;
 
 	return path.map((pathBlock, index) => {
-		if (index < 1) {
-			return (
-				<li key={index}>
-					<Link to={'/'}>
-						<code>{pathBlock}</code>
-					</Link>
-				</li>
-			);
-		} else if (index === path.length - 1) {
+		if (index < 1 || index === path.length - 1) {
 			return (
 				<li className='cursor-default' key={index}>
 					<code>{pathBlock}</code>
@@ -35,7 +27,7 @@ const useCreateBreadcrumbs = () => {
 
 const Breadcrumps = () => {
 	return (
-		<div className='breadcrumbs self-start text-xs sm:text-base p-0'>
+		<div className='breadcrumbs self-start text-xs sm:text-base px-2'>
 			<ul>{useCreateBreadcrumbs()}</ul>
 		</div>
 	);

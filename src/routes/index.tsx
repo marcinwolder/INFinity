@@ -21,6 +21,7 @@ import kursPython from './../img/kursy/kurs-python.png';
 import kursExcel from './../img/kursy/kurs-excel.png';
 import kursAccess from './../img/kursy/kurs-access.png';
 import kursAlgo from './../img/kursy/kurs-algo.png';
+import { Link } from 'react-router-dom';
 
 let scrollValue = 0;
 
@@ -99,6 +100,8 @@ const Main = () => {
 	}, [icon]);
 
 	//Create scroll into refs
+	const [scroll, scrollTo] = useWindowScroll();
+	scroll;
 	const { scrollIntoView: scrollIntoInfo, targetRef: infoTargetRef } =
 		useScrollIntoView<HTMLDivElement>({
 			offset: 320,
@@ -143,12 +146,15 @@ const Main = () => {
 				<BottomCurveDiv className='w-full h-32 bg-inherit absolute -translate-y-16 rounded-t-[100%] -z-10 border-t-8 border-base-300' />
 				<BottomShadowDiv className='fixed bottom-0 w-full brightness-75 h-40 bg-gradient-to-t from-base-300' />
 				<div className='btn-group btn-group-vertical md:btn-group-horizontal -translate-y-1/2 drop-shadow-lg'>
-					<button className='btn btn-primary font-bold'>
+					<Link
+						onClick={() => scrollTo({ y: 0 })}
+						to={'/kursy'}
+						className='btn btn-primary font-bold'>
 						<p>
 							<BiBookBookmark />
 						</p>{' '}
 						sprawdź ofertę kursów
-					</button>
+					</Link>
 					<button onClick={() => scrollIntoInfo()} className='btn btn-outline'>
 						zobacz czego możesz się nauczyć{' '}
 						<p className='relative top-px animate-bounce'>

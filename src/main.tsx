@@ -18,6 +18,7 @@ import { ExamData, examsSlice } from './redux/slices/examsSlice';
 import { Formula } from './redux/slices/pathSlice';
 
 import './index.css';
+import Kursy from './routes/kursy';
 
 document.dispatchEvent(
 	new CustomEvent('py-status-message', {
@@ -69,6 +70,10 @@ const router = createHashRouter([
 						},
 					},
 				],
+			},
+			{
+				path: '/kursy',
+				element: <Kursy />,
 			},
 			{
 				path: '/',
