@@ -18,7 +18,7 @@ import { ExamData, examsSlice } from './redux/slices/examsSlice';
 import { Formula } from './redux/slices/pathSlice';
 
 import './index.css';
-import Kursy from './routes/kursy';
+import Kursy from './routes/Kursy';
 
 document.dispatchEvent(
 	new CustomEvent('py-status-message', {
