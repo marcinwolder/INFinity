@@ -38,7 +38,7 @@ function App() {
 			(localStorage.getItem('theme') !== 'dark' &&
 				localStorage.getItem('theme') !== 'emerald')
 		) {
-			if (hour < 8 || hour > 20) {
+			if (hour < 8 || hour > 19) {
 				localStorage.setItem('theme', 'dark');
 			} else {
 				localStorage.setItem('theme', 'emerald');
