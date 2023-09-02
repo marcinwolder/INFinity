@@ -8,6 +8,7 @@ import ThemeImg from './ThemeImg';
 import { useWindowScroll } from '@mantine/hooks';
 import styled from 'styled-components';
 import _ from 'lodash';
+import AuthComp from './AuthComp';
 
 const NavbarDiv = styled.div.attrs(() => {
 	const [scroll] = useWindowScroll();
@@ -67,6 +68,7 @@ const Navbar: React.FC = () => {
 						/>
 					</Link>
 				</div>
+				<AuthComp />
 				<div className='flex gap-2'>
 					<button
 						className='rounded-md p-1 h-6 w-6 ease-in-out transition-all flex justify-center items-center'
