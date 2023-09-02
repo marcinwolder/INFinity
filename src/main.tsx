@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { MantineProvider } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
 import _ from 'lodash';
 
 import { MenuProvider } from './context/menuContext';
@@ -19,6 +19,7 @@ import { Formula } from './redux/slices/pathSlice';
 
 import './index.css';
 import Kursy from './routes/Kursy';
+import MantineProvider from './components/MantineProvider';
 
 document.dispatchEvent(
 	new CustomEvent('py-status-message', {
@@ -87,11 +88,13 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<>
 		<React.StrictMode>
 			<MantineProvider>
-				<Provider store={store}>
-					<MenuProvider>
-						<RouterProvider router={router} />
-					</MenuProvider>
-				</Provider>
+				<ModalsProvider>
+					<Provider store={store}>
+						<MenuProvider>
+							<RouterProvider router={router} />
+						</MenuProvider>
+					</Provider>
+				</ModalsProvider>
 			</MantineProvider>
 		</React.StrictMode>
 	</>
