@@ -1,52 +1,29 @@
 import { PasswordInput, TextInput, Notification } from '@mantine/core';
-import {
-	useForm,
-	hasLength,
-	matchesField,
-	isEmail,
-	matches,
-} from '@mantine/form';
-import {
-	getAuth,
-	createUserWithEmailAndPassword,
-	updateProfile,
-	User,
-} from 'firebase/auth';
-import { useDisclosure, useForceUpdate } from '@mantine/hooks';
+import { useForm, hasLength, isEmail, matches } from '@mantine/form';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useDisclosure } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { modals } from '@mantine/modals';
 import { toast } from 'react-hot-toast';
 
-import { firebaseApp, firebaseAuth } from '../main';
+import { firebaseApp } from '../main';
 import AnimatedToast from './AnimatedToast';
 
 import InfinitySmallDark from './../img/InfinitySmall-dark.png';
 import InfinitySmall from './../img/InfinitySmall.png';
 import LightDarkThemeImg from './LightDarkThemeImg';
 
-const SignUp: React.FC<{ forceUpdate: () => void }> = ({ forceUpdate }) => {
+const SignIn = () => {
 	const auth = getAuth(firebaseApp);
 	const [disabled, { open: disableBtn, close: enableBtn }] = useDisclosure();
 
 	const formEl = useForm({
 		validateInputOnBlur: true,
 		initialValues: {
-			username: '',
 			email: '',
 			password: '',
-			confirmPassword: '',
 		},
 		validate: {
-			username: (value) =>
-				hasLength(
-					{ min: 6 },
-					'Nazwa użytkownika musi mieć min. 6 znaków.'
-				)(value) ||
-				hasLength(
-					{ max: 24 },
-					'Nazwa użytkownika moze mieć max. 24 znaki.'
-				)(value) ||
-				null,
 			email: isEmail('Nieprawidłowy email'),
 			password: (value) => {
 				return (
@@ -67,18 +44,12 @@ const SignUp: React.FC<{ forceUpdate: () => void }> = ({ forceUpdate }) => {
 					null
 				);
 			},
-			confirmPassword: matchesField('password', 'Hasła muszą być takie same.'),
 		},
 	});
 
 	return (
 		<>
 			<form className='mb-2'>
-				<TextInput
-					disabled={disabled}
-					label='Nazwa użytkownika: '
-					{...formEl.getInputProps('username')}
-				/>
 				<TextInput
 					disabled={disabled}
 					label='Email: '
@@ -89,11 +60,6 @@ const SignUp: React.FC<{ forceUpdate: () => void }> = ({ forceUpdate }) => {
 					disabled={disabled}
 					label='Hasło:'
 					{...formEl.getInputProps('password')}
-				/>
-				<PasswordInput
-					disabled={disabled}
-					label='Potwierdź hasło:'
-					{...formEl.getInputProps('confirmPassword')}
 				/>
 			</form>
 			<div className='flex'>
@@ -111,22 +77,13 @@ const SignUp: React.FC<{ forceUpdate: () => void }> = ({ forceUpdate }) => {
 					onClick={() => {
 						if (formEl.isValid()) {
 							disableBtn();
-							createUserWithEmailAndPassword(
+							signInWithEmailAndPassword(
 								auth,
 								formEl.values.email,
 								formEl.values.password
 							)
-								.then((userCredential) => {
-									updateProfile(userCredential.user, {
-										displayName: formEl.values.username,
-									});
-								})
 								.then(() => {
-									// TODO: Remove force update
-									setTimeout(forceUpdate, 500);
-								})
-								.then(() => {
-									modals.close('signUpModal');
+									modals.close('signInModal');
 									toast.custom(
 										<AnimatedToast>
 											<Notification
@@ -134,20 +91,29 @@ const SignUp: React.FC<{ forceUpdate: () => void }> = ({ forceUpdate }) => {
 												withBorder
 												color='green'
 												radius='md'
-												title='Rejestracja przebiegła pomyślnie!'>
-												Teraz możesz korzystać ze wszystkich funkcji w projekcie
-												INFinity.
+												title='Zostałeś pomyślnie zalogowany!'>
+												Witamy ponownie 😀
 											</Notification>
 										</AnimatedToast>
 									);
 								})
 								.catch((e) => {
-									if (e.code === 'auth/email-already-in-use')
-										formEl.setFieldError(
-											'email',
-											'Podany email został przypisany do innego konta.'
+									if (
+										e.code === 'auth/user-not-found' ||
+										e.code === 'auth/wrong-password'
+									)
+										toast.custom(
+											<AnimatedToast>
+												<Notification
+													withCloseButton={false}
+													withBorder
+													color='red'
+													title='Błędne dane.'>
+													Sprawdź czy wpisane hasło oraz email są poprawne.
+												</Notification>
+											</AnimatedToast>
 										);
-									console.log(e.code);
+									// console.log(e.code);
 								})
 								.finally(enableBtn);
 						} else {
@@ -155,7 +121,7 @@ const SignUp: React.FC<{ forceUpdate: () => void }> = ({ forceUpdate }) => {
 						}
 					}}>
 					{!disabled ? (
-						'Zarejestruj'
+						'Zaloguj'
 					) : (
 						<div className='flex justify-center'>
 							<span className='animate-spin'>
@@ -169,4 +135,4 @@ const SignUp: React.FC<{ forceUpdate: () => void }> = ({ forceUpdate }) => {
 	);
 };
 
-export default SignUp;
+export default SignIn;

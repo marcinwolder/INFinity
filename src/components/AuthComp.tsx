@@ -1,22 +1,43 @@
 import { modals } from '@mantine/modals';
-import ThemeImg from './ThemeImg';
-import InfinitySmallDark from './../img/InfinitySmall-dark.png';
-import InfinitySmall from './../img/InfinitySmall.png';
+
 import SignUp from './SignUp';
+import LightDarkThemeImg from './LightDarkThemeImg';
+import InfinitySmall from './../img/InfinitySmall.png';
+import InfinitySmallDark from './../img/InfinitySmall-dark.png';
+import SignIn from './SignIn';
+import { firebaseAuth } from '../main';
+import { Auth } from 'firebase/auth';
+import { useEffect, useRef, useState } from 'react';
+import { BiExit, BiUser } from 'react-icons/bi';
+import { useForceUpdate } from '@mantine/hooks';
 
 const AuthComp = () => {
+	const forceUpdate = useForceUpdate();
+
+	//Dropdown ref
+	const ref = useRef<HTMLDivElement>(null);
+	const [auth, setAuth] = useState<Auth | null>(null);
+	useEffect(() => {
+		console.log('🚀 ~ file: AuthComp.tsx:20 ~ AuthComp ~ auth:', auth);
+	}, [auth]);
+
+	useEffect(() => {
+		firebaseAuth.onAuthStateChanged(() => {
+			setAuth(firebaseAuth);
+			// TODO: Remove force update
+			forceUpdate();
+		});
+	}, [forceUpdate]);
+
 	const openSignUpModal = () =>
 		modals.open({
 			modalId: 'signUpModal',
 			title: (
 				<div className='flex items-center gap-4'>
-					<ThemeImg
+					<LightDarkThemeImg
 						className='h-8'
-						options={{
-							dark: InfinitySmallDark,
-							halloween: InfinitySmallDark,
-							default: InfinitySmall,
-						}}
+						light={InfinitySmall}
+						dark={InfinitySmallDark}
 					/>
 					<div className='flex flex-col gap-1'>
 						<div
@@ -31,20 +52,17 @@ const AuthComp = () => {
 					</div>
 				</div>
 			),
-			children: <SignUp />,
+			children: <SignUp forceUpdate={forceUpdate} />,
 		});
 	const openSignInModal = () =>
 		modals.open({
 			modalId: 'signInModal',
 			title: (
 				<div className='flex items-center gap-4'>
-					<ThemeImg
+					<LightDarkThemeImg
 						className='h-8'
-						options={{
-							dark: InfinitySmallDark,
-							halloween: InfinitySmallDark,
-							default: InfinitySmall,
-						}}
+						light={InfinitySmall}
+						dark={InfinitySmallDark}
 					/>
 					<div className='flex flex-col gap-1'>
 						<p className='font-bold uppercase font-mono'>Zaloguj się</p>
@@ -59,10 +77,35 @@ const AuthComp = () => {
 					</div>
 				</div>
 			),
-			children: <p className='text-red-400'>TEST</p>,
+			children: <SignIn />,
 		});
 
-	return (
+	return auth?.currentUser ? (
+		<div ref={ref} className='dropdown dropdown-end'>
+			<label tabIndex={0} className='btn flex items-center gap-2 px-2'>
+				<span className='text-lg'>
+					<BiUser />
+				</span>
+				{auth.currentUser.displayName}
+			</label>
+			<ul
+				tabIndex={0}
+				className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'>
+				<li>
+					<a
+						onClick={() => {
+							auth.signOut();
+						}}
+						className='flex justify-between'>
+						Wyloguj
+						<span>
+							<BiExit />
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	) : (
 		<div
 			className='btn text-xs px-2 gap-0 w-min md:w-fit'
 			onClick={openSignInModal}>

@@ -28,6 +28,8 @@ const NavbarDiv = styled.div.attrs(() => {
 	};
 })``;
 
+// TODO: Change navbar layout on mobile
+
 const Navbar: React.FC = () => {
 	const [scroll, scrollTo] = useWindowScroll();
 	scroll;

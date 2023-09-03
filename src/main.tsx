@@ -22,6 +22,7 @@ import Kursy from './routes/Kursy';
 import MantineProvider from './components/MantineProvider';
 
 import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 
 document.dispatchEvent(
 	new CustomEvent('py-status-message', {
@@ -40,6 +41,7 @@ const firebaseConfig = {
 };
 
 export const firebaseApp = initializeApp(firebaseConfig);
+export const firebaseAuth = getAuth(firebaseApp);
 
 declare global {
 	const pyscript: {
