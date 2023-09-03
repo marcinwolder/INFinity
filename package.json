@@ -14,6 +14,7 @@
 		"@designbycode/tailwindcss-text-shadow": "^2.0.0",
 		"@emotion/react": "^11.11.0",
 		"@mantine/core": "^6.0.13",
+		"@mantine/form": "^6.0.19",
 		"@mantine/hooks": "^6.0.13",
 		"@mantine/modals": "^6.0.19",
 		"@reduxjs/toolkit": "^1.9.3",
