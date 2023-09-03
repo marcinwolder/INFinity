@@ -188,7 +188,7 @@ const Main = () => {
 						},
 					]}
 				/>
-				{/* //!TODO: BUG: Animation changes website width - overflow needed */}
+				{/* //TODO: BUG: Animation changes website width - overflow needed */}
 				<AnimatedImg x={-100}>
 					<section className='mx-auto mt-16 flex flex-col md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3'>
 						<img

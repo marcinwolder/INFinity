@@ -11,12 +11,17 @@ import {
 	createUserWithEmailAndPassword,
 	updateProfile,
 } from 'firebase/auth';
-import { firebaseApp } from '../main';
 import { useDisclosure } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { modals } from '@mantine/modals';
 import { toast } from 'react-hot-toast';
+
+import { firebaseApp } from '../main';
 import AnimatedToast from './AnimatedToast';
+import ThemeImg from './ThemeImg';
+
+import InfinitySmallDark from './../img/InfinitySmall-dark.png';
+import InfinitySmall from './../img/InfinitySmall.png';
 
 const SignUp = () => {
 	const auth = getAuth(firebaseApp);
@@ -31,7 +36,6 @@ const SignUp = () => {
 			confirmPassword: '',
 		},
 		validate: {
-			//!TODO:check if username is in use (firebase call)
 			username: (value) =>
 				hasLength(
 					{ min: 6 },
@@ -91,61 +95,75 @@ const SignUp = () => {
 					{...formEl.getInputProps('confirmPassword')}
 				/>
 			</form>
-			<button
-				disabled={disabled}
-				className='btn btn-success block ml-auto w-36'
-				onClick={() => {
-					if (formEl.isValid()) {
-						disableBtn();
-						createUserWithEmailAndPassword(
-							auth,
-							formEl.values.email,
-							formEl.values.password
-						)
-							.then((userCredential) => {
-								updateProfile(userCredential.user, {
-									displayName: formEl.values.username,
-								});
-								return userCredential;
-							})
-							.then(() => {
-								modals.close('signUpModal');
-								toast.custom(
-									<AnimatedToast>
-										<Notification
-											withCloseButton={false}
-											withBorder
-											color='green'
-											radius='md'
-											title='Rejestracja przebiegła pomyślnie!'>
-											Teraz możesz korzystać ze wszystkich funkcji w projekcie
-											INFinity.
-										</Notification>
-									</AnimatedToast>
-								);
-							})
-							.catch((e) => {
-								if (e.code === 'auth/email-already-in-use')
-									formEl.setFieldError(
-										'email',
-										'Podany email został przypisany do innego konta.'
+			<div className='flex'>
+				<div className='w-40 h-20 place-self-end border-dashed overflow-hidden border-base-content border-l-2 border-b-2 rounded-bl-box '>
+					{/* TODO: ANIMATED DRAWING LOGO HERE */}
+					<ThemeImg
+						className='h-40 w-48 relative -top-4 -left-8'
+						options={{
+							dark: InfinitySmallDark,
+							halloween: InfinitySmallDark,
+							default: InfinitySmall,
+						}}
+					/>
+				</div>
+				<button
+					disabled={disabled}
+					className='btn btn-primary block w-36 ml-auto mr-4 mb-4 mt-8'
+					onClick={() => {
+						if (formEl.isValid()) {
+							disableBtn();
+							createUserWithEmailAndPassword(
+								auth,
+								formEl.values.email,
+								formEl.values.password
+							)
+								.then((userCredential) => {
+									updateProfile(userCredential.user, {
+										displayName: formEl.values.username,
+									});
+									return userCredential;
+								})
+								.then(() => {
+									modals.close('signUpModal');
+									toast.custom(
+										<AnimatedToast>
+											<Notification
+												withCloseButton={false}
+												withBorder
+												color='green'
+												radius='md'
+												title='Rejestracja przebiegła pomyślnie!'>
+												Teraz możesz korzystać ze wszystkich funkcji w projekcie
+												INFinity.
+											</Notification>
+										</AnimatedToast>
 									);
-								console.log(e.code);
-							})
-							.finally(enableBtn);
-					}
-				}}>
-				{!disabled ? (
-					'Zarejestruj'
-				) : (
-					<div className='flex justify-center'>
-						<span className='animate-spin'>
-							<AiOutlineLoading3Quarters />
-						</span>
-					</div>
-				)}
-			</button>
-			<div className='divider'>Lub</div>
+								})
+								.catch((e) => {
+									if (e.code === 'auth/email-already-in-use')
+										formEl.setFieldError(
+											'email',
+											'Podany email został przypisany do innego konta.'
+										);
+									console.log(e.code);
+								})
+								.finally(enableBtn);
+						} else {
+							formEl.validate();
+						}
+					}}>
+					{!disabled ? (
+						'Zarejestruj'
+					) : (
+						<div className='flex justify-center'>
+							<span className='animate-spin'>
+								<AiOutlineLoading3Quarters />
+							</span>
+						</div>
+					)}
+				</button>
+			</div>
 		</>
 	);
 };
