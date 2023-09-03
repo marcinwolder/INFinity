@@ -21,11 +21,25 @@ import './index.css';
 import Kursy from './routes/Kursy';
 import MantineProvider from './components/MantineProvider';
 
+import { initializeApp } from 'firebase/app';
+
 document.dispatchEvent(
 	new CustomEvent('py-status-message', {
 		detail: 'Pobieranie środowiska Python, proszę czekać',
 	})
 );
+
+const firebaseConfig = {
+	apiKey: 'AIzaSyBy93l2PeTDzxNIBF1dKVDI2lryeYiJbuI',
+	authDomain: 'matura-infinity.firebaseapp.com',
+	projectId: 'matura-infinity',
+	storageBucket: 'matura-infinity.appspot.com',
+	messagingSenderId: '848677244645',
+	appId: '1:848677244645:web:6c4dd9feade52eba814e0c',
+	measurementId: 'G-96E0MGJE6E',
+};
+
+export const firebaseApp = initializeApp(firebaseConfig);
 
 declare global {
 	const pyscript: {

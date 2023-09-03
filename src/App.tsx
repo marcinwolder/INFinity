@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import { pathSlice } from './redux/slices/pathSlice';
 import Breadcrumps from './components/Breadcrumps';
 
+import { Toaster } from 'react-hot-toast';
+
 function App() {
 	const location = useLocation();
 	const dispatch = useDispatch();
@@ -47,22 +49,25 @@ function App() {
 	}, []);
 
 	return (
-		<div className='drawer'>
-			<MenuCheckbox />
-			<div className='drawer-content'>
-				<Navbar />
-				<div>
-					<div className='artboard gap-4 flex flex-col items-center relative'>
-						<Breadcrumps />
-						<Outlet />
+		<>
+			<div className='drawer'>
+				<MenuCheckbox />
+				<div className='drawer-content'>
+					<Navbar />
+					<div>
+						<div className='artboard gap-4 flex flex-col items-center relative'>
+							<Breadcrumps />
+							<Outlet />
+						</div>
 					</div>
 				</div>
+				<div className='drawer-side z-20'>
+					<label htmlFor='my-drawer' className='drawer-overlay'></label>
+					<Menu />
+				</div>
 			</div>
-			<div className='drawer-side z-20'>
-				<label htmlFor='my-drawer' className='drawer-overlay'></label>
-				<Menu />
-			</div>
-		</div>
+			<Toaster position='bottom-right' />
+		</>
 	);
 }
 
