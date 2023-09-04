@@ -8,7 +8,7 @@ import kursAlgo from './../img/kursy/kurs-algo.png';
 const Kursy: React.FC = () => {
 	return (
 		<>
-			<div className='px-4 flex flex-col lg:flex-row gap-4 items-center lg:items-end'>
+			<div className='px-4 flex flex-col lg:flex-row gap-4 items-center lg:items-end mb-16'>
 				<div className='border border-base-300 bg-base-200 p-6 px-8 rounded-sm w-full lg:w-fit shrink-0'>
 					<code className='text-primary uppercase font-black text-xl tracking-widest'>
 						pojedynczy kurs
