@@ -24,7 +24,7 @@ import InfinitySmallDark from './../img/InfinitySmall-dark.png';
 import InfinitySmall from './../img/InfinitySmall.png';
 import LightDarkThemeImg from './LightDarkThemeImg';
 
-const SignUp: React.FC<{ forceUpdate: () => void }> = ({ forceUpdate }) => {
+const SignUp = () => {
 	const auth = getAuth(firebaseApp);
 	const [disabled, { open: disableBtn, close: enableBtn }] = useDisclosure();
 

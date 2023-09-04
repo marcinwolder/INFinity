@@ -48,7 +48,7 @@ const AuthComp = () => {
 					</div>
 				</div>
 			),
-			children: <SignUp forceUpdate={forceUpdate} />,
+			children: <SignUp />,
 		});
 	const openSignInModal = () =>
 		modals.open({
