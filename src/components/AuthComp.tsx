@@ -24,10 +24,9 @@ const AuthComp = () => {
 	useEffect(() => {
 		firebaseAuth.onAuthStateChanged(() => {
 			setAuth(firebaseAuth);
-			// TODO: Remove force update
 			forceUpdate();
 		});
-	}, [forceUpdate]);
+	}, [forceUpdate, auth]);
 
 	const openSignUpModal = () =>
 		modals.open({
@@ -82,11 +81,14 @@ const AuthComp = () => {
 
 	return auth?.currentUser ? (
 		<div ref={ref} className='dropdown dropdown-end'>
-			<label tabIndex={0} className='btn flex items-center gap-2 px-2'>
+			<label
+				tabIndex={0}
+				className='relative btn flex items-center gap-2 px-2 overflow-hidden justify-start flex-nowrap max-w-[7rem] md:max-w-none'>
 				<span className='text-lg'>
 					<BiUser />
 				</span>
 				{auth.currentUser.displayName}
+				<div className='absolute top-0 bottom-0 right-0 w-8 bg-gradient-to-l md:bg-none from-base-200 via-20% via-base-200' />
 			</label>
 			<ul
 				tabIndex={0}

@@ -10,9 +10,9 @@ import {
 	getAuth,
 	createUserWithEmailAndPassword,
 	updateProfile,
-	User,
+	signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { useDisclosure, useForceUpdate } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { modals } from '@mantine/modals';
 import { toast } from 'react-hot-toast';
@@ -71,9 +71,67 @@ const SignUp: React.FC<{ forceUpdate: () => void }> = ({ forceUpdate }) => {
 		},
 	});
 
+	const onConfirm = () => {
+		if (!disabled) {
+			if (formEl.isValid()) {
+				disableBtn();
+				createUserWithEmailAndPassword(
+					auth,
+					formEl.values.email,
+					formEl.values.password
+				)
+					.then((userCredential) => {
+						updateProfile(userCredential.user, {
+							displayName: formEl.values.username,
+						});
+					})
+					.then(() => {
+						firebaseAuth.signOut();
+					})
+					.then(() => {
+						signInWithEmailAndPassword(
+							firebaseAuth,
+							formEl.values.email,
+							formEl.values.password
+						);
+					})
+					.then(() => {
+						modals.close('signUpModal');
+						toast.custom(
+							<AnimatedToast>
+								<Notification
+									withCloseButton={false}
+									withBorder
+									color='green'
+									radius='md'
+									title='Rejestracja przebiegła pomyślnie!'>
+									Teraz możesz korzystać ze wszystkich funkcji w projekcie
+									INFinity.
+								</Notification>
+							</AnimatedToast>
+						);
+					})
+					.catch((e) => {
+						if (e.code === 'auth/email-already-in-use')
+							formEl.setFieldError(
+								'email',
+								'Podany email został przypisany do innego konta.'
+							);
+					})
+					.finally(enableBtn);
+			} else {
+				formEl.validate();
+			}
+		}
+	};
+
 	return (
 		<>
-			<form className='mb-2'>
+			<form
+				className='mb-2'
+				onKeyDown={(e) => {
+					if (e.key === 'Enter') onConfirm();
+				}}>
 				<TextInput
 					disabled={disabled}
 					label='Nazwa użytkownika: '
@@ -107,53 +165,8 @@ const SignUp: React.FC<{ forceUpdate: () => void }> = ({ forceUpdate }) => {
 				</div>
 				<button
 					disabled={disabled}
-					className='btn btn-primary block w-36 ml-auto mr-4 mb-4 mt-8'
-					onClick={() => {
-						if (formEl.isValid()) {
-							disableBtn();
-							createUserWithEmailAndPassword(
-								auth,
-								formEl.values.email,
-								formEl.values.password
-							)
-								.then((userCredential) => {
-									updateProfile(userCredential.user, {
-										displayName: formEl.values.username,
-									});
-								})
-								.then(() => {
-									// TODO: Remove force update
-									setTimeout(forceUpdate, 500);
-								})
-								.then(() => {
-									modals.close('signUpModal');
-									toast.custom(
-										<AnimatedToast>
-											<Notification
-												withCloseButton={false}
-												withBorder
-												color='green'
-												radius='md'
-												title='Rejestracja przebiegła pomyślnie!'>
-												Teraz możesz korzystać ze wszystkich funkcji w projekcie
-												INFinity.
-											</Notification>
-										</AnimatedToast>
-									);
-								})
-								.catch((e) => {
-									if (e.code === 'auth/email-already-in-use')
-										formEl.setFieldError(
-											'email',
-											'Podany email został przypisany do innego konta.'
-										);
-									console.log(e.code);
-								})
-								.finally(enableBtn);
-						} else {
-							formEl.validate();
-						}
-					}}>
+					className='btn btn-primary block w-28 md:w-36 ml-auto mr-4 mb-4 mt-8'
+					onClick={onConfirm}>
 					{!disabled ? (
 						'Zarejestruj'
 					) : (

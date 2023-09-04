@@ -47,9 +47,60 @@ const SignIn = () => {
 		},
 	});
 
+	const onSubmit = () => {
+		if (formEl.isValid()) {
+			disableBtn();
+			signInWithEmailAndPassword(
+				auth,
+				formEl.values.email,
+				formEl.values.password
+			)
+				.then(() => {
+					modals.close('signInModal');
+					toast.custom(
+						<AnimatedToast>
+							<Notification
+								withCloseButton={false}
+								withBorder
+								color='green'
+								radius='md'
+								title='Zostałeś pomyślnie zalogowany!'>
+								Witamy ponownie 😀
+							</Notification>
+						</AnimatedToast>
+					);
+				})
+				.catch((e) => {
+					if (
+						e.code === 'auth/user-not-found' ||
+						e.code === 'auth/wrong-password'
+					)
+						toast.custom(
+							<AnimatedToast>
+								<Notification
+									withCloseButton={false}
+									withBorder
+									color='red'
+									title='Błędne dane.'>
+									Sprawdź czy wpisane hasło oraz email są poprawne.
+								</Notification>
+							</AnimatedToast>
+						);
+					// console.log(e.code);
+				})
+				.finally(enableBtn);
+		} else {
+			formEl.validate();
+		}
+	};
+
 	return (
 		<>
-			<form className='mb-2'>
+			<form
+				className='mb-2'
+				onKeyDown={(e) => {
+					if (e.key === 'Enter') onSubmit();
+				}}>
 				<TextInput
 					disabled={disabled}
 					label='Email: '
@@ -73,53 +124,8 @@ const SignIn = () => {
 				</div>
 				<button
 					disabled={disabled}
-					className='btn btn-primary block w-36 ml-auto mr-4 mb-4 mt-8'
-					onClick={() => {
-						if (formEl.isValid()) {
-							disableBtn();
-							signInWithEmailAndPassword(
-								auth,
-								formEl.values.email,
-								formEl.values.password
-							)
-								.then(() => {
-									modals.close('signInModal');
-									toast.custom(
-										<AnimatedToast>
-											<Notification
-												withCloseButton={false}
-												withBorder
-												color='green'
-												radius='md'
-												title='Zostałeś pomyślnie zalogowany!'>
-												Witamy ponownie 😀
-											</Notification>
-										</AnimatedToast>
-									);
-								})
-								.catch((e) => {
-									if (
-										e.code === 'auth/user-not-found' ||
-										e.code === 'auth/wrong-password'
-									)
-										toast.custom(
-											<AnimatedToast>
-												<Notification
-													withCloseButton={false}
-													withBorder
-													color='red'
-													title='Błędne dane.'>
-													Sprawdź czy wpisane hasło oraz email są poprawne.
-												</Notification>
-											</AnimatedToast>
-										);
-									// console.log(e.code);
-								})
-								.finally(enableBtn);
-						} else {
-							formEl.validate();
-						}
-					}}>
+					className='btn w-28 md:w-36 btn-primary block ml-auto mr-4 mb-4 mt-8'
+					onClick={onSubmit}>
 					{!disabled ? (
 						'Zaloguj'
 					) : (
