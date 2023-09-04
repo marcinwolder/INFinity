@@ -188,152 +188,95 @@ const Main = () => {
 						},
 					]}
 				/>
-				{/* //TODO: BUG: Animation changes website width - overflow needed */}
-				<AnimatedImg x={-100}>
-					<section className='mx-auto mt-16 flex flex-col md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3'>
-						<img
-							src={kursPython}
-							alt='python'
-							className='h-64 w-64 drop-shadow-[0_0_10px_#47556980]'
-						/>
-						<div className='p-8 text-lg'>
-							<p className='text-3xl my-2'>Kurs Python</p>
-							<p className='indent-2 my-2'>
-								Oprócz przyśpieszonego kursu składni języka nauczysz się dobrego
-								importu danych i poprawnego wypisywania odpowiedzi.
-							</p>
-							<p className='indent-2 my-2'>
-								Dowiesz się jak rozwiązać schematyczne zadania oraz{' '}
-								<b>poznasz tok rozumowania</b> przy tych unikatowych.
-							</p>
-						</div>
-					</section>
-				</AnimatedImg>
-				<AnimatedImg x={100}>
-					<section className='mx-auto flex flex-col-reverse md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3 text-right'>
-						<div className='p-8 text-lg'>
-							<p className='text-3xl my-2'>Kurs Excel</p>
-							<p className='indent-2 my-2'>
-								Nauczysz się{' '}
-								<b>
-									formatowania danych, tworzenia wykresów oraz tabel
-									przestawnych
-								</b>
-								.
-							</p>
-							<p className='indent-2 my-2'>
-								Poznasz potrzebne Ci formuły oraz przydatne sztuczki dzięki
-								którym wykonasz zadania maturalne jeszcze szybciej.
-							</p>
-						</div>
-						<img
-							src={kursExcel}
-							alt='python'
-							className='h-64 w-64 drop-shadow-[0_0_10px_#47556980]'
-						/>
-					</section>
-				</AnimatedImg>
-				<AnimatedImg x={-100}>
-					<section className='mx-auto flex flex-col md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3'>
-						<img
-							src={kursAccess}
-							alt='python'
-							className='h-64 w-64 drop-shadow-[0_0_10px_#47556980]'
-						/>
-						<div className='p-8 text-lg'>
-							<p className='text-3xl my-2'>Kurs Access</p>
-							<p className='indent-2 my-2'>
-								W tym kursie poznasz składnię oraz{' '}
-								<b>zasady budowania zapytań SQL</b> oraz poznasz budowę bazy
-								danych.
-							</p>
-							<p className='indent-2 my-2'>
-								Nauczysz się także wynajdywać potrzebne do odpowiedzi krotki z
-								bazy danych a także jej formatowanie, sortowanie, filtrację i
-								inne.
-							</p>
-						</div>
-					</section>
-				</AnimatedImg>
-				<AnimatedImg x={100}>
-					<section className='mx-auto flex flex-col-reverse md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3 text-right'>
-						<div className='p-8 text-lg'>
-							<p className='text-3xl my-2'>Kurs Algorytmiki</p>
-							<p className='indent-2 my-2'>
-								Dzięki temu kursowi nauczysz się budowy algorytmów zawartych w
-								podstawie programowej.
-							</p>
-							<p className='indent-2 my-2'>
-								Poznasz sposoby{' '}
-								<b>planowania oraz realizacji programowania algorytmów</b> a
-								także dowiesz się jak poprawnie analizować działanie algorytmów.
-							</p>
-						</div>
-						<img
-							src={kursAlgo}
-							alt='python'
-							className='h-64 w-64 drop-shadow-[0_0_10px_#47556980]'
-						/>
-					</section>
-				</AnimatedImg>
-				<div className='text-base-200'>
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
-					TEST <br />
+				<div className='overflow-hidden w-full'>
+					<AnimatedImg x={-100}>
+						<section className='mx-auto mt-16 flex flex-col md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3'>
+							<img
+								src={kursPython}
+								alt='python'
+								className='h-64 w-64 drop-shadow-[0_0_10px_#47556980]'
+							/>
+							<div className='p-8 text-lg'>
+								<p className='text-3xl my-2'>Kurs Python</p>
+								<p className='indent-2 my-2'>
+									Oprócz przyśpieszonego kursu składni języka nauczysz się
+									dobrego importu danych i poprawnego wypisywania odpowiedzi.
+								</p>
+								<p className='indent-2 my-2'>
+									Dowiesz się jak rozwiązać schematyczne zadania oraz{' '}
+									<b>poznasz tok rozumowania</b> przy tych unikatowych.
+								</p>
+							</div>
+						</section>
+					</AnimatedImg>
+					<AnimatedImg x={100}>
+						<section className='mx-auto flex flex-col-reverse md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3 text-right'>
+							<div className='p-8 text-lg'>
+								<p className='text-3xl my-2'>Kurs Excel</p>
+								<p className='indent-2 my-2'>
+									Nauczysz się{' '}
+									<b>
+										formatowania danych, tworzenia wykresów oraz tabel
+										przestawnych
+									</b>
+									.
+								</p>
+								<p className='indent-2 my-2'>
+									Poznasz potrzebne Ci formuły oraz przydatne sztuczki dzięki
+									którym wykonasz zadania maturalne jeszcze szybciej.
+								</p>
+							</div>
+							<img
+								src={kursExcel}
+								alt='python'
+								className='h-64 w-64 drop-shadow-[0_0_10px_#47556980]'
+							/>
+						</section>
+					</AnimatedImg>
+					<AnimatedImg x={-100}>
+						<section className='mx-auto flex flex-col md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3'>
+							<img
+								src={kursAccess}
+								alt='python'
+								className='h-64 w-64 drop-shadow-[0_0_10px_#47556980]'
+							/>
+							<div className='p-8 text-lg'>
+								<p className='text-3xl my-2'>Kurs Access</p>
+								<p className='indent-2 my-2'>
+									W tym kursie poznasz składnię oraz{' '}
+									<b>zasady budowania zapytań SQL</b> oraz poznasz budowę bazy
+									danych.
+								</p>
+								<p className='indent-2 my-2'>
+									Nauczysz się także wynajdywać potrzebne do odpowiedzi krotki z
+									bazy danych a także jej formatowanie, sortowanie, filtrację i
+									inne.
+								</p>
+							</div>
+						</section>
+					</AnimatedImg>
+					<AnimatedImg x={100}>
+						<section className='mx-auto flex flex-col-reverse md:flex-row items-center md:items-start md:gap-6 min-w-min w-full lg:w-2/3 text-right'>
+							<div className='p-8 text-lg'>
+								<p className='text-3xl my-2'>Kurs Algorytmiki</p>
+								<p className='indent-2 my-2'>
+									Dzięki temu kursowi nauczysz się budowy algorytmów zawartych w
+									podstawie programowej.
+								</p>
+								<p className='indent-2 my-2'>
+									Poznasz sposoby{' '}
+									<b>planowania oraz realizacji programowania algorytmów</b> a
+									także dowiesz się jak poprawnie analizować działanie
+									algorytmów.
+								</p>
+							</div>
+							<img
+								src={kursAlgo}
+								alt='python'
+								className='h-64 w-64 drop-shadow-[0_0_10px_#47556980]'
+							/>
+						</section>
+					</AnimatedImg>
 				</div>
 			</div>
 		</div>
