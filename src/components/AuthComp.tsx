@@ -17,9 +17,6 @@ const AuthComp = () => {
 	//Dropdown ref
 	const ref = useRef<HTMLDivElement>(null);
 	const [auth, setAuth] = useState<Auth | null>(null);
-	useEffect(() => {
-		console.log('🚀 ~ file: AuthComp.tsx:20 ~ AuthComp ~ auth:', auth);
-	}, [auth]);
 
 	useEffect(() => {
 		firebaseAuth.onAuthStateChanged(() => {

@@ -86,7 +86,6 @@ const SignIn = () => {
 								</Notification>
 							</AnimatedToast>
 						);
-					// console.log(e.code);
 				})
 				.finally(enableBtn);
 		} else {
