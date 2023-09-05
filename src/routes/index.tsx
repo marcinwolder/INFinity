@@ -6,7 +6,7 @@ import { BsChevronDoubleDown } from 'react-icons/bs';
 import { useScrollIntoView, useWindowScroll } from '@mantine/hooks';
 
 import useThemeBasedValue from '../hooks/useThemeBasedValue';
-import ThemeImg from '../components/ThemeImg';
+import ThemeImg from '../components/LightDarkThemeImg';
 import { Formula } from '../redux/slices/pathSlice';
 
 import InfinitySmall from './../img/InfinitySmall.png';
@@ -63,8 +63,6 @@ const BottomCurveDiv = styled.div.attrs(() => {
 `;
 
 const Main = () => {
-	//Animation hooks
-
 	//Counting exams
 	let examCount = 0;
 	for (const examKey in examFile) {
@@ -118,13 +116,8 @@ const Main = () => {
 					<p className='text-sky-500'>PROJEKT</p>
 					<div className='overflow-hidden lg:h-60 px-2'>
 						<ThemeImg
-							options={{
-								emerald: InfinitySmallDark,
-								dark: InfinitySmall,
-								halloween: InfinitySmall,
-								valentine: InfinitySmallDark,
-								default: InfinitySmall,
-							}}
+							light={InfinitySmallDark}
+							dark={InfinitySmall}
 							className='h-40 md:h-60 lg:h-80 lg:-translate-y-[12%] drop-shadow-[0_0_10px_#47556980]'
 						/>
 					</div>

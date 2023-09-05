@@ -1,5 +1,5 @@
 import React from 'react';
-import useLightDarkThemeValue from '../hooks/useLightDarkThemeValue';
+import useLightDarkThemeValue from '../hooks/useThemeBasedValue';
 
 const ThemeImg: React.FC<
 	{ light: string; dark: string } & React.ComponentProps<'img'>
