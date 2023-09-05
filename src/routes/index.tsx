@@ -38,6 +38,7 @@ const BottomShadowDiv = styled.div.attrs(() => {
 	return {
 		style: {
 			opacity: `${(100 - _.clamp(scrollValue * 10, 0, 100)).toFixed(0)}%`,
+			display: scrollValue < 10 ? 'block' : 'none',
 		},
 	};
 })``;

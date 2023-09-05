@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
 	const [scroll, scrollTo] = useWindowScroll();
 	scroll;
 	return (
-		<NavbarDiv className='sticky mt-1 top-0 z-10'>
+		<NavbarDiv className=''>
 			<div className='navbar bg-base-100 gap-2 rounded-b-xl'>
 				<div className='flex-none'>
 					<input id='my-drawer' type='checkbox' className='drawer-toggle' />

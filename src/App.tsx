@@ -10,6 +10,7 @@ import { pathSlice } from './redux/slices/pathSlice';
 import Breadcrumps from './components/Breadcrumps';
 
 import { Toaster } from 'react-hot-toast';
+import Footer from './components/Footer';
 
 function App() {
 	const location = useLocation();
@@ -53,13 +54,16 @@ function App() {
 			<div className='drawer'>
 				<MenuCheckbox />
 				<div className='drawer-content'>
-					<Navbar />
-					<div>
-						<div className='artboard gap-4 flex flex-col items-center relative'>
-							<Breadcrumps />
-							<Outlet />
-						</div>
-					</div>
+					<header className='sticky mt-1 top-0 z-10'>
+						<Navbar />
+					</header>
+					<main className='artboard gap-4 flex flex-col items-center relative'>
+						<Breadcrumps />
+						<Outlet />
+					</main>
+					<footer>
+						<Footer />
+					</footer>
 				</div>
 				<div className='drawer-side z-20'>
 					<label htmlFor='my-drawer' className='drawer-overlay'></label>
