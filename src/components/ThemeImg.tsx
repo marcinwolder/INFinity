@@ -3,16 +3,14 @@ import useThemeBasedValue, { ThemeOptions } from '../hooks/useThemeBasedValue';
 import classNames from 'classnames';
 
 const ThemeImg: React.FC<
-	({ options: ThemeOptions<string> } | { light: string; dark: string }) &
+	(
+		| { options: ThemeOptions<string>; light?: never; dark?: never }
+		| { light: string; dark: string; options?: never }
+	) &
 		React.ComponentProps<'img'>
-> = ({ className, ...props }) => {
-	let funcProps: [string, string] | [ThemeOptions<string>];
-	if ('options' in props) {
-		funcProps = [props.options];
-	} else {
-		funcProps = [props.light, props.dark];
-	}
-	//TODO: check how to get rid of ts-ignore
+> = ({ light, dark, options, className, ...props }) => {
+	const funcProps = options ? [options] : [light, dark];
+
 	/*eslint-disable*/
 	//@ts-ignore
 	const imgUrl = useThemeBasedValue<string>(...funcProps);
