@@ -1,16 +1,32 @@
 import { useState } from 'react';
-import { Themes } from '../utils/theme';
+import { Themes, darkThemeNames } from '../utils/theme';
 
 export type ThemeOptions<T> = {
 	[keys in Themes]?: T;
 } & { default: T };
 
-const useThemeBasedValue = <T extends O[keyof O], O extends ThemeOptions<T>>(
-	options: O
-) => {
+/**
+	 * Return value based on current theme
+   @param light Value returned when theme is "light"
+   @param dark Value returned when theme is "dark"
+	 */
+function useThemeBasedValue<T>(light: T, dark: T): T;
+function useThemeBasedValue<T>(options: ThemeOptions<T>): T;
+function useThemeBasedValue<T>(
+	...params: [light: T, dark: T] | [options: ThemeOptions<T>]
+) {
 	const getValue = () => {
 		const theme = document.documentElement.getAttribute('data-theme') as Themes;
-		return options[theme] || (options.default as T);
+		if (params.length === 2) {
+			const [light, dark] = params;
+			const darkTheme = darkThemeNames.find(
+				(validDarkTheme) => validDarkTheme === theme
+			);
+			return darkTheme ? dark : light;
+		} else {
+			const [options] = params;
+			return options[theme] || (options.default as T);
+		}
 	};
 
 	const [value, setValue] = useState(getValue());
@@ -31,6 +47,6 @@ const useThemeBasedValue = <T extends O[keyof O], O extends ThemeOptions<T>>(
 	});
 
 	return value;
-};
+}
 
 export default useThemeBasedValue;

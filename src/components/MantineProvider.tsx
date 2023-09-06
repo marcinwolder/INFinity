@@ -1,9 +1,9 @@
 import React from 'react';
 import { MantineProvider as _MantineProvider } from '@mantine/styles';
-import useLightDarkThemeValue from '../hooks/useLightDarkThemeValue';
+import useThemeBasedValue from '../hooks/useThemeBasedValue';
 
 const MantineProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-	const theme = useLightDarkThemeValue('light', 'dark');
+	const theme = useThemeBasedValue('light', 'dark');
 	return (
 		<_MantineProvider
 			theme={{
