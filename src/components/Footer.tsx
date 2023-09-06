@@ -21,6 +21,8 @@ const Footer = () => {
 	});
 	observer.observe(document.documentElement, { attributes: true });
 
+	// TODO: Footer has hardcoded bg color on wave element - must be fixed
+
 	return (
 		<>
 			<svg
