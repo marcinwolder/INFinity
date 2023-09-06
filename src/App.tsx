@@ -11,14 +11,19 @@ import Breadcrumps from './components/Breadcrumps';
 
 import { Toaster } from 'react-hot-toast';
 import Footer from './components/Footer';
+import { useWindowScroll } from '@mantine/hooks';
 
 function App() {
 	const location = useLocation();
 	const dispatch = useDispatch();
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [_, scroll] = useWindowScroll();
+
 	useEffect(() => {
+		scroll({ y: 0 });
 		themeChange(false);
-	}, []);
+	}, [scroll]);
 	useEffect(() => {
 		dispatch(pathSlice.actions.updatePath());
 	}, [location, dispatch]);

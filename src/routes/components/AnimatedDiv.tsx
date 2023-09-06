@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
+import { useWindowScroll } from '@mantine/hooks';
 
-const SlideInDiv: React.FC<React.PropsWithChildren<{ x: number }>> = ({
+const AnimatedDiv: React.FC<React.PropsWithChildren<{ x: number }>> = ({
 	children,
 	x,
 }) => {
@@ -12,10 +13,14 @@ const SlideInDiv: React.FC<React.PropsWithChildren<{ x: number }>> = ({
 	const control = useAnimation();
 	const ref = useRef(null);
 	const inView = useInView(ref);
+	const [scroll] = useWindowScroll();
 
 	useEffect(() => {
 		if (inView) control.start('visible');
 	}, [control, inView]);
+	useEffect(() => {
+		if (scroll.y === 0) control.start('hidden');
+	}, [control, scroll]);
 
 	return (
 		<motion.div
@@ -29,4 +34,4 @@ const SlideInDiv: React.FC<React.PropsWithChildren<{ x: number }>> = ({
 	);
 };
 
-export default SlideInDiv;
+export default AnimatedDiv;
