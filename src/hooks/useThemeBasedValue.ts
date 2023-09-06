@@ -11,6 +11,11 @@ export type ThemeOptions<T> = {
    @param dark Value returned when theme is "dark"
 	 */
 function useThemeBasedValue<T>(light: T, dark: T): T;
+/**
+ *
+ * @param options {@link ThemeOptions | Options} object
+ * @return value corresponding to current theme or default if not specified
+ */
 function useThemeBasedValue<T>(options: ThemeOptions<T>): T;
 function useThemeBasedValue<T>(
 	...params: [light: T, dark: T] | [options: ThemeOptions<T>]

@@ -1,7 +1,6 @@
 import { modals } from '@mantine/modals';
 
 import SignUp from './SignUp';
-import LightDarkThemeImg from './LightDarkThemeImg';
 import InfinitySmall from './../img/InfinitySmall.png';
 import InfinitySmallDark from './../img/InfinitySmall-dark.png';
 import SignIn from './SignIn';
@@ -10,6 +9,7 @@ import { Auth } from 'firebase/auth';
 import { useEffect, useRef, useState } from 'react';
 import { BiExit, BiUser } from 'react-icons/bi';
 import { useForceUpdate } from '@mantine/hooks';
+import ThemeImg from './ThemeImg';
 
 const AuthComp = () => {
 	const forceUpdate = useForceUpdate();
@@ -30,7 +30,7 @@ const AuthComp = () => {
 			modalId: 'signUpModal',
 			title: (
 				<div className='flex items-center gap-4'>
-					<LightDarkThemeImg
+					<ThemeImg
 						className='h-8'
 						light={InfinitySmall}
 						dark={InfinitySmallDark}
@@ -55,7 +55,7 @@ const AuthComp = () => {
 			modalId: 'signInModal',
 			title: (
 				<div className='flex items-center gap-4'>
-					<LightDarkThemeImg
+					<ThemeImg
 						className='h-8'
 						light={InfinitySmall}
 						dark={InfinitySmallDark}

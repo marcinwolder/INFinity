@@ -11,7 +11,7 @@ import AnimatedToast from './AnimatedToast';
 
 import InfinitySmallDark from './../img/InfinitySmall-dark.png';
 import InfinitySmall from './../img/InfinitySmall.png';
-import LightDarkThemeImg from './LightDarkThemeImg';
+import ThemeImg from './ThemeImg';
 
 const SignIn = () => {
 	const auth = getAuth(firebaseApp);
@@ -115,7 +115,7 @@ const SignIn = () => {
 			<div className='flex'>
 				<div className='w-40 h-20 place-self-end border-dashed overflow-hidden border-base-content border-l-2 border-b-2 rounded-bl-lg '>
 					{/* TODO: ANIMATED DRAWING LOGO HERE */}
-					<LightDarkThemeImg
+					<ThemeImg
 						className='h-40 w-48 relative -top-4 -left-8'
 						light={InfinitySmall}
 						dark={InfinitySmallDark}

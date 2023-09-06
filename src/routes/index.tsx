@@ -118,13 +118,8 @@ const Main = () => {
 					<p className='text-sky-500'>PROJEKT</p>
 					<div className='overflow-hidden lg:h-60 px-2'>
 						<ThemeImg
-							options={{
-								emerald: InfinitySmallDark,
-								dark: InfinitySmall,
-								halloween: InfinitySmall,
-								valentine: InfinitySmallDark,
-								default: InfinitySmall,
-							}}
+							light={InfinitySmallDark}
+							dark={InfinitySmall}
 							className='h-40 md:h-60 lg:h-80 lg:-translate-y-[12%] drop-shadow-[0_0_10px_#47556980]'
 						/>
 					</div>

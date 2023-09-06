@@ -1,11 +1,10 @@
 import { useRef, useState } from 'react';
 
-import ThemeImg from './LightDarkThemeImg';
-
 import Infinity from '../img/Infinity.png';
 import InfinityDark from '../img/Infinity-dark.png';
 
 import { PiFileDoc } from 'react-icons/pi';
+import ThemeImg from './ThemeImg';
 
 const Footer = () => {
 	const ref = useRef<HTMLDivElement>(null);
