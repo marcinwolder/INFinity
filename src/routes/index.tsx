@@ -169,7 +169,7 @@ const Main = () => {
 						{
 							title: 'Matura',
 							description:
-								'Maturę możesz rozwiązać w przeglądarce, zobaczyć sposób rozwiązania oraz poprawność swojej odpowiedzi.',
+								'Przygotowane zadania możesz rozwiązywać w przeglądarce a następnie sprawdzic poprawność odpowiedzi lub obejrzeć wideo z rozwiązaniem.',
 							stats: `${examCount}x`,
 						},
 						{
@@ -261,8 +261,8 @@ const Main = () => {
 								<p className='text-3xl my-2'>Kurs Access</p>
 								<p className='indent-2 my-2'>
 									W tym kursie poznasz składnię oraz{' '}
-									<b>zasady budowania zapytań SQL</b> oraz poznasz budowę bazy
-									danych.
+									<b>zasady budowania zapytań SQL</b> (AccessSQL) oraz dowiesz
+									się ważnych rzeczy o bazach danych.
 								</p>
 								<p className='indent-2 my-2'>
 									Nauczysz się także wynajdywać potrzebne do odpowiedzi krotki z
@@ -283,8 +283,7 @@ const Main = () => {
 								<p className='indent-2 my-2'>
 									Poznasz sposoby{' '}
 									<b>planowania oraz realizacji programowania algorytmów</b> a
-									także dowiesz się jak poprawnie analizować działanie
-									algorytmów.
+									także dowiesz się jak poprawnie analizować ich działanie.
 								</p>
 							</div>
 							<div className='relative shrink-0'>

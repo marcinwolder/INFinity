@@ -165,7 +165,7 @@ const SignUp = () => {
 				</div>
 				<button
 					disabled={disabled}
-					className='btn btn-primary block w-28 md:w-36 ml-auto mr-4 mb-4 mt-8'
+					className='btn btn-primary block w-max md:w-36 ml-auto mr-4 mb-4 mt-8'
 					onClick={onConfirm}>
 					{!disabled ? (
 						'Zarejestruj'

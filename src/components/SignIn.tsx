@@ -123,7 +123,7 @@ const SignIn = () => {
 				</div>
 				<button
 					disabled={disabled}
-					className='btn w-28 md:w-36 btn-primary block ml-auto mr-4 mb-4 mt-8'
+					className='btn w-max md:w-36 btn-primary block ml-auto mr-4 mb-4 mt-8'
 					onClick={onSubmit}>
 					{!disabled ? (
 						'Zaloguj'
