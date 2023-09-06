@@ -28,10 +28,10 @@ function App() {
 		dispatch(pathSlice.actions.updatePath());
 	}, [location, dispatch]);
 	useLayoutEffect(() => {
-		// const date = new Date('February 14, 08 12:34:51'); //valentine's day
+		const date = new Date('February 14, 08 12:34:51'); //valentine's day
 		// const date = new Date('October 31, 08 21:34:51'); //halloween
 		// const date = new Date('February 14, 08 21:34:51'); //halloween
-		const date = new Date();
+		// const date = new Date();
 
 		const hour = date.getHours();
 		const day = date.getDate();
