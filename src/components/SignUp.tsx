@@ -11,6 +11,7 @@ import {
 	createUserWithEmailAndPassword,
 	updateProfile,
 	signInWithEmailAndPassword,
+	sendEmailVerification,
 } from 'firebase/auth';
 import { useDisclosure } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
@@ -86,14 +87,9 @@ const SignUp = () => {
 						});
 					})
 					.then(() => {
+						if (firebaseAuth.currentUser)
+							sendEmailVerification(firebaseAuth.currentUser);
 						firebaseAuth.signOut();
-					})
-					.then(() => {
-						signInWithEmailAndPassword(
-							firebaseAuth,
-							formEl.values.email,
-							formEl.values.password
-						);
 					})
 					.then(() => {
 						modals.close('signUpModal');
@@ -105,8 +101,7 @@ const SignUp = () => {
 									color='green'
 									radius='md'
 									title='Rejestracja przebiegła pomyślnie!'>
-									Teraz możesz korzystać ze wszystkich funkcji w projekcie
-									INFinity.
+									Sprawdź skrzynkę pocztową i potwierdź swojego maila!
 								</Notification>
 							</AnimatedToast>
 						);

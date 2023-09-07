@@ -7,9 +7,10 @@ import SignIn from './SignIn';
 import { firebaseAuth } from '../main';
 import { Auth } from 'firebase/auth';
 import { useEffect, useRef, useState } from 'react';
-import { BiExit, BiUser } from 'react-icons/bi';
+import { BiBook, BiExit, BiUser } from 'react-icons/bi';
 import { useForceUpdate } from '@mantine/hooks';
 import ThemeImg from './ThemeImg';
+import { Link } from 'react-router-dom';
 
 const AuthComp = () => {
 	const forceUpdate = useForceUpdate();
@@ -77,7 +78,7 @@ const AuthComp = () => {
 		});
 
 	return auth?.currentUser ? (
-		<div ref={ref} className='dropdown dropdown-end'>
+		<div ref={ref} className='dropdown dropdown-end test'>
 			<label
 				tabIndex={0}
 				className='relative btn flex items-center gap-2 px-2 overflow-hidden justify-start flex-nowrap max-w-[7rem] md:max-w-none'>
@@ -89,10 +90,23 @@ const AuthComp = () => {
 			</label>
 			<ul
 				tabIndex={0}
-				className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'>
+				className='dropdown-content  menu p-2 shadow bg-base-100 rounded-box w-52'>
 				<li>
-					<a
-						onClick={() => {
+					<Link
+						to={'/panel'}
+						onClick={(e) => e.currentTarget.blur()}
+						className='flex justify-between'>
+						Panel kursów
+						<span>
+							<BiBook />
+						</span>
+					</Link>
+				</li>
+				<li>
+					<Link
+						to={'/'}
+						onClick={(e) => {
+							e.currentTarget.blur();
 							auth.signOut();
 						}}
 						className='flex justify-between'>
@@ -100,7 +114,7 @@ const AuthComp = () => {
 						<span>
 							<BiExit />
 						</span>
-					</a>
+					</Link>
 				</li>
 			</ul>
 		</div>

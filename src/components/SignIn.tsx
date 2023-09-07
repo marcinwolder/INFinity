@@ -6,7 +6,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { modals } from '@mantine/modals';
 import { toast } from 'react-hot-toast';
 
-import { firebaseApp } from '../main';
+import { firebaseApp, firebaseAuth } from '../main';
 import AnimatedToast from './AnimatedToast';
 
 import InfinitySmallDark from './../img/InfinitySmall-dark.png';
@@ -57,18 +57,34 @@ const SignIn = () => {
 			)
 				.then(() => {
 					modals.close('signInModal');
-					toast.custom(
-						<AnimatedToast>
-							<Notification
-								withCloseButton={false}
-								withBorder
-								color='green'
-								radius='md'
-								title='Zostałeś pomyślnie zalogowany!'>
-								Witamy ponownie 😀
-							</Notification>
-						</AnimatedToast>
-					);
+					if (firebaseAuth.currentUser?.emailVerified)
+						toast.custom(
+							<AnimatedToast>
+								<Notification
+									withCloseButton={false}
+									withBorder
+									color='green'
+									radius='md'
+									title='Zostałeś pomyślnie zalogowany!'>
+									Witamy ponownie 😀
+								</Notification>
+							</AnimatedToast>
+						);
+					else {
+						toast.custom(
+							<AnimatedToast>
+								<Notification
+									withCloseButton={false}
+									withBorder
+									color='red'
+									radius='md'
+									title='Zweryfikuj swojego maila!'>
+									Sprawdź skrzynke pocztową i kliknij w link weryfikacyjny.
+								</Notification>
+							</AnimatedToast>
+						);
+						firebaseAuth.signOut();
+					}
 				})
 				.catch((e) => {
 					if (

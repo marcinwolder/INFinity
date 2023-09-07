@@ -81,6 +81,7 @@ const Main = () => {
 	const codeRef1 = useRef<HTMLDivElement>(null);
 	const codeRef2 = useRef<HTMLDivElement>(null);
 
+	//TODO: Icon change not working - fix
 	const prevIcon = useRef('.');
 	const icon = useThemeBasedValue({
 		halloween: '🎃',

@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 import { MenuProvider } from './context/menuContext';
 import App from './App';
-import NotFound from './routes/NotFound';
+import NotFound from './routes/PageError';
 import Main from './routes';
 
 import ExamPicker from './components/ExamPicker';
@@ -22,7 +22,10 @@ import Kursy from './routes/Kursy';
 import MantineProvider from './components/MantineProvider';
 
 import { initializeApp } from 'firebase/app';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import Panel from './routes/Panel';
+import jwtDecode from 'jwt-decode';
 
 document.dispatchEvent(
 	new CustomEvent('py-status-message', {
@@ -87,6 +90,44 @@ const router = createHashRouter([
 						},
 					},
 				],
+			},
+			{
+				path: '/panel',
+				loader: async () => {
+					await new Promise((resolve, reject) => {
+						const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
+							unsubscribe();
+							resolve(user);
+						}, reject);
+					});
+
+					const user = firebaseAuth.currentUser;
+					if (!user)
+						throw new Error(
+							'Musisz być zalogowany aby uzyskać dostęp do tej strony'
+						);
+
+					const firestore = getFirestore();
+
+					const userToken = await user.getIdToken();
+					const userData = jwtDecode<{ user_id: string }>(userToken);
+
+					const currentUserDocRef = doc(firestore, `users/${userData.user_id}`);
+					const testUserDocRef = doc(firestore, `users/testUser`);
+
+					const [currentUserDoc, testUserDoc] = await Promise.all([
+						getDoc(currentUserDocRef),
+						getDoc(testUserDocRef),
+					]);
+
+					const userDoc = currentUserDoc.exists()
+						? currentUserDoc
+						: testUserDoc;
+					console.log(userDoc.data());
+
+					return {};
+				},
+				element: <Panel />,
 			},
 			{
 				path: '/kursy',
