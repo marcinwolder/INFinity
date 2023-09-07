@@ -1,5 +1,5 @@
 import Navbar from './components/Navbar';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { themeChange } from 'theme-change';
 import { Outlet, useLocation } from 'react-router-dom';
 
@@ -12,8 +12,12 @@ import Breadcrumps from './components/Breadcrumps';
 import { Toaster } from 'react-hot-toast';
 import Footer from './components/Footer';
 import { useWindowScroll } from '@mantine/hooks';
+import JumpToStart from './components/JumpToStart';
 
 function App() {
+	const footerRef = useRef<HTMLDivElement>(null);
+	const [footerH, setFooterH] = useState('');
+
 	const location = useLocation();
 	const dispatch = useDispatch();
 
@@ -21,7 +25,21 @@ function App() {
 	const [_, scroll] = useWindowScroll();
 
 	useEffect(() => {
-		scroll({ y: 0 });
+		const cb = () => {
+			if (footerRef.current) {
+				setFooterH(window.getComputedStyle(footerRef.current).height);
+			}
+		};
+		if (footerRef.current) {
+			setFooterH(window.getComputedStyle(footerRef.current).height);
+		}
+		window.addEventListener('resize', cb);
+		return () => {
+			window.removeEventListener('resize', cb);
+		};
+	}, []);
+	useEffect(() => {
+		// scroll({ y: 0 });
 		themeChange(false);
 	}, [scroll]);
 	useEffect(() => {
@@ -58,15 +76,17 @@ function App() {
 		<>
 			<div className='drawer'>
 				<MenuCheckbox />
-				<div className='drawer-content'>
+				<div className='drawer-content min-h-screen relative'>
 					<header className='sticky mt-1 top-0 z-10'>
 						<Navbar />
 					</header>
 					<main className='artboard gap-4 flex flex-col items-center relative'>
 						<Breadcrumps />
+						<JumpToStart />
 						<Outlet />
 					</main>
-					<footer>
+					<div style={{ height: footerH }} className='w-full' />
+					<footer ref={footerRef} className='absolute bottom-0 w-full '>
 						<Footer />
 					</footer>
 				</div>

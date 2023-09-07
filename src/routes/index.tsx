@@ -24,6 +24,7 @@ import kursAlgo from './../img/kursy/kurs-algo.png';
 import { Link } from 'react-router-dom';
 
 import AnimatedPath from './components/AnimatedPath';
+import { Skeleton } from '@mantine/core';
 
 let scrollValue = 0;
 
@@ -141,7 +142,7 @@ const Main = () => {
 				</div>
 			</MainDiv>
 
-			<div className='flex flex-col items-center gap-2 bg-base-200 relative mt-16 px-4'>
+			<div className='flex flex-col items-center gap-2 bg-base-200 relative mt-16 px-4 border-b-8 border-base-300 pb-16'>
 				<BottomCurveDiv className='w-full h-32 bg-inherit absolute -translate-y-16 rounded-t-[100%] -z-10 border-t-8 border-base-300' />
 				<BottomShadowDiv className='fixed bottom-0 w-full brightness-75 h-40 bg-gradient-to-t from-base-300' />
 				<div className='btn-group btn-group-vertical md:btn-group-horizontal -translate-y-1/2 drop-shadow-lg'>
@@ -302,6 +303,30 @@ const Main = () => {
 						</section>
 					</AnimatedImg>
 				</div>
+			</div>
+			<div className='p-2 flex flex-col items-center justify-center relative'>
+				<div className='my-8'>
+					<p className='text-3xl'>Nie wiesz czy spodoba Ci się kurs?</p>
+					<p className='text-xl'>
+						Sprawdź <span className='text-secondary'>darmowe odcinki</span>{' '}
+						dostępne w panelu kursów.
+					</p>
+					<p className='text-xs opacity-50'>
+						* Panel z kursami dostępny jest po zalogowaniu na stronie.
+					</p>
+					<p className='text-xs opacity-50'>
+						** Wyróżnione poniżej wykłady to jedynie pare darmowych filmów -
+						zaloguj się po więcej.
+					</p>
+				</div>
+				<Skeleton
+					className='drop-shadow-md my-4 w-full md:w-1/2 h-56 md:h-[30rem]'
+					visible
+					animate={false}></Skeleton>
+				<Skeleton
+					className='drop-shadow-md my-4 w-full md:w-1/2 h-56 md:h-[30rem]'
+					visible
+					animate={false}></Skeleton>
 			</div>
 		</div>
 	);

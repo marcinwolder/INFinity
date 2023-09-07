@@ -10,7 +10,6 @@ import {
 	getAuth,
 	createUserWithEmailAndPassword,
 	updateProfile,
-	signInWithEmailAndPassword,
 	sendEmailVerification,
 } from 'firebase/auth';
 import { useDisclosure } from '@mantine/hooks';

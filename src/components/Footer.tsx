@@ -21,14 +21,12 @@ const Footer = () => {
 	});
 	observer.observe(document.documentElement, { attributes: true });
 
-	// TODO: Footer has hardcoded bg color on wave element - must be fixed
-
 	return (
-		<>
+		<div>
 			<svg
 				xmlns='http://www.w3.org/2000/svg'
 				viewBox='0 0 1440 320'
-				className='bg-base-200'>
+				className=''>
 				<path
 					fill={base300}
 					fillOpacity='1'
@@ -59,7 +57,7 @@ const Footer = () => {
 					<ThemeImg className='w-36 ' dark={Infinity} light={InfinityDark} />
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 export default Footer;
