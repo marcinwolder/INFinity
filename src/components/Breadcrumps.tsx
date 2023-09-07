@@ -5,7 +5,7 @@ import _ from 'lodash';
 const useCreateBreadcrumbs = () => {
 	const path = usePathElements() as string[];
 
-	if (_.last(path) === '/') return <></>;
+	if (_.last(path) === '/' || _.last(path) === '/panel') return <></>;
 
 	return path.map((pathBlock, index) => {
 		if (index < 1 || index === path.length - 1) {

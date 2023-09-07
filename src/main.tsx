@@ -123,9 +123,8 @@ const router = createHashRouter([
 					const userDoc = currentUserDoc.exists()
 						? currentUserDoc
 						: testUserDoc;
-					console.log(userDoc.data());
 
-					return {};
+					return userDoc.data();
 				},
 				element: <Panel />,
 			},

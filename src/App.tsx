@@ -6,7 +6,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { MenuCheckbox } from './context/menuContext';
 import Menu from './components/Menu';
 import { useDispatch } from 'react-redux';
-import { pathSlice } from './redux/slices/pathSlice';
+import { pathSlice, usePathElements } from './redux/slices/pathSlice';
 import Breadcrumps from './components/Breadcrumps';
 
 import { Toaster } from 'react-hot-toast';
@@ -16,6 +16,8 @@ import JumpToStart from './components/JumpToStart';
 
 function App() {
 	const footerRef = useRef<HTMLDivElement>(null);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [__, pathChange] = usePathElements();
 	const [footerH, setFooterH] = useState('');
 
 	const location = useLocation();
@@ -30,16 +32,15 @@ function App() {
 				setFooterH(window.getComputedStyle(footerRef.current).height);
 			}
 		};
-		if (footerRef.current) {
-			setFooterH(window.getComputedStyle(footerRef.current).height);
-		}
+		cb();
 		window.addEventListener('resize', cb);
 		return () => {
 			window.removeEventListener('resize', cb);
 		};
-	}, []);
+	}, [pathChange]);
+
 	useEffect(() => {
-		// scroll({ y: 0 });
+		scroll({ y: 0 });
 		themeChange(false);
 	}, [scroll]);
 	useEffect(() => {

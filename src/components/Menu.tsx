@@ -10,7 +10,7 @@ const useMarkSelect = (elements: React.ReactElement) => {
 			values.push(
 				<li
 					key={element.props.url}
-					className='bordered bg-base-200 rounded-r-lg'>
+					className='bordered bg-base-200 rounded-r-lg border-l-secondary border-l-2'>
 					{element}
 				</li>
 			);
@@ -36,17 +36,17 @@ const Menu = () => {
 				</>
 			)}
 			<li className='menu-title py-2'>
-				<span>O MATURZE</span>
+				<span>INNE</span>
 			</li>
-			<li>
-				<MenuLink url='/material'>
-					Materiał
-					<span className='badge badge-outline'>Aktualizacja 2023</span>
-				</MenuLink>
-			</li>
-			<li>
-				<MenuLink url='/wybor-jezyka'>Języki Programowania</MenuLink>
-			</li>
+			{useMarkSelect(
+				<>
+					<MenuLink url='/material'>
+						Materiał
+						<span className='badge badge-outline'>Aktualizacja 2023</span>
+					</MenuLink>
+					<MenuLink url='/kursy'>Oferta kursów</MenuLink>
+				</>
+			)}
 		</ul>
 	);
 };
