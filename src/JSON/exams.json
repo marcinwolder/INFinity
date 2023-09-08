@@ -1,14 +1,14 @@
 {
-	"formula-2015": [
-		{
-			"year": "2022",
-			"month": "maj",
-			"tasks": ["Algorytm", "Analiza", "Test", "Python", "Excel", "Access"],
-			"splitParts": true,
-			"title": "Matura",
-			"info": "Pierwszy termin"
-		}
-	],
-	"formula-2023": [],
-	"formula-stara": []
+  "formula-2015": [
+    {
+      "year": "2022",
+      "month": "maj",
+      "tasks": ["Algorytm", "Analiza", "Test", "Python", "Excel", "Access"],
+      "splitParts": true,
+      "title": "Matura",
+      "info": "Pierwszy termin"
+    }
+  ],
+  "formula-2023": [],
+  "formula-stara": []
 }

@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Themes, darkThemeNames } from '../utils/theme';
+import { useState } from "react";
+import { Themes, darkThemeNames } from "../utils/theme";
 
 export type ThemeOptions<T> = {
-	[keys in Themes]?: T;
+  [keys in Themes]?: T;
 } & { default: T };
 
 /**
@@ -18,40 +18,40 @@ function useThemeBasedValue<T>(light: T, dark: T): T;
  */
 function useThemeBasedValue<T>(options: ThemeOptions<T>): T;
 function useThemeBasedValue<T>(
-	...params: [light: T, dark: T] | [options: ThemeOptions<T>]
+  ...params: [light: T, dark: T] | [options: ThemeOptions<T>]
 ) {
-	const getValue = () => {
-		const theme = document.documentElement.getAttribute('data-theme') as Themes;
-		if (params.length === 2) {
-			const [light, dark] = params;
-			const darkTheme = darkThemeNames.find(
-				(validDarkTheme) => validDarkTheme === theme
-			);
-			return darkTheme ? dark : light;
-		} else {
-			const [options] = params;
-			return options[theme] || (options.default as T);
-		}
-	};
+  const getValue = () => {
+    const theme = document.documentElement.getAttribute("data-theme") as Themes;
+    if (params.length === 2) {
+      const [light, dark] = params;
+      const darkTheme = darkThemeNames.find(
+        (validDarkTheme) => validDarkTheme === theme,
+      );
+      return darkTheme ? dark : light;
+    } else {
+      const [options] = params;
+      return options[theme] || (options.default as T);
+    }
+  };
 
-	const [value, setValue] = useState(getValue());
+  const [value, setValue] = useState(getValue());
 
-	const observer = new MutationObserver(function (mutations) {
-		mutations.forEach(function (mutation) {
-			if (
-				mutation.type === 'attributes' &&
-				mutation.attributeName === 'data-theme'
-			) {
-				setValue(getValue());
-			}
-		});
-	});
+  const observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      if (
+        mutation.type === "attributes" &&
+        mutation.attributeName === "data-theme"
+      ) {
+        setValue(getValue());
+      }
+    });
+  });
 
-	observer.observe(document.documentElement, {
-		attributes: true,
-	});
+  observer.observe(document.documentElement, {
+    attributes: true,
+  });
 
-	return value;
+  return value;
 }
 
 export default useThemeBasedValue;

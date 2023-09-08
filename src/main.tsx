@@ -1,157 +1,127 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { createHashRouter, RouterProvider } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { ModalsProvider } from '@mantine/modals';
-import _ from 'lodash';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createHashRouter, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
+import { ModalsProvider } from "@mantine/modals";
+import _ from "lodash";
 
-import { MenuProvider } from './context/menuContext';
-import App from './App';
-import NotFound from './routes/PageError';
-import Main from './routes';
+import { MenuProvider } from "./context/menuContext";
+import App from "./App";
+import NotFound from "./routes/PageError";
+import Main from "./routes";
 
-import ExamPicker from './components/ExamPicker';
-import ExamHub from './components/ExamHub';
+import ExamPicker from "./components/ExamPicker";
+import ExamHub from "./components/ExamHub";
 
-import store from './redux';
-import { ExamData, examsSlice } from './redux/slices/examsSlice';
-import { Formula } from './redux/slices/pathSlice';
+import store from "./redux";
+import { ExamData, examsSlice } from "./redux/slices/examsSlice";
+import { Formula } from "./redux/slices/pathSlice";
 
-import './index.css';
-import Kursy from './routes/Kursy';
-import MantineProvider from './components/MantineProvider';
+import "./index.css";
+import Kursy from "./routes/Kursy";
+import MantineProvider from "./components/MantineProvider";
 
-import { initializeApp } from 'firebase/app';
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import Panel from './routes/Panel';
-import jwtDecode from 'jwt-decode';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import Panel from "./routes/Panel";
+import requireAuth from "./utils/requireAuth";
 
 document.dispatchEvent(
-	new CustomEvent('py-status-message', {
-		detail: 'Pobieranie środowiska Python, proszę czekać',
-	})
+  new CustomEvent("py-status-message", {
+    detail: "Pobieranie środowiska Python, proszę czekać",
+  }),
 );
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyBy93l2PeTDzxNIBF1dKVDI2lryeYiJbuI',
-	authDomain: 'matura-infinity.firebaseapp.com',
-	projectId: 'matura-infinity',
-	storageBucket: 'matura-infinity.appspot.com',
-	messagingSenderId: '848677244645',
-	appId: '1:848677244645:web:6c4dd9feade52eba814e0c',
-	measurementId: 'G-96E0MGJE6E',
+  apiKey: "AIzaSyBy93l2PeTDzxNIBF1dKVDI2lryeYiJbuI",
+  authDomain: "matura-infinity.firebaseapp.com",
+  projectId: "matura-infinity",
+  storageBucket: "matura-infinity.appspot.com",
+  messagingSenderId: "848677244645",
+  appId: "1:848677244645:web:6c4dd9feade52eba814e0c",
+  measurementId: "G-96E0MGJE6E",
 };
 
 export const firebaseApp = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(firebaseApp);
 
 declare global {
-	const pyscript: {
-		interpreter: {
-			globals: {
-				get(query: string): unknown;
-			};
-		};
-	};
+  const pyscript: {
+    interpreter: {
+      globals: {
+        get(query: string): unknown;
+      };
+    };
+  };
 }
 
 export interface ExamPageLoader {
-	currentExam: ExamData;
+  currentExam: ExamData;
 }
 
 const router = createHashRouter([
-	{
-		path: '/',
-		element: <App />,
-		errorElement: <NotFound />,
-		children: [
-			{
-				path: '/:formula',
-				element: <ExamPicker />,
-				loader: async ({ params }) => {
-					store.dispatch(
-						examsSlice.actions.loadExams(params.formula as Formula)
-					);
-					return {};
-				},
-				children: [
-					{
-						path: '/:formula/:yearAndMonth',
-						element: <ExamHub />,
-						loader: async ({ params }) => {
-							const { yearAndMonth } = params;
-							const [year, month] = (yearAndMonth || '').split('-');
-							const currentExam = store
-								.getState()
-								.exams[year].filter((exam) => exam.month === month);
-							if (_.isEmpty(currentExam)) throw new Error();
-							return { currentExam: _.head(currentExam) } as ExamPageLoader;
-						},
-					},
-				],
-			},
-			{
-				path: '/panel',
-				loader: async () => {
-					await new Promise((resolve, reject) => {
-						const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
-							unsubscribe();
-							resolve(user);
-						}, reject);
-					});
-
-					const user = firebaseAuth.currentUser;
-					if (!user)
-						throw new Error(
-							'Musisz być zalogowany aby uzyskać dostęp do tej strony'
-						);
-
-					const firestore = getFirestore();
-
-					const userToken = await user.getIdToken();
-					const userData = jwtDecode<{ user_id: string }>(userToken);
-
-					const currentUserDocRef = doc(firestore, `users/${userData.user_id}`);
-					const testUserDocRef = doc(firestore, `users/testUser`);
-
-					const [currentUserDoc, testUserDoc] = await Promise.all([
-						getDoc(currentUserDocRef),
-						getDoc(testUserDocRef),
-					]);
-
-					const userDoc = currentUserDoc.exists()
-						? currentUserDoc
-						: testUserDoc;
-
-					return userDoc.data();
-				},
-				element: <Panel />,
-			},
-			{
-				path: '/kursy',
-				element: <Kursy />,
-			},
-			{
-				path: '/',
-				element: <Main />,
-			},
-		],
-	},
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <NotFound />,
+    children: [
+      {
+        path: "/:formula",
+        element: <ExamPicker />,
+        loader: async ({ params }) => {
+          store.dispatch(
+            examsSlice.actions.loadExams(params.formula as Formula),
+          );
+          return {};
+        },
+        children: [
+          {
+            path: "/:formula/:yearAndMonth",
+            element: <ExamHub />,
+            loader: async ({ params }) => {
+              const { yearAndMonth } = params;
+              const [year, month] = (yearAndMonth || "").split("-");
+              const currentExam = store
+                .getState()
+                .exams[year].filter((exam) => exam.month === month);
+              if (_.isEmpty(currentExam)) throw new Error();
+              return { currentExam: _.head(currentExam) } as ExamPageLoader;
+            },
+          },
+        ],
+      },
+      {
+        path: "/panel",
+        loader: async () => {
+          await requireAuth();
+          return {};
+        },
+        element: <Panel />,
+      },
+      {
+        path: "/kursy",
+        element: <Kursy />,
+      },
+      {
+        path: "/",
+        element: <Main />,
+      },
+    ],
+  },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<>
-		<React.StrictMode>
-			<MantineProvider>
-				<ModalsProvider>
-					<Provider store={store}>
-						<MenuProvider>
-							<RouterProvider router={router} />
-						</MenuProvider>
-					</Provider>
-				</ModalsProvider>
-			</MantineProvider>
-		</React.StrictMode>
-	</>
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <>
+    <React.StrictMode>
+      <MantineProvider>
+        <ModalsProvider>
+          <Provider store={store}>
+            <MenuProvider>
+              <RouterProvider router={router} />
+            </MenuProvider>
+          </Provider>
+        </ModalsProvider>
+      </MantineProvider>
+    </React.StrictMode>
+  </>,
 );

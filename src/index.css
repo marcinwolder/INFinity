@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 .theme-selected {
-	@apply mb-1;
-	@apply border;
-	@apply border-current;
+  @apply mb-1;
+  @apply border;
+  @apply border-current;
 }
 
 .eo {
-	filter: drop-shadow(0 -10px calc(1 * 10px) hsl(var(--b3)));
+  filter: drop-shadow(0 -10px calc(1 * 10px) hsl(var(--b3)));
 }
