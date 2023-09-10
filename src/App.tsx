@@ -1,12 +1,12 @@
 import Navbar from "./components/Navbar";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { themeChange } from "theme-change";
 import { Outlet, useLocation } from "react-router-dom";
 
 import { MenuCheckbox } from "./context/menuContext";
 import Menu from "./components/Menu";
 import { useDispatch } from "react-redux";
-import { pathSlice, usePathElements } from "./redux/slices/pathSlice";
+import { pathSlice } from "./redux/slices/pathSlice";
 import Breadcrumps from "./components/Breadcrumps";
 
 import { Toaster } from "react-hot-toast";
@@ -15,29 +15,11 @@ import { useWindowScroll } from "@mantine/hooks";
 import JumpToStart from "./components/JumpToStart";
 
 function App() {
-  const footerRef = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [__, pathChange] = usePathElements();
-  const [footerH, setFooterH] = useState("");
-
   const location = useLocation();
   const dispatch = useDispatch();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, scroll] = useWindowScroll();
-
-  useEffect(() => {
-    const cb = () => {
-      if (footerRef.current) {
-        setFooterH(window.getComputedStyle(footerRef.current).height);
-      }
-    };
-    cb();
-    window.addEventListener("resize", cb);
-    return () => {
-      window.removeEventListener("resize", cb);
-    };
-  }, [pathChange]);
 
   useEffect(() => {
     scroll({ y: 0 });
@@ -77,7 +59,7 @@ function App() {
     <>
       <div className="drawer">
         <MenuCheckbox />
-        <div className="drawer-content relative min-h-screen">
+        <div className="drawer-content relative flex min-h-screen flex-col">
           <header className="sticky top-0 z-10 mt-1">
             <Navbar />
           </header>
@@ -86,8 +68,7 @@ function App() {
             <JumpToStart />
             <Outlet />
           </main>
-          <div style={{ height: footerH }} className="w-full" />
-          <footer ref={footerRef} className="absolute bottom-0 w-full ">
+          <footer className="mt-auto">
             <Footer />
           </footer>
         </div>
