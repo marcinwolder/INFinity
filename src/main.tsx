@@ -26,6 +26,8 @@ import { getAuth } from "firebase/auth";
 import Panel from "./routes/Panel";
 import requireAuth from "./utils/requireAuth";
 
+window.sessionStorage.removeItem("python");
+
 document.dispatchEvent(
   new CustomEvent("py-status-message", {
     detail: "Pobieranie środowiska Python, proszę czekać",
@@ -54,7 +56,6 @@ declare global {
     };
   };
 }
-
 export interface ExamPageLoader {
   currentExam: ExamData;
 }

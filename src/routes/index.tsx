@@ -305,7 +305,7 @@ const Main = () => {
           </AnimatedImg>
         </div>
       </div>
-      <div className="relative flex flex-col items-center justify-center p-2">
+      <div className="relative flex flex-col items-center justify-center p-4">
         <div className="my-8">
           <p className="text-3xl">Nie wiesz czy spodoba Ci się kurs?</p>
           <p className="text-xl">
@@ -321,12 +321,14 @@ const Main = () => {
           </p>
         </div>
         <Skeleton
-          className="my-4 h-56 w-full drop-shadow-md md:h-[30rem] md:w-1/2"
+          style={{ aspectRatio: "16 / 9" }}
+          className="my-4 w-full drop-shadow-md lg:w-3/4"
           visible
           animate={false}
         ></Skeleton>
         <Skeleton
-          className="my-4 h-56 w-full drop-shadow-md md:h-[30rem] md:w-1/2"
+          style={{ aspectRatio: "16 / 9" }}
+          className="my-4 w-full drop-shadow-md lg:w-3/4"
           visible
           animate={false}
         ></Skeleton>

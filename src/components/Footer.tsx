@@ -1,23 +1,73 @@
 import { useRef, useState } from "react";
 
-import Infinity from "../img/Infinity.png";
-import InfinityDark from "../img/Infinity-dark.png";
-
 import { PiFileDoc } from "react-icons/pi";
-import ThemeImg from "./ThemeImg";
 import classNames from "classnames";
 import { usePathElements } from "../redux/slices/pathSlice";
 import { last } from "lodash";
 
+const InfinityGhost: React.FC<{ fill: string; className?: string }> = ({
+  fill,
+  className,
+}) => {
+  return (
+    <svg
+      className={className}
+      width="1024"
+      height="393"
+      viewBox="0 0 1024 393"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M99.16 88.06H72.01V277.7H99.16V88.06Z" fill={fill} />
+      <path
+        d="M471.03 277.69H498.18V189.32H572.16V165.16H498.18V112.22H572.16V88.06H471.03V277.69Z"
+        fill={fill}
+      />
+      <path
+        d="M618.15 144.73C616.734 144.731 615.334 145.026 614.038 145.596C612.742 146.165 611.578 146.998 610.62 148.04C609.591 149.016 608.771 150.192 608.211 151.495C607.651 152.798 607.361 154.201 607.36 155.62C607.354 157.056 607.639 158.478 608.2 159.8C608.76 161.122 609.584 162.316 610.62 163.31C611.578 164.352 612.742 165.185 614.038 165.754C615.334 166.324 616.734 166.619 618.15 166.62C619.61 166.64 621.059 166.362 622.407 165.801C623.756 165.24 624.975 164.41 625.99 163.36C627.033 162.361 627.86 161.158 628.421 159.827C628.982 158.496 629.264 157.064 629.25 155.62C629.276 154.175 629 152.741 628.438 151.41C627.877 150.079 627.043 148.88 625.99 147.89C624.961 146.865 623.737 146.058 622.39 145.515C621.044 144.972 619.602 144.705 618.15 144.73Z"
+        fill={fill}
+      />
+      <path d="M627.52 184.13H608.99V277.8H627.52V184.13Z" fill={fill} />
+      <path
+        d="M717.31 186.83C712.399 183.836 706.752 182.268 701 182.3C690.48 182.3 681.08 186.88 672.8 196.04V184.13H653.88V277.79H672.82V210.91C678.927 202.15 686.36 197.77 695.12 197.77C701.967 197.77 706.853 199.823 709.78 203.93C712.707 208.037 714.167 214.877 714.16 224.45V277.79H732.69V224.24C732.69 212.84 731.383 204.507 728.77 199.24C726.239 194.076 722.256 189.763 717.31 186.83Z"
+        fill={fill}
+      />
+      <path d="M777.48 184.13H758.95V277.8H777.48V184.13Z" fill={fill} />
+      <path
+        d="M768.12 144.73C766.703 144.732 765.301 145.027 764.004 145.596C762.706 146.166 761.54 146.998 760.58 148.04C759.553 149.018 758.734 150.194 758.174 151.496C757.614 152.799 757.323 154.202 757.32 155.62C757.316 157.056 757.603 158.477 758.163 159.799C758.723 161.12 759.546 162.315 760.58 163.31C761.54 164.352 762.706 165.184 764.004 165.754C765.301 166.323 766.703 166.618 768.12 166.62C769.58 166.639 771.028 166.36 772.377 165.799C773.725 165.239 774.944 164.409 775.96 163.36C777.002 162.36 777.827 161.158 778.386 159.826C778.945 158.495 779.226 157.064 779.21 155.62C779.238 154.176 778.963 152.742 778.404 151.411C777.844 150.079 777.012 148.88 775.96 147.89C774.931 146.866 773.707 146.059 772.36 145.516C771.013 144.973 769.572 144.706 768.12 144.73Z"
+        fill={fill}
+      />
+      <path
+        d="M825.94 246.67V200.83H855.57V184.13H825.94V164.79L791.12 199V200.84H807.41V242.37C807.41 250.857 807.8 256.61 808.58 259.63C809.183 262.204 810.164 264.674 811.49 266.96C812.672 268.848 814.147 270.536 815.86 271.96C821.5 276.92 828.56 279.397 837.04 279.39C845.203 279.456 853.242 277.388 860.36 273.39V256.11C852.96 260.517 845.933 262.723 839.28 262.73C830.393 262.73 825.947 257.377 825.94 246.67Z"
+        fill={fill}
+      />
+      <path
+        d="M931.2 184.13L906.97 237.04L881.67 184.13H860.56L896.73 257.68L864.94 325.54H885.62L951.99 184.13H931.2Z"
+        fill={fill}
+      />
+      <path
+        d="M369.9 88.19C345.9 88.19 321.56 102.7 295.46 132.56C294.127 134.08 292.793 135.64 291.46 137.24L291.4 129.8L291.28 114.1L280.28 125.29L274.28 131.39C248.57 102.33 224.55 88.19 200.87 88.19C176.28 88.19 155.87 97.59 141.87 115.37C128.33 132.51 121.17 157.21 121.17 186.77C121.17 215.87 128.4 240.17 142.07 257.04C156.19 274.48 176.71 283.69 201.4 283.69C225.32 283.69 249.55 269.48 275.5 240.23C278.11 237.29 280.74 234.23 283.37 230.96L283.44 239.88L283.56 255.59L294.56 244.39L296.94 241.98C322.29 269.98 346.04 283.69 369.47 283.69C394.16 283.69 414.68 274.48 428.8 257.04C442.47 240.17 449.7 215.87 449.7 186.77C449.7 157.21 442.54 132.51 429 115.37C414.91 97.59 394.49 88.19 369.9 88.19ZM226.81 223.52C213.81 236.24 204.98 240.76 201.33 240.76C173.08 240.76 170.89 199.44 170.89 186.76C170.89 173.71 173.05 131.11 200.89 131.11C207.28 131.11 223.5 143.56 241.16 165.05L238.06 168.2L227 179.4L242.71 179.28L251.98 179.21C253.71 181.63 255.44 184.11 257.16 186.69C248.218 199.889 238.057 212.22 226.81 223.52ZM369.42 240.76C365.77 240.76 356.91 236.24 343.94 223.52C339.37 219.04 334.66 213.89 330 208.34L336.76 201.48L347.76 190.28L332.05 190.41L316.25 190.53C315.343 189.25 314.45 187.97 313.57 186.69C336.68 152.13 361.57 131.12 369.88 131.12C397.68 131.12 399.88 173.72 399.88 186.77C399.86 199.44 397.67 240.76 369.42 240.76Z"
+        fill={fill}
+      />
+    </svg>
+  );
+};
+
 const Footer = () => {
-  const ref = useRef<HTMLDivElement>(null);
+  const base300Ref = useRef<HTMLDivElement>(null);
+  const baseContentRef = useRef<HTMLParagraphElement>(null);
   const [base300, setBase300] = useState("");
+  const [baseContent, setBaseContent] = useState("");
   const observer = new MutationObserver((mut) => {
     if (mut.length) {
       const mut2 = mut.at(-1) as MutationRecord;
       if (mut2.type === "attributes" && mut2.attributeName === "data-theme") {
-        if (ref.current) {
-          setBase300(window.getComputedStyle(ref.current).backgroundColor);
+        if (base300Ref.current) {
+          setBase300(
+            window.getComputedStyle(base300Ref.current).backgroundColor,
+          );
+        }
+        if (baseContentRef.current) {
+          setBaseContent(window.getComputedStyle(baseContentRef.current).color);
         }
       }
     }
@@ -40,29 +90,35 @@ const Footer = () => {
         </svg>
       </div>
       <div
-        ref={ref}
+        ref={base300Ref}
         className="flex flex-col items-center bg-base-300 md:flex-row md:justify-between"
       >
         <div className="m-4 ml-8">
-          <p className="text-lg font-semibold">Przydatne linki:</p>
-          <ul className="list-inside list-disc">
-            <li>
-              <a
-                target="_blank"
-                href="./regulamin-matura-infinity.docx"
-                className="link-hover link inline-flex items-center gap-2"
-              >
-                Regulamin <PiFileDoc />
-              </a>
-            </li>
-          </ul>
+          {smallFooter || (
+            <>
+              <p className="text-lg font-semibold">Przydatne linki:</p>
+              <ul className="list-inside list-disc">
+                <li>
+                  <a
+                    target="_blank"
+                    href="./regulamin-matura-infinity.docx"
+                    className="link-hover link inline-flex items-center gap-2"
+                  >
+                    Regulamin <PiFileDoc />
+                  </a>
+                </li>
+              </ul>
+            </>
+          )}
         </div>
         <div className="flex items-center gap-2 place-self-center p-4">
           <div className="text-sm">
-            <p className="font-semibold">Kontakt (pon-pt, 8:00-18:00)</p>
+            <p ref={baseContentRef} className="font-semibold">
+              Kontakt (pon-pt, 8:00-18:00)
+            </p>
             <p className="text-xs">email: matura-infinity@gmail.com</p>
           </div>
-          <ThemeImg className="w-36 " dark={Infinity} light={InfinityDark} />
+          <InfinityGhost className="h-min w-36" fill={baseContent} />
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import _ from "lodash";
-import React, { FC, PropsWithChildren, useRef } from "react";
+import React, { FC, PropsWithChildren, useEffect, useRef } from "react";
 import { createContext, useContext, useState } from "react";
 import { TiTick, TiTimes } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,7 @@ import { AiOutlineInfoCircle, AiOutlineFormatPainter } from "react-icons/ai";
 import { VscRunAll } from "react-icons/vsc";
 import { ImPlay3 } from "react-icons/im";
 import { Modal } from "@mantine/core";
+import { Helmet } from "react-helmet";
 
 export interface Answers {
   [keys: number]: string | number | boolean;
@@ -437,8 +438,32 @@ export const TestPython: React.FC<
     setReplSrc(replContent);
   };
 
+  useEffect(() => {
+    const func = async () => {
+      await new Promise((resolve) => {
+        const unsubscribe = setInterval(() => {
+          if (replRef.current?.children[0]) {
+            clearInterval(unsubscribe);
+            resolve(null);
+          }
+        });
+      });
+      getStartBtn().classList.add("hidden");
+    };
+    func();
+  });
+
   return (
     <>
+      {!window.sessionStorage.python && (
+        <Helmet>
+          <link
+            rel="stylesheet"
+            href="https://pyscript.net/latest/pyscript.css"
+          />
+          <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+        </Helmet>
+      )}
       <div>
         <p
           className={classNames("mb-2 text-center text-sm font-semibold", {
@@ -452,7 +477,7 @@ export const TestPython: React.FC<
             tabIndex={0}
             onClick={startClick}
             className={classNames(
-              "absolute z-10 flex h-full w-full items-center justify-center bg-neutral-700 opacity-70 hover:cursor-pointer",
+              "absolute z-[5] flex h-full w-full items-center justify-center bg-neutral-700 opacity-70 hover:cursor-pointer",
               { hidden: !disabled },
             )}
           >
