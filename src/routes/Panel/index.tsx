@@ -1,6 +1,7 @@
 import { Skeleton } from "@mantine/core";
 import { AiFillLock } from "react-icons/ai";
 import { FaPlay } from "react-icons/fa";
+import { TfiVideoClapper } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
 import { Course, useGetUserDocQuery } from "../../redux/apis/userDataApi";
 
@@ -91,25 +92,22 @@ const Panel = () => {
         style={{}}
         animate={false}
         className="mx-auto max-h-full w-[calc(100%-32rem)]"
-        visible={false}
       >
-        {/* <span className="absolute inset-0 z-20 flex animate-pulse items-center justify-center text-[12rem] text-neutral-500 opacity-25">
+        <span className="absolute inset-0 z-20 flex animate-pulse items-center justify-center text-[12rem] text-neutral-500 opacity-25">
           <TfiVideoClapper />
-        </span> */}
+        </span>
         <div style={{ position: "relative", paddingTop: "56.25%" }}>
           <iframe
-            src="https://iframe.mediadelivery.net/embed/154249/a8ef6281-cac8-4063-aa3e-9ad7a7033c6c?autoplay=false&loop=false&muted=false&preload=true"
             loading="lazy"
             style={{
-              background: "transparent",
-              border: 0,
+              border: "0",
               position: "absolute",
-              top: 0,
+              top: "0",
               height: "100%",
               width: "100%",
             }}
             allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
-            allowFullScreen={true}
+            allowFullScreen
           ></iframe>
         </div>
       </Skeleton>
