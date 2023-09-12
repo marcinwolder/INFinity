@@ -12,8 +12,6 @@ const InfinityGhost: React.FC<{ fill: string; className?: string }> = ({
   return (
     <svg
       className={className}
-      width="1024"
-      height="393"
       viewBox="0 0 1024 393"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -79,7 +77,7 @@ const Footer = () => {
 
   return (
     <div>
-      <div className={classNames({ hidden: smallFooter })}>
+      <div className={classNames("translate-y-1", { hidden: smallFooter })}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
           <path
             fill={base300}
@@ -91,7 +89,7 @@ const Footer = () => {
       </div>
       <div
         ref={base300Ref}
-        className="flex flex-col items-center bg-base-300 md:flex-row md:justify-between"
+        className="flex flex-col items-center justify-end bg-base-300 md:flex-row md:justify-between"
       >
         <div className="m-4 ml-8">
           {smallFooter || (
