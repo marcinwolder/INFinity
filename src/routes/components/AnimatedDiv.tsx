@@ -25,7 +25,12 @@ const AnimatedDiv: React.FC<React.PropsWithChildren<{ x: number }>> = ({
   return (
     <motion.div
       animate={control}
-      transition={{ delay: 0.1, duration: 0.5 }}
+      transition={{
+        delay: 0.1,
+        duration: 0.5,
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      }}
       initial="hidden"
       variants={variant}
       ref={ref}

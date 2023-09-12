@@ -25,8 +25,14 @@ import { Link } from "react-router-dom";
 
 import AnimatedPath from "./components/AnimatedPath";
 import { Skeleton } from "@mantine/core";
+import { Variants, motion } from "framer-motion";
 
 let scrollValue = 0;
+
+const pVariants: Variants = {
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+  hidden: { opacity: 0.7, scale: 0.8 },
+};
 
 const MainDiv = styled.div.attrs(() => {
   return {
@@ -204,34 +210,38 @@ const Main = () => {
                 />
               </div>
               <div className="p-8 text-lg">
-                <p className="my-2 text-3xl">Kurs Python</p>
-                <p className="my-2 indent-2">
+                <motion.p variants={pVariants} className="my-2 text-3xl">
+                  Kurs Python
+                </motion.p>
+                <motion.p variants={pVariants} className="my-2 indent-2">
                   Oprócz przyśpieszonego kursu składni języka nauczysz się
                   dobrego importu danych i poprawnego wypisywania odpowiedzi.
-                </p>
-                <p className="my-2 indent-2">
+                </motion.p>
+                <motion.p variants={pVariants} className="my-2 indent-2">
                   Dowiesz się jak rozwiązać schematyczne zadania oraz{" "}
                   <b>poznasz tok rozumowania</b> przy tych unikatowych.
-                </p>
+                </motion.p>
               </div>
             </section>
           </AnimatedImg>
           <AnimatedImg x={100}>
             <section className="relative mx-auto flex w-full min-w-min flex-col-reverse items-center text-right md:flex-row md:items-start md:gap-6 lg:w-2/3">
               <div className="p-8 text-lg">
-                <p className="my-2 text-3xl">Kurs Excel</p>
-                <p className="my-2 indent-2">
+                <motion.p variants={pVariants} className="my-2 text-3xl">
+                  Kurs Excel
+                </motion.p>
+                <motion.p variants={pVariants} className="my-2 indent-2">
                   Nauczysz się{" "}
                   <b>
                     formatowania danych, tworzenia wykresów oraz tabel
                     przestawnych
                   </b>
                   .
-                </p>
-                <p className="my-2 indent-2">
+                </motion.p>
+                <motion.p variants={pVariants} className="my-2 indent-2">
                   Poznasz potrzebne Ci formuły oraz przydatne sztuczki dzięki
                   którym wykonasz zadania maturalne jeszcze szybciej.
-                </p>
+                </motion.p>
               </div>
               <div className="relative shrink-0">
                 <img
@@ -261,33 +271,37 @@ const Main = () => {
                 />
               </div>
               <div className="p-8 text-lg">
-                <p className="my-2 text-3xl">Kurs Access</p>
-                <p className="my-2 indent-2">
+                <motion.p variants={pVariants} className="my-2 text-3xl">
+                  Kurs Access
+                </motion.p>
+                <motion.p variants={pVariants} className="my-2 indent-2">
                   W tym kursie poznasz składnię oraz{" "}
                   <b>zasady budowania zapytań SQL</b> (AccessSQL) oraz dowiesz
                   się ważnych rzeczy o bazach danych.
-                </p>
-                <p className="my-2 indent-2">
+                </motion.p>
+                <motion.p variants={pVariants} className="my-2 indent-2">
                   Nauczysz się także wynajdywać potrzebne do odpowiedzi krotki z
                   bazy danych a także jej formatowanie, sortowanie, filtrację i
                   inne.
-                </p>
+                </motion.p>
               </div>
             </section>
           </AnimatedImg>
           <AnimatedImg x={100}>
             <section className="mx-auto flex w-full min-w-min flex-col-reverse items-center text-right md:flex-row md:items-start md:gap-6 lg:w-2/3">
               <div className="p-8 text-lg">
-                <p className="my-2 text-3xl">Kurs Algorytmiki</p>
-                <p className="my-2 indent-2">
+                <motion.p variants={pVariants} className="my-2 text-3xl">
+                  Kurs Algorytmiki
+                </motion.p>
+                <motion.p variants={pVariants} className="my-2 indent-2">
                   Dzięki temu kursowi nauczysz się budowy algorytmów zawartych w
                   podstawie programowej.
-                </p>
-                <p className="my-2 indent-2">
+                </motion.p>
+                <motion.p variants={pVariants} className="my-2 indent-2">
                   Poznasz sposoby{" "}
                   <b>planowania oraz realizacji programowania algorytmów</b> a
                   także dowiesz się jak poprawnie analizować ich działanie.
-                </p>
+                </motion.p>
               </div>
               <div className="relative shrink-0">
                 <img
