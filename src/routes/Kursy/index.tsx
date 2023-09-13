@@ -5,8 +5,10 @@ import kursExcel from "../../img/kursy/kurs-excel.png";
 import kursAccess from "../../img/kursy/kurs-access.png";
 import kursAlgo from "../../img/kursy/kurs-algo.png";
 import { BsArrowBarRight, BsArrowReturnRight } from "react-icons/bs";
+import useHandleStripe from "../../utils/handleStripe";
 
 const Kursy: React.FC = () => {
+  const handleStripe = useHandleStripe();
   return (
     <>
       <div className="mb-16 flex flex-col items-center gap-4 px-4 lg:flex-row lg:items-stretch">
@@ -126,7 +128,10 @@ const Kursy: React.FC = () => {
             <span></span>
             <img className="h-14" src={kursAccess} alt="kursAccess" />
           </div>
-          <button className="btn btn-success btn-sm ml-auto mt-auto block w-24 hover:btn-neutral">
+          <button
+            onClick={() => handleStripe(120, "Zestaw 2in1")}
+            className="btn btn-success btn-sm ml-auto mt-auto block w-24 hover:btn-neutral"
+          >
             Kup
           </button>
         </div>

@@ -26,12 +26,19 @@ import { getAuth } from "firebase/auth";
 import Panel from "./routes/Panel";
 import requireAuth from "./utils/requireAuth";
 
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
 window.sessionStorage.removeItem("python");
 
 document.dispatchEvent(
   new CustomEvent("py-status-message", {
     detail: "Pobieranie środowiska Python, proszę czekać",
   }),
+);
+
+const stripePromise = loadStripe(
+  String(import.meta.env.VITE_STRIPE_PUBLIC_KEY),
 );
 
 const firebaseConfig = {
@@ -114,15 +121,17 @@ const router = createHashRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <>
     <React.StrictMode>
-      <MantineProvider>
-        <ModalsProvider>
-          <Provider store={store}>
-            <MenuProvider>
-              <RouterProvider router={router} />
-            </MenuProvider>
-          </Provider>
-        </ModalsProvider>
-      </MantineProvider>
+      <Elements stripe={stripePromise}>
+        <MantineProvider>
+          <ModalsProvider>
+            <Provider store={store}>
+              <MenuProvider>
+                <RouterProvider router={router} />
+              </MenuProvider>
+            </Provider>
+          </ModalsProvider>
+        </MantineProvider>
+      </Elements>
     </React.StrictMode>
   </>,
 );
