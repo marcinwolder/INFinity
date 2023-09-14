@@ -1,25 +1,19 @@
 import { useStripe } from "@stripe/react-stripe-js";
-import { Course } from "../redux/apis/userDataApi";
-import { PaymentRequestItem } from "@stripe/stripe-js";
+import { firebaseFunctions } from "../main";
+import axios from "axios";
 
 const useHandleStripe = () => {
   const stripe = useStripe();
-  return (
-    totalPrice: number,
-    label: string,
-    itemsWithPrices?: { courseType: Course; name: string; price: number }[],
-  ) => {
-    itemsWithPrices;
-    if (!stripe) return Error("Stripe module error");
-
-    const total: PaymentRequestItem = { amount: totalPrice * 100, label };
-
-    const paymentRequest = stripe.paymentRequest({
-      country: "PL",
-      currency: "pln",
-      total,
+  if (!stripe)
+    return () => {
+      return;
+    };
+  return () => {
+    console.log(firebaseFunctions);
+    const functionsApi = axios.create({
+      baseURL: "http://127.0.0.1:5001/matura-infinity/europe-west2",
     });
-    paymentRequest;
+    functionsApi.get("/helloWorld").then((res) => console.log(res));
   };
 };
 

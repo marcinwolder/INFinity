@@ -28,6 +28,7 @@ import requireAuth from "./utils/requireAuth";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { connectFunctionsEmulator, getFunctions } from "firebase/functions";
 
 window.sessionStorage.removeItem("python");
 
@@ -38,7 +39,9 @@ document.dispatchEvent(
 );
 
 const stripePromise = loadStripe(
-  String(import.meta.env.VITE_STRIPE_PUBLIC_KEY),
+  String(
+    "pk_test_51NmbHKCmcx2Vw4oFKsHq0AxUopH3BXPCU4rIWFei0AHGsf9SPNPqyNndpIoUhipFSK5priKLYfZV628oSCU6fmvD00F5KwxpxF",
+  ),
 );
 
 console.log(import.meta.env);
@@ -55,6 +58,8 @@ const firebaseConfig = {
 
 export const firebaseApp = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(firebaseApp);
+export const firebaseFunctions = getFunctions(firebaseApp);
+connectFunctionsEmulator(firebaseFunctions, "127.0.0.1", 5001);
 
 declare global {
   const pyscript: {
