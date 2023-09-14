@@ -3,7 +3,7 @@ import { AiFillLock } from "react-icons/ai";
 import { FaPlay } from "react-icons/fa";
 import { TfiVideoClapper } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
-import { Course, useGetUserDocQuery } from "../../redux/apis/userDataApi";
+import { useGetUserDocQuery } from "../../redux/apis/userDataApi";
 
 const TestCourses = () => {
   return (
@@ -75,7 +75,7 @@ const Panel = () => {
         <p className="font-mono font-semibold">Dostępne Kursy:</p>
         <div className="my-2 h-[calc(100%-2rem)] overflow-y-scroll pr-4">
           {isSuccess ? (
-            data.courses[0] && data.courses[0] === Course.test ? (
+            data.courses[0] && data.courses[0] === "__test__" ? (
               <TestCourses />
             ) : (
               <></>

@@ -23,31 +23,24 @@ import MantineProvider from "./components/MantineProvider";
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
+
 import Panel from "./routes/Panel";
 import requireAuth from "./utils/requireAuth";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { connectFunctionsEmulator, getFunctions } from "firebase/functions";
 
 window.sessionStorage.removeItem("python");
 
-document.dispatchEvent(
-  new CustomEvent("py-status-message", {
-    detail: "Pobieranie środowiska Python, proszę czekać",
-  }),
-);
-
 const stripePromise = loadStripe(
-  String(
-    "pk_test_51NmbHKCmcx2Vw4oFKsHq0AxUopH3BXPCU4rIWFei0AHGsf9SPNPqyNndpIoUhipFSK5priKLYfZV628oSCU6fmvD00F5KwxpxF",
-  ),
+  String(import.meta.env.VITE_STRIPE_PUBLIC_KEY),
 );
 
 console.log(import.meta.env);
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBy93l2PeTDzxNIBF1dKVDI2lryeYiJbuI",
+  apiKey: import.meta.env.VITE_API_KEY,
   authDomain: "matura-infinity.firebaseapp.com",
   projectId: "matura-infinity",
   storageBucket: "matura-infinity.appspot.com",
@@ -58,8 +51,8 @@ const firebaseConfig = {
 
 export const firebaseApp = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(firebaseApp);
-export const firebaseFunctions = getFunctions(firebaseApp);
-connectFunctionsEmulator(firebaseFunctions, "127.0.0.1", 5001);
+export const firebaseFunc = getFunctions(firebaseApp, "europe-west2");
+// connectFunctionsEmulator(firebaseFunc, "127.0.0.1", 5001);
 
 declare global {
   const pyscript: {
