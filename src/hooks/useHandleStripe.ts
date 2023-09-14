@@ -2,8 +2,6 @@ import { useStripe } from "@stripe/react-stripe-js";
 import { httpsCallable } from "firebase/functions";
 import { firebaseFunc } from "../main";
 import { getUserToken } from "../redux/apis/userDataApi";
-import { useUrl } from "../redux/slices/pathSlice";
-import { useResolvedPath } from "react-router-dom";
 
 type Course = "kursPython" | "kursExcel" | "kursAccess" | "kursAlgo";
 export interface IPaymentsSession {

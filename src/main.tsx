@@ -23,7 +23,7 @@ import MantineProvider from "./components/MantineProvider";
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
+import { getFunctions } from "firebase/functions";
 
 import Panel from "./routes/Panel";
 import requireAuth from "./utils/requireAuth";
