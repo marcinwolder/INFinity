@@ -37,8 +37,6 @@ const stripePromise = loadStripe(
   String(import.meta.env.VITE_STRIPE_PUBLIC_KEY),
 );
 
-console.log(import.meta.env);
-
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain: "matura-infinity.firebaseapp.com",
