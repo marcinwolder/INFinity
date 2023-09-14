@@ -30,10 +30,6 @@ const useHandleStripe = () => {
   if (!stripe) throw new Error("STRIPE IS NOT AVAILABLE");
 
   return async () => {
-    console.log(
-      "🚀 ~ file: useHandleStripe.ts:50 ~ return ~ data: IPaymentsSession.url:",
-      window.location,
-    );
     const userToken = await getUserToken();
 
     if (!userToken) {
