@@ -1,5 +1,11 @@
 import { PasswordInput, TextInput, Notification } from "@mantine/core";
-import { useForm, hasLength, isEmail, matches } from "@mantine/form";
+import {
+  useForm,
+  hasLength,
+  isEmail,
+  matches,
+  isNotEmpty,
+} from "@mantine/form";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useDisclosure } from "@mantine/hooks";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -24,9 +30,12 @@ const SignIn = () => {
       password: "",
     },
     validate: {
-      email: isEmail("Nieprawidłowy email"),
+      email: (value) =>
+        isNotEmpty("Uzupełnij to pole.")(value) ||
+        isEmail("Nieprawidłowy email")(value),
       password: (value) => {
         return (
+          isNotEmpty("Uzupełnij to pole.")(value) ||
           hasLength({ min: 8 }, "Hasło musi miec min. 8 znaków.")(value) ||
           matches(
             /[~`!@#$%^&*()_\-+=|\\[{\]};:'",<.>/?]+/g,

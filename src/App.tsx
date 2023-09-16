@@ -13,6 +13,7 @@ import { Toaster } from "react-hot-toast";
 import Footer from "./components/Footer";
 import { useWindowScroll } from "@mantine/hooks";
 import JumpToStart from "./components/JumpToStart";
+import { modals } from "@mantine/modals";
 
 function App() {
   const location = useLocation();
@@ -26,6 +27,7 @@ function App() {
     themeChange(false);
   }, [scroll]);
   useEffect(() => {
+    modals.closeAll();
     dispatch(pathSlice.actions.updatePath());
   }, [location, dispatch]);
   useLayoutEffect(() => {

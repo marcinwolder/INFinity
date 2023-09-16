@@ -33,7 +33,7 @@ import { Elements } from "@stripe/react-stripe-js";
 
 window.sessionStorage.removeItem("python");
 
-const stripePromise = loadStripe(
+const stripePromise = await loadStripe(
   String(import.meta.env.VITE_STRIPE_PUBLIC_KEY),
 );
 

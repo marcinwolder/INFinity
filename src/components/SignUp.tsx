@@ -1,10 +1,16 @@
-import { PasswordInput, TextInput, Notification } from "@mantine/core";
+import {
+  PasswordInput,
+  TextInput,
+  Notification,
+  Checkbox,
+} from "@mantine/core";
 import {
   useForm,
   hasLength,
   matchesField,
   isEmail,
   matches,
+  isNotEmpty,
 } from "@mantine/form";
 import {
   getAuth,
@@ -35,9 +41,11 @@ const SignUp = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      rules: false,
     },
     validate: {
       username: (value) =>
+        isNotEmpty("Uzupełnij to pole.")(value) ||
         hasLength(
           { min: 6 },
           "Nazwa użytkownika musi mieć min. 6 znaków.",
@@ -47,27 +55,27 @@ const SignUp = () => {
           "Nazwa użytkownika moze mieć max. 24 znaki.",
         )(value) ||
         null,
-      email: isEmail("Nieprawidłowy email"),
-      password: (value) => {
-        return (
-          hasLength({ min: 8 }, "Hasło musi miec min. 8 znaków.")(value) ||
-          matches(
-            /[~`!@#$%^&*()_\-+=|\\[{\]};:'",<.>/?]+/g,
-            "Hasło musi zawierać min. 1 znak specjalny.",
-          )(value) ||
-          matches(/\d+/g, "Hasło musi zawierać min. 1 cyfrę.")(value) ||
-          matches(
-            /[A-Z]+/g,
-            "Hasło musi zawierac min. 1 wielką literę.",
-          )(value) ||
-          matches(
-            /[a-z]+/g,
-            "Hasło musi zawierac min. 1 małą literę.",
-          )(value) ||
-          null
-        );
-      },
-      confirmPassword: matchesField("password", "Hasła muszą być takie same."),
+      email: (value) =>
+        isNotEmpty("Uzupełnij to pole.")(value) ||
+        isEmail("Nieprawidłowy email")(value),
+      password: (value) =>
+        isNotEmpty("Uzupełnij to pole.")(value) ||
+        hasLength({ min: 8 }, "Hasło musi miec min. 8 znaków.")(value) ||
+        matches(
+          /[~`!@#$%^&*()_\-+=|\\[{\]};:'",<.>/?]+/g,
+          "Hasło musi zawierać min. 1 znak specjalny.",
+        )(value) ||
+        matches(/\d+/g, "Hasło musi zawierać min. 1 cyfrę.")(value) ||
+        matches(
+          /[A-Z]+/g,
+          "Hasło musi zawierac min. 1 wielką literę.",
+        )(value) ||
+        matches(/[a-z]+/g, "Hasło musi zawierac min. 1 małą literę.")(value) ||
+        null,
+      confirmPassword: (value, values) =>
+        isNotEmpty("Uzupełnij to pole.")(value) ||
+        matchesField("password", "Hasła muszą być takie same.")(value, values),
+      rules: (value) => (!value ? "Musisz zaakceptować regulamin." : null),
     },
   });
 
@@ -148,6 +156,23 @@ const SignUp = () => {
           disabled={disabled}
           label="Potwierdź hasło:"
           {...formEl.getInputProps("confirmPassword")}
+        />
+        <Checkbox
+          className="mt-2"
+          disabled={disabled}
+          label={
+            <>
+              Akceptuję{" "}
+              <a
+                target="_blank"
+                href="./regulamin-matura-infinity.docx"
+                className="link"
+              >
+                Regulamin
+              </a>
+            </>
+          }
+          {...formEl.getInputProps("rules")}
         />
       </form>
       <div className="flex">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import kursPython from "../../img/kursy/kurs-python.png";
 import kursExcel from "../../img/kursy/kurs-excel.png";
@@ -6,8 +6,30 @@ import kursAccess from "../../img/kursy/kurs-access.png";
 import kursAlgo from "../../img/kursy/kurs-algo.png";
 import { BsArrowBarRight, BsArrowReturnRight } from "react-icons/bs";
 import useHandleStripe from "../../hooks/useHandleStripe";
+import { modals } from "@mantine/modals";
+import BuyOption from "./components/BuyOption";
+import styled from "styled-components";
+import { BiLoaderAlt } from "react-icons/bi";
+import clsx from "clsx";
+
+const AfterDiv = styled.div`
+  &:after {
+    content: "";
+    inset: 0;
+    position: absolute;
+    background: transparent;
+  }
+`;
+const Item: React.FC<React.PropsWithChildren> = ({ children }) => {
+  return (
+    <AfterDiv className="relative flex w-full cursor-pointer items-center justify-center">
+      {children}
+    </AfterDiv>
+  );
+};
 
 const Kursy: React.FC = () => {
+  const [buyBtn, setBuyBtn] = useState(false);
   const handleStripe = useHandleStripe();
   return (
     <>
@@ -36,11 +58,77 @@ const Kursy: React.FC = () => {
             <div>/</div>
             <img className="h-14" src={kursAlgo} alt="kursAlgo" />
           </div>
-          <button className="btn btn-success btn-sm ml-auto mt-auto block w-24 hover:btn-neutral">
-            Kup
+          <button
+            onClick={() =>
+              modals.open({
+                title: (
+                  <p className="text-xs">
+                    *Ten zakup wymaga dodatkowego wyboru
+                  </p>
+                ),
+                children: (
+                  <BuyOption
+                    className="h-[30rem]"
+                    options={{
+                      kursPython: {
+                        element: (
+                          <Item>
+                            <img
+                              className="h-24"
+                              src={kursPython}
+                              alt="kursPython"
+                            />
+                          </Item>
+                        ),
+                        products: [{ name: "kursPython", price: "full" }],
+                      },
+                      kursAlgo: {
+                        element: (
+                          <Item>
+                            <img
+                              className="h-24"
+                              src={kursAlgo}
+                              alt="kursAlgo"
+                            />
+                          </Item>
+                        ),
+                        products: [{ name: "kursAlgo", price: "full" }],
+                      },
+                      kursExcel: {
+                        element: (
+                          <Item>
+                            <img
+                              className="h-24"
+                              src={kursExcel}
+                              alt="kursExcel"
+                            />
+                          </Item>
+                        ),
+                        products: [{ name: "kursExcel", price: "full" }],
+                      },
+                      kursAccess: {
+                        element: (
+                          <Item>
+                            <img
+                              className="h-24"
+                              src={kursAccess}
+                              alt="kursAccess"
+                            />
+                          </Item>
+                        ),
+                        products: [{ name: "kursAccess", price: "full" }],
+                      },
+                    }}
+                  />
+                ),
+              })
+            }
+            className="btn btn-success btn-outline btn-sm ml-auto mt-auto block w-fit hover:btn-active"
+          >
+            Wybierz kurs
           </button>
         </div>
-        <div className="relative w-[calc(100%-theme(spacing.2))] shrink-0 rounded-sm outline outline-4 outline-success lg:w-fit">
+        <div className="relative mt-8 w-[calc(100%-theme(spacing.2))] shrink-0 rounded-sm outline outline-4 outline-success lg:mt-0 lg:w-fit">
           <div className="bg-success py-1 text-center text-sm font-semibold text-success-content">
             Najczęściej Kupowany
           </div>
@@ -87,8 +175,32 @@ const Kursy: React.FC = () => {
                 </span>
               </p>
             </div>
-            <button className="btn btn-success btn-sm ml-auto mt-16 block w-24 hover:btn-neutral">
-              Kup
+            <button
+              onClick={() => {
+                handleStripe(
+                  [
+                    { name: "kursPython", price: "second" },
+                    { name: "kursAlgo", price: "second" },
+                    { name: "kursExcel", price: "second" },
+                    { name: "kursAccess", price: "second" },
+                    { name: "dodatki", price: "full" },
+                  ],
+                  () => setBuyBtn(false),
+                );
+                setBuyBtn(true);
+              }}
+              className={clsx(
+                "btn btn-success btn-sm ml-auto mt-16 block w-24 hover:btn-neutral",
+                { "btn-disabled": buyBtn },
+              )}
+            >
+              {buyBtn ? (
+                <span className="mx-auto flex animate-spin justify-center">
+                  <BiLoaderAlt />
+                </span>
+              ) : (
+                "KUP"
+              )}
             </button>
           </div>
           <div className="absolute inset-0 -z-10 bg-success" />
@@ -129,14 +241,69 @@ const Kursy: React.FC = () => {
             <img className="h-14" src={kursAccess} alt="kursAccess" />
           </div>
           <button
-            onClick={async () => await handleStripe()}
-            className="btn btn-success btn-sm ml-auto mt-auto block w-24 hover:btn-neutral"
+            onClick={() =>
+              modals.open({
+                title: (
+                  <p className="text-xs">
+                    *Ten zakup wymaga dodatkowego wyboru
+                  </p>
+                ),
+                children: (
+                  <BuyOption
+                    className="h-96"
+                    options={{
+                      zestawProgramowania: {
+                        element: (
+                          <Item>
+                            <img
+                              className="h-24 translate-x-5"
+                              src={kursPython}
+                              alt="kursPython"
+                            />
+                            <img
+                              className="h-24 -translate-x-5"
+                              src={kursAlgo}
+                              alt="kursAlgo"
+                            />
+                          </Item>
+                        ),
+                        products: [
+                          { name: "kursPython", price: "first" },
+                          { name: "kursAlgo", price: "first" },
+                        ],
+                      },
+                      zestawOffice: {
+                        element: (
+                          <Item>
+                            <img
+                              className="h-24 translate-x-5"
+                              src={kursExcel}
+                              alt="kursExcel"
+                            />
+                            <img
+                              className="h-24 -translate-x-5"
+                              src={kursAccess}
+                              alt="kursAccess"
+                            />
+                          </Item>
+                        ),
+                        products: [
+                          { name: "kursExcel", price: "first" },
+                          { name: "kursAccess", price: "first" },
+                        ],
+                      },
+                    }}
+                  />
+                ),
+              })
+            }
+            className="btn btn-success btn-outline btn-sm ml-auto mt-auto block w-fit hover:btn-active"
           >
-            Kup
+            Wybierz kurs
           </button>
         </div>
       </div>
-      <p className="text-xs opacity-60">
+      <p className="px-4 text-xs opacity-60">
         *Wykupiony dostęp do kursów przyznawany jest na jeden sezon maturalny
         (od momentu zakupu aż do końca matur - łącznie z sesją dodatkową oraz
         poprawkową)
