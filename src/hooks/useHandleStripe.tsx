@@ -56,12 +56,21 @@ export const courseProducts: {
 const useHandleStripe = () => {
   const stripe = useStripe();
   const createSession = httpsCallable(firebaseFunc, "paymentsSession");
-  if (!stripe) throw new Error("STRIPE IS NOT AVAILABLE");
 
   return async function (
     products: { name: Course; price: Price }[],
     failCb: () => void,
   ) {
+    await new Promise<void>((res) => {
+      const id = setInterval(() => {
+        if (stripe) {
+          clearInterval(id);
+          res();
+        }
+      });
+    });
+    if (!stripe) throw new Error("STRIPE IS NOT AVAILABLE");
+
     const userToken = await getUserToken();
 
     if (!userToken) {

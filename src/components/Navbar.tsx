@@ -59,16 +59,7 @@ const Navbar: React.FC = () => {
             }}
             className="btn btn-ghost text-xl normal-case small-caps"
           >
-            <ThemeImg
-              className="h-10"
-              options={{
-                dark: Infinity,
-                halloween: Infinity,
-                emerald: InfinityDark,
-                valentine: InfinityDark,
-                default: Infinity,
-              }}
-            />
+            <ThemeImg className="h-10" dark={Infinity} light={InfinityDark} />
           </Link>
         </div>
         <AuthComp />

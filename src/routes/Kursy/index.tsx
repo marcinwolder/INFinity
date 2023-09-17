@@ -28,11 +28,17 @@ const Item: React.FC<React.PropsWithChildren> = ({ children }) => {
   );
 };
 
+const Fallback: React.FC = () => {
+  return <div>Stripe is loading</div>;
+};
+
 const Kursy: React.FC = () => {
   const [buyBtn, setBuyBtn] = useState(false);
+
   const handleStripe = useHandleStripe();
+
   return (
-    <>
+    <React.Suspense fallback={<Fallback />}>
       <div className="mb-16 flex flex-col items-center gap-4 px-4 lg:flex-row lg:items-stretch">
         <div className="mt-7 flex w-full shrink-0 flex-col rounded-sm border border-base-300 bg-base-200 p-6 px-8 lg:w-fit">
           <code className="text-xl font-black uppercase tracking-widest text-primary">
@@ -308,7 +314,7 @@ const Kursy: React.FC = () => {
         (od momentu zakupu aż do końca matur - łącznie z sesją dodatkową oraz
         poprawkową)
       </p>
-    </>
+    </React.Suspense>
   );
 };
 
