@@ -16,7 +16,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
-  sendEmailVerification,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useDisclosure } from "@mantine/hooks";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -94,11 +94,6 @@ const SignUp = () => {
             });
           })
           .then(() => {
-            if (firebaseAuth.currentUser)
-              sendEmailVerification(firebaseAuth.currentUser);
-            firebaseAuth.signOut();
-          })
-          .then(() => {
             modals.close("signUpModal");
             toast.custom(
               <AnimatedToast>
@@ -109,9 +104,17 @@ const SignUp = () => {
                   radius="md"
                   title="Rejestracja przebiegła pomyślnie!"
                 >
-                  Sprawdź skrzynkę pocztową i potwierdź swojego maila!
+                  Teraz możesz korzystać z funkcji wymagających logowania.
                 </Notification>
               </AnimatedToast>,
+            );
+          })
+          .then(() => {
+            firebaseAuth.signOut();
+            signInWithEmailAndPassword(
+              firebaseAuth,
+              formEl.values.email,
+              formEl.values.password,
             );
           })
           .catch((e) => {
