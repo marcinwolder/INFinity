@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 const DownloadBtn: React.FC<{ urls: string[] }> = ({ urls }) => {
   const btnsRef = useRef<HTMLDivElement>(null);
   return (
-    <div className="flex w-full justify-center">
+    <div className="mt-4 flex w-full justify-center">
       <div ref={btnsRef}>
         {...urls.map((url, index) => {
           return <a href={url} key={index} download></a>;

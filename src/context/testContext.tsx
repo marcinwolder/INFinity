@@ -130,7 +130,7 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
         {title.length > 1 && `. ${title}`}
         {pkt > 0 && `. (0-${pkt})`}
       </h1>
-      <div className="px-1 text-black">
+      <div className="my-2 px-1 text-black">
         <context.Provider value={{ show, setShow, values, setValues, taskNum }}>
           {children}
         </context.Provider>
@@ -175,7 +175,7 @@ export const _AnswerBtn: React.FC = () => {
 
 export const AnswerBtn: React.FC = () => {
   return (
-    <div className="flex w-full justify-center pt-2">
+    <div className="mt-4 flex w-full justify-center pt-2">
       <_AnswerBtn />
     </div>
   );

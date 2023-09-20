@@ -61,6 +61,7 @@ declare global {
     };
   };
 }
+
 export interface ExamPageLoader {
   currentExam: ExamData;
 }
