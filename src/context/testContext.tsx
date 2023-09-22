@@ -125,10 +125,6 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
   if (correctTest && correctTest.answers[fullTaskNum]) {
     startingAnswers = correctTest.answers[fullTaskNum];
   }
-  console.log(
-    "🚀 ~ file: testContext.tsx:134 ~ startingAnswers:",
-    startingAnswers,
-  );
   const [values, setValues] = useState(startingAnswers);
   const STARTING_ANSWERS_EMPTY = _.isEmpty(startingAnswers);
 
@@ -149,7 +145,7 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
   return (
     <div
       ref={ref}
-      className="my-7 select-none rounded-lg bg-white p-3 shadow-md shadow-neutral-500"
+      className="my-7 select-none overflow-hidden rounded-lg bg-white p-3 shadow-md shadow-neutral-500"
     >
       <h1
         className={classNames("text-md rounded pl-2 font-bold text-black", {
@@ -163,7 +159,7 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
         {title.length > 1 && `. ${title}`}
         {pkt > 0 && `. (0-${pkt})`}
       </h1>
-      <div className="my-2 px-1 text-black">
+      <div className="relative my-2 w-full overflow-hidden px-1 text-black">
         <context.Provider
           value={{
             show,
@@ -305,7 +301,7 @@ export const TestArea: React.FC<testAreaProps & TaskId> = ({
         </p>
       </Modal>
       <div className="relative mx-auto w-full rounded-md">
-        <div className="absolute right-0 -translate-y-[calc(100%+2px)] rounded-sm  bg-white text-xl hover:text-secondary-focus">
+        <div className="absolute right-0 flex -translate-y-[calc(100%+.2em)] items-baseline rounded-sm bg-white text-xl hover:text-secondary-focus">
           <button onClick={open}>
             <AiOutlineInfoCircle />
           </button>

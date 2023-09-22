@@ -16,6 +16,8 @@ import {
   TestRadio,
 } from "../context/testContext";
 import DownloadBtn from "./DownloadBtn";
+import MarkdownPre from "./MarkdownPre";
+import MarkdownCode from "./MarkdownCode";
 
 const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
   const components: MaturaComponents = {
@@ -53,6 +55,8 @@ const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
     p: ({ children }) => (
       <p className="font-medium tracking-tight">{children}</p>
     ),
+    pre: ({ children }) => <MarkdownPre children={children} />,
+    code: ({ children }) => <MarkdownCode children={children} />,
     maturaerror: MaturaError,
   };
   const [md, setMd] = useState("");
@@ -69,7 +73,7 @@ const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
   }, []);
   return (
     <ReactMarkdown
-      className="p-4"
+      className="relative p-4"
       components={components}
       remarkPlugins={[remarkGfm]}
       // @ts-expect-error

@@ -1,14 +1,14 @@
 <TestProvider title="System kontroli dostępu">
 
-W plikach `klasa.txt`, `uczen.txt` i `ewidencja.txt` zapisano dane pochodzące  
-z automatycznego systemu kontroli wejść i wyjść w pewnej szkole, z 5 dni (od 4 do 8  
-kwietnia 2022 r.). Uczniowie posiadają imienne identyfikatory, które umożliwiają rejestrację  
-wejścia do szkoły i wyjścia ze szkoły.  
-Pierwszy wiersz w każdym z plików jest wierszem nagłówkowym. Dane w każdym wierszu  
+W plikach `klasa.txt`, `uczen.txt` i `ewidencja.txt` zapisano dane pochodzące
+z automatycznego systemu kontroli wejść i wyjść w pewnej szkole, z 5 dni (od 4 do 8
+kwietnia 2022 r.). Uczniowie posiadają imienne identyfikatory, które umożliwiają rejestrację
+wejścia do szkoły i wyjścia ze szkoły.
+Pierwszy wiersz w każdym z plików jest wierszem nagłówkowym. Dane w każdym wierszu
 oddzielono średnikiem.
 
 \
-**Uwaga**: Jeżeli uczeń jest obecny, to danego dnia wchodzi do szkoły jeden raz i jeden raz  
+**Uwaga**: Jeżeli uczeń jest obecny, to danego dnia wchodzi do szkoły jeden raz i jeden raz
 z niej wychodzi.
 
 \
@@ -42,7 +42,7 @@ IdUcznia;Imie;Nazwisko;IdKlasy
 ```
 
 \
-W pliku `ewidencja.txt` zapisano informacje o wejściach i wyjściach ze szkoły. Każdy  
+W pliku `ewidencja.txt` zapisano informacje o wejściach i wyjściach ze szkoły. Każdy
 wiersz zawiera:  
 `IdEwidencji` – identyfikator wpisu dotyczącego wejścia i wyjścia ze szkoły  
 `IdUcznia` – identyfikator ucznia  
@@ -63,10 +63,14 @@ IdEwidencji;IdUcznia;Wejscie;Wyjscie
 \
 Wykorzystaj dostępne narzędzia informatyczne i podaj odpowiedzi do zadań 6.1.–6.4.
 
-<DownloadBtn urls="/formula-2015/2022/maj/klasa.txt /formula-2015/2022/maj/uczen.txt /formula-2015/2022/maj/ewidencja.txt"/>
+  <DownloadBtn urls="/formula-2015/2022/maj/klasa.txt /formula-2015/2022/maj/uczen.txt /formula-2015/2022/maj/ewidencja.txt"/>
 </TestProvider>
 
 <TestProvider pkt=2>
+
+Oblicz i podaj, ile wszystkich <u>wejść</u> dziewcząt z klas o profilu biologiczno-chemicznym
+(„biologiczno-chemiczny”) do szkoły zarejestrował system kontroli dostępu w analizowanym
+okresie 5 dni. Wszystkie imiona dziewcząt (i tylko dziewcząt) w tej szkole kończą się literą _a_.
 
 |             Ilość              |
 | :----------------------------: |
@@ -76,6 +80,11 @@ Wykorzystaj dostępne narzędzia informatyczne i podaj odpowiedzi do zadań 6.1.
 </TestProvider>
 
 <TestProvider pkt=3>
+
+Utwórz zestawienie zawierające informację o liczbie uczniów, którzy <u>w poszczególnych dniach</u>
+analizowanego okresu <u>nie spóźnili</u> się do szkoły. Jako godzinę rozpoczęcia zajęć
+przyjmujemy godzinę 8<sup>00</sup>. Wejście ucznia zarejestrowane po 8<sup>00</sup>
+traktujemy jako spóźnienie.
 
 |       Data |         Liczba uczniów         |
 | ---------: | :----------------------------: |
@@ -90,6 +99,10 @@ Wykorzystaj dostępne narzędzia informatyczne i podaj odpowiedzi do zadań 6.1.
 
 <TestProvider pkt=3>
 
+Dla każdej osoby zliczamy <u>łączny czas</u> pobytu w szkole w analizowanym okresie 5 dni.
+Podaj `identyfikatory` oraz `imiona` i `nazwiska` trzech osób, które w ciągu monitorowanego
+czasu przebywały najdłużej na terenie szkoły.
+
 |                                       Identyfikator, Imię, Nazwisko                                       |
 | :-------------------------------------------------------------------------------------------------------: |
 | <TestArea passIfNotSorted answer="314\tSebastian\tRabaj 172\tMonika\tKado 299\tAlicja\tKronecka" num=1 /> |
@@ -99,7 +112,9 @@ Wykorzystaj dostępne narzędzia informatyczne i podaj odpowiedzi do zadań 6.1.
 
 <TestProvider pkt=3>
 
-|                                  Identyfikator, Imię, Nazwisko                                  |
+Podaj imiona i nazwiska wszystkich uczniów, którzy byli nieobecni 6.04.2022 r.
+
+|                                         Imię, Nazwisko                                          |
 | :---------------------------------------------------------------------------------------------: |
 | <TestArea answer="Mateusz\tKordas Krzysztof\tMichalak Oliwier\tZiolko" num=1 passIfNotSorted /> |
 
