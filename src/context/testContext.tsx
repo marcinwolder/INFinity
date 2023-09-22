@@ -35,9 +35,6 @@ interface TestProviderProps {
   pkt?: number;
   show?: boolean;
 }
-interface TaskId {
-  num: number;
-}
 interface testProps {
   answer: number | string | ((ans: string) => boolean);
   placeholder?: string;
@@ -110,8 +107,8 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
 
   const fullTaskNum = Number(
     `${taskNum}${
-      ref.current?.getAttribute("data-id") !== "0"
-        ? "." + ref.current?.getAttribute("data-id")
+      ref.current?.getAttribute("data-task-id") !== "0"
+        ? "." + ref.current?.getAttribute("data-task-id")
         : ".0"
     }`,
   );
@@ -132,10 +129,18 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
     if (ref.current) {
       if (ref.current.previousElementSibling) {
         const prev = ref.current.previousElementSibling.getAttribute(
-          "data-id",
+          "data-task-id",
         ) as string;
-        ref.current.setAttribute("data-id", `${Number(prev) + 1}`);
-      } else ref.current.setAttribute("data-id", "0");
+        ref.current.setAttribute("data-task-id", `${Number(prev) + 1}`);
+
+        // console.log(Number(prev) + 1);
+        ref.current
+          .querySelectorAll("*[data-input-id]")
+          .forEach((el, index) => {
+            el.setAttribute("data-input-id", index.toFixed(0));
+            // console.log(el);
+          });
+      } else ref.current.setAttribute("data-task-id", "0");
       forceRefresh();
     }
   }, []);
@@ -218,13 +223,10 @@ export const AnswerBtn: React.FC = () => {
   );
 };
 
-export const TestInput: React.FC<testProps & TaskId> = ({
-  answer,
-  num,
-  placeholder,
-}) => {
+export const TestInput: React.FC<testProps> = ({ answer, placeholder }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [num, setNum] = useState(0);
   const { show, setValues, values } = useTestContext();
-  const value = values[num] as string;
   let compare;
   if (typeof answer === "string") compare = (str: string) => str === answer;
   else if (typeof answer === "number")
@@ -234,8 +236,13 @@ export const TestInput: React.FC<testProps & TaskId> = ({
       if (!str) return false;
       return answer(str);
     };
+
+  const value = values[num] as string;
+  useEffect(() => {
+    if (ref.current) setNum(Number(ref.current.getAttribute("data-input-id")));
+  }, []);
   return (
-    <div className="mx-auto w-full rounded-md">
+    <div ref={ref} data-input-id className="mx-auto w-full rounded-md">
       {show ? (
         <div className="flex w-full items-center justify-center gap-2">
           {value || "--"}
@@ -268,11 +275,13 @@ interface testAreaProps {
   passIfNotSorted?: boolean;
 }
 
-export const TestArea: React.FC<testAreaProps & TaskId> = ({
+export const TestArea: React.FC<testAreaProps> = ({
   answer,
-  num,
   passIfNotSorted,
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [num, setNum] = useState(0);
+
   const { show, setValues, values } = useTestContext();
   const value = (values[num] as string) || "";
   const areaValues = value.trim().split("\n");
@@ -283,6 +292,9 @@ export const TestArea: React.FC<testAreaProps & TaskId> = ({
     return _.isEqual(answer, areaValues);
   };
 
+  useEffect(() => {
+    if (ref.current) setNum(Number(ref.current.getAttribute("data-input-id")));
+  }, []);
   return (
     <>
       <Modal opened={opened} onClose={close} centered withCloseButton={false}>
@@ -300,7 +312,11 @@ export const TestArea: React.FC<testAreaProps & TaskId> = ({
           Access.
         </p>
       </Modal>
-      <div className="relative mx-auto w-full rounded-md">
+      <div
+        ref={ref}
+        data-input-id
+        className="relative mx-auto w-full rounded-md"
+      >
         <div className="absolute right-0 flex -translate-y-[calc(100%+.2em)] items-baseline rounded-sm bg-white text-xl hover:text-secondary-focus">
           <button onClick={open}>
             <AiOutlineInfoCircle />
@@ -338,14 +354,20 @@ export const TestArea: React.FC<testAreaProps & TaskId> = ({
   );
 };
 
-export const TestRadio: React.FC<
-  React.PropsWithChildren<radioProps & TaskId>
-> = ({ positive = false, children, num }) => {
+export const TestRadio: React.FC<React.PropsWithChildren<radioProps>> = ({
+  positive = false,
+  children,
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [num, setNum] = useState(0);
   const { show, setValues, values } = useTestContext();
   const checked = values[num] === true;
   const color = checked == positive ? "text-success" : "text-error";
+  useEffect(() => {
+    if (ref.current) setNum(Number(ref.current.getAttribute("data-input-id")));
+  }, []);
   return show ? (
-    <div className="flex items-center justify-center gap-2">
+    <div data-input-id className="flex items-center justify-center gap-2">
       {children}
       <label className="swap swap-rotate">
         <input type="checkbox" className="border-0" checked={checked} />
@@ -401,8 +423,10 @@ interface PythonCompilerProps {
 }
 
 export const TestPython: React.FC<
-  React.PropsWithChildren<TaskId & PythonCompilerProps>
-> = ({ children, num, tests, parameters, terminal, dataPath, testPath }) => {
+  React.PropsWithChildren<PythonCompilerProps>
+> = ({ children, tests, parameters, terminal, dataPath, testPath }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [num, setNum] = useState(0);
   const [PyRepl, setReplSrc] = usePyRepl();
   const { show, taskNum, setValues, values } = useTestContext();
   const dispatch = useDispatch();
@@ -495,6 +519,9 @@ export const TestPython: React.FC<
     };
     func();
   });
+  useEffect(() => {
+    if (ref.current) setNum(Number(ref.current.getAttribute("data-input-id")));
+  }, []);
 
   return (
     <>
@@ -507,7 +534,7 @@ export const TestPython: React.FC<
           <script defer src="https://pyscript.net/latest/pyscript.js"></script>
         </Helmet>
       )}
-      <div>
+      <div data-input-id>
         <p
           className={classNames("mb-2 text-center text-sm font-semibold", {
             hidden: terminal,

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import PartSwitch from "./PartSwitch";
 import TabSwitch from "./TabSwitch";
 import MaturaError from "./MaturaError";

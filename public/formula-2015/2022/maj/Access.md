@@ -72,9 +72,9 @@ Oblicz i podaj, ile wszystkich <u>wejść</u> dziewcząt z klas o profilu biolog
 („biologiczno-chemiczny”) do szkoły zarejestrował system kontroli dostępu w analizowanym
 okresie 5 dni. Wszystkie imiona dziewcząt (i tylko dziewcząt) w tej szkole kończą się literą _a_.
 
-|             Ilość              |
-| :----------------------------: |
-| <TestInput answer=165 num=1 /> |
+|          Ilość           |
+| :----------------------: |
+| <TestInput answer=165 /> |
 
   <AnswerBtn />
 </TestProvider>
@@ -86,13 +86,13 @@ analizowanego okresu <u>nie spóźnili</u> się do szkoły. Jako godzinę rozpoc
 przyjmujemy godzinę 8<sup>00</sup>. Wejście ucznia zarejestrowane po 8<sup>00</sup>
 traktujemy jako spóźnienie.
 
-|       Data |         Liczba uczniów         |
-| ---------: | :----------------------------: |
-| 04.04.2022 | <TestInput answer=233 num=1 /> |
-| 05.04.2022 | <TestInput answer=303 num=2 /> |
-| 06.04.2022 | <TestInput answer=134 num=3 /> |
-| 07.04.2022 | <TestInput answer=280 num=4 /> |
-| 08.04.2022 | <TestInput answer=127 num=5 /> |
+|       Data |      Liczba uczniów      |
+| ---------: | :----------------------: |
+| 04.04.2022 | <TestInput answer=233 /> |
+| 05.04.2022 | <TestInput answer=303 /> |
+| 06.04.2022 | <TestInput answer=134 /> |
+| 07.04.2022 | <TestInput answer=280 /> |
+| 08.04.2022 | <TestInput answer=127 /> |
 
   <AnswerBtn />
 </TestProvider>
@@ -103,9 +103,9 @@ Dla każdej osoby zliczamy <u>łączny czas</u> pobytu w szkole w analizowanym o
 Podaj `identyfikatory` oraz `imiona` i `nazwiska` trzech osób, które w ciągu monitorowanego
 czasu przebywały najdłużej na terenie szkoły.
 
-|                                       Identyfikator, Imię, Nazwisko                                       |
-| :-------------------------------------------------------------------------------------------------------: |
-| <TestArea passIfNotSorted answer="314\tSebastian\tRabaj 172\tMonika\tKado 299\tAlicja\tKronecka" num=1 /> |
+|                                    Identyfikator, Imię, Nazwisko                                    |
+| :-------------------------------------------------------------------------------------------------: |
+| <TestArea passIfNotSorted answer="314\tSebastian\tRabaj 172\tMonika\tKado 299\tAlicja\tKronecka" /> |
 
   <AnswerBtn />
 </TestProvider>
@@ -114,9 +114,9 @@ czasu przebywały najdłużej na terenie szkoły.
 
 Podaj imiona i nazwiska wszystkich uczniów, którzy byli nieobecni 6.04.2022 r.
 
-|                                         Imię, Nazwisko                                          |
-| :---------------------------------------------------------------------------------------------: |
-| <TestArea answer="Mateusz\tKordas Krzysztof\tMichalak Oliwier\tZiolko" num=1 passIfNotSorted /> |
+|                                      Imię, Nazwisko                                       |
+| :---------------------------------------------------------------------------------------: |
+| <TestArea answer="Mateusz\tKordas Krzysztof\tMichalak Oliwier\tZiolko" passIfNotSorted /> |
 
   <AnswerBtn />
 </TestProvider>
