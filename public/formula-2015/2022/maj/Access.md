@@ -1,4 +1,4 @@
-<TestProvider taskNum=6 title="System kontroli dostępu">
+<TestProvider title="System kontroli dostępu">
 
 W plikach `klasa.txt`, `uczen.txt` i `ewidencja.txt` zapisano dane pochodzące  
 z automatycznego systemu kontroli wejść i wyjść w pewnej szkole, z 5 dni (od 4 do 8  
@@ -63,10 +63,10 @@ IdEwidencji;IdUcznia;Wejscie;Wyjscie
 \
 Wykorzystaj dostępne narzędzia informatyczne i podaj odpowiedzi do zadań 6.1.–6.4.
 
-  <DownloadBtn urls="/formula-2015/2022/maj/klasa.txt /formula-2015/2022/maj/uczen.txt /formula-2015/2022/maj/ewidencja.txt"/>
+<DownloadBtn urls="/formula-2015/2022/maj/klasa.txt /formula-2015/2022/maj/uczen.txt /formula-2015/2022/maj/ewidencja.txt"/>
 </TestProvider>
 
-<TestProvider taskNum=6.1 pkt=2>
+<TestProvider pkt=2>
 
 |             Ilość              |
 | :----------------------------: |
@@ -75,7 +75,7 @@ Wykorzystaj dostępne narzędzia informatyczne i podaj odpowiedzi do zadań 6.1.
   <AnswerBtn />
 </TestProvider>
 
-<TestProvider taskNum=6.2 pkt=3>
+<TestProvider pkt=3>
 
 |       Data |         Liczba uczniów         |
 | ---------: | :----------------------------: |
@@ -84,12 +84,11 @@ Wykorzystaj dostępne narzędzia informatyczne i podaj odpowiedzi do zadań 6.1.
 | 06.04.2022 | <TestInput answer=134 num=3 /> |
 | 07.04.2022 | <TestInput answer=280 num=4 /> |
 | 08.04.2022 | <TestInput answer=127 num=5 /> |
-| 08.04.2022 |  <TestRadio positive num=6 />  |
 
   <AnswerBtn />
 </TestProvider>
 
-<TestProvider taskNum=6.3 pkt=3>
+<TestProvider pkt=3>
 
 |                                       Identyfikator, Imię, Nazwisko                                       |
 | :-------------------------------------------------------------------------------------------------------: |
@@ -98,7 +97,7 @@ Wykorzystaj dostępne narzędzia informatyczne i podaj odpowiedzi do zadań 6.1.
   <AnswerBtn />
 </TestProvider>
 
-<TestProvider taskNum=6.4 pkt=3>
+<TestProvider pkt=3>
 
 |                                  Identyfikator, Imię, Nazwisko                                  |
 | :---------------------------------------------------------------------------------------------: |

@@ -19,7 +19,12 @@ export const usePyRepl = () => {
                 )
                   snippet = true;
               });
-              if (!snippet) e.preventDefault();
+              if (!snippet) {
+                e.preventDefault();
+
+                // !TODO: THIS PROBABLY ADS ABILITY TO USE TAB IN PYTHON REPL
+                // setSrc((v) => ({ ...v, [num]: src + "\t" }));
+              }
             }
           }}
           output={output}

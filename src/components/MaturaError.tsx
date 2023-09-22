@@ -1,6 +1,8 @@
 import React from "react";
 
-const Error: React.FC = () => {
+const MaturaError: React.FC<{
+  url: string;
+}> = ({ url }) => {
   return (
     <>
       <div className="chat chat-start">
@@ -10,12 +12,14 @@ const Error: React.FC = () => {
         </div>
       </div>
       <div className="chat chat-end">
-        <div className="chat-bubble">Dodaj go na ścieżce widocznej wyżej</div>
+        <div className="chat-bubble">
+          Dodaj go na ścieżce <code>/public{url}</code>
+        </div>
       </div>
       <div className="chat chat-end">
         <div className="chat-bubble">
-          Nazwij go tak jak zakładkę, czyli na przykład "Python.tsx" albo
-          "Excel.tsx"
+          Możesz w nim korzystać z przygotowanych komponentów widocznych poniżej
+          (będą wypisane później)
         </div>
       </div>
       <div className="chat chat-end">
@@ -25,4 +29,4 @@ const Error: React.FC = () => {
   );
 };
 
-export default Error;
+export default MaturaError;

@@ -27,53 +27,6 @@ import AnimatedPath from "./components/AnimatedPath";
 import { Skeleton } from "@mantine/core";
 import { Variants, motion } from "framer-motion";
 
-import testMd from "./test.md";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
-import {
-  AnswerBtn,
-  TestArea,
-  TestInput,
-  TestProvider,
-  TestRadio,
-} from "../context/testContext";
-import { MaturaComponents } from "../react-markdown";
-import DownloadBtn from "../components/DownloadBtn";
-
-const components: MaturaComponents = {
-  testprovider: ({ children, tasknum, pkt, title }) => (
-    <TestProvider taskNum={tasknum} pkt={pkt} title={title}>
-      {children}
-    </TestProvider>
-  ),
-  testradio: ({ num, positive }) => (
-    <TestRadio num={num} positive={positive === ""} />
-  ),
-  testarea: ({ answer, num, passifnotsorted }) => {
-    return (
-      <TestArea
-        answer={String(answer)
-          .split(" ")
-          .map((str) => str.replaceAll("\\t", "\t"))}
-        num={num}
-        passIfNotSorted={passifnotsorted === ""}
-      />
-    );
-  },
-  testinput: TestInput,
-  answerbtn: AnswerBtn,
-  downloadbtn: ({ urls }) => <DownloadBtn urls={String(urls).split(" ")} />,
-  table: ({ children }) => (
-    <table className="table border-b border-neutral-300">{children}</table>
-  ),
-  tr: ({ children }) => <tr className="border-neutral-300">{children}</tr>,
-  thead: ({ children }) => (
-    <thead className="font-mono uppercase text-black">{children}</thead>
-  ),
-  p: ({ children }) => <p className="font-medium tracking-tight">{children}</p>,
-};
-
 let scrollValue = 0;
 
 const pVariants: Variants = {
@@ -119,7 +72,6 @@ const BottomCurveDiv = styled.div.attrs(() => {
 `;
 
 const Main = () => {
-  const [md, setMd] = useState("");
   //Counting exams
   let examCount = 0;
   for (const examKey in examFile) {
@@ -142,11 +94,6 @@ const Main = () => {
     default: ".",
   });
 
-  useEffect(() => {
-    fetch(testMd)
-      .then((res) => res.text())
-      .then((res) => setMd(res));
-  }, []);
   useEffect(() => {
     if (codeRef1.current && codeRef2.current) {
       codeRef1.current.innerHTML = codeRef1.current.innerHTML.replaceAll(
@@ -398,14 +345,6 @@ const Main = () => {
           animate={false}
         ></Skeleton>
       </div>
-      <ReactMarkdown
-        className="p-4"
-        components={components}
-        remarkPlugins={[remarkGfm]}
-        // @ts-expect-error
-        rehypePlugins={[rehypeRaw]}
-        children={md}
-      />
     </div>
   );
 };

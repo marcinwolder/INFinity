@@ -10,7 +10,7 @@ import { Formula, useMaturaPath } from "../redux/slices/pathSlice";
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import classNames from "classnames";
 import usePyRepl from "../components/PythonCompiler/usePyRepl";
-import { useDisclosure, useId } from "@mantine/hooks";
+import { useDisclosure, useForceUpdate, useId } from "@mantine/hooks";
 
 import { AiOutlineInfoCircle, AiOutlineFormatPainter } from "react-icons/ai";
 import { VscRunAll } from "react-icons/vsc";
@@ -101,7 +101,20 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
   children,
   showOnDefault,
 }) => {
+  const [show, setShow] = useState(showOnDefault || false);
+
+  const ref = useRef<HTMLDivElement>(null);
+  const forceRefresh = useForceUpdate();
+
   const maturaPath = useMaturaPath();
+
+  const fullTaskNum = Number(
+    `${taskNum}${
+      ref.current?.getAttribute("data-id") !== "0"
+        ? "." + ref.current?.getAttribute("data-id")
+        : ".0"
+    }`,
+  );
 
   //Importing existing answers from redux
   let startingAnswers = {};
@@ -109,15 +122,35 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
   const correctTest = answers.find(
     (el) => el.formula === maturaPath.formula && el.date === maturaPath.date,
   );
-  if (correctTest && correctTest.answers[taskNum]) {
-    startingAnswers = correctTest.answers[taskNum];
+  if (correctTest && correctTest.answers[fullTaskNum]) {
+    startingAnswers = correctTest.answers[fullTaskNum];
   }
-
-  const [show, setShow] = useState(showOnDefault || false);
+  console.log(
+    "🚀 ~ file: testContext.tsx:134 ~ startingAnswers:",
+    startingAnswers,
+  );
   const [values, setValues] = useState(startingAnswers);
+  const STARTING_ANSWERS_EMPTY = _.isEmpty(startingAnswers);
 
+  useEffect(() => {
+    if (ref.current) {
+      if (ref.current.previousElementSibling) {
+        const prev = ref.current.previousElementSibling.getAttribute(
+          "data-id",
+        ) as string;
+        ref.current.setAttribute("data-id", `${Number(prev) + 1}`);
+      } else ref.current.setAttribute("data-id", "0");
+      forceRefresh();
+    }
+  }, []);
+  useEffect(() => {
+    setValues(startingAnswers);
+  }, [STARTING_ANSWERS_EMPTY]);
   return (
-    <div className="my-7 select-none rounded-lg bg-white p-3 shadow-md shadow-neutral-500">
+    <div
+      ref={ref}
+      className="my-7 select-none rounded-lg bg-white p-3 shadow-md shadow-neutral-500"
+    >
       <h1
         className={classNames("text-md rounded pl-2 font-bold text-black", {
           "bg-stara": maturaPath.formula === "formula-stara",
@@ -126,12 +159,20 @@ export const TestProvider: FC<PropsWithChildren<TestProviderProps>> = ({
         })}
       >
         {"Zadanie "}
-        {taskNum}
+        {fullTaskNum}
         {title.length > 1 && `. ${title}`}
         {pkt > 0 && `. (0-${pkt})`}
       </h1>
       <div className="my-2 px-1 text-black">
-        <context.Provider value={{ show, setShow, values, setValues, taskNum }}>
+        <context.Provider
+          value={{
+            show,
+            setShow,
+            values,
+            setValues,
+            taskNum: fullTaskNum,
+          }}
+        >
           {children}
         </context.Provider>
       </div>
@@ -264,7 +305,7 @@ export const TestArea: React.FC<testAreaProps & TaskId> = ({
         </p>
       </Modal>
       <div className="relative mx-auto w-full rounded-md">
-        <div className="absolute right-0 -translate-y-full rounded-sm  text-xl hover:text-secondary-focus">
+        <div className="absolute right-0 -translate-y-[calc(100%+2px)] rounded-sm  bg-white text-xl hover:text-secondary-focus">
           <button onClick={open}>
             <AiOutlineInfoCircle />
           </button>
@@ -287,6 +328,12 @@ export const TestArea: React.FC<testAreaProps & TaskId> = ({
               if (input === "") {
                 setValues((v) => _.omit(v, num));
               } else setValues((v) => ({ ...v, [num]: input }));
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Tab") {
+                e.preventDefault();
+                setValues((v) => ({ ...v, [num]: value + "\t" }));
+              }
             }}
           />
         )}
