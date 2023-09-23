@@ -1,6 +1,9 @@
-import React from "react";
-import { MenuLink } from "../context/menuContext";
+import React, { useContext } from "react";
+import { MenuContext, MenuLink } from "../context/menuContext";
 import { usePathElements } from "../redux/slices/pathSlice";
+import { Link } from "react-router-dom";
+import _ from "lodash";
+import useCurrentMatura from "../hooks/useCurrentMatura";
 
 const useMarkSelect = (elements: React.ReactElement) => {
   const path = usePathElements();
@@ -21,6 +24,9 @@ const useMarkSelect = (elements: React.ReactElement) => {
 };
 
 const Menu = () => {
+  const path = usePathElements();
+  const { setOpen } = useContext(MenuContext);
+  const currentMatura = useCurrentMatura();
   return (
     <ul className="menu h-screen w-80 bg-base-100 p-4 text-base-content">
       <li className="menu-title py-2">
@@ -47,6 +53,20 @@ const Menu = () => {
           </MenuLink>
           <MenuLink url="/kursy">Oferta kursów</MenuLink>
         </>,
+      )}
+      {!_.isEmpty(currentMatura) && path[1] === "/" ? (
+        <Link
+          className="btn btn-ghost mb-4 mt-auto text-success outline outline-1 outline-success"
+          to={`/${currentMatura.formula}/${currentMatura.date}`}
+          onClick={() => {
+            setOpen(false);
+          }}
+        >
+          <div className="mr-2 h-2 w-2 animate-ping rounded-full bg-success" />
+          Wróć do rozpoczętej matury
+        </Link>
+      ) : (
+        <></>
       )}
     </ul>
   );

@@ -71,26 +71,26 @@ const router = createHashRouter([
     path: "/",
     element: <App />,
     errorElement: <NotFound />,
+    loader: () => {
+      store.dispatch(examsSlice.actions.loadExams());
+      return {};
+    },
     children: [
       {
         path: "/:formula",
         element: <ExamPicker />,
-        loader: async ({ params }) => {
-          store.dispatch(
-            examsSlice.actions.loadExams(params.formula as Formula),
-          );
-          return {};
-        },
         children: [
           {
             path: "/:formula/:yearAndMonth",
             element: <ExamHub />,
             loader: async ({ params }) => {
-              const { yearAndMonth } = params;
+              const { yearAndMonth, formula } = params;
               const [year, month] = (yearAndMonth || "").split("-");
               const currentExam = store
                 .getState()
-                .exams[year].filter((exam) => exam.month === month);
+                .exams[formula as Formula].filter(
+                  (exam) => exam.month === month && exam.year === year,
+                );
               if (_.isEmpty(currentExam)) throw new Error();
               return { currentExam: _.head(currentExam) } as ExamPageLoader;
             },
@@ -122,13 +122,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
       <Elements stripe={stripePromise}>
         <MantineProvider>
-          <ModalsProvider>
-            <Provider store={store}>
-              <MenuProvider>
-                <RouterProvider router={router} />
-              </MenuProvider>
-            </Provider>
-          </ModalsProvider>
+          <Provider store={store}>
+            <MenuProvider>
+              <RouterProvider router={router} />
+            </MenuProvider>
+          </Provider>
         </MantineProvider>
       </Elements>
     </React.StrictMode>

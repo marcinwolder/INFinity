@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Site created to help the top 3.4% of students who want to achieve good results on the computer science high school exit exam",
   "scripts": {
-    "dev": "vite -c vite.config.dev.ts --host --https",
+    "dev": "vite -c vite.config.dev.ts --host --https --cors",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -13,10 +13,11 @@
   "dependencies": {
     "@designbycode/tailwindcss-text-shadow": "^2.0.0",
     "@emotion/react": "^11.11.0",
-    "@mantine/core": "^6.0.13",
-    "@mantine/form": "^6.0.19",
-    "@mantine/hooks": "^6.0.13",
-    "@mantine/modals": "^6.0.19",
+    "@mantine/core": "^6.0.21",
+    "@mantine/form": "^6.0.21",
+    "@mantine/hooks": "^6.0.21",
+    "@mantine/modals": "^6.0.21",
+    "@mantine/notifications": "^6.0.21",
     "@reduxjs/toolkit": "^1.9.3",
     "@stripe/react-stripe-js": "^2.3.0",
     "@stripe/stripe-js": "^2.1.5",
@@ -24,6 +25,7 @@
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "axios": "^1.5.0",
     "classnames": "^2.3.2",
+    "clsx": "^2.0.0",
     "color-convert": "^2.0.1",
     "eslint-import-resolver-typescript": "^3.5.5",
     "firebase": "^10.3.1",
@@ -45,7 +47,8 @@
     "remark-gfm": "^3.0.1",
     "styled-components": "^5.3.11",
     "tailwindcss-opentype": "^1.1.0",
-    "theme-change": "^2.3.0"
+    "theme-change": "^2.3.0",
+    "vite-plugin-csp": "^1.1.2"
   },
   "devDependencies": {
     "@types/color-convert": "^2.0.1",

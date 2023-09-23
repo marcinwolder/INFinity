@@ -1,7 +1,8 @@
 import _ from "lodash";
 import { Formula } from "./pathSlice";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Answers } from "../../context/testContext";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Answers } from "../../context/testContext/components/TestProvider";
+import { StateStore } from "..";
 
 export interface Matura {
   date: string;
@@ -30,3 +31,6 @@ export const answerSlice = createSlice({
     },
   },
 });
+
+const selAns = (store: StateStore) => store.answers;
+export const selectAnswers = createSelector([selAns], (answers) => answers);

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import examsJSON from "../../JSON/exams.json";
 import { Formula } from "./pathSlice";
-import _ from "lodash";
+import _, { forEach } from "lodash";
 
 export interface ExamData {
   formula: Formula;
@@ -14,45 +14,22 @@ export interface ExamData {
 }
 
 const initialState: {
-  [year: string]: ExamData[];
-} = {};
+  [formula in Formula]: ExamData[];
+} = { "formula-2015": [], "formula-2023": [], "formula-stara": [] };
 
 export const examsSlice = createSlice({
   name: "exams",
   initialState,
   reducers: {
-    loadExams: (state, action: PayloadAction<Formula>) => {
-      const exams = examsJSON[action.payload];
+    loadExams: (state) => {
+      const exams = examsJSON;
 
-      if (_.isEmpty(exams)) {
-        _.keys(state).forEach((key) => delete state[key]);
-      }
-
-      exams.forEach((exam) => {
-        const {
-          year,
-          month,
-          tasks,
-          splitParts = false,
-          info = "",
-          title,
-        } = exam;
-
-        const buf = {
-          formula: action.payload,
-          year,
-          month,
-          tasks,
-          splitParts,
-          info,
-          title,
-        };
-
-        if (!state[year]) {
-          state[year] = [buf];
-        } else if (!_.filter(state[year], (e) => _.isEqual(e, buf))) {
-          state[year].push(buf);
-        }
+      forEach(exams, (formulaExams, formula) => {
+        forEach(formulaExams, (exam) => {
+          const buf = exam as ExamData;
+          buf.formula = formula as Formula;
+          state[formula as Formula]?.push(buf);
+        });
       });
     },
   },

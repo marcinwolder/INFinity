@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import { useWindowScroll } from "@mantine/hooks";
 import JumpToStart from "./components/JumpToStart";
 import { modals } from "@mantine/modals";
+import { answerSlice } from "./redux/slices/answersSlice";
 
 function App() {
   const location = useLocation();
@@ -22,6 +23,13 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, scroll] = useWindowScroll();
 
+  useEffect(() => {
+    if (window.localStorage.answers) {
+      dispatch(
+        answerSlice.actions.changeAns(JSON.parse(window.localStorage.answers)),
+      );
+    }
+  }, []);
   useEffect(() => {
     scroll({ y: 0 });
     themeChange(false);

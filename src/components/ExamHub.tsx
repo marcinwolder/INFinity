@@ -21,23 +21,25 @@ import MarkdownCode from "./MarkdownCode";
 
 const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
   const components: MaturaComponents = {
-    testprovider: ({ children, pkt, title }) => {
+    testprovider: ({ children, pkt, title, videoanswerurl }) => {
       return (
-        <TestProvider taskNum={num} pkt={pkt} title={title}>
+        <TestProvider
+          videoAnswerUrl={videoanswerurl}
+          taskNum={num}
+          pkt={pkt}
+          title={title}
+        >
           {children}
         </TestProvider>
       );
     },
-    testradio: ({ num, positive }) => (
-      <TestRadio num={num} positive={positive === ""} />
-    ),
-    testarea: ({ answer, num, passifnotsorted }) => {
+    testradio: ({ positive }) => <TestRadio positive={positive === ""} />,
+    testarea: ({ answer, passifnotsorted }) => {
       return (
         <TestArea
           answer={String(answer)
             .split(" ")
             .map((str) => str.replaceAll("\\t", "\t"))}
-          num={num}
           passIfNotSorted={passifnotsorted === ""}
         />
       );
@@ -112,7 +114,6 @@ const Index: React.FC = () => {
       </div>
     );
   }
-
   return (
     <div className="w-full max-w-screen-md sm:px-0 md:px-6">
       <TabSwitch tabs={comps} headers={tasks} />

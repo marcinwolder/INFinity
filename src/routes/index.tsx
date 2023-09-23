@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import _ from "lodash";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { BiBookBookmark } from "react-icons/bi";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import { useScrollIntoView, useWindowScroll } from "@mantine/hooks";
@@ -24,8 +24,9 @@ import kursAlgo from "./../img/kursy/kurs-algo.png";
 import { Link } from "react-router-dom";
 
 import AnimatedPath from "./components/AnimatedPath";
-import { Skeleton } from "@mantine/core";
 import { Variants, motion } from "framer-motion";
+import { Skeleton } from "@mantine/core";
+import { useDispatch } from "react-redux";
 
 let scrollValue = 0;
 

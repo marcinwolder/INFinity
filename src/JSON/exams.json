@@ -9,6 +9,15 @@
       "info": "Pierwszy termin"
     }
   ],
-  "formula-2023": [],
+  "formula-2023": [
+    {
+      "year": "2022",
+      "month": "maj",
+      "tasks": ["Algorytm", "Analiza", "Test", "Python", "Excel", "Access"],
+      "splitParts": false,
+      "title": "TEST",
+      "info": "test test"
+    }
+  ],
   "formula-stara": []
 }
