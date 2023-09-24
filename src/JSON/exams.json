@@ -7,6 +7,13 @@
       "splitParts": true,
       "title": "Matura",
       "info": "Pierwszy termin"
+    },
+    {
+      "year": "2022",
+      "month": "maj test",
+      "tasks": ["Algorytm", "Analiza", "Test", "Python", "Excel", "Access"],
+      "splitParts": true,
+      "title": "Matura"
     }
   ],
   "formula-2023": [
@@ -14,9 +21,7 @@
       "year": "2022",
       "month": "maj",
       "tasks": ["Algorytm", "Analiza", "Test", "Python", "Excel", "Access"],
-      "splitParts": false,
-      "title": "TEST",
-      "info": "test test"
+      "title": "TEST"
     }
   ],
   "formula-stara": []

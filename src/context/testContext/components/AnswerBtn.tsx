@@ -11,7 +11,7 @@ import store from "../../../redux";
 import { selectAnswers } from "../../../redux/slices/answersSlice";
 import useCurrentMatura from "../../../hooks/useCurrentMatura";
 import { modals } from "@mantine/modals";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const getCurrentAnswers = (formula: string, date: string) =>
   selectAnswers(store.getState()).filter(
@@ -68,6 +68,7 @@ export const AnswerBtn: React.FC = () => {
         })}
         onClick={() => {
           setSaveMode(true);
+          //TODO:BUG-FIX: modal shows when no answer is saved--3
           if (currentMatura.formula === formula && currentMatura.date === date)
             saveAnswersLocally();
           else
