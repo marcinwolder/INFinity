@@ -1,16 +1,21 @@
 import { Link, useOutlet, useParams } from "react-router-dom";
 import { Suspense } from "react";
 import { Formula } from "../redux/slices/pathSlice";
-import _, { map } from "lodash";
+import _, { map, reduce } from "lodash";
 import { useSelector } from "react-redux";
-import { StateStore } from "../redux";
+import store, { StateStore } from "../redux";
 import { ExamData } from "../redux/slices/examsSlice";
 import clsx from "clsx";
+import useCurrentMatura from "../hooks/useCurrentMatura";
+import { selectAnswers } from "../redux/slices/answersSlice";
+
 const ExamPicker: React.FC = () => {
+  const currentMatura = useCurrentMatura();
   const { formula } = useParams();
   const exams = useSelector(
     (state: StateStore) => state.exams[formula as Formula],
   );
+  const answers = selectAnswers(store.getState());
   const sortedExams: { [key: string]: ExamData[] } = {};
 
   exams.forEach((exam) => {
@@ -20,12 +25,28 @@ const ExamPicker: React.FC = () => {
 
   const examsComp = map(sortedExams, (exams, year) => {
     const examsLinks = exams.map((exam, index) => {
+      const { maxPoints } = exam;
+      const examAnswers =
+        answers.find(
+          (examAns) =>
+            examAns.formula === exam.formula &&
+            examAns.date === `${exam.year}-${exam.month}`,
+        )?.answers || {};
+      const examPoints = reduce(
+        examAnswers,
+        (sum, answers) => sum + answers.points,
+        0,
+      );
+      const MATURA_PERCENT = Number((examPoints / maxPoints) * 100);
+      const CURRENT_MATURA =
+        currentMatura.formula === exam.formula &&
+        currentMatura.date === `${exam.year}-${exam.month}`;
       return (
         <div className="flex items-center">
           <div
             className={clsx("mr-2 h-2 w-2 rounded-full bg-success", {
-              invisible: true,
-              "animate-ping": !true,
+              invisible: !CURRENT_MATURA,
+              "animate-ping": CURRENT_MATURA,
             })}
           />
           <Link
@@ -43,12 +64,12 @@ const ExamPicker: React.FC = () => {
             )}
           </Link>
           <div className="group indicator">
-            <div className="badge indicator-item badge-xs -translate-x-2 select-none opacity-0 group-hover:opacity-100">
-              0%
+            <div className="badge indicator-item badge-xs -translate-x-0 -translate-y-3 select-none opacity-0 group-hover:opacity-100">
+              Rozwiązano {MATURA_PERCENT}%
             </div>
             <progress
               className="progress progress-success ml-auto w-24 opacity-40"
-              value={0}
+              value={MATURA_PERCENT}
               max="100"
             ></progress>
           </div>

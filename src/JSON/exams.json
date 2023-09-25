@@ -6,14 +6,16 @@
       "tasks": ["Algorytm", "Analiza", "Test", "Python", "Excel", "Access"],
       "splitParts": true,
       "title": "Matura",
-      "info": "Pierwszy termin"
+      "info": "Pierwszy termin",
+      "maxPoints": 50
     },
     {
       "year": "2022",
       "month": "maj test",
       "tasks": ["Algorytm", "Analiza", "Test", "Python", "Excel", "Access"],
       "splitParts": true,
-      "title": "Matura"
+      "title": "Matura",
+      "maxPoints": 50
     }
   ],
   "formula-2023": [
@@ -21,7 +23,8 @@
       "year": "2022",
       "month": "maj",
       "tasks": ["Algorytm", "Analiza", "Test", "Python", "Excel", "Access"],
-      "title": "TEST"
+      "title": "TEST",
+      "maxPoints": 50
     }
   ],
   "formula-stara": []

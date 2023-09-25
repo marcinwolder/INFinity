@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import examsJSON from "../../JSON/exams.json";
 import { Formula } from "./pathSlice";
 import _, { forEach } from "lodash";
@@ -11,6 +11,7 @@ export interface ExamData {
   splitParts?: boolean;
   title: string;
   info?: string;
+  maxPoints: number;
 }
 
 const initialState: {

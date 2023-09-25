@@ -7,7 +7,7 @@ import { StateStore } from "..";
 export interface Matura {
   date: string;
   formula: Formula;
-  answers: { [keys: number]: Answers };
+  answers: { [keys: number]: Answers & { points: number } };
 }
 
 export const answerSlice = createSlice({

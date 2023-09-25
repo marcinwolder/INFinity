@@ -8,7 +8,7 @@ const MaturaError: React.FC<{
       <div className="chat chat-start">
         <div className="chat-bubble">
           <h1 className="text-3xl font-black text-orange-700">DEV info:</h1>
-          <p>Brak komponentu zawierającego zadanie!</p>
+          <p>Brak pliku zawierającego zadanie!</p>
         </div>
       </div>
       <div className="chat chat-end">

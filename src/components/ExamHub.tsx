@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PartSwitch from "./PartSwitch";
 import TabSwitch from "./TabSwitch";
-import MaturaError from "./MaturaError";
+import MaturaError from "../context/testContext/components/MaturaError";
 import { useLoaderData } from "react-router-dom";
 import { ExamPageLoader } from "../main";
 import ReactMarkdown from "react-markdown";

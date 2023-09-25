@@ -24,7 +24,7 @@ export const AnswerBtn: React.FC = () => {
   const [saveMode, setSaveMode] = useState(false);
   const dispatch = useDispatch();
   const { date, formula } = useMaturaPath();
-  const { values, taskNum } = useTestContext();
+  const { values, taskNum, points } = useTestContext();
 
   const answersStore = getCurrentAnswers(formula as string, date as string);
 
@@ -33,7 +33,7 @@ export const AnswerBtn: React.FC = () => {
   const saveAnswersLocally = () => {
     if (!_.isEmpty(values)) {
       updateAnswer(dispatch, {
-        answers: { [taskNum]: values },
+        answers: { [taskNum]: { ...values, points: Number(points) } },
         formula: formula as Formula,
         date: date || "",
       });
@@ -61,15 +61,17 @@ export const AnswerBtn: React.FC = () => {
   return (
     <div className="mt-4 flex w-full justify-center pt-2">
       <button
-        className={clsx("btn btn-wide", {
+        className={clsx("btn btn-wide mb-2", {
           "btn-secondary": !ANSWERS_SAVED,
           "btn-neutral": ANSWERS_SAVED,
           "btn-disabled": saveMode,
         })}
         onClick={() => {
           setSaveMode(true);
-          //TODO:BUG-FIX: modal shows when no answer is saved--3
-          if (currentMatura.formula === formula && currentMatura.date === date)
+          if (
+            _.isEmpty(currentMatura) ||
+            (currentMatura.formula === formula && currentMatura.date === date)
+          )
             saveAnswersLocally();
           else
             modals.openConfirmModal({

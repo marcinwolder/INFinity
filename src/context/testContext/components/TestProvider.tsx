@@ -10,6 +10,7 @@ import { BsCameraVideoFill } from "react-icons/bs";
 
 export interface Answers {
   [keys: number]: string | number | boolean;
+  points: number;
 }
 interface Context {
   show: boolean;
@@ -17,6 +18,7 @@ interface Context {
   values: Answers;
   setValues: React.Dispatch<React.SetStateAction<Answers>>;
   taskNum: number;
+  points: number;
 }
 
 const context = createContext<Context>({
@@ -24,11 +26,14 @@ const context = createContext<Context>({
   setShow: () => {
     return;
   },
-  values: {},
+  values: {
+    points: 0,
+  },
   setValues: () => {
     return;
   },
   taskNum: 0,
+  points: 0,
 });
 
 export const useTestContext = () => {
@@ -42,6 +47,7 @@ interface ITestProviderProps {
   pkt?: number;
   show?: boolean;
   videoAnswerUrl?: string;
+  points: number;
 }
 
 export const TestProvider: React.FC<
@@ -70,7 +76,7 @@ export const TestProvider: React.FC<
   );
 
   //Importing existing answers from redux
-  let startingAnswers = {};
+  let startingAnswers: Answers = { points: 0 };
   const answers = useSelector((state: StateStore) => state.answers);
   const correctTest = answers.find(
     (el) => el.formula === maturaPath.formula && el.date === maturaPath.date,
@@ -79,7 +85,7 @@ export const TestProvider: React.FC<
     startingAnswers = correctTest.answers[fullTaskNum];
   }
   const [values, setValues] = useState(startingAnswers);
-  const STARTING_ANSWERS_EMPTY = _.isEmpty(startingAnswers);
+  const STARTING_ANSWERS_EMPTY = _.isEmpty(_.omit(startingAnswers, "points"));
 
   useEffect(() => {
     if (ref.current) {
@@ -141,6 +147,7 @@ export const TestProvider: React.FC<
             values,
             setValues,
             taskNum: fullTaskNum,
+            points: pkt,
           }}
         >
           {children}
