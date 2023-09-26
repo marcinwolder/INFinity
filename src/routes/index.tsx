@@ -26,7 +26,6 @@ import { Link } from "react-router-dom";
 import AnimatedPath from "./components/AnimatedPath";
 import { Variants, motion } from "framer-motion";
 import { Skeleton } from "@mantine/core";
-import { useDispatch } from "react-redux";
 
 let scrollValue = 0;
 

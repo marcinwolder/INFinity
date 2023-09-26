@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
-import { ModalsProvider } from "@mantine/modals";
 import _ from "lodash";
 
 import { MenuProvider } from "./context/menuContext";

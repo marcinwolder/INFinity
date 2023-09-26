@@ -6,7 +6,9 @@ type ComponentsNames =
   | "testradio"
   | "testinput"
   | "testarea"
+  | "infobox"
   | "maturaerror"
+  | "testpython"
   | "downloadbtn";
 
 export type MaturaComponents = ComponentsOld &

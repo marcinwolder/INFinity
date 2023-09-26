@@ -31,7 +31,7 @@ export const AnswerBtn: React.FC = () => {
   let ANSWERS_SAVED = false;
   if (answersStore && answersStore.answers[taskNum]) ANSWERS_SAVED = true;
   const saveAnswersLocally = () => {
-    if (!_.isEmpty(values)) {
+    if (!_.isEmpty(_.omit(values, "points"))) {
       updateAnswer(dispatch, {
         answers: { [taskNum]: { ...values, points: Number(points) } },
         formula: formula as Formula,
@@ -40,7 +40,7 @@ export const AnswerBtn: React.FC = () => {
     }
     setTimeout(() => {
       setSaveMode(false);
-      if (!_.isEmpty(values)) {
+      if (!_.isEmpty(_.omit(values, "points"))) {
         window.localStorage.answers = JSON.stringify(
           getCurrentAnswers(formula as string, date as string),
         );

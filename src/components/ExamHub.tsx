@@ -13,11 +13,13 @@ import {
   TestArea,
   TestInput,
   TestProvider,
+  TestPython,
   TestRadio,
 } from "../context/testContext";
 import DownloadBtn from "./DownloadBtn";
 import MarkdownPre from "./MarkdownPre";
 import MarkdownCode from "./MarkdownCode";
+import InfoBox from "../context/testContext/components/InfoBox";
 
 const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
   const components: MaturaComponents = {
@@ -47,6 +49,28 @@ const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
     testinput: TestInput,
     answerbtn: AnswerBtn,
     downloadbtn: ({ urls }) => <DownloadBtn urls={String(urls).split(" ")} />,
+    infobox: ({ children, tasknums }) => (
+      <InfoBox taskNums={String(tasknums).split(" ")}>{children}</InfoBox>
+    ),
+    testpython: ({ children, terminal, parameters, tests, path, testpath }) => {
+      console.log(
+        "🚀 ~ file: ExamHub.tsx:85 ~ components: MaturaComponents.tests:",
+        tests.split("\\t").map((line: string) => line.replaceAll("\\n", "\n")),
+      );
+      return (
+        <TestPython
+          terminal={terminal === ""}
+          parameters={parameters.split("\\n")}
+          tests={tests
+            .split("\\t")
+            .map((line: string) => line.replaceAll("\\n", "\n"))}
+          dataPath={path}
+          testPath={testpath}
+        >
+          {children}
+        </TestPython>
+      );
+    },
     table: ({ children }) => (
       <table className="table border-b border-neutral-300">{children}</table>
     ),
@@ -59,6 +83,9 @@ const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
     ),
     pre: ({ children }) => <MarkdownPre children={children} />,
     code: ({ children }) => <MarkdownCode children={children} />,
+    ul: ({ children }) => (
+      <ul className="mt-2 list-inside list-disc">{children}</ul>
+    ),
     maturaerror: MaturaError,
   };
   const [md, setMd] = useState("");

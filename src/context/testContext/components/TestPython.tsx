@@ -37,7 +37,7 @@ export const TestPython: React.FC<
   const ref = useRef<HTMLDivElement>(null);
   const [num, setNum] = useState(0);
   const [PyRepl, setReplSrc] = usePyRepl();
-  const { show, taskNum, setValues, values } = useTestContext();
+  const { show, taskNum, setValues, values, points } = useTestContext();
   const dispatch = useDispatch();
   const maturaPath = useMaturaPath();
 
@@ -106,7 +106,7 @@ export const TestPython: React.FC<
     }
     updateAnswer(dispatch, {
       answers: {
-        [taskNum]: replContent,
+        [taskNum]: { 0: replContent, points: Number(points) },
       },
       formula: maturaPath.formula as Formula,
       date: maturaPath.date || "",

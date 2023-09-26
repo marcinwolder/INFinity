@@ -47,7 +47,6 @@ interface ITestProviderProps {
   pkt?: number;
   show?: boolean;
   videoAnswerUrl?: string;
-  points: number;
 }
 
 export const TestProvider: React.FC<
