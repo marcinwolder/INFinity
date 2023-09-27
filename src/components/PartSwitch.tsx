@@ -1,4 +1,5 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode } from "react";
+import { useSearchParams } from "react-router-dom";
 
 interface PartSwitchProps {
   Part1: ReactNode;
@@ -6,24 +7,48 @@ interface PartSwitchProps {
 }
 
 const PartSwitch: FC<PartSwitchProps> = ({ Part1, Part2 }) => {
-  const [tab, setTab] = useState(1);
+  const [urlParams, setUrlParams] = useSearchParams();
   return (
     <>
       <div className="tabs">
         <a
-          onClick={() => setTab(1)}
-          className={`tab tab-bordered ${tab === 1 && "tab-active"}`}
+          onClick={() => {
+            setUrlParams((params) => {
+              params.set("part", "1");
+              params.delete("tab");
+              return params;
+            });
+          }}
+          className={`tab tab-bordered ${
+            urlParams.get("part") === "1" && "tab-active"
+          }`}
         >
           Część 1
         </a>
         <a
-          onClick={() => setTab(2)}
-          className={`tab tab-bordered ${tab === 2 && "tab-active"}`}
+          onClick={() => {
+            setUrlParams((params) => {
+              params.set("part", "2");
+              params.delete("tab");
+              return params;
+            });
+          }}
+          className={`tab tab-bordered ${
+            urlParams.get("part") === "2" && "tab-active"
+          }`}
         >
           Część 2
         </a>
       </div>
-      <div className="pt-4">{tab === 1 ? Part1 : Part2}</div>
+      <div className="pt-4">
+        {urlParams.get("part") === "1" ? (
+          Part1
+        ) : urlParams.get("part") === "2" ? (
+          Part2
+        ) : (
+          <></>
+        )}
+      </div>
     </>
   );
 };

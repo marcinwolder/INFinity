@@ -65,15 +65,13 @@ export interface ExamPageLoader {
   currentExam: ExamData;
 }
 
+store.dispatch(examsSlice.actions.loadExams());
+
 const router = createHashRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <NotFound />,
-    loader: () => {
-      store.dispatch(examsSlice.actions.loadExams());
-      return {};
-    },
     children: [
       {
         path: "/:formula",

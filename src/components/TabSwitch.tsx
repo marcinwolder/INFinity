@@ -1,4 +1,5 @@
-import { FC, ReactNode, Suspense, useEffect, useState } from "react";
+import { FC, ReactNode, Suspense, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 interface TabSwitchProps {
   tabs: ReactNode[];
@@ -6,11 +7,7 @@ interface TabSwitchProps {
 }
 
 const TabSwitch: FC<TabSwitchProps> = ({ tabs, headers }) => {
-  const [tab, setTab] = useState(0);
-
-  useEffect(() => {
-    setTab(0);
-  }, [tabs]);
+  const [urlParams, setUrlParams] = useSearchParams();
 
   return (
     <>
@@ -20,9 +17,14 @@ const TabSwitch: FC<TabSwitchProps> = ({ tabs, headers }) => {
             <a
               key={index}
               onClick={() => {
-                setTab(index + 1);
+                setUrlParams((params) => {
+                  params.set("tab", `${index + 1}`);
+                  return params;
+                });
               }}
-              className={`tab ${tab === index + 1 && "tab-active"}`}
+              className={`tab ${
+                urlParams.get("tab") === `${index + 1}` && "tab-active"
+              }`}
             >
               {header}
             </a>
@@ -37,7 +39,7 @@ const TabSwitch: FC<TabSwitchProps> = ({ tabs, headers }) => {
             </div>
           }
         >
-          {tabs[tab - 1]}
+          {tabs[Number(urlParams.get("tab")) - 1]}
         </Suspense>
       </div>
     </>
