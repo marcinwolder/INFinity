@@ -24,7 +24,7 @@ export const AnswerBtn: React.FC = () => {
   const [saveMode, setSaveMode] = useState(false);
   const dispatch = useDispatch();
   const { date, formula } = useMaturaPath();
-  const { values, taskNum, points } = useTestContext();
+  const { values, taskNum, points, setShow } = useTestContext();
 
   const answersStore = getCurrentAnswers(formula as string, date as string);
 
@@ -67,6 +67,7 @@ export const AnswerBtn: React.FC = () => {
           "btn-disabled": saveMode,
         })}
         onClick={() => {
+          // setShow((show) => !show);
           setSaveMode(true);
           if (
             _.isEmpty(currentMatura) ||

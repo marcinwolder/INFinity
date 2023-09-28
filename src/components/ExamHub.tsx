@@ -20,6 +20,8 @@ import DownloadBtn from "./DownloadBtn";
 import MarkdownPre from "./MarkdownPre";
 import MarkdownCode from "./MarkdownCode";
 import InfoBox from "../context/testContext/components/InfoBox";
+import TestPython2 from "../context/testContext/components/TestPython2";
+import { Helmet } from "react-helmet";
 
 const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
   const components: MaturaComponents = {
@@ -40,32 +42,45 @@ const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
       return (
         <TestArea
           answer={String(answer)
-            .split(" ")
+            .split("\\n")
             .map((str) => str.replaceAll("\\t", "\t"))}
           passIfNotSorted={passifnotsorted === ""}
         />
       );
     },
-    testinput: TestInput,
+    testinput: ({ mode, answer, placeholder }) => {
+      let ans;
+      switch (mode) {
+        case "multi":
+          ans = answer.split("\\t");
+          break;
+        case "default":
+          ans = String(answer);
+      }
+      return <TestInput answer={ans} placeholder={placeholder} />;
+    },
     answerbtn: AnswerBtn,
     downloadbtn: ({ urls }) => <DownloadBtn urls={String(urls).split(" ")} />,
     infobox: ({ children, tasknums }) => (
       <InfoBox taskNums={String(tasknums).split(" ")}>{children}</InfoBox>
     ),
-    testpython: ({ children, terminal, parameters, tests, path, testpath }) => {
-      return (
-        <TestPython
-          terminal={terminal === ""}
-          parameters={parameters.split("\\n")}
-          tests={tests
-            .split("\\t")
-            .map((line: string) => line.replaceAll("\\n", "\n"))}
-          dataPath={path}
-          testPath={testpath}
-        >
-          {children}
-        </TestPython>
-      );
+    // testpython: ({ children, terminal, parameters, tests, path, testpath }) => {
+    //   return (
+    //     <TestPython
+    //       terminal={terminal === ""}
+    //       parameters={parameters.split("\\n")}
+    //       tests={tests
+    //         .split("\\t")
+    //         .map((line: string) => line.replaceAll("\\n", "\n"))}
+    //       dataPath={path}
+    //       testPath={testpath}
+    //     >
+    //       {children}
+    //     </TestPython>
+    //   );
+    // },
+    testpython: () => {
+      return <TestPython2 />;
     },
     table: ({ children }) => (
       <table className="table border-b border-neutral-300">{children}</table>

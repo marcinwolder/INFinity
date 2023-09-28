@@ -6,6 +6,7 @@ export const usePyRepl = () => {
     forwardRef(({ children, output }, ref) => {
       return (
         <py-repl
+          id="repl"
           onKeyDownCapture={function (e) {
             if (e.key === "Tab") {
               const editor =

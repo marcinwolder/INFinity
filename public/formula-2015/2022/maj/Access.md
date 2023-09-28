@@ -103,9 +103,9 @@ Dla każdej osoby zliczamy <u>łączny czas</u> pobytu w szkole w analizowanym o
 Podaj `identyfikatory` oraz `imiona` i `nazwiska` trzech osób, które w ciągu monitorowanego
 czasu przebywały najdłużej na terenie szkoły.
 
-|                                    Identyfikator, Imię, Nazwisko                                    |
-| :-------------------------------------------------------------------------------------------------: |
-| <TestArea passIfNotSorted answer="314\tSebastian\tRabaj 172\tMonika\tKado 299\tAlicja\tKronecka" /> |
+|                                    Identyfikator, Imię, Nazwisko                                     |
+| :--------------------------------------------------------------------------------------------------: |
+| <TestArea passIfNotSorted answer="314\tSebastian\tRabaj\n172\tMonika\tKado\n299\tAlicja\tKronecka"/> |
 
   <AnswerBtn />
 </TestProvider>
@@ -114,9 +114,9 @@ czasu przebywały najdłużej na terenie szkoły.
 
 Podaj imiona i nazwiska wszystkich uczniów, którzy byli nieobecni 6.04.2022 r.
 
-|                                      Imię, Nazwisko                                       |
-| :---------------------------------------------------------------------------------------: |
-| <TestArea answer="Mateusz\tKordas Krzysztof\tMichalak Oliwier\tZiolko" passIfNotSorted /> |
+|                                       Imię, Nazwisko                                        |
+| :-----------------------------------------------------------------------------------------: |
+| <TestArea answer="Mateusz\tKordas\nKrzysztof\tMichalak\nOliwier\tZiolko" passIfNotSorted /> |
 
   <AnswerBtn />
 </TestProvider>

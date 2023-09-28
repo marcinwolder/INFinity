@@ -60,7 +60,6 @@ export const TestArea: React.FC<ITestAreaProps> = ({
         </div>
         {show ? (
           <div className="flex w-full items-center justify-center gap-2">
-            {value || "--"}
             {compare() ? (
               <TiTick className="text-xl text-success" />
             ) : (

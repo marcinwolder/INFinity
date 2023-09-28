@@ -14,6 +14,8 @@ export const TestInput: React.FC<ITestProps> = ({ answer, placeholder }) => {
   const { show, setValues, values } = useTestContext();
   let compare;
   if (typeof answer === "string") compare = (str: string) => str === answer;
+  else if (typeof answer === "object")
+    compare = (str: string) => (answer as Array<string>).includes(str);
   else if (typeof answer === "number")
     compare = (str: string) => Number(str) === answer;
   else
