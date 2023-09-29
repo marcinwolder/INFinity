@@ -63,7 +63,7 @@ IdEwidencji;IdUcznia;Wejscie;Wyjscie
 \
 Wykorzystaj dostępne narzędzia informatyczne i podaj odpowiedzi do zadań 6.1.–6.4.
 
-  <DownloadBtn urls="/formula-2015/2022/maj/klasa.txt /formula-2015/2022/maj/uczen.txt /formula-2015/2022/maj/ewidencja.txt"/>
+  <DownloadBtn urls="klasa.txt uczen.txt ewidencja.txt"/>
 </TestProvider>
 
 <TestProvider pkt=2 videoAnswerUrl=".">

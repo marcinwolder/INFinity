@@ -11,6 +11,8 @@ Do dyspozycji masz plik `przyklad.txt`, który także zawiera 200 liczb – odpo
 \
 **Uwaga**: Pamiętaj, że Twój program musi ostatecznie działać dla pliku `liczby.txt`.
 
+<DownloadBtn urls="liczby.txt przyklad.txt">
+
 </TestProvider>
 <TestProvider pkt=4 showOnDefault>
 
@@ -44,7 +46,7 @@ Odpowiedź dla danych z pliku `przyklad.txt`:
 
 |                                       |                                                         |
 | ------------------------------------: | ------------------------------------------------------- |
-|         Liczba - najwięcej czynników: | <TestInput mode="multi" answer="99792\t20992\t56064" /> |
+|         Liczba - najwięcej czynników: | <TestInput mode="array" answer="99792\t20992\t56064" /> |
 |                      Ilość czynników: | <TestInput answer="10" />                               |
 | Liczba - najwięcej różnych czynników: | <TestInput answer="62790" />                            |
 |              Ilość różnych czynników: | <TestInput answer="6" />                                |

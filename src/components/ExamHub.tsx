@@ -13,15 +13,12 @@ import {
   TestArea,
   TestInput,
   TestProvider,
-  TestPython,
   TestRadio,
 } from "../context/testContext";
 import DownloadBtn from "./DownloadBtn";
 import MarkdownPre from "./MarkdownPre";
 import MarkdownCode from "./MarkdownCode";
 import InfoBox from "../context/testContext/components/InfoBox";
-import TestPython2 from "../context/testContext/components/TestPython2";
-import { Helmet } from "react-helmet";
 
 const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
   const components: MaturaComponents = {
@@ -51,10 +48,13 @@ const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
     testinput: ({ mode, answer, placeholder }) => {
       let ans;
       switch (mode) {
-        case "multi":
+        case "array":
           ans = answer.split("\\t");
           break;
-        case "default":
+        case "func":
+          ans = () => true;
+          break;
+        default:
           ans = String(answer);
       }
       return <TestInput answer={ans} placeholder={placeholder} />;
@@ -79,9 +79,9 @@ const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
     //     </TestPython>
     //   );
     // },
-    testpython: () => {
-      return <TestPython2 />;
-    },
+    // testpython: () => {
+    //   return <TestPython2 />;
+    // },
     table: ({ children }) => (
       <table className="table border-b border-neutral-300">{children}</table>
     ),

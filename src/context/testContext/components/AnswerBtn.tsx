@@ -67,7 +67,7 @@ export const AnswerBtn: React.FC = () => {
           "btn-disabled": saveMode,
         })}
         onClick={() => {
-          // setShow((show) => !show);
+          setShow((show) => !show);
           setSaveMode(true);
           if (
             _.isEmpty(currentMatura) ||

@@ -1,4 +1,4 @@
-import { FC, ReactNode, Suspense, useState } from "react";
+import { FC, ReactNode, Suspense } from "react";
 import { useSearchParams } from "react-router-dom";
 
 interface TabSwitchProps {
@@ -11,19 +11,19 @@ const TabSwitch: FC<TabSwitchProps> = ({ tabs, headers }) => {
 
   return (
     <>
-      <div className="tabs-boxed tabs mb-2 justify-center bg-base-100">
+      <div className="tabs tabs-boxed mb-2 justify-center bg-base-100">
         {headers.map((header, index) => {
           return (
             <a
               key={index}
               onClick={() => {
                 setUrlParams((params) => {
-                  params.set("tab", `${index + 1}`);
+                  params.set("tab", header);
                   return params;
                 });
               }}
               className={`tab ${
-                urlParams.get("tab") === `${index + 1}` && "tab-active"
+                urlParams.get("tab") === header && "tab-active"
               }`}
             >
               {header}
@@ -39,7 +39,7 @@ const TabSwitch: FC<TabSwitchProps> = ({ tabs, headers }) => {
             </div>
           }
         >
-          {tabs[Number(urlParams.get("tab")) - 1]}
+          {tabs[headers.findIndex((header) => header === urlParams.get("tab"))]}
         </Suspense>
       </div>
     </>

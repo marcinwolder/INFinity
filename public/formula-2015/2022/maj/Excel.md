@@ -14,7 +14,7 @@ nr_zamowienia  data        magazyn       wielkosc_zamowienia
 5              03.01.2021  Gniezno       6000
 ```
 
-  <DownloadBtn urls="/formula-2015/2022/maj/soki.txt" />
+  <DownloadBtn urls="soki.txt" />
 </TestProvider>
 
 <TestProvider pkt=1>
