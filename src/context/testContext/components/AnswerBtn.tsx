@@ -30,6 +30,30 @@ export const AnswerBtn: React.FC = () => {
 
   let ANSWERS_SAVED = false;
   if (answersStore && answersStore.answers[taskNum]) ANSWERS_SAVED = true;
+  const onSaveClick = () => {
+    setShow((show) => !show);
+    setSaveMode(true);
+    if (
+      _.isEmpty(currentMatura) ||
+      (currentMatura.formula === formula && currentMatura.date === date)
+    )
+      saveAnswersLocally();
+    else
+      modals.openConfirmModal({
+        title: <p className="text-lg font-bold">🤔 Hmm, zaczekaj chwilkę...</p>,
+        children:
+          "Próbujesz zapisac odpowiedzi w nowej maturze bez zakończenia poprzedniej. \n Zapisanie odpowiedzi będzie skutkowało usunięciem postępu rozwiązywania poprzedniego egzaminu po odświeżeniu strony.",
+        onConfirm() {
+          saveAnswersLocally();
+        },
+        onCancel() {
+          navigate(`/${currentMatura.formula}/${currentMatura.date}`);
+        },
+        onClose() {
+          setSaveMode(false);
+        },
+      });
+  };
   const saveAnswersLocally = () => {
     if (!_.isEmpty(_.omit(values, "points"))) {
       updateAnswer(dispatch, {
@@ -66,32 +90,7 @@ export const AnswerBtn: React.FC = () => {
           "btn-neutral": ANSWERS_SAVED,
           "btn-disabled": saveMode,
         })}
-        onClick={() => {
-          setShow((show) => !show);
-          setSaveMode(true);
-          if (
-            _.isEmpty(currentMatura) ||
-            (currentMatura.formula === formula && currentMatura.date === date)
-          )
-            saveAnswersLocally();
-          else
-            modals.openConfirmModal({
-              title: (
-                <p className="text-lg font-bold">🤔 Hmm, zaczekaj chwilkę...</p>
-              ),
-              children:
-                "Próbujesz zapisac odpowiedzi w nowej maturze bez zakończenia poprzedniej. \n Zapisanie odpowiedzi będzie skutkowało usunięciem postępu rozwiązywania poprzedniego egzaminu po odświeżeniu strony.",
-              onConfirm() {
-                saveAnswersLocally();
-              },
-              onCancel() {
-                navigate(`/${currentMatura.formula}/${currentMatura.date}`);
-              },
-              onClose() {
-                setSaveMode(false);
-              },
-            });
-        }}
+        onClick={onSaveClick}
       >
         {saveMode ? (
           <Loader color="gray" size="sm" opacity={0.5} />

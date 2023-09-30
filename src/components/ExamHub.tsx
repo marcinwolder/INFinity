@@ -19,6 +19,7 @@ import DownloadBtn from "./DownloadBtn";
 import MarkdownPre from "./MarkdownPre";
 import MarkdownCode from "./MarkdownCode";
 import InfoBox from "../context/testContext/components/InfoBox";
+import TestPython2 from "../context/testContext/components/TestPython2";
 
 const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
   const components: MaturaComponents = {
@@ -79,9 +80,9 @@ const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
     //     </TestPython>
     //   );
     // },
-    // testpython: () => {
-    //   return <TestPython2 />;
-    // },
+    testpython: () => {
+      return <TestPython2 returns="k" parameters={["n", "A"]} />;
+    },
     table: ({ children }) => (
       <table className="table border-b border-neutral-300">{children}</table>
     ),
@@ -96,6 +97,9 @@ const MarkdownComp: React.FC<{ url: string; num: number }> = ({ url, num }) => {
     code: ({ children }) => <MarkdownCode children={children} />,
     ul: ({ children }) => (
       <ul className="mt-2 list-inside list-disc">{children}</ul>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote className="ml-4">{children}</blockquote>
     ),
     maturaerror: MaturaError,
   };

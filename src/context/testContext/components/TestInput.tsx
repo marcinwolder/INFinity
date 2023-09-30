@@ -9,18 +9,15 @@ interface ITestProps {
   answer: number | string | ((ans: string) => boolean);
   placeholder?: string;
 }
-
+const func = import.meta.glob(["/examUtils/**/*.ts"], {
+  import: "default",
+  eager: true,
+});
 export const TestInput: React.FC<ITestProps> = ({ answer, placeholder }) => {
-  const func = import.meta.glob(
-    ["/public/{formula-2015,formula-2023,formula-stara}/*/*/*/*/*.ts"],
-    { import: "default", eager: true },
-  );
-
   const ref = useRef<HTMLDivElement>(null);
   const [num, setNum] = useState(0);
   const { show, setValues, values, taskNum } = useTestContext();
   const { date, formula } = useMaturaPath();
-  const [year, month] = (date || "").split("-");
   const [urlParams] = useSearchParams();
 
   let compare;
@@ -29,9 +26,9 @@ export const TestInput: React.FC<ITestProps> = ({ answer, placeholder }) => {
     compare = (str: string) => (answer as Array<string>).includes(str);
   else {
     const buf = func[
-      `${`/public/${formula}/${year}/${month}/${urlParams.get("tab")}/${taskNum
+      `/examUtils/${formula}/${date}/${urlParams.get("tab")}/${taskNum
         .toString()
-        .replace(".", "-")}/${num}.ts`}`
+        .replace(".", "-")}/${num}.ts`
     ] as Function | undefined;
     compare = buf ? buf : () => false;
   }
