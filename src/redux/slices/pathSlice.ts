@@ -15,6 +15,9 @@ export const pathSlice = createSlice({
     updatePath: () => {
       const url = window.location.href;
       const hashIndex = url.indexOf("#");
+      if (hashIndex === -1) {
+        window.location.hash = "/";
+      }
       const serachIndex = url.indexOf("?");
       return serachIndex !== -1
         ? url.slice(hashIndex + 2, serachIndex).split("/")

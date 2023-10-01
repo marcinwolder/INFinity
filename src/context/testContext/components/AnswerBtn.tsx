@@ -7,31 +7,23 @@ import { Loader } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import clsx from "clsx";
 import _ from "lodash";
-import store from "../../../redux";
-import { selectAnswers } from "../../../redux/slices/answersSlice";
-import useCurrentMatura from "../../../hooks/useCurrentMatura";
 import { modals } from "@mantine/modals";
 import { useNavigate } from "react-router-dom";
-
-const getCurrentAnswers = (formula: string, date: string) =>
-  selectAnswers(store.getState()).filter(
-    (e) => e.formula === formula && e.date === date,
-  )[0];
+import getMaturaAnswers from "../../../utils/getMaturaAnswers";
+import useLocalStorageMatura from "../../../hooks/useLocalStorageMatura";
 
 export const AnswerBtn: React.FC = () => {
   const navigate = useNavigate();
-  const currentMatura = useCurrentMatura();
+  const currentMatura = useLocalStorageMatura();
   const [saveMode, setSaveMode] = useState(false);
   const dispatch = useDispatch();
   const { date, formula } = useMaturaPath();
-  const { values, taskNum, points, setShow } = useTestContext();
+  const { values, taskNum, points } = useTestContext();
 
-  const answersStore = getCurrentAnswers(formula as string, date as string);
+  const answersStore = getMaturaAnswers(formula as Formula, date as string);
 
-  let ANSWERS_SAVED = false;
-  if (answersStore && answersStore.answers[taskNum]) ANSWERS_SAVED = true;
+  const ANSWERS_SAVED = answersStore && answersStore.answers[taskNum];
   const onSaveClick = () => {
-    setShow((show) => !show);
     setSaveMode(true);
     if (
       _.isEmpty(currentMatura) ||
@@ -66,7 +58,7 @@ export const AnswerBtn: React.FC = () => {
       setSaveMode(false);
       if (!_.isEmpty(_.omit(values, "points"))) {
         window.localStorage.answers = JSON.stringify(
-          getCurrentAnswers(formula as string, date as string),
+          getMaturaAnswers(formula as Formula, date as string),
         );
         notifications.show({
           title: "Rozwiązania zapisane!",
@@ -74,12 +66,13 @@ export const AnswerBtn: React.FC = () => {
             "Twoje odpowiedź zostały bezpiecznie zapisane na pamięci urządzenia 😃.",
           color: "green",
         });
-      } else
+      } else {
         notifications.show({
           title: "Nie zapisano rozwiązania.",
           message: "Aby zapisać odpowiedź, musisz najpierw je podać 🤓.",
           color: "red",
         });
+      }
     }, 700);
   };
   return (

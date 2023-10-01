@@ -54,7 +54,7 @@ Zapisz w pseudojęzyku lub wybranym języku programowania algorytm, który dla d
 \
 **Algorytm**:
 
-  <TestPython/>
+<TestPython></TestPython>
 
   <AnswerBtn />
 </TestProvider>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Matura } from "../redux/slices/answersSlice";
 
-const useCurrentMatura = () => {
+const useLocalStorageMatura = () => {
   const [currentMatura, setCurrentMatura] = useState<Matura>({} as Matura);
   useEffect(() => {
     if (window.localStorage.answers) {
@@ -11,4 +11,4 @@ const useCurrentMatura = () => {
   return currentMatura;
 };
 
-export default useCurrentMatura;
+export default useLocalStorageMatura;

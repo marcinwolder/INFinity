@@ -6,11 +6,11 @@ import { useSelector } from "react-redux";
 import store, { StateStore } from "../redux";
 import { ExamData } from "../redux/slices/examsSlice";
 import clsx from "clsx";
-import useCurrentMatura from "../hooks/useCurrentMatura";
 import { selectAnswers } from "../redux/slices/answersSlice";
+import useLocalStorageMatura from "../hooks/useLocalStorageMatura";
 
 const ExamPicker: React.FC = () => {
-  const currentMatura = useCurrentMatura();
+  const currentMatura = useLocalStorageMatura();
   const { formula } = useParams();
   const exams = useSelector(
     (state: StateStore) => state.exams[formula as Formula],

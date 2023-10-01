@@ -3,7 +3,7 @@ import { MenuContext, MenuLink } from "../context/menuContext";
 import { usePathElements } from "../redux/slices/pathSlice";
 import { Link } from "react-router-dom";
 import _ from "lodash";
-import useCurrentMatura from "../hooks/useCurrentMatura";
+import useLocalStorageMatura from "../hooks/useLocalStorageMatura";
 
 const useMarkSelect = (elements: React.ReactElement) => {
   const path = usePathElements();
@@ -26,7 +26,7 @@ const useMarkSelect = (elements: React.ReactElement) => {
 const Menu = () => {
   const path = usePathElements();
   const { setOpen } = useContext(MenuContext);
-  const currentMatura = useCurrentMatura();
+  const currentMatura = useLocalStorageMatura();
   return (
     <ul className="menu h-screen w-80 bg-base-100 p-4 text-base-content">
       <li className="menu-title py-2">
