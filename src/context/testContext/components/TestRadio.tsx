@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { TiTick, TiTimes } from "react-icons/ti";
 import _ from "lodash";
 import { useTestContext } from "./TestProvider";
@@ -12,18 +12,55 @@ export const TestRadio: React.FC<React.PropsWithChildren<IRadioProps>> = ({
   children,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [num, setNum] = useState(0);
+  const [num, setNum] = useState<number | null>(null);
   const { show, setValues, values } = useTestContext();
-  const checked = values[num] === true;
+  const checked = num !== null && values[num] === true;
   const color = checked == positive ? "text-success" : "text-error";
-  useEffect(() => {
-    if (ref.current) setNum(Number(ref.current.getAttribute("data-input-id")));
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const setFromAttr = () => {
+      const attr = el.getAttribute("data-input-id");
+      if (attr === null) return;
+      const parsed = Number(attr);
+      if (!Number.isNaN(parsed)) {
+        setNum((prev) => (prev === parsed ? prev : parsed));
+      }
+    };
+
+    setFromAttr();
+
+    const observer = new MutationObserver((records) => {
+      for (const record of records) {
+        if (record.type === "attributes" && record.attributeName === "data-input-id") {
+          setFromAttr();
+          break;
+        }
+      }
+    });
+
+    observer.observe(el, {
+      attributes: true,
+      attributeFilter: ["data-input-id"],
+    });
+
+    return () => observer.disconnect();
   }, []);
   return show ? (
-    <div data-input-id className="flex items-center justify-center gap-2">
+    <div
+      ref={ref}
+      data-input-id
+      className="flex items-center justify-center gap-2"
+    >
       {children}
       <label className="swap swap-rotate">
-        <input type="checkbox" className="border-0" checked={checked} />
+        <input
+          type="checkbox"
+          className="border-0"
+          checked={checked}
+          readOnly
+        />
         <div
           className={`swap-on flex items-center justify-center gap-2 ${color}`}
         >
@@ -39,14 +76,19 @@ export const TestRadio: React.FC<React.PropsWithChildren<IRadioProps>> = ({
       </label>
     </div>
   ) : (
-    <div className="flex items-center justify-center gap-2">
+    <div
+      ref={ref}
+      data-input-id
+      className="flex items-center justify-center gap-2"
+    >
       {children}
       <label className="swap">
         <input
           type="checkbox"
           className="border-0"
-          checked={values[num] === true}
+          checked={checked}
           onChange={() => {
+            if (num === null) return;
             const input = !checked;
             if (input === false) {
               setValues((v) => _.omit(v, num));
