@@ -29,6 +29,7 @@ import requireAuth from "./utils/requireAuth";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import CheckoutSuccess from "./routes/CheckoutSuccess";
 
 window.sessionStorage.removeItem("python");
 
@@ -105,6 +106,10 @@ const router = createHashRouter([
       {
         path: "/kursy",
         element: <Kursy />,
+      },
+      {
+        path: "/checkoutSuccess",
+        element: <CheckoutSuccess />,
       },
       {
         path: "/",
